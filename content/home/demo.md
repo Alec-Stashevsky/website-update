@@ -28,7 +28,7 @@ design:
     #image_size: cover
     
   spacing:
-    padding: ["calc(55vh)", "calc(15vh)", "calc(5vh)", "calc(20vh)"]
+    padding: ["calc(55vh)", "calc(15vh)", "calc(15vh)", "calc(20vh)"]
 ---
 
 
