@@ -35,5 +35,4 @@ design:
 Researcher // Securities Consultant
 
 <br />
-
 ⇟
