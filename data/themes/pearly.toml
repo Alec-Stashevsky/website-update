@@ -1,0 +1,22 @@
+# Theme metadata
+name = "pearly"
+
+# Is theme light or dark?
+light = true
+
+# Primary
+primary = "#900C3F"
+
+# Menu
+menu_primary = "#fff8e3"
+menu_text = "#73000a"
+menu_text_active = "#73000a"
+menu_title = "#73000a"
+
+# Home sections
+home_section_odd = "#fff8e3"
+home_section_even = "#e8d8c3"
+
+# Links
+link = "#900C3F"
+link_hover = "#FF5733"

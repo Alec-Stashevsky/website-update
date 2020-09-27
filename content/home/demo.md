@@ -18,7 +18,7 @@ subtitle:
 design:
   columns: "1"
   background:
-    color: white
+    color: #fff8e3
     text_color_light: false
     
     #image: headers/bubbles-wide.jpg
