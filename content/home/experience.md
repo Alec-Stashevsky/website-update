@@ -39,9 +39,10 @@ experience:
   date_end: "2020-09-15"
   date_start: "2019-11-04"
   description: |-
-   - Demand-side Management Evaluations
-   - Model EV Market Diffusion
-   - Cost-effectiveness
+   \- Demand-side Management Program Evaluation
+   <br /> - EV Market Diffusion Forecasting
+   <br /> - Demand Elasticity Modelling
+   <br /> - Cost-effectiveness
   location: Portland, OR
   title: Research Analyst
   
@@ -55,7 +56,7 @@ experience:
 - company: Kauffman Wealth Management
   date_end: "2020-10-01"
   date_start: "2019-07-01"
-  description: Built a Bear-market investment strategy dashboard in R Shiny to contextualize previous market mechanisms in contemporary economies. 
+  description: Build a bear market strategy dashboard in R Shiny to contextualize previous market mechanisms in real-time economies. 
   location: Pasadena, CA
   title: Project Intern
   
@@ -77,10 +78,10 @@ experience:
   date_end: "2015-07-23"
   date_start: "2013-06-01"
   description: |-
-   - LAN/WAN/NOC/NAS Administration
-   - Lead business-wide IT projects and a team of up to 6 people
-   - Manage 100+ workstations, servers, MFPs, and PBX phone systems
-   - Technology instruction catered to realtors
+   \- LAN/WAN/NOC/NAS Administration
+   <br /> - Lead business-wide IT projects and a team of up to 6 people
+   <br /> - Manage 100+ workstations, servers, MFPs, and PBX phone systems
+   <br /> - Technology instruction catered to Realtors
   location: Arcadia, CA
   title: Systems Administrator
 ---
