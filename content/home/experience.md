@@ -38,11 +38,7 @@ experience:
   company_url: "https://cadmusgroup.com/services/energy/"
   date_end: "2020-09-15"
   date_start: "2019-11-04"
-  description: |-
-   \- Demand-side Management Program Evaluation
-   <br /> - EV Market Diffusion Forecasting
-   <br /> - Demand Elasticity Modelling
-   <br /> - Cost-effectiveness
+  description: Utilize statistical modeling, data analysis, and machine learning to uncover consumer insights and make business recommendations for diverse energy industry clients. Evaluate $600k+ randomized control trial to quantify the impacts of smart thermostat direct load-control events. Built a Shiny dashboard to forecast EV market penetration and assisted with potential studies and cost-effectiveness evaluations.
   location: Portland, OR
   title: Research Analyst
   
