@@ -1,0 +1,11 @@
+# Font style metadata
+name = "Antic"
+
+# Optional Google font URL
+google_fonts = "Antic"
+
+# Font families
+heading_font = "Antic"
+body_font = "Antic"
+nav_font = "Antic"
+mono_font = "Roboto Mono"

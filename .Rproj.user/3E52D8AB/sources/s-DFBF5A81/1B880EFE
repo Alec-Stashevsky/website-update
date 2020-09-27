@@ -1,0 +1,25 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1601159370009.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "1B880EFE",
+    "lastKnownWriteTime" : 1601163132,
+    "last_content_update" : 1601163132144,
+    "path" : "~/website-update2/content/home/slider.md",
+    "project_path" : "content/home/slider.md",
+    "properties" : {
+        "cursorPosition" : "31,23",
+        "scrollLine" : "0"
+    },
+    "read_only" : false,
+    "read_only_alternatives" : [
+    ],
+    "relative_order" : 11,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "markdown"
+}
