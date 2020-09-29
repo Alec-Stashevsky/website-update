@@ -28,6 +28,11 @@ subtitle = ""
   icon = "sas"
   icon_pack = "custom"
   name = "SAS"
+  
+[[feature]]
+  icon = "Python"
+  icon_pack = "custom"
+  name = "Python"  
 
 [[feature]]
   icon = "apachespark"
@@ -40,10 +45,20 @@ subtitle = ""
   name = "GNU Octave"
   
 [[feature]]
-  icon = "apache"
+  icon = "hadoop"
   icon_pack = "custom"
   name = "Apache Hadoop"
   
+[[feature]]
+  icon = "microsoft-sql-server"
+  icon_pack = "custom"
+  name = "SQL Server"  
+
+[[feature]]
+  icon = "Apache_Hive"
+  icon_pack = "custom"
+  name = "Apache Hive"  
+
 [[feature]]
   icon = "microsoftexcel"
   icon_pack = "custom"
