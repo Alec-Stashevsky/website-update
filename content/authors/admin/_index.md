@@ -37,7 +37,7 @@ role:
 social:
 - icon: linkedin
   icon_pack: fab
-  link: www.linkedin.com/in/alec-stashevsky
+  link: https://www.linkedin.com/in/alec-stashevsky
 
 - icon: github
   icon_pack: fab
