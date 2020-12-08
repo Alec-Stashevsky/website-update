@@ -60,4 +60,4 @@ user_groups:
 - Potential Employerss
 ---
 
-I am a consultant, researcher, and Reed College alumnus with a mathematics-economics background. I am passonate about interdisciplinary research that engages multiples paradigms. I care about econometrics, statistics, and research that uses data hollistically, pushing back against siloed analytics.
+I am a consultant, researcher, and Reed College alumnus with a mathematics-economics background. I am passonate about interdisciplinary research that engages multiple paradigms. I care about econometrics, statistics, and research that uses data hollistically, pushing back against siloed analytics.
