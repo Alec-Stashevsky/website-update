@@ -33,7 +33,7 @@
   <meta name="description" content="Alec Stashevsky&#39;s personal website">
 
   
-  <link rel="alternate" hreflang="en-us" href="/404.html">
+  <link rel="alternate" hreflang="en-us" href="https://alecstashevsky.com/404.html">
 
   
 
@@ -244,6 +244,44 @@
 
 
 
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-187623526-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-187623526-1', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
   
 
 
@@ -256,7 +294,7 @@
   <link rel="icon" type="image/png" href="/images/icon_hu30021ed86367bdc62d6088ae9e5b267d_142795_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu30021ed86367bdc62d6088ae9e5b267d_142795_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="/404.html">
+  <link rel="canonical" href="https://alecstashevsky.com/404.html">
 
   
   
@@ -271,10 +309,10 @@
   <meta property="twitter:card" content="summary_large_image">
   
   <meta property="og:site_name" content="Alec Stashevsky">
-  <meta property="og:url" content="/404.html">
+  <meta property="og:url" content="https://alecstashevsky.com/404.html">
   <meta property="og:title" content="404 Page not found | Alec Stashevsky">
-  <meta property="og:description" content="Alec Stashevsky&#39;s personal website"><meta property="og:image" content="/media/content/authors/admin/avatar.jpg">
-  <meta property="twitter:image" content="/media/content/authors/admin/avatar.jpg"><meta property="og:locale" content="en-us">
+  <meta property="og:description" content="Alec Stashevsky&#39;s personal website"><meta property="og:image" content="https://alecstashevsky.com/media/content/authors/admin/avatar.jpg">
+  <meta property="twitter:image" content="https://alecstashevsky.com/media/content/authors/admin/avatar.jpg"><meta property="og:locale" content="en-us">
   
     
   
@@ -517,6 +555,43 @@
         
 
         <li class="nav-item">
+          <a class="nav-link " href="/#pages"><span>Blog</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
           <a class="nav-link " href="/#experience"><span>Experience</span></a>
         </li>
 
@@ -633,19 +708,19 @@
     
       <li><a href="/talk/example/">Example Talk</a></li>
     
-      <li><a href="/post/writing-technical-content/">Writing technical content in Academic</a></li>
+      <li><a href="/post/time-series-hhjboot/time-series-hhjboot/">Building my first R package</a></li>
     
       <li><a href="/publication/preprint/">An example preprint / working paper</a></li>
     
-      <li><a href="/post/jupyter/">Display Jupyter Notebooks with Academic</a></li>
-    
       <li><a href="/slides/example/">Slides</a></li>
     
-      <li><a href="/privacy/">Privacy Policy</a></li>
-    
-      <li><a href="/terms/">Terms</a></li>
-    
       <li><a href="/project/external-project/">External Project</a></li>
+    
+      <li><a href="/project/internal-project/">Internal Project</a></li>
+    
+      <li><a href="/post/getting-started/">Academic: the website builder for Hugo</a></li>
+    
+      <li><a href="/publication/journal-article/">An example journal article</a></li>
     
   </ul>
   
@@ -750,19 +825,9 @@
   <div class="container">
     <footer class="site-footer">
   
-  <p class="powered-by">
-    
-      <a href="/privacy/">Privacy Policy</a>
-    
-    
-       &middot; 
-      <a href="/terms/">Terms</a>
-    
-  </p>
-  
 
   <p class="powered-by">
-    Alec Stashevsky 2020
+    Alec Stashevsky 2021
   </p>
 
   

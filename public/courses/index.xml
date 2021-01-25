@@ -2,14 +2,14 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Courses | Alec Stashevsky</title>
-    <link>/courses/</link>
-      <atom:link href="/courses/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://alecstashevsky.com/courses/</link>
+      <atom:link href="https://alecstashevsky.com/courses/index.xml" rel="self" type="application/rss+xml" />
     <description>Courses</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Alec Stashevsky 2020</copyright>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Alec Stashevsky 2021</copyright>
     <image>
-      <url>/media/content/authors/admin/avatar.jpg</url>
+      <url>https://alecstashevsky.com/media/content/authors/admin/avatar.jpg</url>
       <title>Courses</title>
-      <link>/courses/</link>
+      <link>https://alecstashevsky.com/courses/</link>
     </image>
     
   </channel>

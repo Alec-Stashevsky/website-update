@@ -33,7 +33,7 @@
   <meta name="description" content="An example of using the in-built project page.">
 
   
-  <link rel="alternate" hreflang="en-us" href="/project/internal-project/">
+  <link rel="alternate" hreflang="en-us" href="https://alecstashevsky.com/project/internal-project/">
 
   
 
@@ -244,6 +244,44 @@
 
 
 
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-187623526-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-187623526-1', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
   
 
 
@@ -256,7 +294,7 @@
   <link rel="icon" type="image/png" href="/images/icon_hu30021ed86367bdc62d6088ae9e5b267d_142795_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu30021ed86367bdc62d6088ae9e5b267d_142795_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="/project/internal-project/">
+  <link rel="canonical" href="https://alecstashevsky.com/project/internal-project/">
 
   
   
@@ -271,10 +309,10 @@
   <meta property="twitter:card" content="summary_large_image">
   
   <meta property="og:site_name" content="Alec Stashevsky">
-  <meta property="og:url" content="/project/internal-project/">
+  <meta property="og:url" content="https://alecstashevsky.com/project/internal-project/">
   <meta property="og:title" content="Internal Project | Alec Stashevsky">
-  <meta property="og:description" content="An example of using the in-built project page."><meta property="og:image" content="/project/internal-project/featured.jpg">
-  <meta property="twitter:image" content="/project/internal-project/featured.jpg"><meta property="og:locale" content="en-us">
+  <meta property="og:description" content="An example of using the in-built project page."><meta property="og:image" content="https://alecstashevsky.com/project/internal-project/featured.jpg">
+  <meta property="twitter:image" content="https://alecstashevsky.com/project/internal-project/featured.jpg"><meta property="og:locale" content="en-us">
   
     
       <meta property="article:published_time" content="2016-04-27T00:00:00&#43;00:00">
@@ -301,12 +339,12 @@
   "@type": "Article",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "/project/internal-project/"
+    "@id": "https://alecstashevsky.com/project/internal-project/"
   },
   "headline": "Internal Project",
   
   "image": [
-    "/project/internal-project/featured.jpg"
+    "https://alecstashevsky.com/project/internal-project/featured.jpg"
   ],
   
   "datePublished": "2016-04-27T00:00:00Z",
@@ -317,7 +355,7 @@
     "name": "Alec Stashevsky",
     "logo": {
       "@type": "ImageObject",
-      "url": "/images/icon_hu30021ed86367bdc62d6088ae9e5b267d_142795_192x192_fill_lanczos_center_2.png"
+      "url": "https://alecstashevsky.com/images/icon_hu30021ed86367bdc62d6088ae9e5b267d_142795_192x192_fill_lanczos_center_2.png"
     }
   },
   "description": "An example of using the in-built project page."
@@ -526,6 +564,43 @@
 
         <li class="nav-item">
           <a class="nav-link " href="/#slider"><span>Research</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#pages"><span>Blog</span></a>
         </li>
 
         
@@ -839,7 +914,7 @@
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=/project/internal-project/&amp;text=Internal%20Project" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=https://alecstashevsky.com/project/internal-project/&amp;text=Internal%20Project" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -852,7 +927,7 @@
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=/project/internal-project/&amp;t=Internal%20Project" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=https://alecstashevsky.com/project/internal-project/&amp;t=Internal%20Project" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -865,7 +940,7 @@
       
       
       <li>
-        <a href="mailto:?subject=Internal%20Project&amp;body=/project/internal-project/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Internal%20Project&amp;body=https://alecstashevsky.com/project/internal-project/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -878,7 +953,7 @@
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=/project/internal-project/&amp;title=Internal%20Project" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=https://alecstashevsky.com/project/internal-project/&amp;title=Internal%20Project" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -891,7 +966,7 @@
       
       
       <li>
-        <a href="whatsapp://send?text=Internal%20Project%20/project/internal-project/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="whatsapp://send?text=Internal%20Project%20https://alecstashevsky.com/project/internal-project/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -904,7 +979,7 @@
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=/project/internal-project/&amp;title=Internal%20Project" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=https://alecstashevsky.com/project/internal-project/&amp;title=Internal%20Project" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>
@@ -945,7 +1020,7 @@
       
 
       <div class="media-body">
-        <h5 class="card-title"><a href="/"></a></h5>
+        <h5 class="card-title"><a href="https://alecstashevsky.com/"></a></h5>
         
         <p class="card-text">My research interests include migration, remittances, securities, and inequality.</p>
         <ul class="network-icon" aria-hidden="true">
@@ -1650,19 +1725,9 @@
   <div class="container">
     <footer class="site-footer">
   
-  <p class="powered-by">
-    
-      <a href="/privacy/">Privacy Policy</a>
-    
-    
-       &middot; 
-      <a href="/terms/">Terms</a>
-    
-  </p>
-  
 
   <p class="powered-by">
-    Alec Stashevsky 2020
+    Alec Stashevsky 2021
   </p>
 
   

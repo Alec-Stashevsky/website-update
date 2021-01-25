@@ -1,0 +1,125 @@
+---
+title: "Building my first R package"
+author: "Alec Stashevsky"
+date: 2021-01-24
+categories: ["R", "R Packages", "Econometrics", "Statistics"]
+tags: ["R", "R Packages", "Econometrics", "Statistics"]
+bibliography: [mbb.bib]
+link-citations: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, dev = "svg")
+library(ggplot2)
+library(tseries)
+library(viridis)
+library(png)
+```
+
+
+Recently, I began working with time series and found myself searching for a way to build confidence intervals around certain statistics I was interested in, like a series' median for example. Many time series do not follow a known probability distribution so my mind went directly to using a bootstrap to estimate a sample variance. Here's what I learned: 
+
+## The Bootstrap Method
+
+The bootstrap is a statistical technique used to infer characteristics of a population with a very limited set of assumptions about the data. The bootstrap does not require one to know (or guess) the underlying probability distribution of the data, and this is one of its greatest advantages. Using the bootstrap method, inference can be make without specifying any functional form. However, the assumptions that the regular bootstrap does require can be quite limiting in certain contexts.
+
+These contexts often present problems when observations are not independent and identically distributed *(i.i.d.),* a critical assumption of the regular bootstrap. The implications of *i.i.d.* data are quite strong. Essentially this means that the value of one observation has no effect on the value of another observations. In other words, if we reorder the set of current observations, this would have no effect on the next observation.
+
+One example of this is a random survey of individuals' height. Certainly, there are characteristics that can influence how tall a person may be, such as age -  but ultimately as we collect survey responses, the height of one respondent should not have an effect on the height of other respondents. In this sense, we can say that our survey responses are *independent* from each other. I will not go into all the implications of *i.i.d.* assumptions here, but I will say that topic of natural characteristics such as human heights being *i.i.d.* is an interesting topic to draw out some of the implications such powerful statistical assumptions manufacture. If you would like to learn more, I encourage you to check out these posts on [Why heights are normally distributed](https://www.johndcook.com/blog/2008/07/20/why-heights-are-normally-distributed/) and [Why heights are not normally distributed.](https://www.johndcook.com/blog/2008/07/20/why-heights-are-not-normally-distributed/)
+
+## Why *i.i.d.* fails
+
+Let's continue our random survey of human heights. For the next few years, we send out the height questionnaire every year to each randomly-selected respondent from our original survey. The data from the surveys each year will be compiled into *panel-data* where respondents' heights are now able to be tracked over a period of several years.
+
+Now, we have more data than had we just conducted the first survey, so we should be able to make stronger inferences than before, right? Well, not exactly. If we begin to conduct inferences about all human heights (population characteristics) using all this panel-data, we fail to recognize the underlying connections that have been introduced. 
+
+When we survey the same group of randomly-selected respondents each year, the height of a respondent this year probably has a relation to their height in the previous year's survey. Moreover, humans generally grow in one direction, thus we would expect the average height of our survey to increase or stay relatively the same each year. This dynamic now violates our assumption of independence within the sample. In practice, we could modify our survey design to target a different group of respondents each year and solve this problem. However, this example illustrates a situation we often run into in time series analysis where processes are tracked over time and we cannot simply find a unrelated processes to help us answer questions about the original one. 
+
+In general, *i.i.d.* assumptions fail for many types of time series because we would expect the observation in the previous period to have some explanatory power over the current observation. I refer to this phenomenon as *time-dependence,* and it can could occur in many time series from unemployment rates, stock prices, biological data, etc. For example, we expect the water level a river today to be somewhat close to the water level yesterday. The farther away from yesterday we go, the less influence it will have on future water levels.
+
+<!-- I recently worked on interest rates, but I will illustrate this point using data from the [U.S. Geological Survey (USGS) National Water Information System (NWIS)](https://dashboard.waterdata.usgs.gov/app/nwd/?aoi=default/) measuring the peak-flow of rivers and streams. Peak-flow is measured in cubic feet/second (cfs). -->
+
+<!-- The package `{dataRetrival}` makes it easy to import hydrological data from the EPA and USGS. Because I am partial to the Pacific Northwest, I will analyze peak-flow data from the Willamette River from the Portland, OR monitoring station. -->
+
+<!-- # ```{r Water Data} -->
+<!-- # Willamette River in Portland, OR -->
+<!-- siteNo <- "14211720" -->
+<!-- pCode <- "00310" -->
+<!-- site <- readNWISsite(siteNo) -->
+<!-- peak.flow <- readNWISpeak(siteNo) -->
+
+<!-- ggplot(tail(peak.flow, nrow(peak.flow) - 2), aes(x = peak_dt, y = peak_va)) + -->
+  <!-- geom_line() + -->
+  <!-- labs(x = "Year", y = "Peak-flow (cfs)") -->
+
+<!-- ``` -->
+## Time-Dependence
+
+We can visualize what the *i.i.d* assumption looks like by comparing time series with varying degrees of influence from past observations. A time series that is completely *i.i.d.* looks like white noise, since each observation is completely random. We can compare this to a simulated time series with various degrees of *time-dependence:*
+
+```{r White Noise}
+# Generate i.i.d. time series
+white.noise <- ts(rnorm(500))
+
+# Generate AR(1) simulation
+ar1.series <- arima.sim(model = list(order = c(1, 0, 0), ar = 0.5),
+  n = 500, rand.gen = rnorm)
+
+# Generate AR(5) simulation
+ar5.series <- arima.sim(model = list(order = c(5, 0, 0),
+  ar = c(0.2, 0.2, 0.1, 0.1, 0.1)),
+  n = 500)
+
+# Combine with time period
+series <- data.frame(
+  "Time" = rep(1:500, 3),
+  "Series" = factor(c(
+    rep("White Noise", 500),
+    rep("AR(1)", 500),
+    rep("AR(5)", 500)),
+    levels = c("White Noise", "AR(1)", "AR(5)")),
+  "Value" = c(white.noise, ar1.series, ar5.series)
+  )
+
+# Plot
+ggplot(series, aes(x = Time, y = Value, col = Series)) +
+  geom_line() +
+  facet_wrap(~Series, nrow = 3) +
+  guides(color = guide_legend(
+    title.position = "top",
+    title.hjust = 0.5,
+    title.theme = element_text(face = "bold"))) +
+  theme(legend.position = "top") +
+  scale_color_viridis_d(end = 0.6)
+```
+
+In the plot above I have plotted three time series. The top panel illustrates a perfectly *i.i.d.* time series, while the bottom two panels illustrate time series where each observation is somewhat dependent on the previous observations. These are called *autoregressive* $AR(p)$ time series of order $p.$ The order of the $AR$ process defines the number of prior observations $p$ which have explanatory power over the current observation. The middle panel illustrates an $AR(1)$ simulation, thus each observation depends on the immediate prior observation. The bottom panel illustrates a model with a higher autoregressive order where each observation is dependent on the previous five observations.
+
+To some extent we can see the degree of *time-dependence* in each model. The top panel seems to oscillate much quicker and the periods of downward/upward trends are relatively short. If we compare this to the $AR(1)$ model, somewhat more pronounced trends appear where observations are increasing or decreasing consistently for longer periods of time. In the $AR(5)$ model, these trends seem even more drawn out.
+
+## The Block Bootstrap
+
+To get around this problem, we can retain some of this time-dependence by breaking-up a time series into a number of blocks with length $l$. Instead of sampling each observation randomly (with replacement) like a regular bootstrap, we can resample these blocks at random. This way within each block the time-dependence is preserved. Below is a diagram from  @article on a common block bootstrap method, the *moving block bootstrap (MBB).*
+
+```{r Block Bootstrap Diagram, echo=FALSE, out.width = '100%'}
+library(grid)
+img <- readPNG('~/website-update2/content/post/time-series-hhjboot/moving-block-bootstrap.png')
+grid.raster(img)
+
+# Build box colors
+# box.cols <- viridis(5, alpha = 0.1)
+# 
+# # Plot
+# ggplot(series[501:1000,], aes(x = Time, y = Value, col = Series)) +
+#   geom_line() +
+#   geom_rect(aes(xmin = 0, xmax = 100, ymin = -3.5, ymax = 3.5,
+#     fill = "Block 1"), alpha = 0.01,  show.legend = T) +
+#   guides(color = guide_legend(
+#     title.position = "top",
+#     title.hjust = 0.5,
+#     title.theme = element_text(face = "bold"))) +
+#   theme(legend.position = "top") +
+#   scale_color_viridis_d(begin = 0.2, end = 0.6)
+```
+
+The problem with the block bootstrap is the high sensitivity to the choice of block-length, or the number of blocks to break the time series into.

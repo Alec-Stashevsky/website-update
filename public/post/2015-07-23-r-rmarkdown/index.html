@@ -33,7 +33,7 @@
   <meta name="description" content="R MarkdownThis is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown.">
 
   
-  <link rel="alternate" hreflang="en-us" href="/post/2015-07-23-r-rmarkdown/">
+  <link rel="alternate" hreflang="en-us" href="https://alecstashevsky.com/post/2015-07-23-r-rmarkdown/">
 
   
 
@@ -244,6 +244,44 @@
 
 
 
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-187623526-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-187623526-1', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
   
 
 
@@ -256,7 +294,7 @@
   <link rel="icon" type="image/png" href="/images/icon_hu30021ed86367bdc62d6088ae9e5b267d_142795_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu30021ed86367bdc62d6088ae9e5b267d_142795_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="/post/2015-07-23-r-rmarkdown/">
+  <link rel="canonical" href="https://alecstashevsky.com/post/2015-07-23-r-rmarkdown/">
 
   
   
@@ -271,10 +309,10 @@
   <meta property="twitter:card" content="summary_large_image">
   
   <meta property="og:site_name" content="Alec Stashevsky">
-  <meta property="og:url" content="/post/2015-07-23-r-rmarkdown/">
+  <meta property="og:url" content="https://alecstashevsky.com/post/2015-07-23-r-rmarkdown/">
   <meta property="og:title" content="Hello R Markdown | Alec Stashevsky">
-  <meta property="og:description" content="R MarkdownThis is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown."><meta property="og:image" content="/media/content/authors/admin/avatar.jpg">
-  <meta property="twitter:image" content="/media/content/authors/admin/avatar.jpg"><meta property="og:locale" content="en-us">
+  <meta property="og:description" content="R MarkdownThis is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown."><meta property="og:image" content="https://alecstashevsky.com/media/content/authors/admin/avatar.jpg">
+  <meta property="twitter:image" content="https://alecstashevsky.com/media/content/authors/admin/avatar.jpg"><meta property="og:locale" content="en-us">
   
     
       <meta property="article:published_time" content="2015-07-23T21:13:14-05:00">
@@ -303,7 +341,7 @@
   "@type": "BlogPosting",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "/post/2015-07-23-r-rmarkdown/"
+    "@id": "https://alecstashevsky.com/post/2015-07-23-r-rmarkdown/"
   },
   "headline": "Hello R Markdown",
   
@@ -315,7 +353,7 @@
     "name": "Alec Stashevsky",
     "logo": {
       "@type": "ImageObject",
-      "url": "/images/icon_hu30021ed86367bdc62d6088ae9e5b267d_142795_192x192_fill_lanczos_center_2.png"
+      "url": "https://alecstashevsky.com/images/icon_hu30021ed86367bdc62d6088ae9e5b267d_142795_192x192_fill_lanczos_center_2.png"
     }
   },
   "description": "R Markdown\rThis is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see http://rmarkdown."
@@ -524,6 +562,43 @@
 
         <li class="nav-item">
           <a class="nav-link " href="/#slider"><span>Research</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#pages"><span>Blog</span></a>
         </li>
 
         
@@ -814,7 +889,7 @@ Figure 1: A fancy pie chart.
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=/post/2015-07-23-r-rmarkdown/&amp;text=Hello%20R%20Markdown" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=https://alecstashevsky.com/post/2015-07-23-r-rmarkdown/&amp;text=Hello%20R%20Markdown" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -827,7 +902,7 @@ Figure 1: A fancy pie chart.
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=/post/2015-07-23-r-rmarkdown/&amp;t=Hello%20R%20Markdown" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=https://alecstashevsky.com/post/2015-07-23-r-rmarkdown/&amp;t=Hello%20R%20Markdown" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -840,7 +915,7 @@ Figure 1: A fancy pie chart.
       
       
       <li>
-        <a href="mailto:?subject=Hello%20R%20Markdown&amp;body=/post/2015-07-23-r-rmarkdown/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Hello%20R%20Markdown&amp;body=https://alecstashevsky.com/post/2015-07-23-r-rmarkdown/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -853,7 +928,7 @@ Figure 1: A fancy pie chart.
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=/post/2015-07-23-r-rmarkdown/&amp;title=Hello%20R%20Markdown" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=https://alecstashevsky.com/post/2015-07-23-r-rmarkdown/&amp;title=Hello%20R%20Markdown" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -866,7 +941,7 @@ Figure 1: A fancy pie chart.
       
       
       <li>
-        <a href="whatsapp://send?text=Hello%20R%20Markdown%20/post/2015-07-23-r-rmarkdown/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="whatsapp://send?text=Hello%20R%20Markdown%20https://alecstashevsky.com/post/2015-07-23-r-rmarkdown/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -879,7 +954,7 @@ Figure 1: A fancy pie chart.
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=/post/2015-07-23-r-rmarkdown/&amp;title=Hello%20R%20Markdown" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=https://alecstashevsky.com/post/2015-07-23-r-rmarkdown/&amp;title=Hello%20R%20Markdown" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>
@@ -920,7 +995,7 @@ Figure 1: A fancy pie chart.
       
 
       <div class="media-body">
-        <h5 class="card-title"><a href="/"></a></h5>
+        <h5 class="card-title"><a href="https://alecstashevsky.com/"></a></h5>
         
         <p class="card-text">My research interests include migration, remittances, securities, and inequality.</p>
         <ul class="network-icon" aria-hidden="true">
@@ -1028,6 +1103,15 @@ Figure 1: A fancy pie chart.
 
   
   
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/post/time-series-hhjboot/time-series-hhjboot/">Building my first R package</a></li>
+      
+    </ul>
+  </div>
+  
 
 
 
@@ -1134,19 +1218,9 @@ Figure 1: A fancy pie chart.
   <div class="container">
     <footer class="site-footer">
   
-  <p class="powered-by">
-    
-      <a href="/privacy/">Privacy Policy</a>
-    
-    
-       &middot; 
-      <a href="/terms/">Terms</a>
-    
-  </p>
-  
 
   <p class="powered-by">
-    Alec Stashevsky 2020
+    Alec Stashevsky 2021
   </p>
 
   

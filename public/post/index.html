@@ -33,7 +33,7 @@
   <meta name="description" content="Alec Stashevsky&#39;s personal website">
 
   
-  <link rel="alternate" hreflang="en-us" href="/post/">
+  <link rel="alternate" hreflang="en-us" href="https://alecstashevsky.com/post/">
 
   
 
@@ -244,6 +244,44 @@
 
 
 
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-187623526-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+
+  function gtag() {
+      dataLayer.push(arguments);
+  }
+
+  function trackOutboundLink(url, target) {
+    gtag('event', 'click', {
+         'event_category': 'outbound',
+         'event_label': url,
+         'transport_type': 'beacon',
+         'event_callback': function () {
+           if (target !== '_blank') {
+             document.location = url;
+           }
+         }
+    });
+    console.debug("Outbound link clicked: " + url);
+  }
+
+  function onClickCallback(event) {
+    if ((event.target.tagName !== 'A') || (event.target.host === window.location.host)) {
+      return;
+    }
+    trackOutboundLink(event.target, event.target.getAttribute('target'));  
+  }
+
+  gtag('js', new Date());
+  gtag('config', 'UA-187623526-1', {});
+
+  
+  document.addEventListener('click', onClickCallback, false);
+</script>
+
+
   
 
 
@@ -258,7 +296,7 @@
   <link rel="icon" type="image/png" href="/images/icon_hu30021ed86367bdc62d6088ae9e5b267d_142795_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu30021ed86367bdc62d6088ae9e5b267d_142795_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="/post/">
+  <link rel="canonical" href="https://alecstashevsky.com/post/">
 
   
   
@@ -273,10 +311,10 @@
   <meta property="twitter:card" content="summary_large_image">
   
   <meta property="og:site_name" content="Alec Stashevsky">
-  <meta property="og:url" content="/post/">
+  <meta property="og:url" content="https://alecstashevsky.com/post/">
   <meta property="og:title" content="Posts | Alec Stashevsky">
-  <meta property="og:description" content="Alec Stashevsky&#39;s personal website"><meta property="og:image" content="/media/content/authors/admin/avatar.jpg">
-  <meta property="twitter:image" content="/media/content/authors/admin/avatar.jpg"><meta property="og:locale" content="en-us">
+  <meta property="og:description" content="Alec Stashevsky&#39;s personal website"><meta property="og:image" content="https://alecstashevsky.com/media/content/authors/admin/avatar.jpg">
+  <meta property="twitter:image" content="https://alecstashevsky.com/media/content/authors/admin/avatar.jpg"><meta property="og:locale" content="en-us">
   
     
   
@@ -519,6 +557,43 @@
         
 
         <li class="nav-item">
+          <a class="nav-link " href="/#pages"><span>Blog</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+
+        
+        
+        
+        
+
+        
+          
+            
+            
+          
+          
+            
+            
+            
+              
+            
+            
+          
+        
+
+        <li class="nav-item">
           <a class="nav-link " href="/#experience"><span>Experience</span></a>
         </li>
 
@@ -669,14 +744,13 @@
   <div class="media-body">
 
     <h3 class="article-title mb-0 mt-0">
-      <a href="/post/writing-technical-content/" >Writing technical content in Academic</a>
+      <a href="/post/time-series-hhjboot/time-series-hhjboot/" >Building my first R package</a>
     </h3>
 
     
-    <a href="/post/writing-technical-content/" class="summary-link">
+    <a href="/post/time-series-hhjboot/time-series-hhjboot/" class="summary-link">
       <div class="article-style">
-        Academic is designed to give technical content creators a seamless experience. You can focus on the content and Academic handles the rest.
-Highlight your code snippets, take notes on math classes, and draw diagrams from textual representation.
+        Recently, I began working with time series and found myself searching for a way to build confidence intervals around certain statistics I was interested in, like a series’ median for example.
       </div>
     </a>
     
@@ -699,10 +773,8 @@ Highlight your code snippets, take notes on math classes, and draw diagrams from
     
     
       
-          Last updated on
-      
     
-    Sep 26, 2020
+    Jan 24, 2021
   </span>
   
 
@@ -716,104 +788,9 @@ Highlight your code snippets, take notes on math classes, and draw diagrams from
 
   
   
-
-</div>
-
-      
-    </div>
-
-    
-
-  </div>
-  <div class="ml-3">
-    
-    
-    
-    <a href="/post/writing-technical-content/" >
-      <img src="/post/writing-technical-content/featured_huc72159e0fc0d14b85f60d34436a630f0_266353_150x0_resize_q90_lanczos.jpg" alt="Writing technical content in Academic">
-    </a>
-    
-  </div>
-</div>
-
-    
-  
-    
-      
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-<div class="media stream-item">
-  <div class="media-body">
-
-    <h3 class="article-title mb-0 mt-0">
-      <a href="/post/jupyter/" >Display Jupyter Notebooks with Academic</a>
-    </h3>
-
-    
-    <a href="/post/jupyter/" class="summary-link">
-      <div class="article-style">
-        Learn how to blog in Academic using Jupyter notebooks
-      </div>
-    </a>
-    
-
-    <div class="stream-meta article-metadata">
-
-      
-
-      
-        
-
-
-<div class="article-metadata">
-
-  
-  
-  
-  
-  <div>
-    
-
-  
-  <span >admin</span>
-  </div>
-  
-  
-
-  
-  <span class="article-date">
-    
-    
-      
-          Last updated on
-      
-    
-    Sep 26, 2020
-  </span>
-  
-
-  
-
-  
-
-  
-  
-  
-
-  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fas fa-folder mr-1"></i><a href="/category/r/">R</a>, <a href="/category/r-packages/">R Packages</a>, <a href="/category/econometrics/">Econometrics</a>, <a href="/category/statistics/">Statistics</a></span>
   
 
 </div>
@@ -826,11 +803,6 @@ Highlight your code snippets, take notes on math classes, and draw diagrams from
   </div>
   <div class="ml-3">
     
-    
-    
-    <a href="/post/jupyter/" >
-      <img src="/post/jupyter/featured_hub1daa031c2af6888ff37bd93eb033a1a_71549_150x0_resize_lanczos_2.png" alt="Display Jupyter Notebooks with Academic">
-    </a>
     
   </div>
 </div>
@@ -1132,19 +1104,9 @@ Highlight your code snippets, take notes on math classes, and draw diagrams from
   <div class="container">
     <footer class="site-footer">
   
-  <p class="powered-by">
-    
-      <a href="/privacy/">Privacy Policy</a>
-    
-    
-       &middot; 
-      <a href="/terms/">Terms</a>
-    
-  </p>
-  
 
   <p class="powered-by">
-    Alec Stashevsky 2020
+    Alec Stashevsky 2021
   </p>
 
   
