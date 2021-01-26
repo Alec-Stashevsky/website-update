@@ -7,17 +7,23 @@ tags: ["R", "R Packages", "Econometrics", "Statistics"]
 bibliography: [mbb.bib]
 link-citations: true
 links:
- - name: "R package"
+ - name: "R Package Repository"
    url: https://github.com/Alec-Stashevsky/hhjboot/
    icon_pack: fab
    icon: github
+image:
+  caption: "Graceful Boots - Old School Runescape"
+  preview_only: true
+  focal_point: "Smart"
 summary: The story behind and use-case for my first package `{hhjboot}`.
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(collapse = TRUE, dev = "svg")
 library(ggplot2)
+library(plotly)
 library(tseries)
+library(widgetframe)
 library(grid)
 library(viridis)
 library(png)
@@ -77,13 +83,12 @@ We can visualize what the *i.i.d* assumption looks like by comparing time series
 white.noise <- ts(rnorm(500))
 
 # Generate AR(1) simulation
-ar1.series <- arima.sim(model = list(order = c(1, 0, 0), ar = 0.5),
-  n = 500, rand.gen = rnorm)
+ar1.series <- arima.sim(model = list(order = c(1, 0, 0),
+  ar = 0.5), n = 500, rand.gen = rnorm)
 
 # Generate AR(5) simulation
 ar5.series <- arima.sim(model = list(order = c(5, 0, 0),
-  ar = c(0.2, 0.2, 0.1, 0.1, 0.1)),
-  n = 500)
+  ar = c(0.2, 0.2, 0.1, 0.1, 0.1)), n = 500)
 
 # Combine with time period
 series <- data.frame(
@@ -95,22 +100,34 @@ series <- data.frame(
     levels = c("White Noise", "AR(1)", "AR(5)")),
   "Value" = c(white.noise, ar1.series, ar5.series)
   )
+```
 
+Behind the scenes, I plot these three time series:
+
+```{r Plotly, echo=FALSE}
 # Plot
-ggplot(series, aes(x = Time, y = Value, col = Series)) +
+p <- ggplot(series, aes(x = Time, y = Value, col = Series)) +
   geom_line() +
-  facet_wrap(~Series, nrow = 3) +
+  facet_wrap( ~ Series, nrow = 3) +
   guides(color = guide_legend(
     title.position = "top",
     title.hjust = 0.5,
-    title.theme = element_text(face = "bold"))) +
-  theme(legend.position = "top",
+    title.theme = element_text(face = "bold")
+  )) +
+  theme(
+    legend.position = "top",
     plot.background = element_rect(fill = "#fff8e3"),
     panel.border = element_rect(color = "black", fill = "transparent"),
     legend.background = element_rect(fill = "#fff8e3"),
-    strip.background = element_rect(fill = "#e8d8c3")) +
+    strip.background = element_rect(fill = "#e8d8c3")
+  ) +
   scale_color_viridis_d(end = 0.6)
+
+pp <- ggplotly(p) %>% layout(legend = list(x = 0.27,
+  y = 1.2 , orientation = 'h'))
+frameWidget(pp)
 ```
+
 
 The plot above displays three time series. The top panel illustrates a perfectly *i.i.d.* time series, while the bottom two panels illustrate time series where each observation is somewhat dependent on the previous observations. These are called *autoregressive* $AR(p)$ processes of order $p.$ The order of the $AR$ process defines the number of prior observations $p$ which have explanatory power over the current observation. The middle panel illustrates an $AR(1)$ simulation, thus each observation depends on only the immediate prior observation. The bottom panel illustrates a model with a higher autoregressive order where each observation is dependent on the previous five observations.
 

@@ -1,6 +1,6 @@
 ---
 header:
-  caption: "hello"
+  caption: ""
   image: ""
 title: Blog
 view: 2
