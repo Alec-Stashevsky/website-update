@@ -1,5 +1,5 @@
 # website
-This repository is for my [Personal Website.](https://alecstashevsky.netlify.app/)
+This repository is for my personal website <https://alecstashevsky.com/>.
 
 
 Deploy status:

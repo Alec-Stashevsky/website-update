@@ -123,7 +123,7 @@ p <- ggplot(series, aes(x = Time, y = Value, col = Series)) +
   ) +
   scale_color_viridis_d(end = 0.6)
 
-pp <- ggplotly(p) %>% layout(legend = list(x = 0.27,
+pp <- ggplotly(p) %>% layout(legend = list(x = 0.3,
   y = 1.2 , orientation = 'h'))
 frameWidget(pp)
 ```
