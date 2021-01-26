@@ -6,6 +6,12 @@ categories: ["R", "R Packages", "Econometrics", "Statistics"]
 tags: ["R", "R Packages", "Econometrics", "Statistics"]
 bibliography: [mbb.bib]
 link-citations: true
+links:
+ - name: "R package"
+   url: https://github.com/Alec-Stashevsky/hhjboot/
+   icon_pack: fab
+   icon: github
+summary: The story behind and use-case for my first package `{hhjboot}`.
 ---
 
 ```{r setup, include=FALSE}
@@ -17,24 +23,32 @@ library(viridis)
 library(png)
 ```
 
+```{css, echo=FALSE}
+body {
+  background-color: rgb(255,248,227);
+}
+```
 
-Recently, I began working with time series and found myself searching for a way to build confidence intervals around certain statistics I was interested in, like a series' median for example. Many time series do not follow a known probability distribution so my mind went directly to using a bootstrap to estimate a sample variance. Here's what I learned: 
+
+Recently, I began working with time series and found myself searching for a way to build confidence intervals around certain statistics I was interested in, like a series' median. Many time series do not follow a known probability distribution so my mind went directly to using a bootstrap to estimate a sample variance. Here's what I learned: 
 
 ## The Bootstrap Method
 
-The bootstrap is a statistical technique used to infer characteristics of a population with a very limited set of assumptions about the data. The bootstrap does not require one to know (or guess) the underlying probability distribution of the data, and this is one of its greatest advantages. Using the bootstrap method, inference can be make without specifying any functional form. However, the assumptions that the regular bootstrap does require can be quite limiting in certain contexts.
+The bootstrap is a statistical technique used to infer characteristics of a population with a very limited set of assumptions about the sample data. The bootstrap does not require one to know (or guess) the underlying probability distribution of the data, and this is one of its greatest advantages. Using the bootstrap method, inference can be make without specifying any functional form. However, the assumptions that the regular bootstrap does require can be quite limiting in certain contexts.
 
-These contexts often present problems when observations are not independent and identically distributed *(i.i.d.),* a critical assumption of the regular bootstrap. The implications of *i.i.d.* data are quite strong. Essentially this means that the value of one observation has no effect on the value of another observations. In other words, if we reorder the set of current observations, this would have no effect on the next observation.
+These contexts often present problems when observations are not independent and identically distributed *(i.i.d.),* a critical assumption of the regular bootstrap. The implications of the *i.i.d.* assumption is quite strong. Essentially, this means that the value of one observation has no effect on the value of other observations. In other words, if we reorder the set of current observations, this would have no effect on future observations.
 
-One example of this is a random survey of individuals' height. Certainly, there are characteristics that can influence how tall a person may be, such as age -  but ultimately as we collect survey responses, the height of one respondent should not have an effect on the height of other respondents. In this sense, we can say that our survey responses are *independent* from each other. I will not go into all the implications of *i.i.d.* assumptions here, but I will say that topic of natural characteristics such as human heights being *i.i.d.* is an interesting topic to draw out some of the implications such powerful statistical assumptions manufacture. If you would like to learn more, I encourage you to check out these posts on [Why heights are normally distributed](https://www.johndcook.com/blog/2008/07/20/why-heights-are-normally-distributed/) and [Why heights are not normally distributed.](https://www.johndcook.com/blog/2008/07/20/why-heights-are-not-normally-distributed/)
+One example of this is a random survey of individuals' height. Certainly, there are characteristics that can influence how tall a person may be, such as age - but ultimately as we collect survey responses, the height of one respondent should not have an effect on the height of other respondents. In this sense, we can say that our survey responses are *independent* from each other. I will not go into all the implications of *i.i.d.* assumptions here, but I will say that topic of natural characteristics such as human heights being *i.i.d.* is full of nuance drawing out some of the implications such powerful statistical assumptions manufacture. If you would like to learn more, I encourage you to check out these posts on [Why heights are normally distributed](https://www.johndcook.com/blog/2008/07/20/why-heights-are-normally-distributed/) and [Why heights are not normally distributed.](https://www.johndcook.com/blog/2008/07/20/why-heights-are-not-normally-distributed/)
 
 ## Why *i.i.d.* fails
 
-Let's continue our random survey of human heights. For the next few years, we send out the height questionnaire every year to each randomly-selected respondent from our original survey. The data from the surveys each year will be compiled into *panel-data* where respondents' heights are now able to be tracked over a period of several years.
+Let's continue our random survey of human heights. For the next few years, we send out the height questionnaire every year to each randomly-selected respondent from our original survey. The data from the survey each year will be compiled into *panel-data* where respondents' heights can now be tracked over a period of several years.
 
-Now, we have more data than had we just conducted the first survey, so we should be able to make stronger inferences than before, right? Well, not exactly. If we begin to conduct inferences about all human heights (population characteristics) using all this panel-data, we fail to recognize the underlying connections that have been introduced. 
+We have more data than had we just conducted the first survey, so we should be able to make stronger inferences than before, right? Well, not exactly. If we begin to conduct inferences about all human heights (population characteristics) using this collection of panel-data, we fail to recognize the underlying connections that have been introduced. 
 
-When we survey the same group of randomly-selected respondents each year, the height of a respondent this year probably has a relation to their height in the previous year's survey. Moreover, humans generally grow in one direction, thus we would expect the average height of our survey to increase or stay relatively the same each year. This dynamic now violates our assumption of independence within the sample. In practice, we could modify our survey design to target a different group of respondents each year and solve this problem. However, this example illustrates a situation we often run into in time series analysis where processes are tracked over time and we cannot simply find a unrelated processes to help us answer questions about the original one. 
+When we survey the same group of randomly-selected respondents each year, the height of a respondent this year probably has some relation to their height in the previous year. Moreover, humans generally grow in one direction, so we would expect the average height in our survey to increase or stay relatively the same each year. This dynamic now violates our assumption of independence within the sample.
+
+In practice, we could modify our survey design to target a different group of respondents each year and solve this problem. However, this example illustrates a situation we often run into in time series analysis where processes are tracked over time and we cannot simply find unrelated processes to help us answer questions about the original one. 
 
 In general, *i.i.d.* assumptions fail for many types of time series because we would expect the observation in the previous period to have some explanatory power over the current observation. I refer to this phenomenon as *time-dependence,* and it can could occur in many time series from unemployment rates, stock prices, biological data, etc. For example, we expect the water level a river today to be somewhat close to the water level yesterday. The farther away from yesterday we go, the less influence it will have on future water levels.
 
@@ -56,7 +70,7 @@ In general, *i.i.d.* assumptions fail for many types of time series because we w
 <!-- ``` -->
 ## Time-Dependence
 
-We can visualize what the *i.i.d* assumption looks like by comparing time series with varying degrees of influence from past observations. A time series that is completely *i.i.d.* looks like white noise, since each observation is completely random. We can compare this to a simulated time series with various degrees of *time-dependence:*
+We can visualize what the *i.i.d* assumption looks like by comparing time series with varying degrees of dependence on past observations. A time series that is completely *i.i.d.* looks like white noise, since each observation is completely random. We can compare this to a simulated time series with various degrees of *time-dependence:*
 
 ```{r White Noise}
 # Generate i.i.d. time series
@@ -90,13 +104,16 @@ ggplot(series, aes(x = Time, y = Value, col = Series)) +
     title.position = "top",
     title.hjust = 0.5,
     title.theme = element_text(face = "bold"))) +
-  theme(legend.position = "top") +
+  theme(legend.position = "top",
+    plot.background = element_rect(fill = "#fff8e3"),
+    legend.background = element_rect(fill = "#fff8e3"),
+    strip.background = element_rect(fill = "#e8d8c3")) +
   scale_color_viridis_d(end = 0.6)
 ```
 
-In the plot above I have plotted three time series. The top panel illustrates a perfectly *i.i.d.* time series, while the bottom two panels illustrate time series where each observation is somewhat dependent on the previous observations. These are called *autoregressive* $AR(p)$ time series of order $p.$ The order of the $AR$ process defines the number of prior observations $p$ which have explanatory power over the current observation. The middle panel illustrates an $AR(1)$ simulation, thus each observation depends on the immediate prior observation. The bottom panel illustrates a model with a higher autoregressive order where each observation is dependent on the previous five observations.
+The plot above displays three time series. The top panel illustrates a perfectly *i.i.d.* time series, while the bottom two panels illustrate time series where each observation is somewhat dependent on the previous observations. These are called *autoregressive* $AR(p)$ processes of order $p.$ The order of the $AR$ process defines the number of prior observations $p$ which have explanatory power over the current observation. The middle panel illustrates an $AR(1)$ simulation, thus each observation depends on only the immediate prior observation. The bottom panel illustrates a model with a higher autoregressive order where each observation is dependent on the previous five observations.
 
-To some extent we can see the degree of *time-dependence* in each model. The top panel seems to oscillate much quicker and the periods of downward/upward trends are relatively short. If we compare this to the $AR(1)$ model, somewhat more pronounced trends appear where observations are increasing or decreasing consistently for longer periods of time. In the $AR(5)$ model, these trends seem even more drawn out.
+To some extent we can see the degree of *time-dependence* in each model. The top panel seems to oscillate much quicker and the periods of downward/upward trend are relatively short. If we compare this to the $AR(1)$ model, somewhat more pronounced trends appear where observations are increasing or decreasing consistently for longer durations. In the $AR(5)$ model, these trends seem even more drawn out.
 
 ## The Block Bootstrap
 
@@ -124,7 +141,7 @@ grid.raster(img)
 
 In the moving block bootstrap, blocks are sampled from a set of overlapping blocks placed on top of the original time series. We can see this in the top panel where the yellow (5) and magenta (4) blocks both overlap with the cyan (2) block. In practice, a series of overlapping blocks will be laid over one another where each block increments one observation forward from the previous block, so that a total of $n-l+1$ blocks of length $l$ are laid over a time series with $n$ observations.^[We assume that there are $b$ blocks of length $l$ such that $bl \sim n$ for simplicity.] A block bootstrap of this scheme is known as *Künsch's rule.*^[*See* @kunsch1989.]
 
-The problem with the block bootstrap is the high sensitivity to the choice of block-length. If we decide to use blocks of half the length or double the length as depicted above, our Bootstrap data change dramatically, ultimately influencing any inference we may perform.
+The problem with the block bootstrap is the high sensitivity to the choice of block-length. If we decide to use blocks of half the length or double the length as depicted above, our bootstrap data change dramatically and subsequently affect any inference we may perform.
 
 This was exactly the problem I ran into several weeks ago working with benchmark interest rates. My plan was to use `tseries::tsbootstrap()` but I found the results varied dramatically when I changed the block-length — and even worse — I had no basis to defend whatever block-length I selected. 
 

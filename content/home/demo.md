@@ -32,7 +32,7 @@ design:
 ---
 
 
-Researcher // Securities Consulting
+Researcher // Consulting
 
 <br />
 ⇟
