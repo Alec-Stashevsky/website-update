@@ -12,6 +12,7 @@ link-citations: true
 knitr::opts_chunk$set(collapse = TRUE, dev = "svg")
 library(ggplot2)
 library(tseries)
+library(grid)
 library(viridis)
 library(png)
 ```
@@ -99,10 +100,9 @@ To some extent we can see the degree of *time-dependence* in each model. The top
 
 ## The Block Bootstrap
 
-To get around this problem, we can retain some of this time-dependence by breaking-up a time series into a number of blocks with length $l$. Instead of sampling each observation randomly (with replacement) like a regular bootstrap, we can resample these blocks at random. This way within each block the time-dependence is preserved. Below is a diagram from  @article on a common block bootstrap method, the *moving block bootstrap (MBB).*
+To get around this problem, we can retain some of this time-dependence by breaking-up a time series into a number of blocks with length $l$. Instead of sampling each observation randomly (with replacement) as in a regular bootstrap, we can resample these *blocks* at random. This way within each block the time-dependence is preserved. Below is a diagram from  @article on a common block bootstrap method, the *moving block bootstrap (MBB).*
 
 ```{r Block Bootstrap Diagram, echo=FALSE, out.width = '100%'}
-library(grid)
 img <- readPNG('~/website-update2/content/post/time-series-hhjboot/moving-block-bootstrap.png')
 grid.raster(img)
 
@@ -122,4 +122,31 @@ grid.raster(img)
 #   scale_color_viridis_d(begin = 0.2, end = 0.6)
 ```
 
-The problem with the block bootstrap is the high sensitivity to the choice of block-length, or the number of blocks to break the time series into.
+In the moving block bootstrap, blocks are sampled from a set of overlapping blocks placed on top of the original time series. We can see this in the top panel where the yellow (5) and magenta (4) blocks both overlap with the cyan (2) block. In practice, a series of overlapping blocks will be laid over one another where each block increments one observation forward from the previous block, so that a total of $n-l+1$ blocks of length $l$ are laid over a time series with $n$ observations.^[We assume that there are $b$ blocks of length $l$ such that $bl \sim n$ for simplicity.] A block bootstrap of this scheme is known as *Künsch's rule.*^[*See* @kunsch1989.]
+
+The problem with the block bootstrap is the high sensitivity to the choice of block-length. If we decide to use blocks of half the length or double the length as depicted above, our Bootstrap data change dramatically, ultimately influencing any inference we may perform.
+
+This was exactly the problem I ran into several weeks ago working with benchmark interest rates. My plan was to use `tseries::tsbootstrap()` but I found the results varied dramatically when I changed the block-length — and even worse — I had no basis to defend whatever block-length I selected. 
+
+<!-- Add example to show how sensitive the block bootstrap is to block-length -->
+
+## Choosing a block-length
+
+A hard-and-fast rule for the parameterization of block-length is still an unsolved problem; However, I was able to find a selection of plug-in rules and algorithms to assess optimal blocks-lengths under various criteria.^[For a thorough treatment of bootstrapping methods for dependent data and the selection of optimal block-length, *See* @lahiri2003resampling.] In their seminal paper, @10.1093/biomet/82.3.561 show that the optimal asymptotic formula for block-length is proportional to $n^{\frac{1}{k}}$ where $k=\{3,4,5\}$ depending on the desired object of estimation.^[Specifically, $n^{\frac{1}{3}}, n^{\frac{1}{4}},$ and $n^{\frac{1}{5}}$ are used in the estimation of bias or variance, the estimation of a one-sided distribution function, and the estimation of a two-sided distribution function, respectively.] Moreover, @10.1093/biomet/82.3.561 develop an empirically based algorithm to optimize the choice of block-length.
+
+This was exactly what I needed, but a bit searching around CRAN, GitHub, and STATA and SAS libraries came up with nothing.
+
+
+## Enter `{hhjboot}`
+
+The goal of `{hhjboot}` is to simplify and automate the process of selecting a block-length to perform a block bootstrap. `{hhjboot}` takes its name from the @10.1093/biomet/82.3.561 method to algorithmically select the optimal block-length for a given *stationary* time series.
+
+Under the hood, `{hhjboot}` uses the moving block bootstrap (MBB) procedure according to *Künsch's rule,* which resamples blocks from a set of overlapping sub-samples using a fixed block-length. However, the results of `{hhjboot}` may be generalized to other block bootstrap procedures such as the *stationary bootstrap* of @doi:10.1080/01621459.1994.10476870.
+
+Currently, only the @10.1093/biomet/82.3.561 (HHJ) method is implemented through a single function `hhjboot()`, but I plan on adding additional block-selection methods such as the Jackknife-after-bootstrap (JAB) method proposed by @LAHIRI2007292.
+
+
+The package can be downloaded from my [GitHub](https://github.com/Alec-Stashevsky/hhjboot).
+
+
+## References

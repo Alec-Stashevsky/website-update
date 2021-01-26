@@ -2,7 +2,7 @@
 authors:
 - Alec Stashevsky
 
-bio: My research interests include migration, remittances, securities, and inequality.
+bio: Anti-lumper nuance hunter.
 
 education:
   courses:
@@ -14,7 +14,7 @@ education:
     institution: San Marino High School
     year: 2015
     
-email: "alec.stashevsky@protonmail.com"
+email: "alec@alecstashevsky.com"
 
 interests:
 - Inequality and Development
@@ -60,4 +60,4 @@ user_groups:
 - Potential Employerss
 ---
 
-I am a consultant, researcher, and Reed College alumnus with a mathematics-economics background. I am passonate about interdisciplinary research that engages multiple paradigms. I care about econometrics, statistics, and research that uses data hollistically, pushing back against siloed analytics.
+I am a consultant, researcher, and Reed College alumnus with a mathematics-economics background. I am passonate about interdisciplinary research that engages multiple paradigms. I care about econometrics, statistics, and research that uses data holistically, pushing back against siloed analytics.

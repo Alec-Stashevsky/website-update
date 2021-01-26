@@ -79,12 +79,54 @@ ggplot(series, aes(x = Time, y = Value, col = Series)) +
 </div>
 <div id="the-block-bootstrap" class="section level2">
 <h2>The Block Bootstrap</h2>
-<p>To get around this problem, we can retain some of this time-dependence by breaking-up a time series into a number of blocks with length <span class="math inline">\(l\)</span>. Instead of sampling each observation randomly (with replacement) like a regular bootstrap, we can resample these blocks at random. This way within each block the time-dependence is preserved. Below is a diagram from <span class="citation"><a href="#ref-article" role="doc-biblioref">El Anbari, Abeer, and Ptitsyn</a> (<a href="#ref-article" role="doc-biblioref">2015</a>)</span> on a common block bootstrap method, the <em>moving block bootstrap (MBB).</em></p>
+<p>To get around this problem, we can retain some of this time-dependence by breaking-up a time series into a number of blocks with length <span class="math inline">\(l\)</span>. Instead of sampling each observation randomly (with replacement) as in a regular bootstrap, we can resample these <em>blocks</em> at random. This way within each block the time-dependence is preserved. Below is a diagram from <span class="citation"><a href="#ref-article" role="doc-biblioref">El Anbari, Abeer, and Ptitsyn</a> (<a href="#ref-article" role="doc-biblioref">2015</a>)</span> on a common block bootstrap method, the <em>moving block bootstrap (MBB).</em></p>
 <p><img src="/post/time-series-hhjboot/time-series-hhjboot_files/figure-html/Block%20Bootstrap%20Diagram-1.svg" width="100%" /></p>
-<p>The problem with the block bootstrap is the high sensitivity to the choice of block-length, or the number of blocks to break the time series into.</p>
+<p>In the moving block bootstrap, blocks are sampled from a set of overlapping blocks placed on top of the original time series. We can see this in the top panel where the yellow (5) and magenta (4) blocks both overlap with the cyan (2) block. In practice, a series of overlapping blocks will be laid over one another where each block increments one observation forward from the previous block, so that a total of <span class="math inline">\(n-l+1\)</span> blocks of length <span class="math inline">\(l\)</span> are laid over a time series with <span class="math inline">\(n\)</span> observations.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> A block bootstrap of this scheme is known as <em>Künsch’s rule.</em><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>The problem with the block bootstrap is the high sensitivity to the choice of block-length. If we decide to use blocks of half the length or double the length as depicted above, our Bootstrap data change dramatically, ultimately influencing any inference we may perform.</p>
+<p>This was exactly the problem I ran into several weeks ago working with benchmark interest rates. My plan was to use <code>tseries::tsbootstrap()</code> but I found the results varied dramatically when I changed the block-length — and even worse — I had no basis to defend whatever block-length I selected.</p>
+<!-- Add example to show how sensitive the block bootstrap is to block-length -->
+</div>
+<div id="choosing-a-block-length" class="section level2">
+<h2>Choosing a block-length</h2>
+<p>A hard-and-fast rule for the parameterization of block-length is still an unsolved problem; However, I was able to find a selection of plug-in rules and algorithms to assess optimal blocks-lengths under various criteria.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> In their seminal paper, <span class="citation"><a href="#ref-10.1093/biomet/82.3.561" role="doc-biblioref">Hall, Horowitz, and Jing</a> (<a href="#ref-10.1093/biomet/82.3.561" role="doc-biblioref">1995</a>)</span> show that the optimal asymptotic formula for block-length is proportional to <span class="math inline">\(n^{\frac{1}{k}}\)</span> where <span class="math inline">\(k=\{3,4,5\}\)</span> depending on the desired object of estimation.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> Moreover, <span class="citation"><a href="#ref-10.1093/biomet/82.3.561" role="doc-biblioref">Hall, Horowitz, and Jing</a> (<a href="#ref-10.1093/biomet/82.3.561" role="doc-biblioref">1995</a>)</span> develop an empirically based algorithm to optimize the choice of block-length.</p>
+<p>This was exactly what I needed, but a bit searching around CRAN, GitHub, and STATA and SAS libraries came up with nothing.</p>
+</div>
+<div id="enter-hhjboot" class="section level2">
+<h2>Enter <code>{hhjboot}</code></h2>
+<p>The goal of <code>{hhjboot}</code> is to simplify and automate the process of selecting a block-length to perform a block bootstrap. <code>{hhjboot}</code> takes its name from the <span class="citation"><a href="#ref-10.1093/biomet/82.3.561" role="doc-biblioref">Hall, Horowitz, and Jing</a> (<a href="#ref-10.1093/biomet/82.3.561" role="doc-biblioref">1995</a>)</span> method to algorithmically select the optimal block-length for a given <em>stationary</em> time series.</p>
+<p>Under the hood, <code>{hhjboot}</code> uses the moving block bootstrap (MBB) procedure according to <em>Künsch’s rule,</em> which resamples blocks from a set of overlapping sub-samples using a fixed block-length. However, the results of <code>{hhjboot}</code> may be generalized to other block bootstrap procedures such as the <em>stationary bootstrap</em> of <span class="citation"><a href="#ref-doi:10.1080/01621459.1994.10476870" role="doc-biblioref">Politis and Romano</a> (<a href="#ref-doi:10.1080/01621459.1994.10476870" role="doc-biblioref">1994</a>)</span>.</p>
+<p>Currently, only the <span class="citation"><a href="#ref-10.1093/biomet/82.3.561" role="doc-biblioref">Hall, Horowitz, and Jing</a> (<a href="#ref-10.1093/biomet/82.3.561" role="doc-biblioref">1995</a>)</span> (HHJ) method is implemented through a single function <code>hhjboot()</code>, but I plan on adding additional block-selection methods such as the Jackknife-after-bootstrap (JAB) method proposed by <span class="citation"><a href="#ref-LAHIRI2007292" role="doc-biblioref">S. N. Lahiri, Furukawa, and Lee</a> (<a href="#ref-LAHIRI2007292" role="doc-biblioref">2007</a>)</span>.</p>
+<p>The package can be downloaded from my <a href="https://github.com/Alec-Stashevsky/hhjboot">GitHub</a>.</p>
+</div>
+<div id="references" class="section level2 unnumbered">
+<h2>References</h2>
 <div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-article" class="csl-entry">
 El Anbari, Mohammed, Abeer Fadda, and Andrey Ptitsyn. 2015. <span>“Confidence in Phase Definition for Periodicity in Genes Expression Time Series.”</span> <em>PloS One</em> 10 (July): e0131111. <a href="https://doi.org/10.1371/journal.pone.0131111">https://doi.org/10.1371/journal.pone.0131111</a>.
 </div>
+<div id="ref-10.1093/biomet/82.3.561" class="csl-entry">
+Hall, Peter, Joel L. Horowitz, and Bing-Yi Jing. 1995. <span>“<span class="nocase">On blocking rules for the bootstrap with dependent data</span>.”</span> <em>Biometrika</em> 82 (3): 561–74. <a href="https://doi.org/10.1093/biomet/82.3.561">https://doi.org/10.1093/biomet/82.3.561</a>.
 </div>
+<div id="ref-kunsch1989" class="csl-entry">
+Kunsch, Hans R. 1989. <span>“The Jackknife and the Bootstrap for General Stationary Observations.”</span> <em>Ann. Statist.</em> 17 (3): 1217–41. <a href="https://doi.org/10.1214/aos/1176347265">https://doi.org/10.1214/aos/1176347265</a>.
+</div>
+<div id="ref-lahiri2003resampling" class="csl-entry">
+Lahiri, S. K., and S. N. Lahiri. 2003. <em>Resampling Methods for Dependent Data</em>. Springer Series in Statistics. Springer. <a href="https://books.google.com/books?id=e4f8sqm439UC">https://books.google.com/books?id=e4f8sqm439UC</a>.
+</div>
+<div id="ref-LAHIRI2007292" class="csl-entry">
+Lahiri, S. N., K. Furukawa, and Y.-D. Lee. 2007. <span>“A Nonparametric Plug-in Rule for Selecting Optimal Block Lengths for Block Bootstrap Methods.”</span> <em>Statistical Methodology</em> 4 (3): 292–321. https://doi.org/<a href="https://doi.org/10.1016/j.stamet.2006.08.002">https://doi.org/10.1016/j.stamet.2006.08.002</a>.
+</div>
+<div id="ref-doi:10.1080/01621459.1994.10476870" class="csl-entry">
+Politis, Dimitris N., and Joseph P. Romano. 1994. <span>“The Stationary Bootstrap.”</span> <em>Journal of the American Statistical Association</em> 89 (428): 1303–13. <a href="https://doi.org/10.1080/01621459.1994.10476870">https://doi.org/10.1080/01621459.1994.10476870</a>.
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>We assume that there are <span class="math inline">\(b\)</span> blocks of length <span class="math inline">\(l\)</span> such that <span class="math inline">\(bl \sim n\)</span> for simplicity.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p><em>See</em> <span class="citation"><a href="#ref-kunsch1989" role="doc-biblioref">Kunsch</a> (<a href="#ref-kunsch1989" role="doc-biblioref">1989</a>)</span>.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>For a thorough treatment of bootstrapping methods for dependent data and the selection of optimal block-length, <em>See</em> <span class="citation"><a href="#ref-lahiri2003resampling" role="doc-biblioref">S. K. Lahiri and Lahiri</a> (<a href="#ref-lahiri2003resampling" role="doc-biblioref">2003</a>)</span>.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>Specifically, <span class="math inline">\(n^{\frac{1}{3}}, n^{\frac{1}{4}},\)</span> and <span class="math inline">\(n^{\frac{1}{5}}\)</span> are used in the estimation of bias or variance, the estimation of a one-sided distribution function, and the estimation of a two-sided distribution function, respectively.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
