@@ -106,6 +106,7 @@ ggplot(series, aes(x = Time, y = Value, col = Series)) +
     title.theme = element_text(face = "bold"))) +
   theme(legend.position = "top",
     plot.background = element_rect(fill = "#fff8e3"),
+    panel.border = element_rect(color = "black", fill = "transparent"),
     legend.background = element_rect(fill = "#fff8e3"),
     strip.background = element_rect(fill = "#e8d8c3")) +
   scale_color_viridis_d(end = 0.6)

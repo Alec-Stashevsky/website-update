@@ -85,6 +85,7 @@ ggplot(series, aes(x = Time, y = Value, col = Series)) +
     title.theme = element_text(face = &quot;bold&quot;))) +
   theme(legend.position = &quot;top&quot;,
     plot.background = element_rect(fill = &quot;#fff8e3&quot;),
+    panel.border = element_rect(color = &quot;black&quot;, fill = &quot;transparent&quot;),
     legend.background = element_rect(fill = &quot;#fff8e3&quot;),
     strip.background = element_rect(fill = &quot;#e8d8c3&quot;)) +
   scale_color_viridis_d(end = 0.6)</code></pre>
@@ -123,7 +124,7 @@ El Anbari, Mohammed, Abeer Fadda, and Andrey Ptitsyn. 2015. <span>“Confidence 
 Hall, Peter, Joel L. Horowitz, and Bing-Yi Jing. 1995. <span>“<span class="nocase">On blocking rules for the bootstrap with dependent data</span>.”</span> <em>Biometrika</em> 82 (3): 561–74. <a href="https://doi.org/10.1093/biomet/82.3.561">https://doi.org/10.1093/biomet/82.3.561</a>.
 </div>
 <div id="ref-kunsch1989" class="csl-entry">
-Kunsch, Hans R. 1989. <span>“The Jackknife and the Bootstrap for General Stationary Observations.”</span> <em>Ann. Statist.</em> 17 (3): 1217–41. <a href="https://doi.org/10.1214/aos/1176347265">https://doi.org/10.1214/aos/1176347265</a>.
+Künsch, Hans R. 1989. <span>“The Jackknife and the Bootstrap for General Stationary Observations.”</span> <em>Ann. Statist.</em> 17 (3): 1217–41. <a href="https://doi.org/10.1214/aos/1176347265">https://doi.org/10.1214/aos/1176347265</a>.
 </div>
 <div id="ref-lahiri2003resampling" class="csl-entry">
 Lahiri, S. K., and S. N. Lahiri. 2003. <em>Resampling Methods for Dependent Data</em>. Springer Series in Statistics. Springer. <a href="https://books.google.com/books?id=e4f8sqm439UC">https://books.google.com/books?id=e4f8sqm439UC</a>.
@@ -140,7 +141,7 @@ Politis, Dimitris N., and Joseph P. Romano. 1994. <span>“The Stationary Bootst
 <hr />
 <ol>
 <li id="fn1"><p>We assume that there are <span class="math inline">\(b\)</span> blocks of length <span class="math inline">\(l\)</span> such that <span class="math inline">\(bl \sim n\)</span> for simplicity.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
-<li id="fn2"><p><em>See</em> <span class="citation"><a href="#ref-kunsch1989" role="doc-biblioref">Kunsch</a> (<a href="#ref-kunsch1989" role="doc-biblioref">1989</a>)</span>.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p><em>See</em> <span class="citation"><a href="#ref-kunsch1989" role="doc-biblioref">Künsch</a> (<a href="#ref-kunsch1989" role="doc-biblioref">1989</a>)</span>.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 <li id="fn3"><p>For a thorough treatment of bootstrapping methods for dependent data and the selection of optimal block-length, <em>See</em> <span class="citation"><a href="#ref-lahiri2003resampling" role="doc-biblioref">S. K. Lahiri and Lahiri</a> (<a href="#ref-lahiri2003resampling" role="doc-biblioref">2003</a>)</span>.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
 <li id="fn4"><p>Specifically, <span class="math inline">\(n^{\frac{1}{3}}, n^{\frac{1}{4}},\)</span> and <span class="math inline">\(n^{\frac{1}{5}}\)</span> are used in the estimation of bias or variance, the estimation of a one-sided distribution function, and the estimation of a two-sided distribution function, respectively.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
 </ol>
