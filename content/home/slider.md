@@ -18,7 +18,7 @@ height = "calc(85vh)"
 
 [[item]]
   title = "Carbon Footprint of Medical Conferences"
-  content = "Examining the American Psychiatric Association's Annual Meeting"
+  content = "Examining the American Psychiatric Association"
   align = "right"
 
   #overlay_color = "#555"  # An HTML color value.
