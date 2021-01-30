@@ -21,7 +21,7 @@ publication_types:
 - "2"
 publishDate: "2021-01-28"
 slides: 
-summary: In the wake of the Coronavirus pandemic the APA canceled their 2020 Annual Meeting. We sought to estimate the avoided carbon emissions from holding the conference virtually and explore the impact of strategic planning.
+summary: In the wake of the Coronavirus pandemic the APA canceled their 2020 Annual Meeting. We sought to estimate the avoided carbon emissions from holding the conference virtually and explore the impact of strategic planning for future meetings.
 tags:
 title: Estimation of the Carbon Footprint Associated With Attendees of the American Psychiatric Association Annual Meeting
 url_pdf:
