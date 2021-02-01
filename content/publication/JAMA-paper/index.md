@@ -12,7 +12,7 @@ doi: "10.1001/jamanetworkopen.2020.35641"
 featured: true
 image:
   caption: "Geodesic Distances of NYC 2018 Meeting Attendees"
-  focal_point: "Smart"
+  focal_point:
   preview_only: true
 publication: '*JAMA Network Open, 4*(1)'
 publication_types:
