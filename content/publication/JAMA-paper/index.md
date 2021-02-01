@@ -13,14 +13,11 @@ featured: true
 image:
   caption: "Geodesic Distances of NYC 2018 Meeting Attendees"
   focal_point: "Smart"
-  preview_only: false
-projects: []
+  preview_only: true
 publication: '*JAMA Network Open, 4*(1)'
-publication_short: ""
 publication_types:
 - "2"
 publishDate: "2021-01-28T00:00:00Z"
-slides: 
 summary: In the wake of the Coronavirus pandemic the APA canceled their 2020 Annual Meeting. We sought to estimate the avoided carbon emissions from holding the conference virtually and explore the impact of strategic planning for future meetings.
 tags:
 title: Estimation of the Carbon Footprint Associated With Attendees of the American Psychiatric Association Annual Meeting
@@ -30,9 +27,12 @@ links:
    url: https://github.com/Alec-Stashevsky/GAP-climate-research
    icon_pack: fab
    icon: github
+slides: jama-paper
 ---
 
-## Comments
+{{< embed-pdf url="  /pdfs/APA Flight Netowrks.pdf" >}}
+
+## Notes
 
 The code for this analysis is available at my [GitHub.](https://github.com/Alec-Stashevsky/GAP-climate-research)
 
