@@ -55,9 +55,9 @@ subtitle = ""
   name = "SQL Server"  
 
 [[feature]]
-  icon = "Apache_Hive"
+  icon = "LaTeX"
   icon_pack = "custom"
-  name = "Apache Hive"  
+  name = "LaTeX"  
 
 [[feature]]
   icon = "microsoftexcel"
