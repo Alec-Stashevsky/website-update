@@ -8,14 +8,14 @@ bibliography: [mbb.bib]
 link-citations: true
 links:
  - name: "R Package Repository"
-   url: https://github.com/Alec-Stashevsky/hhjboot/
+   url: https://github.com/Alec-Stashevsky/blocklength
    icon_pack: fab
    icon: github
 image:
   caption: "Graceful Boots - Old School Runescape"
   preview_only: true
   focal_point: "Smart"
-summary: The story behind and use-case for my first package `{hhjboot}`.
+summary: The story behind and use-case for my first package `{blocklength}`.
 ---
 
 ```{r setup, include=FALSE}
@@ -52,9 +52,9 @@ Let's continue our random survey of human heights. For the next few years, we se
 
 We have more data than had we just conducted the first survey, so we should be able to make stronger inferences than before, right? Well, not exactly. If we begin to conduct inferences about all human heights (population characteristics) using this collection of panel-data, we fail to recognize the underlying connections that have been introduced. 
 
-When we survey the same group of randomly-selected respondents each year, the height of a respondent this year should be related to their height in the previous year. Since humans generally grow in one direction we would expect the average height in our survey to increase or stay relatively the same each year. This dynamic now violates our assumption of independence within the sample because each respondent's answers will be connected. Panel-data and other types of data with inherent connections is characterized as *dependent data.*
+When we survey the same group of (originally) randomly-selected respondents each year, the height of a respondent this year should be related to their height in the previous year. Since humans generally grow in one direction we would expect the average height in our survey to only increase or stay relatively the same each year. This dynamic now violates our assumption of independence within the sample because each respondent's answers will be connected. Panel-data and other types of data with inherent connections is characterized as *dependent data.*
 
-In practice, we could modify our survey design to target a different group of respondents each year removing any dependencies. However, this example illustrates a situation often encountered in time series analysis where processes are tracked over time and we cannot simply find unrelated processes within the data to help us answer questions about the original one.
+In practice, we could modify our survey design to target a different group of respondents each year removing such dependencies. However, this example illustrates a situation often encountered in time series analysis where processes are tracked over time and we cannot simply find unrelated processes within the data to help us answer questions about the original one.^[Other common contexts for dependent data include spatial information such as topographical data or biological data, such as measuring biological oxygen demand *(BOD)* levels in rivers.]
 
 In general, *i.i.d.* assumptions fail for many types of time series because we would expect the observation in the previous period to have some explanatory power over the current observation. I refer to this phenomenon as *time-dependence,* and it can could occur in many time series from unemployment rates, stock prices, biological data, etc. For example, we expect the water level a river today to be somewhat close to the water level yesterday. The farther away from yesterday we go, the less related future water levels will be.
 
@@ -130,14 +130,14 @@ frameWidget(pp)
 
 The top panel illustrates a perfectly *i.i.d.* time series, while the bottom two panels illustrate time series where each observation is somewhat dependent on the previous observations. These are called *autoregressive* $AR(p)$ processes of order $p.$ The order of the $AR$ process defines the number of prior observations $p$ which have explanatory power over the current observation. The middle panel illustrates an $AR(1)$ simulation, thus each observation depends on only the immediate prior observation. The bottom panel illustrates an $AR(5)$ model with a higher autoregressive order where each observation is dependent on the previous five observations.
 
-To some extent we can see the degree of *time-dependence* in each model. The top panel seems to oscillate much quicker and the periods of downward/upward trend are relatively short. If we compare this to the $AR(1)$ model, somewhat more pronounced trends appear where observations are increasing or decreasing consistently for longer durations. In the $AR(5)$ model, these trends seem even more drawn out.
+To some extent we can see the degree of *time-dependence* in each model. The top panel seems to oscillate much quicker and the periods of downward/upward trend are relatively short. If we compare this to the $AR(1)$ model, somewhat more pronounced trends appear where observations are increasing or decreasing consistently for longer durations. In the $AR(5)$ model, these trends seem even more drawn out. Though we can try to make visual comparisons because we understand the data-generating process behind these three time-series, in practice, this is often not the case and we must employ a battery of statistical tests to infer the degree of dependence — if any — within a given series.
 
 ## The Block Bootstrap
 
 To get around this problem, we can retain some of this time-dependence by breaking-up a time series into a number of blocks with length $l$. Instead of sampling each observation randomly (with replacement) as in a regular bootstrap, we can resample these *blocks* at random. This way within each block the time-dependence is preserved. Below is a diagram from  @article on a common block bootstrap method, the *moving block bootstrap (MBB).*
 
 ```{r Block Bootstrap Diagram, echo=FALSE, out.width = '100%'}
-img <- readPNG('~/website-update2/content/post/time-series-hhjboot/moving-block-bootstrap.png')
+img <- readPNG('~/website-update2/content/post/time-series-blocklength/moving-block-bootstrap.png')
 grid.raster(img)
 
 # Build box colors
@@ -158,7 +158,7 @@ grid.raster(img)
 
 In the moving block bootstrap, blocks are sampled from a set of overlapping blocks placed on top of the original time series. We can see this in the top panel where the yellow (5) and magenta (4) blocks both overlap with the cyan (2) block. In practice, a series of overlapping blocks will be laid over one another where each block increments one observation forward from the previous block, so that a total of $n-l+1$ blocks of length $l$ are laid over a time series with $n$ observations.^[We assume that there are $b$ blocks of length $l$ such that $bl \sim n$ for simplicity.] A block bootstrap of this scheme is known as *Künsch's rule.*^[*See* @kunsch1989.]
 
-The problem with the block bootstrap is the high sensitivity to the choice of block-length. If we decide to use blocks of half the length or double the length as depicted above, our bootstrap data changes dramatically and affect any inference we may perform.
+The problem with the block bootstrap is the high sensitivity to the choice of block-length. If we decide to use blocks of half the length or double the length as depicted above, our bootstrap data may change dramatically and in turn any inference we perform.
 
 This was exactly the problem I ran into several weeks ago working with benchmark interest rates. My plan was to use `tseries::tsbootstrap()` to block bootstrap the rates, but I found the results varied dramatically when I changed the block-length — and even worse — I had no reasoning to defend whatever block-length I selected. 
 
@@ -166,21 +166,29 @@ This was exactly the problem I ran into several weeks ago working with benchmark
 
 ## Choosing a block-length
 
-A hard-and-fast rule for the parameterization of block-length is still an unsolved problem; However, I was able to find a selection of plug-in rules and algorithms to assess optimal blocks-lengths under various criteria.^[For a thorough treatment of bootstrapping methods for dependent data and the selection of optimal block-length, *See* @lahiri2003resampling.] In their seminal paper, @10.1093/biomet/82.3.561 show that the optimal asymptotic formula for block-length is proportional to $n^{\frac{1}{k}}$ where $k=\{3,4,5\}$ depending on the desired object of estimation.^[Specifically, $n^{\frac{1}{3}}, n^{\frac{1}{4}},$ and $n^{\frac{1}{5}}$ are used in the estimation of bias or variance, the estimation of a one-sided distribution function, and the estimation of a two-sided distribution function, respectively.] Moreover, @10.1093/biomet/82.3.561 develop an empirically based algorithm to optimize the choice of block-length.
+A hard-and-fast rule for the parameterization of block-length is still an unsolved problem; However, a variety of methods have been proposed in the econometric and statistical literature. I was able to find a selection of plug-in rules and algorithms to assess optimal blocks-lengths under various criteria.^[For a thorough treatment of bootstrapping methods for dependent data and the selection of optimal block-length, *See* @lahiri2003resampling.] In their seminal paper, @10.1093/biomet/82.3.561 show that the optimal asymptotic formula for block-length is proportional to $n^{\frac{1}{k}}$ where $k=\{3,4,5\}$ depending on the desired object of estimation.^[Specifically, $n^{\frac{1}{3}}, n^{\frac{1}{4}},$ and $n^{\frac{1}{5}}$ are used in the estimation of bias or variance, the estimation of a one-sided distribution function, and the estimation of a two-sided distribution function, respectively.] Moreover, @10.1093/biomet/82.3.561 develop an empirically based algorithm to optimize the choice of block-length.
 
 This was exactly what I needed, but a bit searching around CRAN, GitHub, and STATA and SAS libraries came up with nothing.
 
 
-## Enter `{hhjboot}`
+## Enter `{blocklength}`
 
-The goal of `{hhjboot}` is to simplify and automate the process of selecting a block-length to perform a block bootstrap. `{hhjboot}` takes its name from the @10.1093/biomet/82.3.561 method to algorithmically select the optimal block-length for a given *stationary* time series.
+The goal of `{blocklength}` is to simplify and automate the process of selecting a block-length to bootstrap dependent data. `{blocklength}` is an R package with a set of functions to automatically select the optimal block-length for a bootstrap of suitable dependent data, such as *stationary* time series or dependent spatial data.
 
-Under the hood, `{hhjboot}` uses the moving block bootstrap (MBB) procedure according to *Künsch's rule,* which resamples blocks from a set of overlapping sub-samples with a fixed block-length. However, the results of `{hhjboot}` may be generalized to other block bootstrap procedures such as the *stationary bootstrap* of @doi:10.1080/01621459.1994.10476870.
+Currently, there are two methods available:
 
-Currently, only the @10.1093/biomet/82.3.561 (HHJ) method is implemented through a single function `hhjboot()`, but I plan on adding additional block-selection methods such as the Jackknife-after-bootstrap (JAB) method proposed by @LAHIRI2007292.
+ 1. `hhj()` takes its name from the @10.1093/biomet/82.3.561 "HHJ" method to select the optimal block-length using a cross-validation algorithm which minimizes the mean squared error $(MSE)$ incurred by the bootstrap at various block-lengths.
+ 
+ 2. `pwsd()` takes its name from the @doi:10.1081/ETC-120028836 Spectral Density "PWSD" Plug-in method to select the optimal block-length using spectral density estimation via "flat-top" lag windows of @https://doi.org/10.1111/j.1467-9892.1995.tb00223.x.
+
+Under the hood, `hhj()` uses the moving block bootstrap (MBB) procedure according to *Künsch's rule,* which resamples blocks from a set of overlapping sub-samples with a fixed block-length. However, the results of `hhj()` may be generalized to other block bootstrap procedures such as the *stationary bootstrap* of @doi:10.1080/01621459.1994.10476870.
+
+Compared to `pwsd()`, `hhj()` is more computationally intensive as it relies on iterative resampling processes that optimize the $MSE$ function over each possible block-length (or a select grid of block-lengths). `pwsd()` is a simpler “plug-in” rule that uses the auto-correlations, auto-covariance, and the subsequent spectral density of the series to optimize the choice of block-length.
+
+Currently, only the HHJ and PWSD methods are implemented through these two functions, but I plan on adding additional block-selection methods such as the Jackknife-after-bootstrap (JAB) method proposed by @LAHIRI2007292.^[Both `pwsd()` and `hhj()` have output corresponding 'pwsd' and 'hhj' class objects which may be passed into S3 plotting methods. The usage of this package will be discussed in a later post.]
 
 
-The package can be downloaded from my [GitHub](https://github.com/Alec-Stashevsky/hhjboot).
+The package can be downloaded from my [GitHub](https://github.com/Alec-Stashevsky/blocklength).
 
 
 ## References
