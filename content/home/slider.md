@@ -48,7 +48,7 @@ height = "calc(85vh)"
   
 
   cta_label = "Undergraduate Thesis"
-  cta_url = "https://www.academia.edu/39416134/Domestic_Remittance_in_China_Rural_Urban_Migration_s_Trail_of_Inequality"
+  cta_url = "https://www.researchgate.net/publication/349605494_Domestic_Remittance_in_China_Rural-Urban_Migration's_Trail_of_Inequality"
   cta_icon_pack = "fas"
   cta_icon = "graduation-cap"
 +++

@@ -2,7 +2,7 @@
 authors:
 - Alec Stashevsky
 
-bio: Anti-lumper nuance hunter.
+bio: Anti-lumper nuance hunter
 
 education:
   courses:
@@ -21,14 +21,17 @@ interests:
 - Occult Economies
 - _Place-making_ and Temporality
 - Migration and Mobility
+- Spatial Politics
+- Anthropology
 - Decarbonization
 - Financial Technology
 - Securitization
-- Growth and Marketing
 
 organizations:
 - name: NERA Economic Consulting
-  url: "https://www.nera.com/"
+  url: "https://www.nera.com"
+- name: GAP Climate Committee
+  url: "https://ourgap.org"
 - name: Reed College
   url: "https://www.reed.edu/math/theses.html"
   
@@ -39,6 +42,10 @@ social:
   icon_pack: fab
   link: https://www.linkedin.com/in/alec-stashevsky
 
+- icon: researchgate
+  icon_pack: fab
+  link: https://www.researchgate.net/profile/Alec-Stashevsky
+  
 - icon: github
   icon_pack: fab
   link: https://github.com/alec-stashevsky

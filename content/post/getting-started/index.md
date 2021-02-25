@@ -1,12 +1,11 @@
 ---
 authors:
-- admin
 - 吳恩達
 categories:
 - Demo
 - 教程
 date: "2016-04-20T00:00:00Z"
-draft: false
+draft: true
 featured: false
 image:
   caption: 'Image credit: [**Unsplash**](https://unsplash.com/photos/CpkOjOcXdUY)'
