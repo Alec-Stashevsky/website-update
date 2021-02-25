@@ -29,12 +29,6 @@ library(viridis)
 library(png)
 ```
 
-```{css, echo=FALSE}
-body {
-  background-color: rgb(255,248,227);
-}
-```
-
 
 Recently, I began working with time series and found myself searching for a way to build confidence intervals around certain statistics I was interested in, like a series' median. Many time series do not follow a known probability distribution so my mind went directly to using a bootstrap to estimate a sample variance. Here's what I learned: 
 
@@ -78,7 +72,7 @@ In general, *i.i.d.* assumptions fail for many types of time series because we w
 
 We can visualize what the *i.i.d* assumption looks like in time series by comparing time series with varying degrees of dependence on past observations. A time series that is completely *i.i.d.* looks like white noise, since each observation is completely random. We can compare this to a simulated time series with various degrees of *time-dependence:*
 
-```{r White Noise}
+```{r Time Series}
 # Generate i.i.d. time series
 white.noise <- ts(rnorm(500))
 
@@ -183,9 +177,9 @@ Currently, there are two methods available:
 
 Under the hood, `hhj()` uses the moving block bootstrap (MBB) procedure according to *Künsch's rule,* which resamples blocks from a set of overlapping sub-samples with a fixed block-length. However, the results of `hhj()` may be generalized to other block bootstrap procedures such as the *stationary bootstrap* of @doi:10.1080/01621459.1994.10476870.
 
-Compared to `pwsd()`, `hhj()` is more computationally intensive as it relies on iterative resampling processes that optimize the $MSE$ function over each possible block-length (or a select grid of block-lengths). `pwsd()` is a simpler “plug-in” rule that uses the auto-correlations, auto-covariance, and the subsequent spectral density of the series to optimize the choice of block-length.
+Compared to `pwsd()` , &nbsp;`hhj()` is more computationally intensive as it relies on iterative resampling processes that optimize the $MSE$ function over each possible block-length (or a select grid of block-lengths). `pwsd()` is a simpler “plug-in” rule that uses the auto-correlations, auto-covariance, and the subsequent spectral density of the series to optimize the choice of block-length.
 
-Currently, only the HHJ and PWSD methods are implemented through these two functions, but I plan on adding additional block-selection methods such as the Jackknife-after-bootstrap (JAB) method proposed by @LAHIRI2007292.^[Both `pwsd()` and `hhj()` have output corresponding 'pwsd' and 'hhj' class objects which may be passed into S3 plotting methods. The usage of this package will be discussed in a later post.]
+Currently, only the HHJ and PWSD methods are implemented through these two functions, but I plan on adding additional block-selection methods such as the Jackknife-after-bootstrap (JAB) Nonparametric Plug-in method proposed by @LAHIRI2007292.^[Both `pwsd()` and `hhj()` have output corresponding 'pwsd' and 'hhj' class objects which may be passed into S3 plotting methods. The usage of this package will be discussed in a later post.]
 
 
 The package can be downloaded from my [GitHub](https://github.com/Alec-Stashevsky/blocklength).
