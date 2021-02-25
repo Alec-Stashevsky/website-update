@@ -25,12 +25,11 @@ height = "calc(85vh)"
   overlay_img = "headers/RegionalFL-NL.jpg"  # Image path relative to your `static/media/` folder.
   #overlay_filter = 0.5  # Darken the image. Value in range 0-1.
   
-  
   # Call to action button (optional).
-  cta_label = "Project GitHub"
-  cta_url = "https://github.com/Alec-Stashevsky/GAP-climate-research"
-  cta_icon_pack = "fab"
-  cta_icon = "github"
+  cta_label = "JAMA Article"
+  cta_url = "https://doi.org/10.1001/jamanetworkopen.2020.35641"
+  cta_icon_pack = "fas"
+  cta_icon = "book-open"
   
 [[item]]
   title = "Migration and Mobility"
@@ -46,6 +45,8 @@ height = "calc(85vh)"
   # Call to action button (optional).
   #   Activate the button by specifying a URL and button label below.
   #   Deactivate by commenting out parameters, prefixing lines with `#`.
+  
+
   cta_label = "Undergraduate Thesis"
   cta_url = "https://www.academia.edu/39416134/Domestic_Remittance_in_China_Rural_Urban_Migration_s_Trail_of_Inequality"
   cta_icon_pack = "fas"
