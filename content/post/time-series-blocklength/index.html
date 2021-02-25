@@ -91,7 +91,7 @@ series &lt;- data.frame(
 <!-- Add example to show how sensitive the block bootstrap is to block-length -->
 </div>
 <div id="choosing-a-block-length" class="section level2">
-<h2>Choosing a block-length</h2>
+<h2>Choosing a Block-Length</h2>
 <p>A hard-and-fast rule for the parameterization of block-length is still an unsolved problem; However, a variety of methods have been proposed in the econometric and statistical literature. I was able to find a selection of plug-in rules and algorithms to assess optimal blocks-lengths under various criteria.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> In their seminal paper, <span class="citation"><a href="#ref-10.1093/biomet/82.3.561" role="doc-biblioref">Hall, Horowitz, and Jing</a> (<a href="#ref-10.1093/biomet/82.3.561" role="doc-biblioref">1995</a>)</span> show that the optimal asymptotic formula for block-length is proportional to <span class="math inline">\(n^{\frac{1}{k}}\)</span> where <span class="math inline">\(k=\{3,4,5\}\)</span> depending on the desired object of estimation.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> Moreover, <span class="citation"><a href="#ref-10.1093/biomet/82.3.561" role="doc-biblioref">Hall, Horowitz, and Jing</a> (<a href="#ref-10.1093/biomet/82.3.561" role="doc-biblioref">1995</a>)</span> develop an empirically based algorithm to optimize the choice of block-length.</p>
 <p>This was exactly what I needed, but a bit searching around CRAN, GitHub, and STATA and SAS libraries came up with nothing.</p>
 </div>

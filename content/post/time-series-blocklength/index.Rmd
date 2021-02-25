@@ -158,7 +158,7 @@ This was exactly the problem I ran into several weeks ago working with benchmark
 
 <!-- Add example to show how sensitive the block bootstrap is to block-length -->
 
-## Choosing a block-length
+## Choosing a Block-Length
 
 A hard-and-fast rule for the parameterization of block-length is still an unsolved problem; However, a variety of methods have been proposed in the econometric and statistical literature. I was able to find a selection of plug-in rules and algorithms to assess optimal blocks-lengths under various criteria.^[For a thorough treatment of bootstrapping methods for dependent data and the selection of optimal block-length, *See* @lahiri2003resampling.] In their seminal paper, @10.1093/biomet/82.3.561 show that the optimal asymptotic formula for block-length is proportional to $n^{\frac{1}{k}}$ where $k=\{3,4,5\}$ depending on the desired object of estimation.^[Specifically, $n^{\frac{1}{3}}, n^{\frac{1}{4}},$ and $n^{\frac{1}{5}}$ are used in the estimation of bias or variance, the estimation of a one-sided distribution function, and the estimation of a two-sided distribution function, respectively.] Moreover, @10.1093/biomet/82.3.561 develop an empirically based algorithm to optimize the choice of block-length.
 

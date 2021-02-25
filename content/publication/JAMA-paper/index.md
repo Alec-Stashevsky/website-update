@@ -21,7 +21,7 @@ publishDate: "2021-01-28T00:00:00Z"
 summary: In the wake of the Coronavirus pandemic the APA canceled their 2020 Annual Meeting. We sought to estimate the avoided carbon emissions from holding the conference virtually and explore the impact of strategic planning for future meetings.
 tags:
 title: Estimation of the Carbon Footprint Associated With Attendees of the American Psychiatric Association Annual Meeting
-url_pdf:
+url_pdf: "/publication/jama-paper/wortzel_APA_carbon_footprint.pdf"
 links:
  - name: "Code Supplement"
    url: https://github.com/Alec-Stashevsky/GAP-climate-research
@@ -30,12 +30,26 @@ links:
 slides: jama-paper
 ---
 
+<br>
+<h2>
+<center> 
+<a href=“https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2775666”>Read the full article here</a>
+</center>
+</h2>
+<br>
+
+Below is a PDF explorer that visualizes the flight network models used to illustrate each attendee's commute to the APA Annual Meeting for the 2018 New York City and 2019 San Francisco Annual Meetings. The third page shows a counterfactual scenario had the attendees who registered for the 2020 Philadelphia meeting actual attended; However, the 2020 meeting was canceled with a virtual substitute in the wake of the COVID-19 pandemic. The arcs measure the *distance as the crow flies,* or the *geodesic distance* between each attendee's origin and the Annual Meeting location. The width and intensity of the arcs is proportional to the number of people originating from a given location.
+
+It may take some time for the PDF explorer to load, as these are large vectorized images. 
+
 {{< embed-pdf url="  /pdfs/APA Flight Netowrks.pdf" >}}
 
 ## Notes
 
-The code for this analysis is available at my [GitHub.](https://github.com/Alec-Stashevsky/GAP-climate-research)
+If you are interested in viewing further visualizations or the analysis itself, there is a comprehensive repository containing all the R code used to generate the plots and model the attendee emissions available at my [GitHub.](https://github.com/Alec-Stashevsky/GAP-climate-research)
 
 I would like to thank my coauthors, especially Dr. Josh Wortzel and Dr. Elizabeth Haase for the opportunity to participate in this important research.
 
 I would also like to thank [GoClimate](https://www.goclimate.com/) for granting us access to their [Flight Emisions API.](https://api.goclimate.com/docs)
+
+Please feel free to reach out if with any questions
