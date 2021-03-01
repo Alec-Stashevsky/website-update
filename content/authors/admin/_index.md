@@ -64,7 +64,7 @@ title:
 user_groups:
 - Researchers
 - Visitors
-- Potential Employerss
+- Potential Employers
 ---
 
 I am a consultant, researcher, and Reed College alumnus with a mathematics-economics background. I am passionate about interdisciplinary research that engages multiple paradigms. I care about econometrics, statistics, and research that uses data holistically, pushing back against siloed analytics.

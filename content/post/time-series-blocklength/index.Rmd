@@ -2,8 +2,8 @@
 title: "Building my first R package"
 author: "Alec Stashevsky"
 date: 2021-01-24
-categories: ["R", "R Packages", "Econometrics", "Statistics"]
-tags: ["R", "R Packages", "Econometrics", "Statistics"]
+categories: ["R", "Econometrics", "Statistics"]
+tags: ["R", "Econometrics", "Statistics"]
 bibliography: [mbb.bib]
 link-citations: true
 links:
@@ -50,7 +50,7 @@ When we survey the same group of (originally) randomly-selected respondents each
 
 In practice, we could modify our survey design to target a different group of respondents each year removing such dependencies. However, this example illustrates a situation often encountered in time series analysis where processes are tracked over time and we cannot simply find unrelated processes within the data to help us answer questions about the original one.^[Other common contexts for dependent data include spatial information such as topographical data or biological data, such as measuring biological oxygen demand *(BOD)* levels in rivers.]
 
-In general, *i.i.d.* assumptions fail for many types of time series because we would expect the observation in the previous period to have some explanatory power over the current observation. I refer to this phenomenon as *time-dependence,* and it can could occur in many time series from unemployment rates, stock prices, biological data, etc. For example, we expect the water level a river today to be somewhat close to the water level yesterday. The farther away from yesterday we go, the less related future water levels will be.
+In general, *i.i.d.* assumptions fail for many types of time series because we would expect the observation in the previous period to have some explanatory power over the current observation. I refer to this phenomenon as *time-dependence,* and it can could occur in many time series from unemployment rates, stock prices, biological data, etc. For example, we expect the water level of a river today to be somewhat close to the water level yesterday. The farther away from yesterday we go, the less related future water levels will be.
 
 <!-- I recently worked on interest rates, but I will illustrate this point using data from the [U.S. Geological Survey (USGS) National Water Information System (NWIS)](https://dashboard.waterdata.usgs.gov/app/nwd/?aoi=default/) measuring the peak-flow of rivers and streams. Peak-flow is measured in cubic feet/second (cfs). -->
 

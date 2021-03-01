@@ -2,8 +2,8 @@
 title: "Building my first R package"
 author: "Alec Stashevsky"
 date: 2021-01-24
-categories: ["R", "R Packages", "Econometrics", "Statistics"]
-tags: ["R", "R Packages", "Econometrics", "Statistics"]
+categories: ["R", "Econometrics", "Statistics"]
+tags: ["R", "Econometrics", "Statistics"]
 bibliography: [mbb.bib]
 link-citations: true
 links:
@@ -37,7 +37,7 @@ summary: The story behind and use-case for my first package `{blocklength}`.
 <p>We have more data than had we just conducted the first survey, so we should be able to make stronger inferences than before, right? Well, not exactly. If we begin to conduct inferences about all human heights (population characteristics) using this collection of panel-data, we fail to recognize the underlying connections that have been introduced.</p>
 <p>When we survey the same group of (originally) randomly-selected respondents each year, the height of a respondent this year should be related to their height in the previous year. Since humans generally grow in one direction we would expect the average height in our survey to only increase or stay relatively the same each year. This dynamic now violates our assumption of independence within the sample because each respondent’s answers will be connected. Panel-data and other types of data with inherent connections is characterized as <em>dependent data.</em></p>
 <p>In practice, we could modify our survey design to target a different group of respondents each year removing such dependencies. However, this example illustrates a situation often encountered in time series analysis where processes are tracked over time and we cannot simply find unrelated processes within the data to help us answer questions about the original one.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
-<p>In general, <em>i.i.d.</em> assumptions fail for many types of time series because we would expect the observation in the previous period to have some explanatory power over the current observation. I refer to this phenomenon as <em>time-dependence,</em> and it can could occur in many time series from unemployment rates, stock prices, biological data, etc. For example, we expect the water level a river today to be somewhat close to the water level yesterday. The farther away from yesterday we go, the less related future water levels will be.</p>
+<p>In general, <em>i.i.d.</em> assumptions fail for many types of time series because we would expect the observation in the previous period to have some explanatory power over the current observation. I refer to this phenomenon as <em>time-dependence,</em> and it can could occur in many time series from unemployment rates, stock prices, biological data, etc. For example, we expect the water level of a river today to be somewhat close to the water level yesterday. The farther away from yesterday we go, the less related future water levels will be.</p>
 <!-- I recently worked on interest rates, but I will illustrate this point using data from the [U.S. Geological Survey (USGS) National Water Information System (NWIS)](https://dashboard.waterdata.usgs.gov/app/nwd/?aoi=default/) measuring the peak-flow of rivers and streams. Peak-flow is measured in cubic feet/second (cfs). -->
 <!-- The package `{dataRetrival}` makes it easy to import hydrological data from the EPA and USGS. Because I am partial to the Pacific Northwest, I will analyze peak-flow data from the Willamette River from the Portland, OR monitoring station. -->
 <!-- # ```{r Water Data} -->
