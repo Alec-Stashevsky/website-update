@@ -52,4 +52,4 @@ I would like to thank my coauthors, especially Dr. Josh Wortzel and Dr. Elizabet
 
 I would also like to thank [GoClimate](https://www.goclimate.com/) for granting us access to their [Flight Emisions API.](https://api.goclimate.com/docs)
 
-Please feel free to reach out if with any questions
+Please feel free to reach out with any questions

@@ -29,6 +29,11 @@
   weight = 50
   
 [[main]]
+  name = "Code"
+  url = "r/"
+  weight = 55  
+  
+[[main]]
   name = "Experience"
   url = "#experience"
   weight = 60
