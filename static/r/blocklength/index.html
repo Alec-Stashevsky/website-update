@@ -5,14 +5,14 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Select Optimal Block-Length to Bootstrap Dependent Data (Block Bootstrap) • blocklength</title>
+<title>Select an Optimal Block-Length to Bootstrap Dependent Data (Block Bootstrap) • blocklength</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><link href="extra.css" rel="stylesheet">
-<meta property="og:title" content="Select Optimal Block-Length to Bootstrap Dependent Data (Block Bootstrap)">
+<meta property="og:title" content="Select an Optimal Block-Length to Bootstrap Dependent Data (Block Bootstrap)">
 <meta property="og:description" content="A set of functions to select the optimal block-length for a 
     dependent bootstrap (block-bootstrap). Includes the Hall, Horowitz, and Jing
     (1995) &lt;doi:10.1093/biomet/82.3.561&gt; cross-validation method and the 
@@ -84,7 +84,7 @@
 <p>Regular bootstrap methods rely on assumptions that observations are independent and identically distributed (<em>i.i.d.</em>), but this assumption fails for many types of time series because we would expect the observation in the previous period to have some explanatory power over the current observation. This could occur in any time series from unemployment rates, stock prices, biological data, etc. A time series that is <em>i.i.d.</em> would look like white noise, since the following observation would be totally independent of the previous one (random).</p>
 <p>To get around this problem, we can retain some of this <em>time-dependence</em> by breaking-up a time series into a number of blocks with length <em>l</em>. Instead of sampling each observation randomly (with replacement) like a regular bootstrap, we can resample these <em>blocks</em> at random. This way within each block the time-dependence is preserved.</p>
 <p>The problem with the block bootstrap is the high sensitivity to the choice of block-length, or the number of blocks to break the time series into.</p>
-<p>The goal of <a href="https://github.com/Alec-Stashevsky/blocklength">blocklength</a> is to simplify and automate the process of selecting a block-length to perform a bootstrap on dependent data. <a href="https://github.com/Alec-Stashevsky/blocklength">blocklength</a> has several functions that take their name from the authors who have proposed them. Currently, there are two methods available:</p>
+<p>The goal of <a href="https://alecstashevsky.com/r/blocklength">blocklength</a> is to simplify and automate the process of selecting a block-length to perform a bootstrap on dependent data. <a href="https://alecstashevsky.com/r/blocklength">blocklength</a> has several functions that take their name from the authors who have proposed them. Currently, there are two methods available:</p>
 <ol>
 <li><p><code><a href="reference/hhj.html">hhj()</a></code> takes its name from the <a href="https://academic.oup.com/biomet/article-abstract/82/3/561/260651?redirectedFrom=fulltext">Hall, Horowitz, and Jing (1995)</a> “HHJ” method to select the optimal block-length using a cross-validation algorithm which minimizes the mean squared error <em>(MSE)</em> incurred by the bootstrap at various block-lengths.</p></li>
 <li><p><code><a href="reference/pwsd.html">pwsd()</a></code> takes its name from the <a href="https://doi.org/10.1081/ETC-120028836">Politis and White (2004)</a> Spectral Density “PWSD” Plug-in method to automatically select the optimal block-length using spectral density estimation via “flat-top” lag windows of <a href="https://doi.org/10.1111/j.1467-9892.1995.tb00223.x">Politis and Romano (1995).</a></p></li>
@@ -120,7 +120,7 @@
 <p>We want to select the optimal block-length to perform a block bootstrap on a simulated autoregressive <em>AR(1)</em> time series.</p>
 <p>First we will generate the time series:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Alec-Stashevsky/blocklength">blocklength</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://alecstashevsky.com/r/blocklength">blocklength</a></span><span class="op">)</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">32</span><span class="op">)</span>
 
 <span class="co"># Simulate AR(1) time series</span>
@@ -258,7 +258,7 @@
 <ul class="list-unstyled">
 <li><a href="https://github.com/Alec-Stashevsky/blocklength/actions"><img src="https://github.com/Alec-Stashevsky/blocklength/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
 <li><a href="https://CRAN.R-project.org/package=blocklength"><img src="https://www.r-pkg.org/badges/version/blocklength" alt="CRAN status"></a></li>
-<li><a href="https://CRAN.R-project.org/package=blocklength"><img src="http://cranlogs.r-pkg.org/badges/grand-total/blocklength?color=brightgreen" alt="Downloads"></a></li>
+<li><a href="https://CRAN.R-project.org/package=blocklength"><img src="https://cranlogs.r-pkg.org/badges/grand-total/blocklength?color=brightgreen" alt="Downloads"></a></li>
 <li><a href="https://CRAN.R-project.org/package=blocklength"><img src="https://img.shields.io/cran/l/blocklength" alt="CRAN/METACRAN"></a></li>
 <li><a href="https://codecov.io/gh/Alec-Stashevsky/blocklength"><img src="https://codecov.io/gh/Alec-Stashevsky/blocklength/branch/main/graph/badge.svg?token=U2RFAU594R" alt="codecov"></a></li>
 </ul>
