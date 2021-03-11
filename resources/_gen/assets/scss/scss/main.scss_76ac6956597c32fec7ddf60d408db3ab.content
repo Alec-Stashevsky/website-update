@@ -9248,3 +9248,6 @@ code {
 
 body {
   background-color: #fff8e3; }
+
+#navbar-main .main-menu-item ul li .nav-link:hover {
+  color: #FF5733; }
