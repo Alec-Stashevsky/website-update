@@ -9241,7 +9241,7 @@ html[dir="rtl"] body {
   text-align: right; }
 
 code {
-  font-family: Consolas,Menlo,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New,monospace,sans-serif;
+  font-family: Consolas, Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace, sans-serif;
   color: #27514d;
   background-color: #e8d8c3;
   padding: 2px; }

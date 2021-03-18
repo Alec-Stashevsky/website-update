@@ -3,233 +3,123 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://alecstashevsky.com/courses/example/example1/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/courses/example/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/courses/example/example2/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
+    <loc>https://alecstashevsky.com/r/</loc>
+    <lastmod>2021-03-07T21:02:26-08:00</lastmod>
   </url>
   
   <url>
     <loc>https://alecstashevsky.com/</loc>
-    <lastmod>2021-01-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/talk/example/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/post/time-series-hhjboot/time-series-hhjboot/</loc>
-    <lastmod>2021-01-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/categories/</loc>
-    <lastmod>2021-01-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/tag/econometrics/</loc>
-    <lastmod>2021-01-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/category/econometrics/</loc>
-    <lastmod>2021-01-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/tag/r/</loc>
-    <lastmod>2021-01-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/category/r/</loc>
-    <lastmod>2021-01-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/tag/r-packages/</loc>
-    <lastmod>2021-01-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/category/r-packages/</loc>
-    <lastmod>2021-01-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/tag/statistics/</loc>
-    <lastmod>2021-01-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/category/statistics/</loc>
-    <lastmod>2021-01-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/tags/</loc>
-    <lastmod>2021-01-24T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/publication-type/3/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/publication/preprint/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/authors/</loc>
-    <lastmod>2020-12-07T16:48:06-08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/publication_types/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/tag/source-themes/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/slides/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/slides/example/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/tag/deep-learning/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/tag/demo/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/project/external-project/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/project/internal-project/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/project/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/tag/academic/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/post/getting-started/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/category/demo/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/author/%E5%90%B3%E6%81%A9%E9%81%94/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/tag/%E5%BC%80%E6%BA%90/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/category/%E6%95%99%E7%A8%8B/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
+    <lastmod>2021-03-08T21:30:14-08:00</lastmod>
   </url>
   
   <url>
     <loc>https://alecstashevsky.com/publication-type/2/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
+    <lastmod>2021-01-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://alecstashevsky.com/publication/journal-article/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
+    <loc>https://alecstashevsky.com/author/alec-stashevsky/</loc>
+    <lastmod>2021-01-31T20:24:34-08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://alecstashevsky.com/author/robert-ford/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
+    <loc>https://alecstashevsky.com/authors/</loc>
+    <lastmod>2021-02-28T22:05:36-08:00</lastmod>
   </url>
   
   <url>
-    <loc>https://alecstashevsky.com/post/2015-07-23-r-rmarkdown/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
+    <loc>https://alecstashevsky.com/author/beth-mark/</loc>
+    <lastmod>2021-01-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://alecstashevsky.com/tag/plot/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
+    <loc>https://alecstashevsky.com/author/elizabeth-haase/</loc>
+    <lastmod>2021-01-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://alecstashevsky.com/tag/r-markdown/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
+    <loc>https://alecstashevsky.com/publication/jama-paper/</loc>
+    <lastmod>2021-01-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://alecstashevsky.com/tag/regression/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
+    <loc>https://alecstashevsky.com/author/janet-lewis/</loc>
+    <lastmod>2021-01-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://alecstashevsky.com/publication-type/1/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
+    <loc>https://alecstashevsky.com/author/jeremy-d.-wortzel/</loc>
+    <lastmod>2021-01-28T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>https://alecstashevsky.com/publication/conference-paper/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
+    <loc>https://alecstashevsky.com/author/joshua-r.-wortzel/</loc>
+    <lastmod>2021-01-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alecstashevsky.com/publication_types/</loc>
+    <lastmod>2021-01-28T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alecstashevsky.com/post/building-my-first-r-package/</loc>
+    <lastmod>2021-03-08T21:30:14-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alecstashevsky.com/categories/</loc>
+    <lastmod>2021-03-08T21:30:14-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alecstashevsky.com/tag/econometrics/</loc>
+    <lastmod>2021-03-08T21:30:14-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alecstashevsky.com/category/econometrics/</loc>
+    <lastmod>2021-03-08T21:30:14-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alecstashevsky.com/tag/r/</loc>
+    <lastmod>2021-03-08T21:30:14-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alecstashevsky.com/category/r/</loc>
+    <lastmod>2021-03-08T21:30:14-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alecstashevsky.com/tag/statistics/</loc>
+    <lastmod>2021-03-08T21:30:14-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alecstashevsky.com/category/statistics/</loc>
+    <lastmod>2021-03-08T21:30:14-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alecstashevsky.com/tags/</loc>
+    <lastmod>2021-03-08T21:30:14-08:00</lastmod>
   </url>
   
   <url>
     <loc>https://alecstashevsky.com/author/</loc>
-    <lastmod>2020-12-07T16:48:06-08:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://alecstashevsky.com/courses/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
+    <lastmod>2021-02-28T22:05:36-08:00</lastmod>
   </url>
   
   <url>
     <loc>https://alecstashevsky.com/post/</loc>
-    <lastmod>2020-09-26T17:03:03-07:00</lastmod>
+    <lastmod>2021-03-08T21:30:14-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alecstashevsky.com/author/josh-wortzel/</loc>
+    <lastmod>2021-01-31T20:24:34-08:00</lastmod>
   </url>
   
   <url>
@@ -240,6 +130,16 @@
   <url>
     <loc>https://alecstashevsky.com/talk/</loc>
     <lastmod>2020-09-26T17:03:03-07:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alecstashevsky.com/slides/</loc>
+    <lastmod>2021-01-31T20:24:34-08:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://alecstashevsky.com/slides/jama-paper/</loc>
+    <lastmod>2021-01-31T20:24:34-08:00</lastmod>
   </url>
   
   <url>

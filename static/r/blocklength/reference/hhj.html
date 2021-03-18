@@ -48,7 +48,7 @@ to select the optimal block-length for a bootstrap on dependent data
 for usage with the HHJ algorithm." />
 
 
-
+<meta name="robots" content="noindex">
 
 <!-- mathjax -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
@@ -77,7 +77,7 @@ for usage with the HHJ algorithm." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">blocklength</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.3</span>
+        <span class="version label label-warning" data-toggle="tooltip" data-placement="bottom" title="Development version">0.1.3.9004</span>
       </span>
     </div>
 
@@ -85,9 +85,21 @@ for usage with the HHJ algorithm." />
       <ul class="nav navbar-nav">
         <li>
   <a href="https://alecstashevsky.com">
-    <span class="fas fa-home"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    Articles
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="../articles/tuning-parameters.html">Tuning Parameters</a>
+    </li>
+  </ul>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -98,7 +110,7 @@ for usage with the HHJ algorithm." />
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/Alec-Stashevsky/blocklength/">
+  <a href="https://github.com/Alec-Stashevsky/blocklength">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -133,7 +145,7 @@ for usage with the HHJ algorithm.</p>
   nb <span class='op'>=</span> <span class='fl'>100L</span>,
   n_iter <span class='op'>=</span> <span class='fl'>10L</span>,
   pilot_block_length <span class='op'>=</span> <span class='cn'>NULL</span>,
-  sub_block_length <span class='op'>=</span> <span class='cn'>NULL</span>,
+  sub_sample <span class='op'>=</span> <span class='cn'>NULL</span>,
   k <span class='op'>=</span> <span class='st'>"two-sided"</span>,
   bofb <span class='op'>=</span> <span class='fl'>1L</span>,
   search_grid <span class='op'>=</span> <span class='cn'>NULL</span>,
@@ -166,7 +178,7 @@ algorithm to compute.</p></td>
 <em>HHJ</em>) for which to perform initial block bootstraps.</p></td>
     </tr>
     <tr>
-      <th>sub_block_length</th>
+      <th>sub_sample</th>
       <td><p>a numeric value, the length of each overlapping
 subsample, \(m\) in <em>HHJ</em>.</p></td>
     </tr>
@@ -258,7 +270,7 @@ to Kunsch (1989).</p>
                         n <span class='op'>=</span> <span class='fl'>500</span>, innov <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>500</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># Calculate optimal block length for series</span>
-<span class='fu'>hhj</span><span class='op'>(</span><span class='va'>sim</span>, sub_block_length <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
+<span class='fu'>hhj</span><span class='op'>(</span><span class='va'>sim</span>, sub_sample <span class='op'>=</span> <span class='fl'>10</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; <span class='message'> Pilot block length is: 3</span></div><div class='output co'>#&gt; <span class='message'>Registered S3 method overwritten by 'quantmod':</span>
 #&gt; <span class='message'>  method            from</span>
 #&gt; <span class='message'>  as.zoo.data.frame zoo </span></div><div class='output co'>#&gt; <span class='message'>Performing minimization may take some time</span></div><div class='output co'>#&gt; <span class='message'>Calculating MSE for each level in subsample: 10 function evaluations required.</span></div><div class='output co'>#&gt; <span class='message'> Chosen block length: 22  After iteration: 1</span></div><div class='img'><img src='hhj-1.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; <span class='message'> Converged at block length (l): 22</span></div><div class='img'><img src='hhj-2.png' alt='' width='700' height='433' /></div><div class='output co'>#&gt; $`Optimal Block Length`
@@ -297,7 +309,7 @@ to Kunsch (1989).</p>
 #&gt; [1] "sim"
 #&gt; 
 #&gt; $Call
-#&gt; hhj(series = sim, sub_block_length = 10)
+#&gt; hhj(series = sim, sub_sample = 10)
 #&gt; 
 #&gt; attr(,"class")
 #&gt; [1] "hhj"</div><div class='input'>
@@ -318,29 +330,29 @@ to Kunsch (1989).</p>
 #&gt; 
 #&gt; $`MSE Data`
 #&gt;    Iteration BlockLength       MSE
-#&gt; 1          1           2 0.2826613
-#&gt; 2          1           4 0.2882112
-#&gt; 3          1           6 0.2990079
-#&gt; 4          1           8 0.3006171
-#&gt; 5          1          11 0.3063329
-#&gt; 6          1          13 0.3063597
-#&gt; 7          1          15 0.3216276
-#&gt; 8          1          17 0.3140550
-#&gt; 9          1          19 0.3061763
-#&gt; 10         1          21 0.2967179
-#&gt; 11         1          23 0.2834065
+#&gt; 1          1           2 0.2882976
+#&gt; 2          1           4 0.2882973
+#&gt; 3          1           6 0.2937562
+#&gt; 4          1           8 0.3019856
+#&gt; 5          1          11 0.3065694
+#&gt; 6          1          13 0.3067233
+#&gt; 7          1          15 0.3176807
+#&gt; 8          1          17 0.3166145
+#&gt; 9          1          19 0.3060921
+#&gt; 10         1          21 0.2985444
+#&gt; 11         1          23 0.2827410
 #&gt; 12         1          25 0.2747927
-#&gt; 13         2           2 0.2817274
-#&gt; 14         2           4 0.2867800
-#&gt; 15         2           6 0.2951133
-#&gt; 16         2           8 0.3026809
-#&gt; 17         2          11 0.3062383
-#&gt; 18         2          13 0.3068192
-#&gt; 19         2          15 0.3199071
-#&gt; 20         2          17 0.3129704
-#&gt; 21         2          19 0.3043896
-#&gt; 22         2          21 0.2961395
-#&gt; 23         2          23 0.2830415
+#&gt; 13         2           2 0.2830199
+#&gt; 14         2           4 0.2876677
+#&gt; 15         2           6 0.2933112
+#&gt; 16         2           8 0.3032534
+#&gt; 17         2          11 0.3044476
+#&gt; 18         2          13 0.3053206
+#&gt; 19         2          15 0.3197032
+#&gt; 20         2          17 0.3127652
+#&gt; 21         2          19 0.3052674
+#&gt; 22         2          21 0.2966725
+#&gt; 23         2          23 0.2820225
 #&gt; 24         2          25 0.2744703
 #&gt; 
 #&gt; $Iterations

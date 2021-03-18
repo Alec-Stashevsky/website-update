@@ -5,7 +5,7 @@
     <link>https://alecstashevsky.com/publication/</link>
       <atom:link href="https://alecstashevsky.com/publication/index.xml" rel="self" type="application/rss+xml" />
     <description>Publications</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>Alec Stashevsky 2021</copyright>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Alec Stashevsky 2021</copyright>
     <image>
       <url>https://alecstashevsky.com/media/content/authors/admin/avatar.jpg</url>
       <title>Publications</title>
@@ -13,57 +13,149 @@
     </image>
     
     <item>
-      <title>An example preprint / working paper</title>
-      <link>https://alecstashevsky.com/publication/preprint/</link>
-      <pubDate>Sun, 07 Apr 2019 00:00:00 +0000</pubDate>
-      <guid>https://alecstashevsky.com/publication/preprint/</guid>
-      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Click the &lt;em&gt;Slides&lt;/em&gt; button above to demo Academic&amp;rsquo;s Markdown slides feature.
-  &lt;/div&gt;
+      <title>Estimation of the Carbon Footprint Associated With Attendees of the American Psychiatric Association Annual Meeting</title>
+      <link>https://alecstashevsky.com/publication/jama-paper/</link>
+      <pubDate>Thu, 28 Jan 2021 00:00:00 +0000</pubDate>
+      <guid>https://alecstashevsky.com/publication/jama-paper/</guid>
+      <description>&lt;br&gt;
+&lt;h2&gt;
+&lt;center&gt; 
+&lt;a href=“https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2775666”&gt;Read the full article here&lt;/a&gt;
+&lt;/center&gt;
+&lt;/h2&gt;
+&lt;br&gt;
+&lt;p&gt;Below is a PDF explorer that visualizes the flight network models used to illustrate each attendee&amp;rsquo;s commute to the APA Annual Meeting for the 2018 New York City and 2019 San Francisco Annual Meetings. The third page shows a counterfactual scenario had the attendees who registered for the 2020 Philadelphia meeting actually attended; However, the 2020 meeting was canceled with a virtual substitute in the wake of the COVID-19 pandemic. The arcs measure the &lt;em&gt;distance as the crow flies,&lt;/em&gt; or the &lt;em&gt;geodesic distance&lt;/em&gt; between each attendee&amp;rsquo;s origin and the Annual Meeting location. The width and intensity of the arcs is proportional to the number of people originating from a given location.&lt;/p&gt;
+&lt;p&gt;It may take some time for the PDF explorer to load, as these are large vectorized images.&lt;/p&gt;
+&lt;script type=&#34;text/javascript&#34; src=&#34;https://alecstashevsky.com/js/pdf-js/build/pdf.js&#34;&gt;&lt;/script&gt;
+&lt;style&gt;
+#the-canvas {
+  border: 1px solid black;
+  direction: ltr;
+  width: 100%;
+  height: auto;
+}
+#paginator{
+    text-align: center;
+    margin-bottom: 10px;
+}
+&lt;/style&gt;
+
+&lt;div id=&#34;paginator&#34;&gt;
+    &lt;button id=&#34;prev&#34;&gt;Previous&lt;/button&gt;
+    &lt;button id=&#34;next&#34;&gt;Next&lt;/button&gt;
+    &amp;nbsp; &amp;nbsp;
+    &lt;span&gt;Page: &lt;span id=&#34;page_num&#34;&gt;&lt;/span&gt; / &lt;span id=&#34;page_count&#34;&gt;&lt;/span&gt;&lt;/span&gt;
 &lt;/div&gt;
-&lt;p&gt;Supplementary notes can be added here, including 
-&lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;code and math&lt;/a&gt;.&lt;/p&gt;
-</description>
-    </item>
+&lt;div id=&#34;embed-pdf-container&#34;&gt;
+    &lt;canvas id=&#34;the-canvas&#34;&gt;&lt;/canvas&gt;
+&lt;/div&gt;
+
+&lt;script type=&#34;text/javascript&#34;&gt;
+window.onload = function() {
+
+
+
+var url = &#34;  \/pdfs\/APA Flight Netowrks.pdf&#34;;
+
+
+var pdfjsLib = window[&#39;pdfjs-dist/build/pdf&#39;];
+
+
+pdfjsLib.GlobalWorkerOptions.workerSrc = &#39;/js/pdf-js/build/pdf.worker.js&#39;;
+
+
+var pdfDoc = null,
+    pageNum = 1,
+    pageRendering = false,
+    pageNumPending = null,
+    scale = 3,
+    canvas = document.getElementById(&#39;the-canvas&#39;),
+    ctx = canvas.getContext(&#39;2d&#39;);
+
+
+
+function renderPage(num) {
+  pageRendering = true;
+  
+  pdfDoc.getPage(num).then(function(page) {
+    var viewport = page.getViewport({scale: scale});
+    canvas.height = viewport.height;
+    canvas.width = viewport.width;
+
     
-    <item>
-      <title>An example journal article</title>
-      <link>https://alecstashevsky.com/publication/journal-article/</link>
-      <pubDate>Tue, 01 Sep 2015 00:00:00 +0000</pubDate>
-      <guid>https://alecstashevsky.com/publication/journal-article/</guid>
-      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-  &lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Click the &lt;em&gt;Slides&lt;/em&gt; button above to demo Academic&amp;rsquo;s Markdown slides feature.
-  &lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;Supplementary notes can be added here, including 
-&lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;code and math&lt;/a&gt;.&lt;/p&gt;
-</description>
-    </item>
+    var renderContext = {
+      canvasContext: ctx,
+      viewport: viewport
+    };
+    var renderTask = page.render(renderContext);
+
     
-    <item>
-      <title>An example conference paper</title>
-      <link>https://alecstashevsky.com/publication/conference-paper/</link>
-      <pubDate>Mon, 01 Jul 2013 00:00:00 +0000</pubDate>
-      <guid>https://alecstashevsky.com/publication/conference-paper/</guid>
-      <description>&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
-  &lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&#34;alert alert-note&#34;&gt;
-  &lt;div&gt;
-    Click the &lt;em&gt;Slides&lt;/em&gt; button above to demo Academic&amp;rsquo;s Markdown slides feature.
-  &lt;/div&gt;
-&lt;/div&gt;
-&lt;p&gt;Supplementary notes can be added here, including 
-&lt;a href=&#34;https://sourcethemes.com/academic/docs/writing-markdown-latex/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;code and math&lt;/a&gt;.&lt;/p&gt;
+    renderTask.promise.then(function() {
+      pageRendering = false;
+      if (pageNumPending !== null) {
+        
+        renderPage(pageNumPending);
+        pageNumPending = null;
+      }
+    });
+  });
+
+  
+  document.getElementById(&#39;page_num&#39;).textContent = num;
+}
+
+
+
+function queueRenderPage(num) {
+  if (pageRendering) {
+    pageNumPending = num;
+  } else {
+    renderPage(num);
+  }
+}
+
+
+
+function onPrevPage() {
+  if (pageNum &lt;= 1) {
+    return;
+  }
+  pageNum--;
+  queueRenderPage(pageNum);
+}
+document.getElementById(&#39;prev&#39;).addEventListener(&#39;click&#39;, onPrevPage);
+
+
+
+function onNextPage() {
+  if (pageNum &gt;= pdfDoc.numPages) {
+    return;
+  }
+  pageNum++;
+  queueRenderPage(pageNum);
+}
+document.getElementById(&#39;next&#39;).addEventListener(&#39;click&#39;, onNextPage);
+
+
+
+pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+  pdfDoc = pdfDoc_;
+  document.getElementById(&#39;page_count&#39;).textContent = pdfDoc.numPages;
+
+  
+  renderPage(pageNum);
+});
+}
+
+&lt;/script&gt;
+&lt;h2 id=&#34;notes&#34;&gt;Notes&lt;/h2&gt;
+&lt;p&gt;If you are interested in viewing further visualizations or the analysis itself, there is a comprehensive repository containing all the R code used to generate the plots and model the attendee emissions available at my 
+&lt;a href=&#34;https://github.com/Alec-Stashevsky/GAP-climate-research&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GitHub.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;I would like to thank my coauthors, especially Dr. Josh Wortzel and Dr. Elizabeth Haase for the opportunity to participate in this important research.&lt;/p&gt;
+&lt;p&gt;I would also like to thank 
+&lt;a href=&#34;https://www.goclimate.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;GoClimate&lt;/a&gt; for granting us access to their 
+&lt;a href=&#34;https://api.goclimate.com/docs&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Flight Emisions API.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Please feel free to reach out with any questions&lt;/p&gt;
 </description>
     </item>
     
