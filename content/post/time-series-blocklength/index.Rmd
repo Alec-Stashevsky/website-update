@@ -15,7 +15,7 @@ image:
   caption: "Graceful Boots - Old School Runescape"
   preview_only: true
   focal_point: "Smart"
-summary: The story behind and use-case for my first package `{blocklength}`.
+summary: The story behind and use-case for my first package `blocklength`.
 ---
 
 ```{r setup, include=FALSE}
@@ -165,9 +165,9 @@ A hard-and-fast rule for the parameterization of block-length is still an unsolv
 This was exactly what I needed, but a bit searching around CRAN, GitHub, and STATA and SAS libraries came up with nothing.
 
 
-## Enter `{blocklength}`
+## Enter `blocklength`
 
-The goal of `{blocklength}` is to simplify and automate the process of selecting a block-length to bootstrap dependent data. `{blocklength}` is an R package with a set of functions to automatically select the optimal block-length for a bootstrap of suitable dependent data, such as *stationary* time series or dependent spatial data.
+The goal of `blocklength` is to simplify and automate the process of selecting a block-length to bootstrap dependent data. `blocklength` is an R package with a set of functions to automatically select the optimal block-length for a bootstrap of suitable dependent data, such as *stationary* time series or dependent spatial data.
 
 Currently, there are two methods available:
 
@@ -183,6 +183,8 @@ Currently, only the HHJ and PWSD methods are implemented through these two funct
 
 
 The package can be downloaded from my [GitHub](https://github.com/Alec-Stashevsky/blocklength).
+
+If you are interested in more infoRmation, make sure to checkout [R-bloggers](https://www.r-bloggers.com/) where you can find this post and many more! 
 
 
 ## References
