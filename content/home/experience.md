@@ -30,7 +30,7 @@ experience:
   company_url: "https://www.nera.com/practice-areas/securities-and-finance.html"
   date_end: ""
   date_start: "2020-09-21"
-  description: Securities, Mass Torts, Bankruptcy, Cryptocurrencies
+  description: Structured Finance, Mass Torts, Bankruptcy, Cryptocurrencies
   location: New York City
   title: Research Associate
   
