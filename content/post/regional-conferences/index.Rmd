@@ -1,0 +1,321 @@
+---
+draft: true
+title: "Exploring a Regional Conference Format through Carbon Emissions"
+author: "Alec Stashevsky"
+date: 2021-04-06
+categories: ["Decarbonization", "Geospatial Programming", "Spatial Politics"]
+tags: ["Decarbonization", "Geospatial Programming", "Spatial Politics"]
+bibliography: [regional-conferences.bib]
+link-citations: true
+links:
+ - name: "Code Supplement Repository"
+   url: https://github.com/Alec-Stashevsky/GAP-climate-research
+   icon_pack: fab
+   icon: github
+image:
+  caption: "Simulated Regional Flight Network for the American Pyschiatric Association"
+  preview_only:
+  focal_point: "Smart"
+summary: Exploring the carbon footprint of a regional conference format through simulations of the American Psychiatric Association's Annual Meeting.
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, dev = "svg")
+library(ggplot2)
+library(viridis)
+library(magrittr)
+library(kableExtra)
+```
+
+```{css Table CSS, echo = FALSE}
+table > thead > tr > th {
+    vertical-align: bottom;
+    border-bottom: 2px solid rgb(232, 215, 195);
+}
+
+table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table > thead > tr > td, table > tbody > tr > td, table > tfoot > tr > td {
+    padding: 8px;
+    line-height: 1.43;
+    vertical-align: top;
+    border-top: 1px solid rgb(232, 215, 195);
+}
+
+tbody > tr > td, table > tbody > tr > th {
+    padding: 8px;
+    line-height: 1.43;
+    vertical-align: top;
+    border-bottom: 1px solid rgb(232, 215, 195);
+}
+
+
+table > tfoot > tr > td {
+    padding: 8px;
+    line-height: 1.43;
+    vertical-align: top;
+    border-top: none;
+}
+
+
+
+table > tbody > tr:nth-child(2n+1) > td, table > tbody > tr:nth-child(2n+1) > th {
+    background-color: rgb(255, 248, 227);
+}
+
+# Hover
+table > tbody > tr:nth-child(2n+1):hover > td, table > tbody > tr:nth-child(2n+1):hover > th {
+    background-color: rgb(232, 215, 195);
+}
+
+table > tbody > tr:hover > td, table > tbody > tr:hover > th {
+    background-color: rgb(232, 215, 195);
+}
+```
+
+
+Recently, I got the opportunity to support some great research with a team of Psychiatrists at the [Group for the Advancement of Psychiatry.](https://ourgap.org) In the midst of the pandemic lock-downs we sought look for a silver lining and exploited the global transformation of the day-to-day movement of humans.
+
+## The Story
+
+We estimated the carbon footprint associated with holding the past two Annual Meetings of the [American Psychiatric Association (APA)](https://www.psychiatry.org/about-apa), the largest Psychiatric organization with almost 40,000 members worldwide.^[_See_ <https://www.psychiatry.org/about-apa>.] The unique situation of the COVID-19 pandemic allows us to frame the estimate as a reference for how much carbon emissions *were saved*  by holding the conference virtually in 2020. If you would like to learn about that research, you may read the paper,  @10.1001/jamanetworkopen.2020.35641, at [JAMA Network Open.](https://www.doi.org/10.1001/jamanetworkopen.2020.35641)
+
+The bottom line is that COVID-19 has radically changed the way *humans* move through space and this change foreshadows the dramatic behavioral and structural shifts climate change demands from humankind.^[This radical *anthropause* has no doubt effected wildlife as well. *See* @Rutz2020.] Greenhouse gas (GHG) emissions associated with work commutes and industry/professional travel have substantially decreased, leading to distinct improvements in air and water quality (*see* @YUNUS2020139012 and @Venter18984). Tourism, responsible for 8% of global GHG emissions, has all but stopped (@Lenzen2018).
+
+This unprecedented reduction in activity has certainly come with many costs, but it is at this crux that such a reassessment can be most enlightening and effective. As we long to return to *normal*, it is my intent that this research provokes a more thoughtful return. COVID-19 has presented us with an opportunity to rethink the ways we navigate and embody shared spaces, especially when these spaces function as epicenters to grow and build specialized communities whose members are otherwise scattered throughout the world---whether they be centered upon [comic books](https://comic-con.org/wca/2021/athome), [insurance](https://www.itic.co/), [SCUBA-diving](https://scubashow.com/), [recreational vehicles](https://seattlervshow.com/), or [mushrooms](https://waset.org/mycology-conferences) (a personal favorite).
+
+The carbon footprint of such conferences has been shown to be substantial. @10.1001/jamanetworkopen.2020.35641 estimate the 2018 and 2019 APA Annual Meetings produced about 20 thousand metric tons of carbon-dioxide equivalent emissions each---an amount equivalent to burning 22 million pounds of coal---but moreover, show that this carbon footprint can be reduced by more than two-fold by optimizing the location of the meeting.
+
+The case study in this post is built upon the research of @10.1001/jamanetworkopen.2020.35641, but is by no means limited by context of the APA Annual Meetings. There are hundreds of medical and medical professional associations across the US^[_See_ <https://www.meditec.com/resourcestools/professional-associations-list> for a incomplete list of medical and professional associations similar to the APA.] and thousands more industry, professional, hobby, and entertainment focused conventions held yearly. As of 2017, almost 35 million square meters of indoor space was dedicated to some form of exhibition.^[Exhibition space is defined as the amount of gross space in the venue regularly marketed and rented/licensed/used for exhibitions, trade fairs or consumer/public shows. This space is measured for any public assembly premises with a minimum of 5,000 square meters of indoor exhibition space and that hold various types of exhibitions, trade fairs or consumer/public shows on a regular basis. The premises may be purpose-built exhibition center space or other premises including exhibition space (e.g. hotels, arenas, sport venues, and amusement fair grounds). _See_ [UFI World Map Of Exhibition Venues (2017 Edition, Revised December 2018).](https://www.ufi.org/archive-research/ufi-world-map-of-exhibition-venues-2017-edition-revised-december-2018/)] The APA Annual Meeting is by no means a large conference even in the context of medical associations, let alone framed within the total exhibition industry. When we consider the impact of such *carbon-conscious* planning on an industry-level, the potential reduction in emissions could be considerable.
+
+In this post, I reexamine the ways we navigate to large conferences from around the world and the ways in which the carbon emissions of such conferences can be mitigated while still preserving the important community-building that thrives in these spaces. I expand upon the solutions offered by @10.1001/jamanetworkopen.2020.35641 by analyzing the potential of a *regional conference format* to mitigate carbon emissions, in addition to the location of the conferences.
+
+
+## How to Measure a Carbon Footprint
+
+* What are GHGs
+
+* How are GHGs Different
+  * Global Warming Potential (GWP)
+
+* What do we mean by CO2*e*, "carbon emissions", CO2?
+
+* How can we measure carbon footprint? 
+
+
+## A Regional Conference Format
+
+Though regional conferences do not bring *whole* communities together in one space, there are many aspects that make regional conferences an attractive format, especially if they are held as supplements to large centrally-located conferences.
+
+For one, regional conferences are much smaller and usually break up a community into geographically-connected regions. This smaller format may be easier to administer, less costly, and provide attendees with more intimate opportunities to network with local colleagues. This smaller format may increase engagement in working groups or activities limited by size or participation.
+
+Regional meetings allow for discourse built-up from a more concentrated membership. This may be particularly beneficial for associations advancing policy because such a format allows regions to develop a set of priorities most relevant to them (such as focusing on state or municipal policy) and then advance this smaller set of priorities to a larger base on a national or international scale who may in turn provide much needed support.
+
+For example, US-based medical associations assess and respond to range of policies at the federal and state levels. A regional conference format may allow for discourse that takes place in these 1-5 days to focus more on particularly important state/local regulation which may not appear on the horizon for members outside of the region or district. This format encourages regional members to hone their priorities before larger meetings and present a more concise set of objectives to the entire association rather than having to weigh-in these priorities simultaneously in a larger sea of regulation where they are more likely to go unacknowledged.
+
+Regional meetings may also have the potential to increase total attendance for several reasons. Some members may find it too expensive or too time consuming to travel long distances. This may alienate sections of the member base in fringe geographies and discourage others who feel not enough of their colleagues will attend.
+
+On the other hand, traveling to remote conference destinations can be attractive for those who wish this time to double as a vacation; However, this may leave the conference vulnerable to drops in attendance if locations are *cycled* across different areas and some are more favorable than others. Such a framework may introduce priorities contradictory to emission reductions as meeting planners may be encouraged to hold meetings in more remote places to encourage attendance significantly increasing the emissions associated with travel.
+
+## A Regional Format for the APA
+
+Regional formats can be easy to implement in medical associations or associations involved with advancing policy because there are often existing structures in the administration allowing regions or districts to act independently to a degree. US-based medical associations, like the APA, often have some international base which may or may not be included in the regional structure.^[Often times, select international countries may be lumped in with domestic US regions. This is the case with the American College of Obstetricians and Gynecologists (ACOG) as well as the APA, which groups Canadian regions together with US regions. Other times, international members may not be part of any region and simply attend the large annual or national meetings.]
+
+The APA has 7 distinct regions between the US and Canada.^[Including US protectorates.] Below is a map of these regions:
+
+1. New England & Eastern Canada
+2. New York
+3. Middle Atlantic
+4. North Central
+5. American South & Puerto Rico
+6. California
+7. American West & Western Canada
+   
+![](/images/APA-regions.png)
+
+
+## Simulation Framework
+
+Using attendance data from the APA's 2018 New York City and 2019 San Francisco Annual Meetings, we assign each attendee to one of seven designated regions based on their origin location and then identify likely transport modes and routes according the assumptions laid out in @10.1001/jamanetworkopen.2020.35641.^[Specifically, we classify attendees into drivers if they are within 400 km of the regional meeting they are attending. Attendees more than 400 km away from their regional meeting will drive to their nearest commercial airport and then fly to the airport nearest the regional meeting location. The driving distance is measured as the geodesic distances between locatoins. We then apply an emissions function to the ground and air legs of each attendee's route. These emissions functions are based on EPA guidelines and a [flight emissions API from GoClimate.](https://api.goclimate.com/docs)]
+
+In order to simulate the way attendees would travel to the regional conferences, I had to extend some assumptions from our previous analysis. One critical assumption was how to deal with international (non-Canadian) attendees which are not assigned to any region in the APA's existing structure, depicted in the map above.^[25-30 percent of the 2018 and 2019 APA Annual Meeting attendees are international attendees (including Canadians).] In this respect we assume international (non-Canadian) attendees will travel to whichever meeting is closest to them. This also ensures our emissions estimation remains conservative.
+
+The second extending assumption was the location of the seven regional meetings. The purpose of the analysis is to quantify the affect of holding multiple smaller regional conferences compared one large one, *ceteris paribus*. However, in @10.1001/jamanetworkopen.2020.35641 we show that the location of the meeting can have a large impact on the carbon footprint. For this reason, in order to isolate the effect of moving to a regional format and eliminate the noise from different locations, we chose to:
+
+i. Re-use location of past APA Annual meetings whenever possible.^[The one exception to this case was choosing a location for Region 7 because no meetings have historically been held this area. The choice of the Region 7 location is particularly important because Region 7 has the largest area of all the APA regions, and this greater distance members must travel will increase the sensitivity of the carbon emission estimates with respect to the choice of location. We chose the Region 7 meeting location to be Seattle because it is a metropolitan city and has venues capable of supporting large conferences.]
+
+ii. Conduct an additional sensitivity test on regional meeting locations allowing *all* attendees to travel to the closest regional meeting, regardless of their designation.
+
+Below is a map of the seven regional meeting locations used in the simulation:
+
+![](/images/Regional-locations.png)
+
+
+## Visualizing Regions
+
+To understand the effect of the regional categorization, it helps to compare the flight networks under the regular, single Annual Meeting framework. In the image below, we can see the flight network of the 2018 New York City APA Annual Meeting where over 16 thousand members attended. This map shows everyone who attended the 2018 meeting based on their reported residence. Each light orange point represents a unique residence and the size of and opacity of the points is proportional to the number of attendees traveling from that location. The darker-orange arcs indicate the *geodesic distance* or distance *as the crow flies* between each unique residence location and the location of the 2018 New York City meeting.
+
+![](/images/NYC-network.png)
+
+Here we can see all attendees converge on the [Javits Center](https://goo.gl/maps/gekiRZY7aPxe7qUo9) in New York City. We can apply the APA's regional designations and assign international (non-Canadian) attendees a region according to assumption *(i)* to get a map like the one depicted below, where each color represents a distinct APA regional designation. The width and intensity of each arc is proportional to the number of attendees originating from a given location.
+
+![](/images/NYC-regional-network.png)
+
+Here we can see that under our current framework most of the European attendees are getting absorbed into Region 3—the New York City conference. Most of South and East Asia are absorbed by Region 7—the Seattle conference, and some of the Australian attendees are absorbed by Region 6—the Los Angeles conference.
+
+Though it may not be clear from the maps, we want to make sure that our regional simulation is plausible such that it balances the attendance base of the APA somewhat evenly across regions.
+
+Behind the scenes I import the simulation data and plot the attendance base across regions by transport mode. If you are curious, all the code for this is available at my [GitHub](https://github.com/Alec-Stashevsky/GAP-climate-research/blob/c3c960efd5138ef34c326f12693f223509fa3097/code/Regional%20Analysis/05%20-%20Regional%20Emissions%20Plots.Rmd).
+
+The panel on the left shows the attendance for each regional conference using the APA's attendance data from the 2018 New York City Annual meeting. The panel on the right uses attendance data collected from the 2019 San Francisco Annual meeting. Each bar represents an individual region and the bars are colored by the transport mode the attendees took to each region. A larger area of purple would indicate more attendees drove directly to the meeting. 
+
+```{r Regional Attendance Plots, echo = FALSE}
+# Read data
+attend.data <- readRDS("~/website-update2/content/post/regional-conferences/RegionalAttendance.RDs")
+
+# Attendance by Region and Transport Mode
+ggplot(attend.data, aes(x = Region,
+   y = Attendance, fill = `Transport Mode`)) +
+   geom_col() +
+   facet_wrap(~`Attendance Base`) +
+   xlab("Regional Meeting (APA Region)") +
+   ylab("Number of Attendees") +
+   scale_fill_viridis_d(begin = 0.1, end = 0.4) +
+   scale_y_continuous(labels = scales::comma) +
+   # ggtitle("Attendance by Regional Meeting") +
+   theme(
+      axis.text.x = element_text(angle = 45, hjust = 1.1),
+      axis.title.x = element_text(margin = margin(10, 0, 0, 0)),
+      axis.title.y = element_text(margin = margin(0, 10, 0, 0)),
+      legend.position = "bottom",
+      plot.background = element_rect(fill = "#fff8e3"),
+      legend.background = element_rect(fill = "#fff8e3"),
+      strip.background = element_rect(fill = "#e8d8c3")
+      )
+```
+
+For the most part the total number of attendees at each regional meeting is around 1.5 to 3 thousand, with the exception of Region 2 on the left panel (2018 Data). This is a good indication that the regional designations assigned by the APA and our assumptions about international attendees break the membership base into somewhat even parts. If we connect this column plot with the regional flight network depicted above, we can see the New York city meeting is receiving the majority of international attendees whom are largely from Europe. When we use the 2019 Data this outlier disappears.
+
+### Bias in Attendance Data
+
+I won't go into all the implications of why the 2018 and 2019 attendance data sets may be different, but I want to address some inherent biases in the data. Because these data were collected based on the actual attendance of the 2018 and 2019 APA Annual Meetings, we need to consider how this may affect our analysis, and specifically our ability to predict whom will attend what meetings.
+
+Generally, the farther away a conference is, the less likely one is to attend. Traveling farther away is more costly, more time consuming, and it is much easier to drive directly rather than fly if its reasonable. Together these factors influence types of people who attend which meeting. I call this phenomenon *geographic bias.*
+
+Such bias is present is likely present in the APA attendance data. The 2018 New York City meeting data shows a smaller proportion of members from the West Coast even though approximately 3 thousand more people attended the meeting compared to the 2019 San Francisco one. Similarly, the proportion of attendees from the West Coast increased the the following year at the 2019 meeting.
+
+Though the APA has almost 40 thousand members, only about 13 to 17 thousand attended each meeting. Thus, it is important to have a sense of what factors draw out certain sections of the APA membership and how that could affect our results. It is clear that the meeting's location exerts influence over who attends the meeting through proximity based on a review of the 2018 and 2019 data; However, there is likely a nexus of other factors that we cannot observe by simply comparing the two data sets and if we were to perform a similar analysis using only one year, it is very likely that our results would be biased towards the people closest to that meeting. We might find that meetings held closer to this critical mass are optimal (in terms of emissions), but we know nothing about what that attendance *would* look like in an alternate universe where the APA Meeting was held under the beautiful Grand Tetons in, say, Jackson Hole, Wyoming instead of New York City. 
+
+In this sense, the analysis would surely benefit from a broader set of attendance data, specifically attendance data from a geographically-diverse set of of conferences. This way, it would be possible to tease out the different sections of the APA's membership that *would have come* if the meeting was closer to them.^[We performed a benchmarking analysis on the two data sets by measuring the relative increase in attendance within a 400 km radius of the meeting.]
+
+## Measuring Carbon Emissions
+
+Following @10.1001/jamanetworkopen.2020.35641, I estimate total emissions of for the conferences under the regional conference format. The table below presents the results for the 2018 New York City and 2019 San Francisco simulations, respectively. The carbon footprint of the meetings is measured by the emission of greenhouse gases (GHGs).  as metric tons of carbon-dioxide equivalent (CO<sub>2</sub>*e*) emissions.^[Add footnote about what this means.]
+
+```{r Carbon Emissions, echo=FALSE}
+
+# Build Tables ------------------------------------------------------------
+nyc <- data.frame(
+   c("Attendance", "Total Emissions", "Per Capita Emissions"),
+   c("16,620", "19,819", "1.19"),
+   c("16,620", "15,050", "0.91"),
+   c("—", "4,769", "0.28"),
+   c("—", "24%", "24%")
+   )
+
+sf <- data.frame(
+   c("Attendance", "Total Emissions", "Per Capita Emissions"),
+   c("13,335", "21,456", "1.61"),
+   c("13,335", "10,189", "0.76"),
+   c("—", "11,267", "0.53"),
+   c("—", "53%", "53%")
+   )
+
+# Render Tables -----------------------------------------------------------
+
+# NYC
+knitr::kable(
+   nyc,
+   format = "html",
+   col.names = c(
+      "Measurement",
+      "Actual Meeting<sup>1</sup>",
+      "Regional Meetings<sup>2</sup>",
+      "Difference",
+      "Percent Difference"),
+   align = c("l", "r", "r", "r", "r"),
+   escape = FALSE
+   ) %>%
+add_header_above(
+      c("", "Metric Tons CO<sub>2</sub>*e*" = 3, ""),
+      escape = FALSE,
+      line = FALSE,
+      extra_css = "border-bottom: 2px solid rgb(232, 215, 195);"
+      ) %>% 
+   add_header_above(
+      c("New York City 2018 Meeting" = 5),
+      align = "c",
+      escape = TRUE,
+      line = FALSE,
+      extra_css = "background-color: rgb(232, 215, 195); font-size: 1rem; padding: 0.15rem 0;"
+      ) %>%
+   footnote(
+      general_title = "Notes and Sources:",
+      title_format = "bold",
+      general = "Code for this analysis can be found at my GitHub: Alec-Stashevsky/GAP-Climate-Research.",
+      number = c(
+         "Data are from Wortzel et al. (2021).",
+         "Results from this supplemental regional analysis."
+         )
+      )
+
+# SF
+knitr::kable(
+   sf,
+   format = "html",
+   col.names = c(
+      "Measurement",
+      "Actual Meeting<sup>1</sup>",
+      "Regional Meetings<sup>2</sup>",
+      "Difference",
+      "Percent Difference"
+      ),
+   align = c("l", "r", "r", "r", "r"),
+   escape = FALSE
+   ) %>%
+   # pack_rows("New York City 2018 Meeting", 1, 3) %>%
+   # pack_rows("San Francisco", 4, 6) %>% 
+   add_header_above(
+      c("", "Metric Tons CO<sub>2</sub>*e*" = 3, ""),
+      escape = FALSE,
+      line = FALSE,
+      extra_css = "border-bottom: 2px solid rgb(232, 215, 195);"
+      ) %>% 
+   add_header_above(
+      c("San Francisco 2019 Meeting" = 5),
+      align = "c",
+      escape = TRUE,
+      line = FALSE,
+      extra_css = "background-color: rgb(232, 215, 195); font-size: 1rem; padding: 0.15rem 0;"
+      ) %>%
+   footnote(
+      general_title = "Notes and Sources:",
+      title_format = "bold",
+      general = "Code for this analysis can be found at my GitHub: Alec-Stashevsky/GAP-Climate-Research.",
+      number = c(
+         "Data are from Wortzel et al. (2021).",
+         "Results from this supplemental regional analysis."
+         )
+      )
+
+```
+
+
+
+
+
+**NOTE**
+
+We need to reevaluate the purposes and priorties for large conferences. This means rethinking frameworks that promote industy/proffesional conferences as a chance to "get away" while still growing professionally. 
+
+
+
+## References

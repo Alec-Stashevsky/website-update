@@ -1,0 +1,418 @@
+---
+draft: true
+title: "Exploring a Regional Conference Format through Carbon Emissions"
+author: "Alec Stashevsky"
+date: 2021-04-06
+categories: ["Decarbonization", "Geospatial Programming", "Spatial Politics"]
+tags: ["Decarbonization", "Geospatial Programming", "Spatial Politics"]
+bibliography: [regional-conferences.bib]
+link-citations: true
+links:
+ - name: "Code Supplement Repository"
+   url: https://github.com/Alec-Stashevsky/GAP-climate-research
+   icon_pack: fab
+   icon: github
+image:
+  caption: "Simulated Regional Flight Network for the American Pyschiatric Association"
+  preview_only:
+  focal_point: "Smart"
+summary: Exploring the carbon footprint of a regional conference format through simulations of the American Psychiatric Association's Annual Meeting.
+---
+
+<script src="{{< blogdown/postref >}}index_files/header-attrs/header-attrs.js"></script>
+<script src="{{< blogdown/postref >}}index_files/kePrint/kePrint.js"></script>
+<link href="{{< blogdown/postref >}}index_files/lightable/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+table > thead > tr > th {
+    vertical-align: bottom;
+    border-bottom: 2px solid rgb(232, 215, 195);
+}
+
+table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table > thead > tr > td, table > tbody > tr > td, table > tfoot > tr > td {
+    padding: 8px;
+    line-height: 1.43;
+    vertical-align: top;
+    border-top: 1px solid rgb(232, 215, 195);
+}
+
+tbody > tr > td, table > tbody > tr > th {
+    padding: 8px;
+    line-height: 1.43;
+    vertical-align: top;
+    border-bottom: 1px solid rgb(232, 215, 195);
+}
+
+
+table > tfoot > tr > td {
+    padding: 8px;
+    line-height: 1.43;
+    vertical-align: top;
+    border-top: none;
+}
+
+
+
+table > tbody > tr:nth-child(2n+1) > td, table > tbody > tr:nth-child(2n+1) > th {
+    background-color: rgb(255, 248, 227);
+}
+
+# Hover
+table > tbody > tr:nth-child(2n+1):hover > td, table > tbody > tr:nth-child(2n+1):hover > th {
+    background-color: rgb(232, 215, 195);
+}
+
+table > tbody > tr:hover > td, table > tbody > tr:hover > th {
+    background-color: rgb(232, 215, 195);
+}
+</style>
+<p>Recently, I got the opportunity to support some great research with a team of Psychiatrists at the <a href="https://ourgap.org">Group for the Advancement of Psychiatry.</a> In the midst of the pandemic lock-downs we sought look for a silver lining and exploited the global transformation of the day-to-day movement of humans.</p>
+<div id="the-story" class="section level2">
+<h2>The Story</h2>
+<p>We estimated the carbon footprint associated with holding the past two Annual Meetings of the <a href="https://www.psychiatry.org/about-apa">American Psychiatric Association (APA)</a>, the largest Psychiatric organization with almost 40,000 members worldwide.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> The unique situation of the COVID-19 pandemic allows us to frame the estimate as a reference for how much carbon emissions <em>were saved</em> by holding the conference virtually in 2020. If you would like to learn about that research, you may read the paper, <span class="citation"><a href="#ref-10.1001/jamanetworkopen.2020.35641" role="doc-biblioref">Wortzel et al.</a> (<a href="#ref-10.1001/jamanetworkopen.2020.35641" role="doc-biblioref">2021</a>)</span>, at <a href="https://www.doi.org/10.1001/jamanetworkopen.2020.35641">JAMA Network Open.</a></p>
+<p>The bottom line is that COVID-19 has radically changed the way <em>humans</em> move through space and this change foreshadows the dramatic behavioral and structural shifts climate change demands from humankind.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> Greenhouse gas (GHG) emissions associated with work commutes and industry/professional travel have substantially decreased, leading to distinct improvements in air and water quality (<em>see</em> <span class="citation"><a href="#ref-YUNUS2020139012" role="doc-biblioref">Yunus, Masago, and Hijioka</a> (<a href="#ref-YUNUS2020139012" role="doc-biblioref">2020</a>)</span> and <span class="citation"><a href="#ref-Venter18984" role="doc-biblioref">Venter et al.</a> (<a href="#ref-Venter18984" role="doc-biblioref">2020</a>)</span>). Tourism, responsible for 8% of global GHG emissions, has all but stopped (<span class="citation"><a href="#ref-Lenzen2018" role="doc-biblioref">Lenzen et al.</a> (<a href="#ref-Lenzen2018" role="doc-biblioref">2018</a>)</span>).</p>
+<p>This unprecedented reduction in activity has certainly come with many costs, but it is at this crux that such a reassessment can be most enlightening and effective. As we long to return to <em>normal</em>, it is my intent that this research provokes a more thoughtful return. COVID-19 has presented us with an opportunity to rethink the ways we navigate and embody shared spaces, especially when these spaces function as epicenters to grow and build specialized communities whose members are otherwise scattered throughout the world—whether they be centered upon <a href="https://comic-con.org/wca/2021/athome">comic books</a>, <a href="https://www.itic.co/">insurance</a>, <a href="https://scubashow.com/">SCUBA-diving</a>, <a href="https://seattlervshow.com/">recreational vehicles</a>, or <a href="https://waset.org/mycology-conferences">mushrooms</a> (a personal favorite).</p>
+<p>The carbon footprint of such conferences has been shown to be substantial. <span class="citation"><a href="#ref-10.1001/jamanetworkopen.2020.35641" role="doc-biblioref">Wortzel et al.</a> (<a href="#ref-10.1001/jamanetworkopen.2020.35641" role="doc-biblioref">2021</a>)</span> estimate the 2018 and 2019 APA Annual Meetings produced about 20 thousand metric tons of carbon-dioxide equivalent emissions each—an amount equivalent to burning 22 million pounds of coal—but moreover, show that this carbon footprint can be reduced by more than two-fold by optimizing the location of the meeting.</p>
+<p>The case study in this post is built upon the research of <span class="citation"><a href="#ref-10.1001/jamanetworkopen.2020.35641" role="doc-biblioref">Wortzel et al.</a> (<a href="#ref-10.1001/jamanetworkopen.2020.35641" role="doc-biblioref">2021</a>)</span>, but is by no means limited by context of the APA Annual Meetings. There are hundreds of medical and medical professional associations across the US<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> and thousands more industry, professional, hobby, and entertainment focused conventions held yearly. As of 2017, almost 35 million square meters of indoor space was dedicated to some form of exhibition.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> The APA Annual Meeting is by no means a large conference even in the context of medical associations, let alone framed within the total exhibition industry. When we consider the impact of such <em>carbon-conscious</em> planning on an industry-level, the potential reduction in emissions could be considerable.</p>
+<p>In this post, I reexamine the ways we navigate to large conferences from around the world and the ways in which the carbon emissions of such conferences can be mitigated while still preserving the important community-building that thrives in these spaces. I expand upon the solutions offered by <span class="citation"><a href="#ref-10.1001/jamanetworkopen.2020.35641" role="doc-biblioref">Wortzel et al.</a> (<a href="#ref-10.1001/jamanetworkopen.2020.35641" role="doc-biblioref">2021</a>)</span> by analyzing the potential of a <em>regional conference format</em> to mitigate carbon emissions, in addition to the location of the conferences.</p>
+</div>
+<div id="how-to-measure-a-carbon-footprint" class="section level2">
+<h2>How to Measure a Carbon Footprint</h2>
+<ul>
+<li><p>What are GHGs</p></li>
+<li><p>How are GHGs Different</p>
+<ul>
+<li>Global Warming Potential (GWP)</li>
+</ul></li>
+<li><p>What do we mean by CO2<em>e</em>, “carbon emissions,” CO2?</p></li>
+<li><p>How can we measure carbon footprint?</p></li>
+</ul>
+</div>
+<div id="a-regional-conference-format" class="section level2">
+<h2>A Regional Conference Format</h2>
+<p>Though regional conferences do not bring <em>whole</em> communities together in one space, there are many aspects that make regional conferences an attractive format, especially if they are held as supplements to large centrally-located conferences.</p>
+<p>For one, regional conferences are much smaller and usually break up a community into geographically-connected regions. This smaller format may be easier to administer, less costly, and provide attendees with more intimate opportunities to network with local colleagues. This smaller format may increase engagement in working groups or activities limited by size or participation.</p>
+<p>Regional meetings allow for discourse built-up from a more concentrated membership. This may be particularly beneficial for associations advancing policy because such a format allows regions to develop a set of priorities most relevant to them (such as focusing on state or municipal policy) and then advance this smaller set of priorities to a larger base on a national or international scale who may in turn provide much needed support.</p>
+<p>For example, US-based medical associations assess and respond to range of policies at the federal and state levels. A regional conference format may allow for discourse that takes place in these 1-5 days to focus more on particularly important state/local regulation which may not appear on the horizon for members outside of the region or district. This format encourages regional members to hone their priorities before larger meetings and present a more concise set of objectives to the entire association rather than having to weigh-in these priorities simultaneously in a larger sea of regulation where they are more likely to go unacknowledged.</p>
+<p>Regional meetings may also have the potential to increase total attendance for several reasons. Some members may find it too expensive or too time consuming to travel long distances. This may alienate sections of the member base in fringe geographies and discourage others who feel not enough of their colleagues will attend.</p>
+<p>On the other hand, traveling to remote conference destinations can be attractive for those who wish this time to double as a vacation; However, this may leave the conference vulnerable to drops in attendance if locations are <em>cycled</em> across different areas and some are more favorable than others. Such a framework may introduce priorities contradictory to emission reductions as meeting planners may be encouraged to hold meetings in more remote places to encourage attendance significantly increasing the emissions associated with travel.</p>
+</div>
+<div id="a-regional-format-for-the-apa" class="section level2">
+<h2>A Regional Format for the APA</h2>
+<p>Regional formats can be easy to implement in medical associations or associations involved with advancing policy because there are often existing structures in the administration allowing regions or districts to act independently to a degree. US-based medical associations, like the APA, often have some international base which may or may not be included in the regional structure.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
+<p>The APA has 7 distinct regions between the US and Canada.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> Below is a map of these regions:</p>
+<ol style="list-style-type: decimal">
+<li>New England &amp; Eastern Canada</li>
+<li>New York</li>
+<li>Middle Atlantic</li>
+<li>North Central</li>
+<li>American South &amp; Puerto Rico</li>
+<li>California</li>
+<li>American West &amp; Western Canada</li>
+</ol>
+<p><img src="/images/APA-regions.png" /></p>
+</div>
+<div id="simulation-framework" class="section level2">
+<h2>Simulation Framework</h2>
+<p>Using attendance data from the APA’s 2018 New York City and 2019 San Francisco Annual Meetings, we assign each attendee to one of seven designated regions based on their origin location and then identify likely transport modes and routes according the assumptions laid out in <span class="citation"><a href="#ref-10.1001/jamanetworkopen.2020.35641" role="doc-biblioref">Wortzel et al.</a> (<a href="#ref-10.1001/jamanetworkopen.2020.35641" role="doc-biblioref">2021</a>)</span>.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a></p>
+<p>In order to simulate the way attendees would travel to the regional conferences, I had to extend some assumptions from our previous analysis. One critical assumption was how to deal with international (non-Canadian) attendees which are not assigned to any region in the APA’s existing structure, depicted in the map above.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> In this respect we assume international (non-Canadian) attendees will travel to whichever meeting is closest to them. This also ensures our emissions estimation remains conservative.</p>
+<p>The second extending assumption was the location of the seven regional meetings. The purpose of the analysis is to quantify the affect of holding multiple smaller regional conferences compared one large one, <em>ceteris paribus</em>. However, in <span class="citation"><a href="#ref-10.1001/jamanetworkopen.2020.35641" role="doc-biblioref">Wortzel et al.</a> (<a href="#ref-10.1001/jamanetworkopen.2020.35641" role="doc-biblioref">2021</a>)</span> we show that the location of the meeting can have a large impact on the carbon footprint. For this reason, in order to isolate the effect of moving to a regional format and eliminate the noise from different locations, we chose to:</p>
+<ol style="list-style-type: lower-roman">
+<li><p>Re-use location of past APA Annual meetings whenever possible.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></p></li>
+<li><p>Conduct an additional sensitivity test on regional meeting locations allowing <em>all</em> attendees to travel to the closest regional meeting, regardless of their designation.</p></li>
+</ol>
+<p>Below is a map of the seven regional meeting locations used in the simulation:</p>
+<p><img src="/images/Regional-locations.png" /></p>
+</div>
+<div id="visualizing-regions" class="section level2">
+<h2>Visualizing Regions</h2>
+<p>To understand the effect of the regional categorization, it helps to compare the flight networks under the regular, single Annual Meeting framework. In the image below, we can see the flight network of the 2018 New York City APA Annual Meeting where over 16 thousand members attended. This map shows everyone who attended the 2018 meeting based on their reported residence. Each light orange point represents a unique residence and the size of and opacity of the points is proportional to the number of attendees traveling from that location. The darker-orange arcs indicate the <em>geodesic distance</em> or distance <em>as the crow flies</em> between each unique residence location and the location of the 2018 New York City meeting.</p>
+<p><img src="/images/NYC-network.png" /></p>
+<p>Here we can see all attendees converge on the <a href="https://goo.gl/maps/gekiRZY7aPxe7qUo9">Javits Center</a> in New York City. We can apply the APA’s regional designations and assign international (non-Canadian) attendees a region according to assumption <em>(i)</em> to get a map like the one depicted below, where each color represents a distinct APA regional designation. The width and intensity of each arc is proportional to the number of attendees originating from a given location.</p>
+<p><img src="/images/NYC-regional-network.png" /></p>
+<p>Here we can see that under our current framework most of the European attendees are getting absorbed into Region 3—the New York City conference. Most of South and East Asia are absorbed by Region 7—the Seattle conference, and some of the Australian attendees are absorbed by Region 6—the Los Angeles conference.</p>
+<p>Though it may not be clear from the maps, we want to make sure that our regional simulation is plausible such that it balances the attendance base of the APA somewhat evenly across regions.</p>
+<p>Behind the scenes I import the simulation data and plot the attendance base across regions by transport mode. If you are curious, all the code for this is available at my <a href="https://github.com/Alec-Stashevsky/GAP-climate-research/blob/c3c960efd5138ef34c326f12693f223509fa3097/code/Regional%20Analysis/05%20-%20Regional%20Emissions%20Plots.Rmd">GitHub</a>.</p>
+<p>The panel on the left shows the attendance for each regional conference using the APA’s attendance data from the 2018 New York City Annual meeting. The panel on the right uses attendance data collected from the 2019 San Francisco Annual meeting. Each bar represents an individual region and the bars are colored by the transport mode the attendees took to each region. A larger area of purple would indicate more attendees drove directly to the meeting.</p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/Regional%20Attendance%20Plots-1.svg" width="672" /></p>
+<p>For the most part the total number of attendees at each regional meeting is around 1.5 to 3 thousand, with the exception of Region 2 on the left panel (2018 Data). This is a good indication that the regional designations assigned by the APA and our assumptions about international attendees break the membership base into somewhat even parts. If we connect this column plot with the regional flight network depicted above, we can see the New York city meeting is receiving the majority of international attendees whom are largely from Europe. When we use the 2019 Data this outlier disappears.</p>
+<div id="bias-in-attendance-data" class="section level3">
+<h3>Bias in Attendance Data</h3>
+<p>I won’t go into all the implications of why the 2018 and 2019 attendance data sets may be different, but I want to address some inherent biases in the data. Because these data were collected based on the actual attendance of the 2018 and 2019 APA Annual Meetings, we need to consider how this may affect our analysis, and specifically our ability to predict whom will attend what meetings.</p>
+<p>Generally, the farther away a conference is, the less likely one is to attend. Traveling farther away is more costly, more time consuming, and it is much easier to drive directly rather than fly if its reasonable. Together these factors influence types of people who attend which meeting. I call this phenomenon <em>geographic bias.</em></p>
+<p>Such bias is present is likely present in the APA attendance data. The 2018 New York City meeting data shows a smaller proportion of members from the West Coast even though approximately 3 thousand more people attended the meeting compared to the 2019 San Francisco one. Similarly, the proportion of attendees from the West Coast increased the the following year at the 2019 meeting.</p>
+<p>Though the APA has almost 40 thousand members, only about 13 to 17 thousand attended each meeting. Thus, it is important to have a sense of what factors draw out certain sections of the APA membership and how that could affect our results. It is clear that the meeting’s location exerts influence over who attends the meeting through proximity based on a review of the 2018 and 2019 data; However, there is likely a nexus of other factors that we cannot observe by simply comparing the two data sets and if we were to perform a similar analysis using only one year, it is very likely that our results would be biased towards the people closest to that meeting. We might find that meetings held closer to this critical mass are optimal (in terms of emissions), but we know nothing about what that attendance <em>would</em> look like in an alternate universe where the APA Meeting was held under the beautiful Grand Tetons in, say, Jackson Hole, Wyoming instead of New York City.</p>
+<p>In this sense, the analysis would surely benefit from a broader set of attendance data, specifically attendance data from a geographically-diverse set of of conferences. This way, it would be possible to tease out the different sections of the APA’s membership that <em>would have come</em> if the meeting was closer to them.<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a></p>
+</div>
+</div>
+<div id="measuring-carbon-emissions" class="section level2">
+<h2>Measuring Carbon Emissions</h2>
+<p>Following <span class="citation"><a href="#ref-10.1001/jamanetworkopen.2020.35641" role="doc-biblioref">Wortzel et al.</a> (<a href="#ref-10.1001/jamanetworkopen.2020.35641" role="doc-biblioref">2021</a>)</span>, I estimate total emissions of for the conferences under the regional conference format. The table below presents the results for the 2018 New York City and 2019 San Francisco simulations, respectively. The carbon footprint of the meetings is measured by the emission of greenhouse gases (GHGs). as metric tons of carbon-dioxide equivalent (CO<sub>2</sub><em>e</em>) emissions.<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a></p>
+<table style="NAborder-bottom: 0;">
+<thead>
+<tr>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; background-color: rgb(232, 215, 195); font-size: 1rem; padding: 0.15rem 0;" colspan="5">
+<div style="">
+New York City 2018 Meeting
+</div>
+</th>
+</tr>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; border-bottom: 2px solid rgb(232, 215, 195);" colspan="3">
+<div style="">
+Metric Tons CO<sub>2</sub><em>e</em>
+</div>
+</th>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+Measurement
+</th>
+<th style="text-align:right;">
+Actual Meeting<sup>1</sup>
+</th>
+<th style="text-align:right;">
+Regional Meetings<sup>2</sup>
+</th>
+<th style="text-align:right;">
+Difference
+</th>
+<th style="text-align:right;">
+Percent Difference
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Attendance
+</td>
+<td style="text-align:right;">
+16,620
+</td>
+<td style="text-align:right;">
+16,620
+</td>
+<td style="text-align:right;">
+—
+</td>
+<td style="text-align:right;">
+—
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total Emissions
+</td>
+<td style="text-align:right;">
+19,819
+</td>
+<td style="text-align:right;">
+15,050
+</td>
+<td style="text-align:right;">
+4,769
+</td>
+<td style="text-align:right;">
+24%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Per Capita Emissions
+</td>
+<td style="text-align:right;">
+1.19
+</td>
+<td style="text-align:right;">
+0.91
+</td>
+<td style="text-align:right;">
+0.28
+</td>
+<td style="text-align:right;">
+24%
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<span style="font-weight: bold;">Notes and Sources:</span>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> Code for this analysis can be found at my GitHub: Alec-Stashevsky/GAP-Climate-Research.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>1</sup> Data are from Wortzel et al. (2021).
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>2</sup> Results from this supplemental regional analysis.
+</td>
+</tr>
+</tfoot>
+</table>
+<table style="NAborder-bottom: 0;">
+<thead>
+<tr>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; background-color: rgb(232, 215, 195); font-size: 1rem; padding: 0.15rem 0;" colspan="5">
+<div style="">
+San Francisco 2019 Meeting
+</div>
+</th>
+</tr>
+<tr>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; border-bottom: 2px solid rgb(232, 215, 195);" colspan="3">
+<div style="">
+Metric Tons CO<sub>2</sub><em>e</em>
+</div>
+</th>
+<th style="empty-cells: hide;border-bottom:hidden;" colspan="1">
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+Measurement
+</th>
+<th style="text-align:right;">
+Actual Meeting<sup>1</sup>
+</th>
+<th style="text-align:right;">
+Regional Meetings<sup>2</sup>
+</th>
+<th style="text-align:right;">
+Difference
+</th>
+<th style="text-align:right;">
+Percent Difference
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Attendance
+</td>
+<td style="text-align:right;">
+13,335
+</td>
+<td style="text-align:right;">
+13,335
+</td>
+<td style="text-align:right;">
+—
+</td>
+<td style="text-align:right;">
+—
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Total Emissions
+</td>
+<td style="text-align:right;">
+21,456
+</td>
+<td style="text-align:right;">
+10,189
+</td>
+<td style="text-align:right;">
+11,267
+</td>
+<td style="text-align:right;">
+53%
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Per Capita Emissions
+</td>
+<td style="text-align:right;">
+1.61
+</td>
+<td style="text-align:right;">
+0.76
+</td>
+<td style="text-align:right;">
+0.53
+</td>
+<td style="text-align:right;">
+53%
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<span style="font-weight: bold;">Notes and Sources:</span>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> Code for this analysis can be found at my GitHub: Alec-Stashevsky/GAP-Climate-Research.
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>1</sup> Data are from Wortzel et al. (2021).
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup>2</sup> Results from this supplemental regional analysis.
+</td>
+</tr>
+</tfoot>
+</table>
+<p><strong>NOTE</strong></p>
+<p>We need to reevaluate the purposes and priorties for large conferences. This means rethinking frameworks that promote industy/proffesional conferences as a chance to “get away” while still growing professionally.</p>
+</div>
+<div id="references" class="section level2 unnumbered">
+<h2>References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Lenzen2018" class="csl-entry">
+Lenzen, Manfred, Ya-Yen Sun, Futu Faturay, Yuan-Peng Ting, Arne Geschke, and Arunima Malik. 2018. <span>“The Carbon Footprint of Global Tourism.”</span> <em>Nature Climate Change</em> 8 (6): 522–28. <a href="https://doi.org/10.1038/s41558-018-0141-x">https://doi.org/10.1038/s41558-018-0141-x</a>.
+</div>
+<div id="ref-Rutz2020" class="csl-entry">
+Rutz, Christian, Matthias-Claudio Loretto, Amanda E. Bates, Sarah C. Davidson, Carlos M. Duarte, Walter Jetz, Mark Johnson, et al. 2020. <span>“COVID-19 Lockdown Allows Researchers to Quantify the Effects of Human Activity on Wildlife.”</span> <em>Nature Ecology <span>&amp;</span> Evolution</em> 4 (9): 1156–59. <a href="https://doi.org/10.1038/s41559-020-1237-z">https://doi.org/10.1038/s41559-020-1237-z</a>.
+</div>
+<div id="ref-Venter18984" class="csl-entry">
+Venter, Zander S., Kristin Aunan, Sourangsu Chowdhury, and Jos Lelieveld. 2020. <span>“COVID-19 Lockdowns Cause Global Air Pollution Declines.”</span> <em>Proceedings of the National Academy of Sciences</em> 117 (32): 18984–90. <a href="https://doi.org/10.1073/pnas.2006853117">https://doi.org/10.1073/pnas.2006853117</a>.
+</div>
+<div id="ref-10.1001/jamanetworkopen.2020.35641" class="csl-entry">
+Wortzel, Joshua R., Alec Stashevsky, Jeremy D. Wortzel, Beth Mark, Janet Lewis, and Elizabeth Haase. 2021. <span>“<span class="nocase">Estimation of the Carbon Footprint Associated With Attendees of the American Psychiatric Association Annual Meeting</span>.”</span> <em>JAMA Network Open</em> 4 (1): e2035641–41. <a href="https://doi.org/10.1001/jamanetworkopen.2020.35641">https://doi.org/10.1001/jamanetworkopen.2020.35641</a>.
+</div>
+<div id="ref-YUNUS2020139012" class="csl-entry">
+Yunus, Ali P., Yoshifumi Masago, and Yasuaki Hijioka. 2020. <span>“COVID-19 and Surface Water Quality: Improved Lake Water Quality During the Lockdown.”</span> <em>Science of The Total Environment</em> 731: 139012. <a href="https://doi.org/10.1016/j.scitotenv.2020.139012">https://doi.org/10.1016/j.scitotenv.2020.139012</a>.
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><em>See</em> <a href="https://www.psychiatry.org/about-apa" class="uri">https://www.psychiatry.org/about-apa</a>.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>This radical <em>anthropause</em> has no doubt effected wildlife as well. <em>See</em> <span class="citation"><a href="#ref-Rutz2020" role="doc-biblioref">Rutz et al.</a> (<a href="#ref-Rutz2020" role="doc-biblioref">2020</a>)</span>.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p><em>See</em> <a href="https://www.meditec.com/resourcestools/professional-associations-list" class="uri">https://www.meditec.com/resourcestools/professional-associations-list</a> for a incomplete list of medical and professional associations similar to the APA.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>Exhibition space is defined as the amount of gross space in the venue regularly marketed and rented/licensed/used for exhibitions, trade fairs or consumer/public shows. This space is measured for any public assembly premises with a minimum of 5,000 square meters of indoor exhibition space and that hold various types of exhibitions, trade fairs or consumer/public shows on a regular basis. The premises may be purpose-built exhibition center space or other premises including exhibition space (e.g. hotels, arenas, sport venues, and amusement fair grounds). <em>See</em> <a href="https://www.ufi.org/archive-research/ufi-world-map-of-exhibition-venues-2017-edition-revised-december-2018/">UFI World Map Of Exhibition Venues (2017 Edition, Revised December 2018).</a><a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>Often times, select international countries may be lumped in with domestic US regions. This is the case with the American College of Obstetricians and Gynecologists (ACOG) as well as the APA, which groups Canadian regions together with US regions. Other times, international members may not be part of any region and simply attend the large annual or national meetings.<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>Including US protectorates.<a href="#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p>Specifically, we classify attendees into drivers if they are within 400 km of the regional meeting they are attending. Attendees more than 400 km away from their regional meeting will drive to their nearest commercial airport and then fly to the airport nearest the regional meeting location. The driving distance is measured as the geodesic distances between locatoins. We then apply an emissions function to the ground and air legs of each attendee’s route. These emissions functions are based on EPA guidelines and a <a href="https://api.goclimate.com/docs">flight emissions API from GoClimate.</a><a href="#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p>25-30 percent of the 2018 and 2019 APA Annual Meeting attendees are international attendees (including Canadians).<a href="#fnref8" class="footnote-back">↩︎</a></p></li>
+<li id="fn9"><p>The one exception to this case was choosing a location for Region 7 because no meetings have historically been held this area. The choice of the Region 7 location is particularly important because Region 7 has the largest area of all the APA regions, and this greater distance members must travel will increase the sensitivity of the carbon emission estimates with respect to the choice of location. We chose the Region 7 meeting location to be Seattle because it is a metropolitan city and has venues capable of supporting large conferences.<a href="#fnref9" class="footnote-back">↩︎</a></p></li>
+<li id="fn10"><p>We performed a benchmarking analysis on the two data sets by measuring the relative increase in attendance within a 400 km radius of the meeting.<a href="#fnref10" class="footnote-back">↩︎</a></p></li>
+<li id="fn11"><p>Add footnote about what this means.<a href="#fnref11" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
