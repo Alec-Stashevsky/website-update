@@ -3,8 +3,8 @@ draft: true
 title: "Exploring a Regional Conference Format through Carbon Emissions"
 author: "Alec Stashevsky"
 date: 2021-04-06
-categories: ["Decarbonization", "Geospatial Programming", "Spatial Politics"]
-tags: ["Decarbonization", "Geospatial Programming", "Spatial Politics"]
+categories: ["Decarbonization", "Spatial Politics"]
+tags: ["Decarbonization", "Spatial Politics"]
 bibliography: [regional-conferences.bib]
 link-citations: true
 links:
@@ -13,7 +13,7 @@ links:
    icon_pack: fab
    icon: github
 image:
-  caption: "Simulated Regional Flight Network for the American Pyschiatric Association"
+  caption: "Simulated Regional Flight Network for the American Pyschiatric Association's Annual Meeting"
   preview_only:
   focal_point: "Smart"
 summary: Exploring the carbon footprint of a regional conference format through simulations of the American Psychiatric Association's Annual Meeting.
@@ -27,7 +27,7 @@ library(magrittr)
 library(kableExtra)
 ```
 
-```{css Table CSS, echo = FALSE}
+```{css Table CSS, echo=FALSE}
 table > thead > tr > th {
     vertical-align: bottom;
     border-bottom: 2px solid rgb(232, 215, 195);
@@ -72,24 +72,73 @@ table > tbody > tr:hover > td, table > tbody > tr:hover > th {
 ```
 
 
-Recently, I got the opportunity to support some great research with a team of Psychiatrists at the [Group for the Advancement of Psychiatry.](https://ourgap.org) In the midst of the pandemic lock-downs we sought look for a silver lining and exploited the global transformation of the day-to-day movement of humans.
+In this post, I reexamine the ways we navigate to large conferences from around the world and how the carbon emissions of such conferences can be mitigated while still preserving the important community-building that thrives at such events. I consider the carbon footprint of holding a large conference through multiple, smaller meetings compared to holding one large centrally-located meeting. I call this framework a *regional format* for conferences throughout this post.
+
+This post is a case study expanding upon the solutions offered by @10.1001/jamanetworkopen.2020.35641, a paper recently published by myself and a team of Psychiatrists at the [Group for the Advancement of Psychiatry (GAP).](https://ourgap.org) We estimated the carbon footprint associated with the 2018 and 2019 Annual Meetings of the [American Psychiatric Association (APA)](https://www.psychiatry.org/about-apa) then measured how this carbon footprint changes if meetings are held in different locations.^[We measured the effect of moving both the 2018 and 2019 meetings by _shifting_ the original location of each meeting to 13 different locations that the APA has used over the past 40+ years. In addition to measuring the carbon footprint from these 13 alternate locations, we employed a minimization procedure which identified a narrow region on the earth that would globally minimize the carbon footprint, given the attendance data for each Annual Meeting.]
+The APA is the largest psychiatric association in the world with almost 40 thousand members worldwide.^[_See_ https://www.psychiatry.org/about-apa]
+
+We find that the location of the meeting can have a significant impact on the carbon footprint. For example, holding the Annual Meeting in Hawaii would produce more emissions than holding over 2.5 Annual Meetings in New York City if the same people attended.^[Such an assessment assumes that the exact same people will show up to a meeting in Hawaii and a meeting in New York City and this is probably not true.  Nonetheless, the analysis still provides us with a guage for the impact of meeting location. The issues with analyzing attendance data from individual meetings will be discussed later in this post. _See_ Table in @10.1001/jamanetworkopen.2020.35641 for the full assessment of meeting locations.] 
+We argue that large conferences like the APA Annual Meeting should incorporate the added environmental cost of remote conference destinations. By taking into account the geographic dispersion of their attendance base and choosing a location accordingly large conferences can drastically reduce their environmental impact while changing little else. This post expands upon @10.1001/jamanetworkopen.2020.35641 by examining the potential of a *regional conference format* to mitigate carbon emissions in addition to the optimizing location of the conferences.
+
 
 ## The Story
 
-We estimated the carbon footprint associated with holding the past two Annual Meetings of the [American Psychiatric Association (APA)](https://www.psychiatry.org/about-apa), the largest Psychiatric organization with almost 40,000 members worldwide.^[_See_ <https://www.psychiatry.org/about-apa>.] The unique situation of the COVID-19 pandemic allows us to frame the estimate as a reference for how much carbon emissions *were saved*  by holding the conference virtually in 2020. If you would like to learn about that research, you may read the paper,  @10.1001/jamanetworkopen.2020.35641, at [JAMA Network Open.](https://www.doi.org/10.1001/jamanetworkopen.2020.35641)
+Recently, I got the opportunity to support some great research with a team of Psychiatrists on the [GAP Climate Committee.](https://ourgap.org/page-18095) In the midst of the pandemic lock-downs we sought a silver lining and exploited the global transformation of the day-to-day movement of humans. 
 
-The bottom line is that COVID-19 has radically changed the way *humans* move through space and this change foreshadows the dramatic behavioral and structural shifts climate change demands from humankind.^[This radical *anthropause* has no doubt effected wildlife as well. *See* @Rutz2020.] Greenhouse gas (GHG) emissions associated with work commutes and industry/professional travel have substantially decreased, leading to distinct improvements in air and water quality (*see* @YUNUS2020139012 and @Venter18984). Tourism, responsible for 8% of global GHG emissions, has all but stopped (@Lenzen2018).
+The unique situation of the COVID-19 pandemic allowed us to use this research as a gauge for how much carbon emissions *were saved &nbsp;* by holding the 2020 APA conference virtually.^[The APA has also chosen host the 2021 Annual Meeting virtually as well. _See_ https://www.psychiatry.org/psychiatrists/meetings/annual-meeting.]
+In fact, that decision prompted the idea for this research. If you are interested in the original analysis, you may read the paper at [JAMA Network Open (no paywall).](https://www.doi.org/10.1001/jamanetworkopen.2020.35641)
 
-This unprecedented reduction in activity has certainly come with many costs, but it is at this crux that such a reassessment can be most enlightening and effective. As we long to return to *normal*, it is my intent that this research provokes a more thoughtful return. COVID-19 has presented us with an opportunity to rethink the ways we navigate and embody shared spaces, especially when these spaces function as epicenters to grow and build specialized communities whose members are otherwise scattered throughout the world---whether they be centered upon [comic books](https://comic-con.org/wca/2021/athome), [insurance](https://www.itic.co/), [SCUBA-diving](https://scubashow.com/), [recreational vehicles](https://seattlervshow.com/), or [mushrooms](https://waset.org/mycology-conferences) (a personal favorite).
+The bottom line is that COVID-19 has radically changed the way *humans* move through space and this change foreshadows the dramatic behavioral and structural shifts climate change demands from humankind.^[This radical *anthropause* has no doubt effected wildlife as well. *See* @Rutz2020.] Greenhouse gas (GHG) emissions associated with work commutes and industry/professional travel have substantially decreased, leading to distinct improvements in air and water quality (*see* @YUNUS2020139012 and @Venter18984). The International Energy Agency expects global CO<sub>2</sub> emissions to drop 8% compared to 2019, the largest reduction ever (@IEA-Global-energy).
 
-The carbon footprint of such conferences has been shown to be substantial. @10.1001/jamanetworkopen.2020.35641 estimate the 2018 and 2019 APA Annual Meetings produced about 20 thousand metric tons of carbon-dioxide equivalent emissions each---an amount equivalent to burning 22 million pounds of coal---but moreover, show that this carbon footprint can be reduced by more than two-fold by optimizing the location of the meeting.
+<!--Tourism, responsible for 8% of global GHG emissions, has all but stopped (@Lenzen2018). --->
 
-The case study in this post is built upon the research of @10.1001/jamanetworkopen.2020.35641, but is by no means limited by context of the APA Annual Meetings. There are hundreds of medical and medical professional associations across the US^[_See_ <https://www.meditec.com/resourcestools/professional-associations-list> for a incomplete list of medical and professional associations similar to the APA.] and thousands more industry, professional, hobby, and entertainment focused conventions held yearly. As of 2017, almost 35 million square meters of indoor space was dedicated to some form of exhibition.^[Exhibition space is defined as the amount of gross space in the venue regularly marketed and rented/licensed/used for exhibitions, trade fairs or consumer/public shows. This space is measured for any public assembly premises with a minimum of 5,000 square meters of indoor exhibition space and that hold various types of exhibitions, trade fairs or consumer/public shows on a regular basis. The premises may be purpose-built exhibition center space or other premises including exhibition space (e.g. hotels, arenas, sport venues, and amusement fair grounds). _See_ [UFI World Map Of Exhibition Venues (2017 Edition, Revised December 2018).](https://www.ufi.org/archive-research/ufi-world-map-of-exhibition-venues-2017-edition-revised-december-2018/)] The APA Annual Meeting is by no means a large conference even in the context of medical associations, let alone framed within the total exhibition industry. When we consider the impact of such *carbon-conscious* planning on an industry-level, the potential reduction in emissions could be considerable.
+This unprecedented reduction in activity has certainly come with many costs, but it is at this crux that such a reassessment can be most enlightening and effective. As we long to return to *normal*, it is my intent that this research provokes a more thoughtful return. COVID-19 has presented us with an opportunity to rethink the ways we navigate and embody shared spaces, especially when these spaces function as epicenters to build specialized communities whose members are otherwise scattered throughout the world---whether that be communities centered upon [comic books](https://comic-con.org/wca/2021/athome), [insurance](https://www.itic.co/), [SCUBA-diving](https://scubashow.com/), [recreational vehicles](https://seattlervshow.com/), or [mushrooms](https://waset.org/mycology-conferences) (a personal favorite).
 
-In this post, I reexamine the ways we navigate to large conferences from around the world and the ways in which the carbon emissions of such conferences can be mitigated while still preserving the important community-building that thrives in these spaces. I expand upon the solutions offered by @10.1001/jamanetworkopen.2020.35641 by analyzing the potential of a *regional conference format* to mitigate carbon emissions, in addition to the location of the conferences.
+The carbon footprint of such conferences has been shown to be substantial. @10.1001/jamanetworkopen.2020.35641 estimate the 2018 and 2019 APA Annual Meetings produced about 20 thousand metric tons of carbon-dioxide equivalent emissions each---an amount equal to burning 22 million pounds of coal. This carbon footprint is highly dependent on the meeting location which can more than double (or half) the footprint.
+
+The case study in this post is built upon the research of @10.1001/jamanetworkopen.2020.35641, but is by no means limited by context of the APA Annual Meetings. There are hundreds of medical and medical professional associations across the US^[_See_ <https://www.meditec.com/resourcestools/professional-associations-list> for a incomplete list of medical and professional associations similar to the APA.] and thousands more industry, professional, hobby, and entertainment based conventions held yearly. As of 2017, almost 35 million square meters of indoor space was dedicated to some form of exhibition.^[Exhibition space is defined as the amount of gross space in the venue regularly marketed and rented/licensed/used for exhibitions, trade fairs or consumer/public shows. This space is measured for any public assembly premises with a minimum of 5,000 square meters of indoor exhibition space and that hold various types of exhibitions, trade fairs or consumer/public shows on a regular basis. The premises may be purpose-built exhibition center space or other premises including exhibition space (e.g. hotels, arenas, sport venues, and amusement fair grounds). _See_ [UFI World Map Of Exhibition Venues (2017 Edition, Revised December 2018).](https://www.ufi.org/archive-research/ufi-world-map-of-exhibition-venues-2017-edition-revised-december-2018/)] The APA Annual Meeting is by no means a large conference even in the context of medical associations, let alone framed within the global exhibition industry. When we consider the impact of such *carbon-conscious* planning on an industry-level, the potential reduction in emissions could be considerable.
 
 
-## How to Measure a Carbon Footprint
+## A Language of Emisisons
+
+Before we dig into the details of this case study, I want to discuss some common terminology that is often mischaracterized. I am intentionally guilty of some of this mischaracterization so far in this post. I have chosen to conflate terms like *emissions, carbon emissions, carbon dioxide emissions, carbon footprint, environmental impact,* and *environmental harm*, in order to tease out some important distinctions.
+
+Often times, these phrases are used a synonyms, but this is not the case. Most people understand that a carbon footprint is some measure of environmental impact and that a high carbon footprint = bad and a low carbon footprint = less bad. This is somewhat true, but there are many aspects of *environmental harm* that the *carbon footprint* does not measure.
+
+For example, [Deepwater Horizon](https://www.miamiherald.com/news/local/community/florida-keys/article240263391.html), the largest oil spill in history^[@Fisher11744], caused unimaginable damage to natural ecosystems yet very little of this impact can be captured through the lens of the carbon footprint. Studies on the *environmental impacts* of Deepwater Horizon range from the severe harm of surface oil on marine mammals to the habitat destruction of deep-water coral and microfauna.^[_See_ https://oceanservice.noaa.gov/news/apr17/dwh-protected-species.html for the environmental impacts on marine mammals and sea turtles. _See_ @Fisher11744 for the effects on deep-water coral. _See_ @Reuscher2020 for the effects on microfauna and more.]
+
+Minor aspects of the spill have been studied through the lens of carbon footprint. For example, during the spill large amounts of oil leaked towards the ocean surface where one of the main remediation strategies was "controlled surface burning."^[@NOAA-deepwater. This is a common technique of spill remediation. _See_ @evans2001situ.]
+@FISG-deepwater estimate approximately 5% of the **total leaked oil** was burned on the surface, releasing over one million pounds (450 metric tons) of black carbon soot into the atmosphere.^[@NOAA-deepwater.] This amount pales in comparison to the true damage from the oil spill.
+
+My point here is that the *carbon footprint* (which we have yet to define) is not a holistic measure of environmental friendliness/harm and it is misleading and potentially damaging to evaluate somethingto solely look at the carbon footprint as a guage for the . The most damaging human-induced events like oil spills or nuclear meltdowns have carbon footprints far outmeasured by the loss of wildlife and habitat.
+
+### History of the Carbon Footprint
+
+Though I use the term *carbon footprint* throughout this post, I want to acknowledge the (not so pretty) history behind the term. *Carbon footprint* grew out of a related concept---the *ecological footprint*---invented in the 1990s by an ecologist William Rees and a regional planner Mathis Wackernagel.^[Selin, N. Eckley. *Carbon footprint. Encyclopedia Britannica.* https://www.britannica.com/science/carbon-footprint.]
+
+However it was not until the early 2000s that the term was popularized by oil giant BP. In 2004, BP unveiled the first "carbon footprint calculator" which provided individuals with a way to quantify how much heat-trapping carbon pollution they were releasing into the atmosphere. Unfortunately, it provided users with no way of measuring the carbon emissions produced from drilling deep into the earth to extract fossil fuels and accidentally dumping thousands of gallons of toxic fuel into the ocean.
+
+Shifting the discourse of pollution onto the individual has long been a tactic of the largest corporate polluters. Even before we thought to worry about carbon pollution, we had marketing campaigns touting the righteousness of voluntary action. Recycling, bottle bills, and littering. In what appears to be the longest ad any millennial has ever seen, the famous "Crying Indian" first aired in 1971 on Earth day with the line: "People start pollution. People can stop it." Little did they know corporations would become people anyways.^[_See_ https://www.brennancenter.org/our-work/research-reports/citizens-united-explained]
+
+```{r Crying Indian Video, echo=FALSE}
+blogdown::shortcode("youtube", "Xm66Ww6qTpA")
+```
+
+The ad is sponsored by Keep America Beautiful, a non-profit founded by Phillip Morris whose major sponsors include PepsiCo, Waste Management, Anheuser-Busch, Georgia-Pacific, Coca-Cola, Home Depot, and McDonald's.^[_See_ https://www.sourcewatch.org/index.php/Keep_America_Beautiful]
+I will refrain from saying much else on this matter, but if you're curious I would dig into the [history of pollution marketing](https://in.mashable.com/science/15520/the-carbon-footprint-sham) or [why you can't save the planet by going vegan.](https://www.usatoday.com/story/opinion/2019/06/03/climate-change-requires-collective-action-more-than-single-acts-column/1275965001/)
+
+Oh yeah, in case you were getting tired of punching in your electricity bill into BP's carbon footprint calculator to help you sleep at night, don't worry. BP has gone through the trouble of [developing an app that does it for you](https://grist.org/energy/footprint-fantasy), backed by their quasi venture capital subsidiary Launchpad.
+
+
+## Back to Business
+
+To understand what the *carbon footprint* attempts to measure, we first need to understand how gaseous emissions capture heat.
+
+Certain gases like carbon dioxide, methane, water vapor, methane, and ozone (O<sub>3</sub>) have molecular structures such that absorb infrared radiation. These gases are transparent to the human high (visible light), but *opaque* to longer wavelengths on the electromagnetic spectrum. When energy from the sun enters earth's atmosphere some of the heat is absorbed by these gas molecules causing them to vibrate more.
+
+![](/images/regional-conferences/GHG-diagram.jpg)
+
+
 
 * What are GHGs
 
@@ -99,6 +148,7 @@ In this post, I reexamine the ways we navigate to large conferences from around 
 * What do we mean by CO2*e*, "carbon emissions", CO2?
 
 * How can we measure carbon footprint? 
+
 
 
 ## A Regional Conference Format
@@ -115,6 +165,7 @@ Regional meetings may also have the potential to increase total attendance for s
 
 On the other hand, traveling to remote conference destinations can be attractive for those who wish this time to double as a vacation; However, this may leave the conference vulnerable to drops in attendance if locations are *cycled* across different areas and some are more favorable than others. Such a framework may introduce priorities contradictory to emission reductions as meeting planners may be encouraged to hold meetings in more remote places to encourage attendance significantly increasing the emissions associated with travel.
 
+
 ## A Regional Format for the APA
 
 Regional formats can be easy to implement in medical associations or associations involved with advancing policy because there are often existing structures in the administration allowing regions or districts to act independently to a degree. US-based medical associations, like the APA, often have some international base which may or may not be included in the regional structure.^[Often times, select international countries may be lumped in with domestic US regions. This is the case with the American College of Obstetricians and Gynecologists (ACOG) as well as the APA, which groups Canadian regions together with US regions. Other times, international members may not be part of any region and simply attend the large annual or national meetings.]
@@ -129,7 +180,7 @@ The APA has 7 distinct regions between the US and Canada.^[Including US protecto
 6. California
 7. American West & Western Canada
    
-![](/images/APA-regions.png)
+![](/images/regional-conferences/APA-regions.png)
 
 
 ## Simulation Framework
@@ -146,18 +197,18 @@ ii. Conduct an additional sensitivity test on regional meeting locations allowin
 
 Below is a map of the seven regional meeting locations used in the simulation:
 
-![](/images/Regional-locations.png)
+![](/images/regional-conferences/Regional-locations.png)
 
 
 ## Visualizing Regions
 
 To understand the effect of the regional categorization, it helps to compare the flight networks under the regular, single Annual Meeting framework. In the image below, we can see the flight network of the 2018 New York City APA Annual Meeting where over 16 thousand members attended. This map shows everyone who attended the 2018 meeting based on their reported residence. Each light orange point represents a unique residence and the size of and opacity of the points is proportional to the number of attendees traveling from that location. The darker-orange arcs indicate the *geodesic distance* or distance *as the crow flies* between each unique residence location and the location of the 2018 New York City meeting.
 
-![](/images/NYC-network.png)
+![](/images/regional-conferences/NYC-network.png)
 
 Here we can see all attendees converge on the [Javits Center](https://goo.gl/maps/gekiRZY7aPxe7qUo9) in New York City. We can apply the APA's regional designations and assign international (non-Canadian) attendees a region according to assumption *(i)* to get a map like the one depicted below, where each color represents a distinct APA regional designation. The width and intensity of each arc is proportional to the number of attendees originating from a given location.
 
-![](/images/NYC-regional-network.png)
+![](/images/regional-conferences/NYC-regional-network.png)
 
 Here we can see that under our current framework most of the European attendees are getting absorbed into Region 3—the New York City conference. Most of South and East Asia are absorbed by Region 7—the Seattle conference, and some of the Australian attendees are absorbed by Region 6—the Los Angeles conference.
 
@@ -167,7 +218,7 @@ Behind the scenes I import the simulation data and plot the attendance base acro
 
 The panel on the left shows the attendance for each regional conference using the APA's attendance data from the 2018 New York City Annual meeting. The panel on the right uses attendance data collected from the 2019 San Francisco Annual meeting. Each bar represents an individual region and the bars are colored by the transport mode the attendees took to each region. A larger area of purple would indicate more attendees drove directly to the meeting. 
 
-```{r Regional Attendance Plots, echo = FALSE}
+```{r Regional Attendance Plots, echo=FALSE}
 # Read data
 attend.data <- readRDS("~/website-update2/content/post/regional-conferences/RegionalAttendance.RDs")
 
