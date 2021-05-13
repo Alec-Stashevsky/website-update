@@ -1,6 +1,6 @@
 ---
 draft: true
-title: "Exploring a Regional Conference Format through Carbon Emissions"
+title: "Are Regional Conferences Better for the Environment?"
 author: "Alec Stashevsky"
 date: 2021-04-06
 categories: ["Decarbonization", "Spatial Politics"]
@@ -9,7 +9,7 @@ bibliography: [regional-conferences.bib]
 link-citations: true
 links:
  - name: "Code Supplement Repository"
-   url: https://github.com/Alec-Stashevsky/GAP-climate-research
+   url: https://github.com/Alec-Stashevsky/GAP-climate-research/tree/master/code/Regional%20Analysis
    icon_pack: fab
    icon: github
 image:
@@ -74,11 +74,11 @@ table > tbody > tr:hover > td, table > tbody > tr:hover > th {
 
 In this post, I reexamine the ways we navigate to large conferences from around the world and how the carbon emissions of such conferences can be mitigated while still preserving the important community-building that thrives at such events. I consider the carbon footprint of holding a large conference through multiple, smaller meetings compared to holding one large centrally-located meeting. I call this framework a *regional format* for conferences throughout this post.
 
-This post is a case study expanding upon the solutions offered by @10.1001/jamanetworkopen.2020.35641, a paper recently published by myself and a team of Psychiatrists at the [Group for the Advancement of Psychiatry (GAP).](https://ourgap.org) We estimated the carbon footprint associated with the 2018 and 2019 Annual Meetings of the [American Psychiatric Association (APA)](https://www.psychiatry.org/about-apa) then measured how this carbon footprint changes if meetings are held in different locations.^[We measured the effect of moving both the 2018 and 2019 meetings by _shifting_ the original location of each meeting to 13 different locations that the APA has used over the past 40+ years. In addition to measuring the carbon footprint from these 13 alternate locations, we employed a minimization procedure which identified a narrow region on the earth that would globally minimize the carbon footprint, given the attendance data for each Annual Meeting.]
+This post is a case study expanding upon the solutions offered by @10.1001/jamanetworkopen.2020.35641, a paper recently published by myself and a team of Psychiatrists at the [Group for the Advancement of Psychiatry (GAP).](https://ourgap.org) We estimated the carbon footprint associated with the 2018 and 2019 Annual Meetings of the [American Psychiatric Association (APA)](https://www.psychiatry.org/about-apa) then measured how this carbon footprint changes if meetings are held in different locations.^[We measured the effect of moving both the 2018 and 2019 meetings by _shifting_ the original location of each meeting to 13 different locations that the APA has used over the past 40+ years. In addition to measuring the carbon footprint from these 13 alternate locations, we employed a minimization procedure which identified a narrow region on the Earth that would globally minimize the carbon footprint, given the attendance data for each Annual Meeting.]
 The APA is the largest psychiatric association in the world with almost 40 thousand members worldwide.^[_See_ https://www.psychiatry.org/about-apa]
 
 We find that the location of the meeting can have a significant impact on the carbon footprint. For example, holding the Annual Meeting in Hawaii would produce more emissions than holding over 2.5 Annual Meetings in New York City if the same people attended.^[Such an assessment assumes that the exact same people will show up to a meeting in Hawaii and a meeting in New York City and this is probably not true.  Nonetheless, the analysis still provides us with a guage for the impact of meeting location. The issues with analyzing attendance data from individual meetings will be discussed later in this post. _See_ Table in @10.1001/jamanetworkopen.2020.35641 for the full assessment of meeting locations.] 
-We argue that large conferences like the APA Annual Meeting should incorporate the added environmental cost of remote conference destinations. By taking into account the geographic dispersion of their attendance base and choosing a location accordingly large conferences can drastically reduce their environmental impact while changing little else. This post expands upon @10.1001/jamanetworkopen.2020.35641 by examining the potential of a *regional conference format* to mitigate carbon emissions in addition to the optimizing location of the conferences.
+We argue that large conferences like the APA Annual Meeting should incorporate the added environmental cost of remote conference destinations. By taking into account the geographic dispersion of their attendance base and choosing a location accordingly large conferences can drastically reduce their environmental impact while changing little else. This post expands upon @10.1001/jamanetworkopen.2020.35641 by examining the potential of a *regional conference format* to mitigate carbon emissions in addition to optimizing conference location.
 
 
 ## The Story
@@ -110,13 +110,13 @@ For example, [Deepwater Horizon](https://www.miamiherald.com/news/local/communit
 Minor aspects of the spill have been studied through the lens of carbon footprint. For example, during the spill large amounts of oil leaked towards the ocean surface where one of the main remediation strategies was "controlled surface burning."^[@NOAA-deepwater. This is a common technique of spill remediation. _See_ @evans2001situ.]
 @FISG-deepwater estimate approximately 5% of the **total leaked oil** was burned on the surface, releasing over one million pounds (450 metric tons) of black carbon soot into the atmosphere.^[@NOAA-deepwater.] This amount pales in comparison to the true damage from the oil spill.
 
-My point here is that the *carbon footprint* (which we have yet to define) is not a holistic measure of environmental friendliness/harm and it is misleading and potentially damaging to evaluate somethingto solely look at the carbon footprint as a guage for the . The most damaging human-induced events like oil spills or nuclear meltdowns have carbon footprints far outmeasured by the loss of wildlife and habitat.
+My point here is that the *carbon footprint* (which we have yet to define) is not a holistic measure of environmental friendliness/harm and it is misleading and potentially damaging to use the carbon footprint as a gauge for how harmful something is. The most damaging human-induced events like oil spills or nuclear meltdowns have carbon footprints far outmeasured by the loss of wildlife and habitat.
 
 ### History of the Carbon Footprint
 
 Though I use the term *carbon footprint* throughout this post, I want to acknowledge the (not so pretty) history behind the term. *Carbon footprint* grew out of a related concept---the *ecological footprint*---invented in the 1990s by an ecologist William Rees and a regional planner Mathis Wackernagel.^[Selin, N. Eckley. *Carbon footprint. Encyclopedia Britannica.* https://www.britannica.com/science/carbon-footprint.]
 
-However it was not until the early 2000s that the term was popularized by oil giant BP. In 2004, BP unveiled the first "carbon footprint calculator" which provided individuals with a way to quantify how much heat-trapping carbon pollution they were releasing into the atmosphere. Unfortunately, it provided users with no way of measuring the carbon emissions produced from drilling deep into the earth to extract fossil fuels and accidentally dumping thousands of gallons of toxic fuel into the ocean.
+However it was not until the early 2000s that the term was popularized by oil giant BP. In 2004, BP unveiled the first "carbon footprint calculator" which provided individuals with a way to quantify how much heat-trapping carbon pollution they were releasing into the atmosphere. Unfortunately, it provided users with no way of measuring the carbon footprint of drilling deep into the Earth to extract fossil fuels and occasionally dumping thousands of gallons of toxic fuel into the ocean.
 
 Shifting the discourse of pollution onto the individual has long been a tactic of the largest corporate polluters. Even before we thought to worry about carbon pollution, we had marketing campaigns touting the righteousness of voluntary action. Recycling, bottle bills, and littering. In what appears to be the longest ad any millennial has ever seen, the famous "Crying Indian" first aired in 1971 on Earth day with the line: "People start pollution. People can stop it." Little did they know corporations would become people anyways.^[_See_ https://www.brennancenter.org/our-work/research-reports/citizens-united-explained]
 
@@ -124,31 +124,79 @@ Shifting the discourse of pollution onto the individual has long been a tactic o
 blogdown::shortcode("youtube", "Xm66Ww6qTpA")
 ```
 
-The ad is sponsored by Keep America Beautiful, a non-profit founded by Phillip Morris whose major sponsors include PepsiCo, Waste Management, Anheuser-Busch, Georgia-Pacific, Coca-Cola, Home Depot, and McDonald's.^[_See_ https://www.sourcewatch.org/index.php/Keep_America_Beautiful]
+The ad is sponsored by Keep America Beautiful, a non-profit founded by Phillip Morris and whose major sponsors include PepsiCo, Waste Management, Anheuser-Busch, Georgia-Pacific, Coca-Cola, Home Depot, and McDonald's.^[_See_ https://www.sourcewatch.org/index.php/Keep_America_Beautiful]
 I will refrain from saying much else on this matter, but if you're curious I would dig into the [history of pollution marketing](https://in.mashable.com/science/15520/the-carbon-footprint-sham) or [why you can't save the planet by going vegan.](https://www.usatoday.com/story/opinion/2019/06/03/climate-change-requires-collective-action-more-than-single-acts-column/1275965001/)
 
-Oh yeah, in case you were getting tired of punching in your electricity bill into BP's carbon footprint calculator to help you sleep at night, don't worry. BP has gone through the trouble of [developing an app that does it for you](https://grist.org/energy/footprint-fantasy), backed by their quasi venture capital subsidiary Launchpad.
+Oh yeah, in case you were getting tired of punching in your electricity bill into BP's carbon footprint calculator to help you sleep at night, don't worry. BP has gone through the trouble of [developing an app that does it for you](https://grist.org/energy/footprint-fantasy), backed by their quasi venture capital subsidiary, Launchpad.
 
 
-## Back to Business
+### Back to Business
 
 To understand what the *carbon footprint* attempts to measure, we first need to understand how gaseous emissions capture heat.
 
-Certain gases like carbon dioxide, methane, water vapor, methane, and ozone (O<sub>3</sub>) have molecular structures such that absorb infrared radiation. These gases are transparent to the human high (visible light), but *opaque* to longer wavelengths on the electromagnetic spectrum. When energy from the sun enters earth's atmosphere some of the heat is absorbed by these gas molecules causing them to vibrate more.
+Certain gases like carbon dioxide, methane, water vapor, methane, and ozone (O<sub>3</sub>) have molecular structures that absorb heat. These gases are transparent to the human eye (visible light), but *opaque* to longer wavelengths on the electromagnetic spectrum like infrared radiation. When energy from the sun enters Earth's atmosphere some of the heat is absorbed by these gas molecules causing them to vibrate more. Gas molecules which absorb heat in this manner are referred to as *Greenhouse Gases* (GHGs) because they cause the Earth's atmosphere to capture and reemit heat much like the windows in a greenhouse. This process is pictured below.
 
 ![](/images/regional-conferences/GHG-diagram.jpg)
 
+As energy from the sun enters the Earth's atmosphere and is reflected by the Earth's surface, some of it becomes trapped by GHGs. GHGs naturally occur in Earth's atmosphere but the burning of fossil fuels and other chemicals have and continue to rapidly increase the level of GHGs thus trapping more and more heat and contributing to global warming and climate change. This is essentially thickening the windows and increasing the insulation of the greenhouse.
+
+However, GHGs are not all the same. Some are better at absorbing heat than others, and some last longer in the atmosphere before breaking down.^[_See_ @brander2012greenhouse.]
+We can gauge the warming abilities of different GHGs by measuring how much additional warming they cause compared to carbon dioxide over a given time period, generally 100 years. This measurement is referred to as the *global warming potential* (GWP) of a GHG. The table below illustrates common GHGs and their corresponding GWP. Data are from the Intergovernmental Panel on Climate Change (IPPC) [2014 Fifth Assessment Report](https://www.ipcc.ch/report/ar5/syr/).
+
+```{r GWP Table, echo=FALSE}
+# Read in Global Warming Potential Table
+gwp <- readRDS("gwp.RDs")
+rownames(gwp) <- NULL
+
+# Render Table
+knitr::kable(
+   gwp[c(1, 3, 4)],
+   format = "html",
+   col.names = c(
+      "Greenhouse Gas",
+      # "Chemical Formula",
+      "Global Warming Potential<sup>1</sup>",
+      "Atmospheric Lifetime (Years)"
+      ),
+   align = c("l", "c", "c"),
+   escape = FALSE
+   ) %>%
+   footnote(
+      general_title = "Notes and Sources:",
+      title_format = "bold",
+      general = "Data are from Fifth Assessment Report (Intergovernmental Panel on Climate Change, 2014).",
+      number = "Measured for a 100-year time horizon.",
+      symbol = "No single lifetime can be given for carbon dioxide because it moves throughout the earth system at differing rates. Some carbon dioxide will be absorbed very quickly, while some will remain in the atmosphere for thousands of years."
+      ) %>% 
+   add_header_above(
+      c("Greehouse Gases and their Global Warming Potentials" = 3),
+      align = "c",
+      escape = TRUE,
+      line = FALSE,
+      extra_css = "background-color: rgb(232, 215, 195); font-size: 1rem; padding: 0.15rem 0;"
+      )
+
+```
+
+Here we can see that releasing one kilogram of methane gas into the atmosphere is 25 times better at trapping heat than releasing the same amount of carbon dioxide. Sulfur hexafluoride, a gas used mainly by the energy industry as an insulator and spark-suppressant in power transmission and distribution systems all over the world, is 23,500 times better at trapping heat than the equivalent amount of carbon dioxide.^[Additionally, during its working cycle, sulfur hexafluoride decomposes under electrical stress, forming toxic byproducts which pose a health threat for workers in the event of exposure. _See_ @SulfurHexafluoride.]
 
 
-* What are GHGs
+### Measuring the Carbon Footprint
 
-* How are GHGs Different
-  * Global Warming Potential (GWP)
+Carbon dioxide (CO<sub>2</sub>) is the most common GHG emitted by human activities, both in terms of the quantity released and the total impact on global warming. Due to this “CO<sub>2</sub>” is sometimes used as a shorthand expression for all greenhouse gases, but this is misleading. Greenhouse gas inventories are more complete if they include all GHGs and not just CO<sub>2</sub>, yet many GHG assessments or reports only include CO<sub>2</sub>, disregarding other greenhouse gases and leading to an understatement of total global warming impact @brander2012greenhouse. Sometimes this measure of only CO<sub>2</sub> is referred to as the *carbon footprint* of a process, but usually other GHGs are involved in which case it is better to refer to such a measure as the total *carbon dioxide emissions,* rather than the *carbon footprint*.
 
-* What do we mean by CO2*e*, "carbon emissions", CO2?
+However, to produce a better measure we can instead describe all GHGs under a common unit called *carbon dioxide equivalents* (CO<sub>2</sub>*e*) which captures the total impact to global warming from all different GHGs in terms of the amount of carbon dioxide it would take to have an equivalent impact on global warming from all GHGs. This is a more accurate way of measuring the *carbon footprint* of a process because it is more comprehensive.
 
-* How can we measure carbon footprint? 
+CO<sub>2</sub>*e* is a very useful measure because it allows us to bundle different GHGs and compare them across contexts. For example, we can capture the total impact to global warming from the emission of 1 kilogram of methane and 1 kilogram of sulfur hexafluoride by multiplying the amount of each GHG by its corresponding GWP in the above table. The emission of these gasses would then be equivalent to
+$$\begin{align} 1\ \textrm{kg} \ \textrm{methane} \ \times 25 &= 25 \ \textrm{kg} \ \textrm{CO}_2e, \\ 
+1\ \textrm{kg} \ \textrm{sulfur hexafluoride} \ \times 23,500 &= 23,500 \ \textrm{kg} \ \textrm{CO}_2e.
+\end{align}$$
 
+Thus, we would say this process has a total carbon footprint of 23,525 kilograms of carbon dioxide equivalent emissions.^[One issue with CO<sub>2</sub>*e* as a measure is that one must make sure the GHGs being converted into the measure are the same. If one measure does not include sulfur hexafluoride, for example, in its calculation then it may not be a fair comparison to another carbon footprint which does include sulfur hexafluoride in its calculation of CO<sub>2</sub>*e* emissions.]
+
+Terms like *carbon* and *carbon emissions* are often used to refer to a variety of measurements in the context of global warming. Sometimes they are used to refer to just CO<sub>2</sub> emissions and sometimes they are used to refer to GHGs in general. Moreover, converting CO<sub>2</sub> or other GHGs to their elemental carbon counterparts does little to aid in comparison across GHGs. Rather it is generally used as a shorthand in terms like "carbon accounting" or "low carbon future" as proxies for the more accurate "GHG accounting" or "low GHG future." 
+
+It is important to be careful in the ways we which we characterize our understanding of processes which contribute to global warming so that we authentically and holistically capture what we can measure and acknowledge what we cannot. Its best to be explicit and avoid terms like carbon emissions. In what follows, I return to the analysis of regional conferences and will do my best to avoid further conflating terminology.
 
 
 ## A Regional Conference Format
@@ -370,3 +418,7 @@ We need to reevaluate the purposes and priorties for large conferences. This mea
 
 
 ## References
+\setlength{\parindent}{-0.2in}
+\setlength{\leftskip}{0.2in}
+\setlength{\parskip}{8pt}
+\noindent
