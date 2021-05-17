@@ -1,0 +1,45 @@
+---
+title: "blocklength 0.1.4"
+author: "Alec Stashevsky"
+date: 2021-05-17
+categories: ["R", "Econometrics", "Statistics"]
+tags: ["R", "Econometrics", "Statistics"]
+links:
+ - name: "Website"
+   url: https://alecstashevsky.com/r/blocklength
+ - name: "CRAN"
+   url: https://cran.r-project.org/package=blocklength
+ - name: "GitHub"
+   url: https://github.com/Alec-Stashevsky/blocklength
+   icon_pack: fab
+   icon: github
+image:
+  caption:
+  preview_only:
+  focal_point: "Smart"
+summary: blocklength v0.1.4 published to CRAN!
+---
+
+I'm excited to announce that `blocklength` 0.1.4 is now available on [CRAN](https://cran.r-project.org/package=blocklength)! `blocklength` is designed to be used with block-bootstrap procedures and makes it quick and easy to select a block-length quantitatively. 
+
+Install it with:
+
+```{r install, eval=FALSE}
+install.packages("blocklength")
+```
+
+The most important changes are highlighted below and you can see a full list of changes in the [changelog](https://alecstashevsky.com/r/blocklength/news).
+
+
+## Changes
+
+`blocklength` has received a fancy hex sticker! Thanks to Malina Cheeneebash
+
+A new [vignette](https://alecstashevsky.com/r/blocklength/articles/tuning-parameters) has been included on tuning and diagnosing problematic output from the block-length selection functions!
+
+Some [bug fixes](https://alecstashevsky.com/r/blocklength/news/index.html#bug-fixes).
+
+
+## Acknowledgements 
+
+A big thanks goes out to Malina Cheeneebash for designing the blocklength hex sticker! Also to [Simon P. Couch](https://www.simonpcouch.com) and Sergio Armella for their contributions!

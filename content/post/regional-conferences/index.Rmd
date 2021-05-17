@@ -134,7 +134,7 @@ Oh yeah, in case you were getting tired of punching in your electricity bill int
 
 To understand what the *carbon footprint* attempts to measure, we first need to understand how gaseous emissions capture heat.
 
-Certain gases like carbon dioxide, methane, water vapor, methane, and ozone (O<sub>3</sub>) have molecular structures that absorb heat. These gases are transparent to the human eye (visible light), but *opaque* to longer wavelengths on the electromagnetic spectrum like infrared radiation. When energy from the sun enters Earth's atmosphere some of the heat is absorbed by these gas molecules causing them to vibrate more. Gas molecules which absorb heat in this manner are referred to as *Greenhouse Gases* (GHGs) because they cause the Earth's atmosphere to capture and reemit heat much like the windows in a greenhouse. This process is pictured below.
+Certain gases like carbon dioxide, methane, water vapor, and ozone (O<sub>3</sub>) have molecular structures that absorb heat. These gases are transparent to the human eye (visible light), but *opaque* to longer wavelengths on the electromagnetic spectrum like infrared radiation. When energy from the sun enters Earth's atmosphere some of the heat is absorbed by these gas molecules causing them to vibrate more. Gas molecules which absorb heat in this manner are referred to as *Greenhouse Gases* (GHGs) because they cause the Earth's atmosphere to capture and reemit heat much like the windows in a greenhouse. This process is pictured below.
 
 ![](/images/regional-conferences/GHG-diagram.jpg)
 
@@ -178,14 +178,14 @@ knitr::kable(
 
 ```
 
-Here we can see that releasing one kilogram of methane gas into the atmosphere is 25 times better at trapping heat than releasing the same amount of carbon dioxide. Sulfur hexafluoride, a gas used mainly by the energy industry as an insulator and spark-suppressant in power transmission and distribution systems all over the world, is 23,500 times better at trapping heat than the equivalent amount of carbon dioxide.^[Additionally, during its working cycle, sulfur hexafluoride decomposes under electrical stress, forming toxic byproducts which pose a health threat for workers in the event of exposure. _See_ @SulfurHexafluoride.]
+Here we can see that releasing one kilogram of methane gas into the atmosphere is 25 times better at trapping heat than releasing the same amount of carbon dioxide. Sulfur hexafluoride, a gas used mainly by the energy industry as an insulator and spark-suppressant in power transmission and distribution systems all over the world, is 23,500 times better at trapping heat than an equivalent mass of carbon dioxide.^[Additionally, during its working cycle, sulfur hexafluoride decomposes under electrical stress, forming toxic byproducts which pose a health threat for workers in the event of exposure. _See_ @SulfurHexafluoride.]
 
 
 ### Measuring the Carbon Footprint
 
 Carbon dioxide (CO<sub>2</sub>) is the most common GHG emitted by human activities, both in terms of the quantity released and the total impact on global warming. Due to this “CO<sub>2</sub>” is sometimes used as a shorthand expression for all greenhouse gases, but this is misleading. Greenhouse gas inventories are more complete if they include all GHGs and not just CO<sub>2</sub>, yet many GHG assessments or reports only include CO<sub>2</sub>, disregarding other greenhouse gases and leading to an understatement of total global warming impact @brander2012greenhouse. Sometimes this measure of only CO<sub>2</sub> is referred to as the *carbon footprint* of a process, but usually other GHGs are involved in which case it is better to refer to such a measure as the total *carbon dioxide emissions,* rather than the *carbon footprint*.
 
-However, to produce a better measure we can instead describe all GHGs under a common unit called *carbon dioxide equivalents* (CO<sub>2</sub>*e*) which captures the total impact to global warming from all different GHGs in terms of the amount of carbon dioxide it would take to have an equivalent impact on global warming from all GHGs. This is a more accurate way of measuring the *carbon footprint* of a process because it is more comprehensive.
+However, to produce a better measure we can instead describe all GHGs under a common unit called *carbon dioxide equivalents* (CO<sub>2</sub>*e*) which capture the total impact to global warming from all different GHGs in terms of the amount of carbon dioxide it would take to have an equivalent impact on global warming from all GHGs. This is a more accurate way of measuring the *carbon footprint* of a process because it is more comprehensive.
 
 CO<sub>2</sub>*e* is a very useful measure because it allows us to bundle different GHGs and compare them across contexts. For example, we can capture the total impact to global warming from the emission of 1 kilogram of methane and 1 kilogram of sulfur hexafluoride by multiplying the amount of each GHG by its corresponding GWP in the above table. The emission of these gasses would then be equivalent to
 $$\begin{align} 1\ \textrm{kg} \ \textrm{methane} \ \times 25 &= 25 \ \textrm{kg} \ \textrm{CO}_2e, \\ 
@@ -196,7 +196,7 @@ Thus, we would say this process has a total carbon footprint of 23,525 kilograms
 
 Terms like *carbon* and *carbon emissions* are often used to refer to a variety of measurements in the context of global warming. Sometimes they are used to refer to just CO<sub>2</sub> emissions and sometimes they are used to refer to GHGs in general. Moreover, converting CO<sub>2</sub> or other GHGs to their elemental carbon counterparts does little to aid in comparison across GHGs. Rather it is generally used as a shorthand in terms like "carbon accounting" or "low carbon future" as proxies for the more accurate "GHG accounting" or "low GHG future." 
 
-It is important to be careful in the ways we which we characterize our understanding of processes which contribute to global warming so that we authentically and holistically capture what we can measure and acknowledge what we cannot. Its best to be explicit and avoid terms like carbon emissions. In what follows, I return to the analysis of regional conferences and will do my best to avoid further conflating terminology.
+It is important to be careful with the ways we characterize our understanding of processes which contribute to global warming so that we authentically and holistically capture what we can measure and acknowledge what we cannot. Its best to be explicit and avoid terms like carbon emissions and to clearly define what is being measured and included in *carbon footprint* if that term is used. In what follows, I return to the analysis of regional conferences and will do my best to avoid further conflating terminology.
 
 
 ## A Regional Conference Format
@@ -239,7 +239,7 @@ In order to simulate the way attendees would travel to the regional conferences,
 
 The second extending assumption was the location of the seven regional meetings. The purpose of the analysis is to quantify the affect of holding multiple smaller regional conferences compared one large one, *ceteris paribus*. However, in @10.1001/jamanetworkopen.2020.35641 we show that the location of the meeting can have a large impact on the carbon footprint. For this reason, in order to isolate the effect of moving to a regional format and eliminate the noise from different locations, we chose to:
 
-i. Re-use location of past APA Annual meetings whenever possible.^[The one exception to this case was choosing a location for Region 7 because no meetings have historically been held this area. The choice of the Region 7 location is particularly important because Region 7 has the largest area of all the APA regions, and this greater distance members must travel will increase the sensitivity of the carbon emission estimates with respect to the choice of location. We chose the Region 7 meeting location to be Seattle because it is a metropolitan city and has venues capable of supporting large conferences.]
+i. Re-use locations of past APA Annual meetings whenever possible.^[The one exception to this case was choosing a location for Region 7 because no meetings have historically been held this area. The choice of the Region 7 location is particularly important because Region 7 has the largest area of all the APA regions, and this greater distance members must travel will increase the sensitivity of the carbon emission estimates with respect to the choice of location. We chose the Region 7 meeting location to be Seattle because it is a metropolitan city and has venues capable of supporting large conferences.]
 
 ii. Conduct an additional sensitivity test on regional meeting locations allowing *all* attendees to travel to the closest regional meeting, regardless of their designation.
 
@@ -250,11 +250,11 @@ Below is a map of the seven regional meeting locations used in the simulation:
 
 ## Visualizing Regions
 
-To understand the effect of the regional categorization, it helps to compare the flight networks under the regular, single Annual Meeting framework. In the image below, we can see the flight network of the 2018 New York City APA Annual Meeting where over 16 thousand members attended. This map shows everyone who attended the 2018 meeting based on their reported residence. Each light orange point represents a unique residence and the size of and opacity of the points is proportional to the number of attendees traveling from that location. The darker-orange arcs indicate the *geodesic distance* or distance *as the crow flies* between each unique residence location and the location of the 2018 New York City meeting.
+To understand the effect of the regional categorization, it helps to compare the flight networks under the regular, single Annual Meeting framework. In the image below, we can see the flight network of the 2018 New York City APA Annual Meeting where over 16 thousand members attended. This map shows everyone who attended the 2018 meeting based on their reported residence. Each light orange point represents a unique residence and the size of and opacity of the points is proportional to the number of attendees traveling from that location. The darker-orange arcs indicate the *geodesic distance* or distance *as the crow flies* between each unique residence location and the location of the 2018 New York City meeting. This is the shortest path between two points on the globe.^[Commercial flight paths are usually longer then the geodesic distance between two points. Our flight emissions model corrects for this difference.]
 
 ![](/images/regional-conferences/NYC-network.png)
 
-Here we can see all attendees converge on the [Javits Center](https://goo.gl/maps/gekiRZY7aPxe7qUo9) in New York City. We can apply the APA's regional designations and assign international (non-Canadian) attendees a region according to assumption *(i)* to get a map like the one depicted below, where each color represents a distinct APA regional designation. The width and intensity of each arc is proportional to the number of attendees originating from a given location.
+Here we can see all attendees converge on the [Javits Center](https://goo.gl/maps/gekiRZY7aPxe7qUo9) in New York City. Now, we can apply the APA's regional designations and assign international (non-Canadian) attendees a regional destination according to assumption *(i)* to generate a map like the one depicted below, where each color represents a distinct APA region. The width and intensity of each arc is proportional to the number of attendees originating from a given location.
 
 ![](/images/regional-conferences/NYC-regional-network.png)
 
@@ -264,7 +264,7 @@ Though it may not be clear from the maps, we want to make sure that our regional
 
 Behind the scenes I import the simulation data and plot the attendance base across regions by transport mode. If you are curious, all the code for this is available at my [GitHub](https://github.com/Alec-Stashevsky/GAP-climate-research/blob/c3c960efd5138ef34c326f12693f223509fa3097/code/Regional%20Analysis/05%20-%20Regional%20Emissions%20Plots.Rmd).
 
-The panel on the left shows the attendance for each regional conference using the APA's attendance data from the 2018 New York City Annual meeting. The panel on the right uses attendance data collected from the 2019 San Francisco Annual meeting. Each bar represents an individual region and the bars are colored by the transport mode the attendees took to each region. A larger area of purple would indicate more attendees drove directly to the meeting. 
+The panel on the left shows the attendance for each regional conference using the APA's attendance data from the 2018 New York City Annual meeting. The panel on the right uses attendance data collected from the 2019 San Francisco Annual meeting. Each bar represents an individual region and the bars are colored by the transport mode the attendees took to each region. A larger area of purple would indicate more attendees drove directly to the meeting, rather than flying (blue). 
 
 ```{r Regional Attendance Plots, echo=FALSE}
 # Read data
@@ -291,23 +291,23 @@ ggplot(attend.data, aes(x = Region,
       )
 ```
 
-For the most part the total number of attendees at each regional meeting is around 1.5 to 3 thousand, with the exception of Region 2 on the left panel (2018 Data). This is a good indication that the regional designations assigned by the APA and our assumptions about international attendees break the membership base into somewhat even parts. If we connect this column plot with the regional flight network depicted above, we can see the New York city meeting is receiving the majority of international attendees whom are largely from Europe. When we use the 2019 Data this outlier disappears.
+For the most part the total number of attendees at each regional meeting is around 1.5 to 3 thousand, with the exception of Region 2 on the left panel (2018 Data). This is a good indication that the regional designations assigned by the APA and our assumptions about international attendees break the membership base into somewhat even parts. If we consider this column plot along with the regional flight network map depicted above, we can see the New York city meeting receives the majority of international attendees whom are largely from Europe. When we use the 2019 Data the attendance is much more even.
 
 ### Bias in Attendance Data
 
-I won't go into all the implications of why the 2018 and 2019 attendance data sets may be different, but I want to address some inherent biases in the data. Because these data were collected based on the actual attendance of the 2018 and 2019 APA Annual Meetings, we need to consider how this may affect our analysis, and specifically our ability to predict whom will attend what meetings.
+I won't go into all the implications of why the 2018 and 2019 attendance data sets may be different, but I want to address some inherent biases in the data. Because these data were collected based on the actual attendance of the 2018 and 2019 APA Annual Meetings, we need to consider how this may affect our analysis, specifically our ability to compare between meetings or predict who will attend what meetings.
 
-Generally, the farther away a conference is, the less likely one is to attend. Traveling farther away is more costly, more time consuming, and it is much easier to drive directly rather than fly if its reasonable. Together these factors influence types of people who attend which meeting. I call this phenomenon *geographic bias.*
+Generally, the farther away a conference is, the less likely one is to attend. Traveling farther away is more costly, more time consuming, and it is much easier to drive directly rather than fly if its reasonable. Together these factors influence the range of people who attend each meeting. I call this phenomenon *geographic bias.*
 
-Such bias is present is likely present in the APA attendance data. The 2018 New York City meeting data shows a smaller proportion of members from the West Coast even though approximately 3 thousand more people attended the meeting compared to the 2019 San Francisco one. Similarly, the proportion of attendees from the West Coast increased the the following year at the 2019 meeting.
+Such bias is present is likely present in the APA attendance data. The 2018 New York City meeting data shows a smaller proportion of members from the West Coast even though approximately three thousand more people attended the meeting compared to the 2019 San Francisco one. Similarly, the proportion of attendees from the West Coast increased the the following year at the 2019 meeting.
 
 Though the APA has almost 40 thousand members, only about 13 to 17 thousand attended each meeting. Thus, it is important to have a sense of what factors draw out certain sections of the APA membership and how that could affect our results. It is clear that the meeting's location exerts influence over who attends the meeting through proximity based on a review of the 2018 and 2019 data; However, there is likely a nexus of other factors that we cannot observe by simply comparing the two data sets and if we were to perform a similar analysis using only one year, it is very likely that our results would be biased towards the people closest to that meeting. We might find that meetings held closer to this critical mass are optimal (in terms of emissions), but we know nothing about what that attendance *would* look like in an alternate universe where the APA Meeting was held under the beautiful Grand Tetons in, say, Jackson Hole, Wyoming instead of New York City. 
 
-In this sense, the analysis would surely benefit from a broader set of attendance data, specifically attendance data from a geographically-diverse set of of conferences. This way, it would be possible to tease out the different sections of the APA's membership that *would have come* if the meeting was closer to them.^[We performed a benchmarking analysis on the two data sets by measuring the relative increase in attendance within a 400 km radius of the meeting.]
+In this sense, the analysis would surely benefit from a broader set of attendance data. Data which includes a geographically-diverse set of of conferences. This way, it would be possible to tease out the different sections of the APA's membership that *would have come* if the meeting was closer to them.^[We performed a benchmarking analysis on the two data sets by measuring the relative increase in attendance within a 400 km radius of the meeting.]
 
-## Measuring Carbon Emissions
+## Regial Simulation Resuts
 
-Following @10.1001/jamanetworkopen.2020.35641, I estimate total emissions of for the conferences under the regional conference format. The table below presents the results for the 2018 New York City and 2019 San Francisco simulations, respectively. The carbon footprint of the meetings is measured by the emission of greenhouse gases (GHGs).  as metric tons of carbon-dioxide equivalent (CO<sub>2</sub>*e*) emissions.^[Add footnote about what this means.]
+Following @10.1001/jamanetworkopen.2020.35641, I estimate total emissions of for the conferences under the regional conference format. The table below presents the results for the 2018 New York City and 2019 San Francisco simulations, respectively. The carbon footprint of the attendees' commute to the meetings is measured by the emission of greenhouse gases (GHGs) as metric tons of carbon-dioxide equivalents (CO<sub>2</sub>*e*).
 
 ```{r Carbon Emissions, echo=FALSE}
 
@@ -408,10 +408,15 @@ knitr::kable(
 ```
 
 
+* We can see the emissions is lower for the regions by XYZ.
+* Why is the reduction for SF so much larger? 
+  * Explain optimality for NYC based on APA attendance base
+* Mention impact of the sensitivity analysis
 
 
+* CHANGE carbon emission to GHG emission in later section of the post after explanation of terminology
 
-**NOTE**
+**Wrap Up**
 
 We need to reevaluate the purposes and priorties for large conferences. This means rethinking frameworks that promote industy/proffesional conferences as a chance to "get away" while still growing professionally. 
 
