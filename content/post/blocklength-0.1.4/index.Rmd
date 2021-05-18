@@ -17,7 +17,7 @@ image:
   caption:
   preview_only:
   focal_point: "Smart"
-summary: blocklength v0.1.4 published to CRAN!
+summary: Version 0.1.4 published to CRAN!
 ---
 
 I'm excited to announce that `blocklength` 0.1.4 is now available on [CRAN](https://cran.r-project.org/package=blocklength)! `blocklength` is designed to be used with block-bootstrap procedures and makes it quick and easy to select a block-length quantitatively. 
