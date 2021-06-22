@@ -30,7 +30,7 @@ experience:
   company_url: "https://www.nera.com/practice-areas/securities-and-finance.html"
   date_end: ""
   date_start: "2020-09-21"
-  description: Structured Finance, Mass Torts, Bankruptcy, Cryptocurrencies
+  description: Act as data scientist performing statistical modelling and economic analysis of high-stakes litigation involving structured finance, bankruptcy, cryptocurrencies, and mass torts. Build algorithms and financial models to estimate damages and predict the performance of complex financial instruments. Use a variety of programming languages to identify fraud and negligent risk management practices for Fortune 500 companies, SEC, DOJ, and FINRA.
   location: New York City
   title: Research Associate
   
@@ -38,23 +38,24 @@ experience:
   company_url: "https://cadmusgroup.com/services/energy/"
   date_end: "2020-09-15"
   date_start: "2019-11-04"
-  description: Utilize statistical modeling, data analysis, and machine learning to uncover consumer insights and make business recommendations for diverse energy industry clients. Evaluate $600k+ randomized control trial to quantify the impacts of smart thermostat direct load-control events. Built a Shiny dashboard to forecast EV market penetration and assisted with potential studies and cost-effectiveness evaluations.
+  description: Utilize statistical modeling, data analysis, and machine learning to uncover consumer insights and make business recommendations for diverse energy industry clients. Act as primary analyst evaluating demand-side management programs, including a $600k+ randomized control trial to quantify the impacts of smart thermostat direct load-control events. Forecast electric vehicle diffusion and develop deliverable dashboards for stakeholders using R Shiny. Build models to forecast demand elasticity and potential energy reduction.
   location: Portland, OR
   title: Research Analyst
   
-- company: Kyrgies.com
+- company: Kyrgies
   company_url: "https://kyrgies.com"
-  date_end: "2020-02-01"
+  date_end: "2020-07-01"
   date_start: "2019-10-01"
   description: Led a project investigating optimal advertising strategies for an online retailer by supplementing Google Analytics and sales data to perform Geo-spatial analysis, market research, and ultimately lead generation.
-  title: Data Analyst (Freelance)
+  title: Data Scientist (Contract)
   
-- company: Kauffman Wealth Management
+- company: KWM Wealth Advisory
+  company_url: "https://www.kwmwealthadvisory.com"
   date_end: "2020-10-01"
   date_start: "2019-07-01"
-  description: Build a bear market strategy dashboard in R Shiny to contextualize previous market mechanisms in real-time economies. 
+  description: Developed an interactive dashboard to help financial advisors navigate bear markets and contextualize historical data using Shiny, a web application package for R.
   location: Pasadena, CA
-  title: Project Intern
+  title: Data Scientist Intern
   
 - company: Reed College
   date_end: "2018-12-01"
@@ -77,7 +78,6 @@ experience:
    \- LAN/WAN/NOC/NAS Administration
    <br /> - Lead business-wide IT projects and a team of up to 6 people
    <br /> - Manage 100+ workstations, servers, MFPs, and PBX phone systems
-   <br /> - Technology instruction catered to Realtors
   location: Arcadia, CA
   title: Systems Administrator
 ---
