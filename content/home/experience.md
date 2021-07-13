@@ -32,7 +32,7 @@ experience:
   date_start: "2020-09-21"
   description: Act as data scientist performing statistical modelling and economic analysis of high-stakes litigation involving structured finance, bankruptcy, cryptocurrencies, and mass torts. Build algorithms and financial models to estimate damages and predict the performance of complex financial instruments. Use a variety of programming languages to identify fraud and negligent risk management practices for Fortune 500 companies, SEC, DOJ, and FINRA.
   location: New York City
-  title: Research Associate
+  title: Associate Analyst
   
 - company: The Cadmus Group
   company_url: "https://cadmusgroup.com/services/energy/"

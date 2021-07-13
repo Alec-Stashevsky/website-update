@@ -5,12 +5,38 @@
     <link>https://alecstashevsky.com/category/r/</link>
       <atom:link href="https://alecstashevsky.com/category/r/index.xml" rel="self" type="application/rss+xml" />
     <description>R</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Alec Stashevsky 2021</copyright><lastBuildDate>Sun, 24 Jan 2021 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© Alec Stashevsky 2021</copyright><lastBuildDate>Mon, 17 May 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>https://alecstashevsky.com/media/content/authors/admin/avatar.jpg</url>
       <title>R</title>
       <link>https://alecstashevsky.com/category/r/</link>
     </image>
+    
+    <item>
+      <title>blocklength 0.1.4</title>
+      <link>https://alecstashevsky.com/post/blocklength-0.1.4/</link>
+      <pubDate>Mon, 17 May 2021 00:00:00 +0000</pubDate>
+      <guid>https://alecstashevsky.com/post/blocklength-0.1.4/</guid>
+      <description>
+&lt;script src=&#34;https://alecstashevsky.com/post/blocklength-0.1.4/index_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+
+&lt;p&gt;I’m excited to announce that &lt;code&gt;blocklength&lt;/code&gt; 0.1.4 is now available on &lt;a href=&#34;https://cran.r-project.org/package=blocklength&#34;&gt;CRAN&lt;/a&gt;! &lt;code&gt;blocklength&lt;/code&gt; is designed to be used with block-bootstrap procedures and makes it quick and easy to select a block-length quantitatively.&lt;/p&gt;
+&lt;p&gt;Install it with:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;install.packages(&amp;quot;blocklength&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The most important changes are highlighted below and you can see a full list of changes in the &lt;a href=&#34;https://alecstashevsky.com/r/blocklength/news&#34;&gt;changelog&lt;/a&gt;.&lt;/p&gt;
+&lt;div id=&#34;changes&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Changes&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;blocklength&lt;/code&gt; has received a fancy hex sticker! Thanks to Malina Cheeneebash&lt;/p&gt;
+&lt;p&gt;A new &lt;a href=&#34;https://alecstashevsky.com/r/blocklength/articles/tuning-parameters&#34;&gt;vignette&lt;/a&gt; has been included on tuning and diagnosing problematic output from the block-length selection functions!&lt;/p&gt;
+&lt;p&gt;Some &lt;a href=&#34;https://alecstashevsky.com/r/blocklength/news/index.html#bug-fixes&#34;&gt;bug fixes&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;acknowledgements&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Acknowledgements&lt;/h2&gt;
+&lt;p&gt;A big thanks goes out to Malina Cheeneebash for designing the blocklength hex sticker! Also to &lt;a href=&#34;https://www.simonpcouch.com&#34;&gt;Simon P. Couch&lt;/a&gt; and Sergio Armella for their contributions!&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>Building my first R package</title>
@@ -96,8 +122,8 @@ series &amp;lt;- data.frame(
 &lt;p&gt;This was exactly what I needed, but a bit searching around CRAN, GitHub, and STATA and SAS libraries came up with nothing.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;enter-blocklength&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Enter &lt;code&gt;{blocklength}&lt;/code&gt;&lt;/h2&gt;
-&lt;p&gt;The goal of &lt;code&gt;{blocklength}&lt;/code&gt; is to simplify and automate the process of selecting a block-length to bootstrap dependent data. &lt;code&gt;{blocklength}&lt;/code&gt; is an R package with a set of functions to automatically select the optimal block-length for a bootstrap of suitable dependent data, such as &lt;em&gt;stationary&lt;/em&gt; time series or dependent spatial data.&lt;/p&gt;
+&lt;h2&gt;Enter &lt;code&gt;blocklength&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;The goal of &lt;code&gt;blocklength&lt;/code&gt; is to simplify and automate the process of selecting a block-length to bootstrap dependent data. &lt;code&gt;blocklength&lt;/code&gt; is an R package with a set of functions to automatically select the optimal block-length for a bootstrap of suitable dependent data, such as &lt;em&gt;stationary&lt;/em&gt; time series or dependent spatial data.&lt;/p&gt;
 &lt;p&gt;Currently, there are two methods available:&lt;/p&gt;
 &lt;ol style=&#34;list-style-type: decimal&#34;&gt;
 &lt;li&gt;&lt;p&gt;&lt;code&gt;hhj()&lt;/code&gt; takes its name from the &lt;span class=&#34;citation&#34;&gt;&lt;a href=&#34;#ref-10.1093/biomet/82.3.561&#34; role=&#34;doc-biblioref&#34;&gt;Hall, Horowitz, and Jing&lt;/a&gt; (&lt;a href=&#34;#ref-10.1093/biomet/82.3.561&#34; role=&#34;doc-biblioref&#34;&gt;1995&lt;/a&gt;)&lt;/span&gt; “HHJ” method to select the optimal block-length using a cross-validation algorithm which minimizes the mean squared error &lt;span class=&#34;math inline&#34;&gt;\((MSE)\)&lt;/span&gt; incurred by the bootstrap at various block-lengths.&lt;/p&gt;&lt;/li&gt;
@@ -107,6 +133,7 @@ series &amp;lt;- data.frame(
 &lt;p&gt;Compared to &lt;code&gt;pwsd()&lt;/code&gt; ,  &lt;code&gt;hhj()&lt;/code&gt; is more computationally intensive as it relies on iterative resampling processes that optimize the &lt;span class=&#34;math inline&#34;&gt;\(MSE\)&lt;/span&gt; function over each possible block-length (or a select grid of block-lengths). &lt;code&gt;pwsd()&lt;/code&gt; is a simpler “plug-in” rule that uses the auto-correlations, auto-covariance, and the subsequent spectral density of the series to optimize the choice of block-length.&lt;/p&gt;
 &lt;p&gt;Currently, only the HHJ and PWSD methods are implemented through these two functions, but I plan on adding additional block-selection methods such as the Jackknife-after-bootstrap (JAB) Nonparametric Plug-in method proposed by &lt;span class=&#34;citation&#34;&gt;&lt;a href=&#34;#ref-LAHIRI2007292&#34; role=&#34;doc-biblioref&#34;&gt;S. N. Lahiri, Furukawa, and Lee&lt;/a&gt; (&lt;a href=&#34;#ref-LAHIRI2007292&#34; role=&#34;doc-biblioref&#34;&gt;2007&lt;/a&gt;)&lt;/span&gt;.&lt;a href=&#34;#fn6&#34; class=&#34;footnote-ref&#34; id=&#34;fnref6&#34;&gt;&lt;sup&gt;6&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;The package can be downloaded from my &lt;a href=&#34;https://github.com/Alec-Stashevsky/blocklength&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;If you are interested in more infoRmation, make sure to checkout &lt;a href=&#34;https://www.r-bloggers.com/&#34;&gt;R-bloggers&lt;/a&gt; where you can find this post and many more!&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;references&#34; class=&#34;section level2 unnumbered&#34;&gt;
 &lt;h2&gt;References&lt;/h2&gt;
@@ -121,7 +148,7 @@ Hall, Peter, Joel L. Horowitz, and Bing-Yi Jing. 1995. &lt;span&gt;“&lt;span c
 Künsch, Hans R. 1989. &lt;span&gt;“The Jackknife and the Bootstrap for General Stationary Observations.”&lt;/span&gt; &lt;em&gt;Ann. Statist.&lt;/em&gt; 17 (3): 1217–41. &lt;a href=&#34;https://doi.org/10.1214/aos/1176347265&#34;&gt;https://doi.org/10.1214/aos/1176347265&lt;/a&gt;.
 &lt;/div&gt;
 &lt;div id=&#34;ref-lahiri2003resampling&#34; class=&#34;csl-entry&#34;&gt;
-Lahiri, S. K., and S. N. Lahiri. 2003. &lt;em&gt;Resampling Methods for Dependent Data&lt;/em&gt;. Springer Series in Statistics. Springer. &lt;a href=&#34;https://books.google.com/books?id=e4f8sqm439UC&#34;&gt;https://books.google.com/books?id=e4f8sqm439UC&lt;/a&gt;.
+Lahiri, S. K. 2003. &lt;em&gt;Resampling Methods for Dependent Data&lt;/em&gt;. Springer Series in Statistics. Springer. &lt;a href=&#34;https://books.google.com/books?id=e4f8sqm439UC&#34;&gt;https://books.google.com/books?id=e4f8sqm439UC&lt;/a&gt;.
 &lt;/div&gt;
 &lt;div id=&#34;ref-LAHIRI2007292&#34; class=&#34;csl-entry&#34;&gt;
 Lahiri, S. N., K. Furukawa, and Y.-D. Lee. 2007. &lt;span&gt;“A Nonparametric Plug-in Rule for Selecting Optimal Block Lengths for Block Bootstrap Methods.”&lt;/span&gt; &lt;em&gt;Statistical Methodology&lt;/em&gt; 4 (3): 292–321. https://doi.org/&lt;a href=&#34;https://doi.org/10.1016/j.stamet.2006.08.002&#34;&gt;https://doi.org/10.1016/j.stamet.2006.08.002&lt;/a&gt;.
@@ -143,7 +170,7 @@ Politis, Dimitris N., and Halbert White. 2004. &lt;span&gt;“Automatic Block-Le
 &lt;li id=&#34;fn1&#34;&gt;&lt;p&gt;Other common contexts for dependent data include spatial information such as topographical data or biological data, such as measuring biological oxygen demand &lt;em&gt;(BOD)&lt;/em&gt; levels in rivers.&lt;a href=&#34;#fnref1&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;li id=&#34;fn2&#34;&gt;&lt;p&gt;We assume that there are &lt;span class=&#34;math inline&#34;&gt;\(b\)&lt;/span&gt; blocks of length &lt;span class=&#34;math inline&#34;&gt;\(l\)&lt;/span&gt; such that &lt;span class=&#34;math inline&#34;&gt;\(bl \sim n\)&lt;/span&gt; for simplicity.&lt;a href=&#34;#fnref2&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;li id=&#34;fn3&#34;&gt;&lt;p&gt;&lt;em&gt;See&lt;/em&gt; &lt;span class=&#34;citation&#34;&gt;&lt;a href=&#34;#ref-kunsch1989&#34; role=&#34;doc-biblioref&#34;&gt;Künsch&lt;/a&gt; (&lt;a href=&#34;#ref-kunsch1989&#34; role=&#34;doc-biblioref&#34;&gt;1989&lt;/a&gt;)&lt;/span&gt;.&lt;a href=&#34;#fnref3&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn4&#34;&gt;&lt;p&gt;For a thorough treatment of bootstrapping methods for dependent data and the selection of optimal block-length, &lt;em&gt;See&lt;/em&gt; &lt;span class=&#34;citation&#34;&gt;&lt;a href=&#34;#ref-lahiri2003resampling&#34; role=&#34;doc-biblioref&#34;&gt;S. K. Lahiri and Lahiri&lt;/a&gt; (&lt;a href=&#34;#ref-lahiri2003resampling&#34; role=&#34;doc-biblioref&#34;&gt;2003&lt;/a&gt;)&lt;/span&gt;.&lt;a href=&#34;#fnref4&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id=&#34;fn4&#34;&gt;&lt;p&gt;For a thorough treatment of bootstrapping methods for dependent data and the selection of optimal block-length, &lt;em&gt;See&lt;/em&gt; &lt;span class=&#34;citation&#34;&gt;&lt;a href=&#34;#ref-lahiri2003resampling&#34; role=&#34;doc-biblioref&#34;&gt;S. K. Lahiri&lt;/a&gt; (&lt;a href=&#34;#ref-lahiri2003resampling&#34; role=&#34;doc-biblioref&#34;&gt;2003&lt;/a&gt;)&lt;/span&gt;.&lt;a href=&#34;#fnref4&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;li id=&#34;fn5&#34;&gt;&lt;p&gt;Specifically, &lt;span class=&#34;math inline&#34;&gt;\(n^{\frac{1}{3}}, n^{\frac{1}{4}},\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(n^{\frac{1}{5}}\)&lt;/span&gt; are used in the estimation of bias or variance, the estimation of a one-sided distribution function, and the estimation of a two-sided distribution function, respectively.&lt;a href=&#34;#fnref5&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;li id=&#34;fn6&#34;&gt;&lt;p&gt;Both &lt;code&gt;pwsd()&lt;/code&gt; and &lt;code&gt;hhj()&lt;/code&gt; have output corresponding ‘pwsd’ and ‘hhj’ class objects which may be passed into S3 plotting methods. The usage of this package will be discussed in a later post.&lt;a href=&#34;#fnref6&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
