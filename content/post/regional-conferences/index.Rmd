@@ -328,22 +328,53 @@ Following our assumptions, I estimate total GHG emissions for the meetings under
 
 ```{r Carbon Emissions, echo=FALSE}
 
-# Build Tables ------------------------------------------------------------
-nyc <- data.frame(
-   c("Attendance", "Total Emissions", "Per Capita Emissions"),
-   c("16,620", "19,819", "1.19"),
-   c("16,620", "15,050", "0.91"),
-   c("—", "4,769", "0.28"),
-   c("—", "24%", "24%")
+# Build Tables ------------------------------------------------------------ 
+
+# NYC
+nyc <- structure(
+   list(
+      NULL = c(
+         "Actual Meeting<sup>1</sup>", 
+         "Regional Meeting<sup>2</sup>",
+         "Difference",
+         "Percent Difference"
+         ),
+      Attendance = c(
+         "16,620", "16,620", "—", "—"
+         ),
+      `Total Emissions` = c(
+         "19,819", "15,050", "4,769", "24%"
+         ),
+      `Per Capita Emissions` = c(
+         "1.19", "0.91", "0.28", "24%"
+         )
+      ),
+   class = "data.frame",
+   row.names = c(NA, -4L)
    )
 
-sf <- data.frame(
-   c("Attendance", "Total Emissions", "Per Capita Emissions"),
-   c("13,335", "21,456", "1.61"),
-   c("13,335", "10,189", "0.76"),
-   c("—", "11,267", "0.53"),
-   c("—", "53%", "53%")
-   )
+# SF
+sf <- structure(
+   list(
+      NULL = c(
+         "Actual Meeting<sup>1</sup>", 
+         "Regional Meetings<sup>2</sup>",
+         "Difference",
+         "Percent Difference"
+         ),
+      Attendance = c(
+         "13,335", "13,335", "—", "—"
+         ),
+      `Total Emissions` = c(
+         "21,456", "10,189", "11,267", "53%"
+         ),
+      `Per Capita Emissions` = c(
+         "1.61", "0.76", "0.53", "53%"
+         )
+      ),
+   class = "data.frame",
+   row.names = c(NA, -4L))
+
 
 # Render Tables -----------------------------------------------------------
 
@@ -351,23 +382,23 @@ sf <- data.frame(
 knitr::kable(
    nyc,
    format = "html",
+   row.names = FALSE,
    col.names = c(
-      "Measurement",
-      "Actual Meeting<sup>1</sup>",
-      "Regional Meetings<sup>2</sup>",
-      "Difference",
-      "Percent Difference"),
-   align = c("l", "r", "r", "r", "r"),
+      "Measure",
+      "Attendance",
+      "Total Emissions",
+      "Emissions per Person"),
+   align = c("l", "c", "c", "c"),
    escape = FALSE
-   ) %>%
-add_header_above(
-      c("", "Metric Tons CO<sub>2</sub>*e*" = 3, ""),
+   ) %>% 
+   add_header_above(
+      c("", "", "Metric Tons CO<sub>2</sub>*e*" = 2),
       escape = FALSE,
       line = FALSE,
       extra_css = "border-bottom: 2px solid rgb(232, 215, 195);"
       ) %>% 
    add_header_above(
-      c("New York City 2018 Meeting" = 5),
+      c("New York City 2018 Meeting" = 4),
       align = "c",
       escape = TRUE,
       line = FALSE,
@@ -391,24 +422,23 @@ add_header_above(
 knitr::kable(
    sf,
    format = "html",
+   row.names = FALSE,
    col.names = c(
-      "Measurement",
-      "Actual Meeting<sup>1</sup>",
-      "Regional Meetings<sup>2</sup>",
-      "Difference",
-      "Percent Difference"
-      ),
-   align = c("l", "r", "r", "r", "r"),
+      "Measure",
+      "Attendance",
+      "Total Emissions",
+      "Emissions per Person"),
+   align = c("l", "c", "c", "c"),
    escape = FALSE
-   ) %>%
+   ) %>% 
    add_header_above(
-      c("", "Metric Tons CO<sub>2</sub>*e*" = 3, ""),
+      c("", "", "Metric Tons CO<sub>2</sub>*e*" = 2),
       escape = FALSE,
       line = FALSE,
       extra_css = "border-bottom: 2px solid rgb(232, 215, 195);"
       ) %>% 
    add_header_above(
-      c("San Francisco 2019 Meeting" = 5),
+      c("San Francisco 2019 Meeting" = 4),
       align = "c",
       escape = TRUE,
       line = FALSE,
@@ -425,8 +455,7 @@ knitr::kable(
             "."
             ),
          "Results from this supplemental regional analysis."
-         ),
-      escape = FALSE
+         )
       )
 ```
 
