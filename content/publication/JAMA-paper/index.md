@@ -30,13 +30,7 @@ links:
 slides: jama-paper
 ---
 
-<br>
-<h2>
-<center> 
-<a href=“https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2775666”>Read the full article here</a>
-</center>
-</h2>
-<br>
+[Read the full article here!](https://doi.org/10.1001/jamanetworkopen.2020.35641 "JAMA Paper")
 
 Below is a PDF explorer that visualizes the flight network models used to illustrate each attendee's commute to the APA Annual Meeting for the 2018 New York City and 2019 San Francisco Annual Meetings. The third page shows a counterfactual scenario had the attendees who registered for the 2020 Philadelphia meeting actually attended; However, the 2020 meeting was canceled with a virtual substitute in the wake of the COVID-19 pandemic. The arcs measure the *distance as the crow flies,* or the *geodesic distance* between each attendee's origin and the Annual Meeting location. The width and intensity of the arcs is proportional to the number of people originating from a given location.
 
