@@ -8,15 +8,15 @@ tags: ["Decarbonization", "Spatial Politics"]
 bibliography: [regional-conferences.bib]
 link-citations: true
 links:
- - name: "Code Supplement Repository"
+ - name: "Code Repository"
    url: https://github.com/Alec-Stashevsky/GAP-climate-research
    icon_pack: fab
    icon: github
  - name: "Wortzel et al. (2021)"
    url: https://doi.org/10.1001/jamanetworkopen.2020.35641 
 image:
-  caption: "Simulated Regional Flight Network for the American Pyschiatric Association's Annual Meeting"
-  preview_only:
+  caption: "Travel network for a regional conference format"
+  preview_only: false
   focal_point: "Smart"
 summary: Exploring the carbon footprint of a regional conference format through simulations of the American Psychiatric Association's Annual Meeting.
 ---
@@ -107,17 +107,25 @@ table > tbody > tr:hover > td, table > tbody > tr:hover > th {
 ```
 
 
+> 'Change life!' 'Change society!' These precepts mean nothing without the production of an appropriate space. . . new social relationships call for a new space, and vice versa.
+>
+> [--- Henri Lefebvre, *The Production of Space*]{style="float:right"}
+> 
+
+<br>
+
+
 ## The Story
 
 The COVID-19 pandemic has radically changed the way humans move through space and this change foreshadows the dramatic behavioral and structural shifts climate change demands from humankind.^[This radical anthropause has no doubt effected wildlife as well. *See* @Rutz2020.] Greenhouse gas (GHG) emissions associated with work commutes and industry/professional travel have substantially decreased, leading to distinct improvements in air and water quality.^[@YUNUS2020139012 and @Venter18984.] The International Energy Agency reports global CO<sub>2</sub> emissions dropped 6% compared to 2019, the largest reduction ever at almost 2 gigatons.^[@IEA-Global-energy.]
 
-In the wake of lockdowns and event cancellations clearer skies and lack of traffic made the benefits of reduced travel real. It has given us an opportunity to reevaluate the importance of shared spaces and the ways we navigate to and embody them. In fact, this transformation formed the impetus for research recently published by myself and a team of Psychiatrists at the [Group for the Advancement of Psychiatry (GAP).](https://ourgap.org) 
+In the wake of lockdowns and event cancellations clearer skies and lack of traffic made the benefits of reduced travel real. It has given us an opportunity to reevaluate the importance of shared spaces and the ways we navigate to and embody them. This transformation formed the impetus for research recently published by myself and a team of Psychiatrists at the [Group for the Advancement of Psychiatry (GAP)](https://ourgap.org).
 
-We estimated the carbon footprint associated with the 2018 and 2019 Annual Meetings of the largest psychiatric association in the world, the [American Psychiatric Association (APA)](https://www.psychiatry.org/about-apa), then measured how this carbon footprint changes if meetings are held in different locations.^[We measured the effect of moving both the 2018 and 2019 meetings by shifting the original location of each meeting to 13 different locations that the APA has used over the past 40+ years. In addition to measuring the carbon footprint from these 13 alternate locations, we employed a minimization procedure which identified a narrow region on the Earth that would globally minimize the carbon footprint using attendance data for each Annual Meeting. *See* @10.1001/jamanetworkopen.2020.35641.] We wanted to understand the environmental costs of holding these meetings and what could be done to mitigate them.
+We estimated the carbon footprint associated with the 2018 and 2019 Annual Meetings of the largest psychiatric association in the world, the [American Psychiatric Association (APA)](https://www.psychiatry.org/about-apa), then measured how this carbon footprint changes if meetings are held in different locations.^[We measured the effect of moving both the 2018 and 2019 meetings by shifting the original location of each meeting to 13 different locations that the APA has used over the past 40+ years. In addition to measuring the carbon footprint from these 13 alternate locations, we employed a minimization procedure which identified a narrow region on the Earth that would globally minimize the carbon footprint using attendance data for each Annual Meeting. *See* @10.1001/jamanetworkopen.2020.35641.] We wanted to understand the environmental costs of holding these meetings and what could be done to mitigate them. To read more about the research this case study builds upon, check out @10.1001/jamanetworkopen.2020.35641.
 
-The carbon footprint of such conferences has been shown to be substantial. @10.1001/jamanetworkopen.2020.35641 estimate the 2018 and 2019 APA Annual Meetings produced about 20,000 metric tons of carbon-dioxide equivalent (CO<sub>2</sub>*e*) emissions each---an amount equal to burning 22 million pounds of coal.^[Carbon-dioxide equivalents is a measure used to combine the impact of various Greenhouse gasses to global warming under a common unit. It converts Greenhouse gasses to the amount of carbon-dioxide it would take to have an equivalent impact to global warming.] This carbon footprint is highly dependent on the distance attendees have to travel. For example, holding the Annual Meeting in Hawaii would produce more emissions than holding over 2.5 Annual Meetings in New York City if the same people attended.^[Such an assessment assumes that the exact same people will show up to a meeting in Hawaii and a meeting in New York City and this is probably not true.  Nonetheless, the analysis still provides us with a gauge for the impact of meeting location. The issues with analyzing attendance data from individual meetings will be discussed later in this post. _See_ Table in @10.1001/jamanetworkopen.2020.35641 for the full assessment of meeting locations.] @klower2020analysis estimate the carbon footprint from the [American Geophysical Union's](https://www.agu.org/) 2019 fall meeting at 80,000 metric tons of carbon dioxide equivalents (over 4x the APA's Annual Meeting) and show that this footprint can be mitigated by 80%-90% just from holding regional conferences in well thought-out locations or offering hybrid in-person and virtual meetings. Similar analyses have been done for the [European Astronomical Society's 2019 annual meeting](https://doi.org/10.1038/s41550-020-1207-z).
+The carbon footprint of such conferences has been shown to be substantial. @10.1001/jamanetworkopen.2020.35641 estimate the 2018 and 2019 APA Annual Meetings produced about 20,000 metric tons of carbon-dioxide equivalent (CO<sub>2</sub>*e*) emissions each---an amount equal to burning 22 million pounds of coal.^[Carbon-dioxide equivalents is a measure used to combine the impact of various greenhouse gasses to global warming under a common unit. It converts greenhouse gasses to the amount of carbon-dioxide it would take to have an equivalent impact to global warming.] This carbon footprint is highly dependent on the distance attendees have to travel. For example, holding the Annual Meeting in Hawaii would produce more emissions than holding over 2.5 Annual Meetings in New York City if the same people attended.^[Such an assessment assumes that the exact same people will show up to a meeting in Hawaii and a meeting in New York City and this is probably not true.  Nonetheless, the analysis still provides us with a gauge for the impact of meeting location. _See_ Table in @10.1001/jamanetworkopen.2020.35641 for the full assessment of meeting locations.] @klower2020analysis estimate the carbon footprint from the [American Geophysical Union's](https://www.agu.org/) 2019 fall meeting at 80,000 metric tons of carbon dioxide equivalents (over 4x the APA's Annual Meeting) and show that this footprint can be mitigated by 80%-90% just from holding regional conferences in well thought-out locations or offering hybrid in-person and virtual meetings. Similar analyses have been done for the [European Astronomical Society's 2019 annual meeting](https://doi.org/10.1038/s41550-020-1207-z).
 
-This research shows that **taking into account the geographic dispersion of the attendance base and choosing a location accordingly can drastically reduce large conferences' environmental impact while changing little else.** In this post I expand upon @10.1001/jamanetworkopen.2020.35641 by examining another solution to help curb emissions. I test the impact of breaking up one large conference into multiple regional conferences by building a simulation of regional conference travel using data from past APA meetings.
+This research shows that **taking into account the geographic dispersion of the attendance base and choosing a location accordingly can drastically reduce large conferences' environmental impact while changing little else.** In this post I expand upon @10.1001/jamanetworkopen.2020.35641 by examining another solution to help curb emissions. I test the impact of breaking up one large conference into multiple regional conferences by building a simulation using data from past APA meetings.
 
 
 ## History of the Carbon Footprint
@@ -133,7 +141,7 @@ Shifting the discourse of pollution onto the individual has long been a tactic o
 
 ## A Regional Format for the APA
 
-To perform this analysis, I make use of the existing regional designations the APA uses. The APA has 7 distinct regions between the US and Canada.^[Including US protectorates.] Below is a map of these regions:
+The APA has 7 distinct regions between the US and Canada.^[Including US protectorates.] I use this existing framework to simulate the regional conferences.
 
 ![](/images/regional-conferences/APA-regions.png)
 
@@ -145,16 +153,16 @@ To perform this analysis, I make use of the existing regional designations the A
 6. California [<span style="color:#FDE725FF">⬤</span>]
 7. American West & Western Canada [<span style="color:#A5DB36FF">⬤</span>]
 
-The APA has a considerable amount of international members, but only Canadians are given a regional designation.
+Though the APA has a considerable amount of international members, only Canadians are given a regional designation.
 
 
 ## Simulation Framework
 
 Using attendance data from the APA's 2018 New York City and 2019 San Francisco Annual Meetings, I assign each attendee to one of these seven regions based on their origin location and then identify likely transport modes and routes according the assumptions laid out in @10.1001/jamanetworkopen.2020.35641.
 
-The simulation classifies attendees into either drivers or fliers based on their distance from the meeting location.^[Geodesic distance is used to measure the pah between the meeting and the attendee's origin. This is the shortest path between two points on the globe (accounting for Earth's ellipsoidal nature).] Attendees less than 400 km (under 4 hr. driving) are assumed to drive directly to the meeting. All other attendees drive to the closest commercial airport and then fly direct to the nearest commercial airport to the meeting. I then apply an emissions function to the ground and air legs of each attendee's round-trip route.^[The driving distance is measured as the geodesic distance between locations and therefore underestimates the total driving distance. We use the [EPA guidelines](https://www.epa.gov/greenvehicles/greenhouse-gas-emissions-typical-passenger-vehicle) to estimate the emissions from passenger vehicles. I use GoClimate's [flight emissions API](https://api.goclimate.com/docs) to estimate emissions from air travel. The flight emissions API performs a number of additional methods to correct for flight detours (flights often take a longer route then the geodesic distance), number of passengers, cabin class, and variable short-distance and long-distance fuel consumption. The GoClimate API uses a radiative forcing index of 2—a conservative estimate.]
+The simulation classifies attendees into either drivers or fliers based on their distance from the meeting location.^[Geodesic distance is used to measure the path between the meeting and the attendee's origin. This is the shortest path between two points on the globe (accounting for Earth's ellipsoidal nature).] Attendees less than 400 km (under 4 hr. driving) are assumed to drive directly to the meeting. All other attendees drive to the closest commercial airport and then fly direct to the nearest commercial airport to the meeting. I then apply an emissions function to the ground and air legs of each attendee's round-trip route.^[The driving distance is measured as the geodesic distance between locations and therefore underestimates the total driving distance. We use the [EPA guidelines](https://www.epa.gov/greenvehicles/greenhouse-gas-emissions-typical-passenger-vehicle) to estimate the emissions from passenger vehicles and GoClimate's [flight emissions API](https://api.goclimate.com/docs) to estimate emissions from air travel. The flight emissions API performs a number of additional methods to correct for flight detours (flights often take a longer route then the geodesic distance), number of passengers, cabin class, and variable short-distance and long-distance fuel consumption. The GoClimate API uses a radiative forcing index of 2, which is a conservative estimate.]
 
-In order to simulate the way attendees would travel to the regional conferences, I had to extend some assumptions from @10.1001/jamanetworkopen.2020.35641. I assume international attendees not part of the existing regional structure travel to whichever meeting is closest, ensuring a conservative estimate. The other extending assumption is the location of the seven regional meetings. I  select locations where the APA has previously held Annual Meetings, except for Seattle.^[This is because no APA Annual Meetings have been held in region 7.] Below is a map of the seven regional meeting locations used in the simulation. 
+In order to simulate the way attendees would travel to the regional conferences, I had to extend some assumptions from @10.1001/jamanetworkopen.2020.35641. I assume international attendees not part of the existing regional structure travel to whichever meeting is closest, ensuring a conservative estimate. The other extending assumption is the location of the seven regional meetings. I  select locations where the APA has previously held Annual Meetings, except for Seattle.^[This is because no APA Annual Meetings have been held in region 7.]
    
 ![](/images/regional-conferences/Regional-locations.png)
 
@@ -171,7 +179,7 @@ Now, let's examine the map when attendees from the 2018 NYC meeting travel to th
 
 ![](/images/regional-conferences/NYC-regional-network.png)
 
-The map of the regional framework shows most of the European attendees getting absorbed into Region 3 (purple, New York City conference). Most of the Asian attendees are absorbed by Region 7 (lime green, Seattle conference), and most of the Australian attendees are absorbed by Region 6 (yellow, Los Angeles conference).
+Most of the European attendees are absorbed by Region 3 (purple, New York City conference). Most of the Asian attendees are absorbed by Region 7 (lime green, Seattle conference), and most of the Australian attendees are absorbed by Region 6 (yellow, Los Angeles conference).
 
 ***Attendance is somewhat evenly distributed across regions . . .***
 ```{r Regional Attendance Plots, echo=FALSE}
@@ -207,7 +215,7 @@ The attendance at each regional meeting is around 1,500 to 3,000. This is a good
 
 ## Regional Simulation Resuts
 
-Following our assumptions, I estimate total GHG emissions for the meetings under the regional conference format. The tables below presents the results for the 2018 New York City and 2019 San Francisco simulations.
+Following our assumptions, I estimate total GHG emissions for the meetings under the regional conference format. The tables below present the results for the 2018 New York City and 2019 San Francisco simulations.
 
 ```{r Carbon Emissions, echo=FALSE}
 
@@ -342,7 +350,7 @@ knitr::kable(
       )
 ```
 
-The total emissions are significantly lower under the regional conference format. Compared to the original meeting at the Javits Center in the NYC, a regional conference format would save almost 5 thousand metric tons of carbon dioxide equivalents—a 25% reduction. The regional format for the SF meeting reduced the emissions by more than half!^[I performed an additional analysis to test how sensitive our estimates were to the location of the regional meetings by allowing all attendees to travel to the closest meeting, regardless of their designated region. The results from this analysis show a 5% and 8% greater reduction in emissions compared to the regional format scenario for the NYC and SF meetings, respectively. Overall, the larger the number of regional meetings, the less impact individual location choice will have.]
+The total emissions are significantly lower under the regional conference format. Compared to the original meeting at the Javits Center in NYC, a regional conference format would save almost 5 thousand metric tons of carbon dioxide equivalents—a 25% reduction. The regional format for the SF meeting reduced the emissions by more than half!^[I performed an additional analysis to test how sensitive our estimates were to the location of the regional meetings by allowing all attendees to travel to the closest meeting, regardless of their designated region. The results from this analysis show a 5% and 8% greater reduction in emissions compared to the regional format scenario for the NYC and SF meetings, respectively. Overall, the larger the number of regional meetings, the less impact individual location choice will have.]
 
 *Why do the SF regional meetings save so much more emissions than the NYC meetings?* One reason is because people had to travel farther on average to attend the SF Annual Meeting which made it less efficient than the NYC meeting. Though over 3,300 fewer people attended the SF meeting, almost 2,000 more tons of CO<sub>2</sub>*e* was produced.^[We can also see this by examining the per capita carbon footprint. San Francisco attendees produced over 400 kg (0.4 metric tons) more CO<sub>2</sub>*e* on average compared to attendees of the New York meeting.]
 
@@ -447,14 +455,14 @@ knitr::kable(
 ![](/images/regional-conferences/sf-regional-map-us-only.png)
 </div>
 
-The majority of the APA membership base who attended the 2018 and 2019 Annual Meetings are from the East Coast, so it makes sense that the meetings closest to this region will reduce emissions. However, we know nothing about what that attendance *could* look like in an alternate universe where the APA Meeting was held under the beautiful Grand Tetons in, say, Jackson Hole, Wyoming. Holding meetings in new locations would be useful to test how other sections of the membership base might attend if the meetings are closer to them.
+The majority of the APA membership base who attended the 2018 and 2019 Annual Meetings are from the East Coast, so it makes sense that the meetings closest to this region will reduce emissions. However, we know nothing about what that attendance *could* look like in an alternate universe where the APA Meeting was held under the beautiful Grand Tetons in, say, Jackson Hole, Wyoming. Holding meetings in new locations is useful to test how other sections of the membership can be motivated to attend if the meetings are closer to them.
 
 ![](/images/regional-conferences/bison.png)
 
 
 ## The Benefits of Regional Conferences
 
-We have seen that regional conferences can mitigate the carbon footprint by over 50%, but there are many more aspects that make regional conferences an attractive solution---especially if they are held as supplements to centralized conferences.
+Based on this simulation study regional conferences can reduce a meeting's carbon footprint by over 50% (given a similar attendance), but there are many more aspects that make regional conferences an attractive solution---especially if they are held as supplements to centralized conferences.
 
 Regional conferences are much smaller and usually break up a community into geographically-connected regions. This smaller format may be easier to administer, less costly, and provide attendees with more intimate opportunities to network with local colleagues. Smaller meetings may increase engagement in working groups or activities limited by size or participation.
 
@@ -462,19 +470,19 @@ Regional conferences allow for discourse built-up from a more concentrated membe
 
 Regional conferences may also have the potential to increase attendance and subsequently revenue. Some members may find it too expensive or too time consuming to travel long distances to centrally-located conferences. This may alienate sections of the membership in fringe geographies and discourage others who feel not enough of their colleagues will attend.
 
-Traveling to remote conference destinations can be attractive for those who wish this time to double as a vacation, but it may leave the conference vulnerable to drops in attendance as some locations are more favorable than others.^[For example, medical associations host a disproportionately small amount of conferences in Las Vegas. I have a few reasons why that might be...] More importantly, such a framework may introduce priorities contradictory to emissions reduction. Meeting planners may be pressured to hold meetings in more remote places to encourage attendance and significantly increase emissions from travel as a result. 
+Traveling to remote conference destinations can be attractive for those who wish this time to double as a vacation, but it may leave the conference vulnerable to drops in attendance as some locations are more favorable than others.^[For example, medical associations host a disproportionately small amount of conferences in Las Vegas. I have a few reasons why that might be. . .] More importantly, such a framework may introduce priorities contradictory to emissions reduction. Meeting planners may be pressured to hold meetings in more remote places to encourage attendance and significantly increase emissions from travel as a result. 
 
 <br>
 <center> <h2>⸙⸙⸙</h2> </center>
 <br>
 
-Conference administrators and planners can unlock a powerful framework to mitigate GHG emissions by simply understanding where their attendees come from. Choosing locations which reduce the distance attendees have to travel can cut emissions over 3-fold while changing little else. Regional format conferences are another tool administrators and planners have in their kit to mitigate against emissions and potentially augment attendance.
+**Conference administrators and planners can unlock a powerful framework to mitigate GHG emissions by simply understanding where their attendees come from.** Choosing locations which reduce the distance attendees have to travel can cut emissions over 3-fold while changing little else. Regional format conferences are another tool administrators and planners have in their kit to mitigate against emissions and potentially augment attendance.
 
 As of 2017, almost 35 million square meters of indoor space was dedicated to some form of exhibition.^[Exhibition space is defined as the amount of gross space in the venue regularly marketed and rented/licensed/used for exhibitions, trade fairs or consumer/public shows. This space is measured for any public assembly premises with a minimum of 5,000 square meters of indoor exhibition space and that hold various types of exhibitions, trade fairs or consumer/public shows on a regular basis. The premises may be purpose-built exhibition center space or other premises including exhibition space (e.g. hotels, arenas, sport venues, and amusement fair grounds). _See_ [UFI World Map Of Exhibition Venues (2017 Edition, Revised December 2018).](https://www.ufi.org/archive-research/ufi-world-map-of-exhibition-venues-2017-edition-revised-december-2018/)] When we consider the impact of such environmentally-conscious planning on an industry-level, the potential reduction in emissions is huge.
 
 I would like to thank my coauthors from [GAP](https://ourgap.org), especially Dr. Joshua Wortzel and Dr. Elizabeth Haase for the opportunity to support this research.
 
-If you are interested in performing a similar analyses please checkout the [Code Supplement Repository](https://github.com/Alec-Stashevsky/GAP-climate-research) on my GitHub, or feel free to reach out!
+If you are interested in performing a similar analyses please checkout the [Code Repository](https://github.com/Alec-Stashevsky/GAP-climate-research) on my GitHub, or feel free to reach out!
 
 <br>
 
