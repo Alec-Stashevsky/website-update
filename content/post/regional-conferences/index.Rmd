@@ -1,5 +1,4 @@
 ---
-draft: true
 title: "Are regional conferences better for the environment?"
 author: "Alec Stashevsky"
 date: 2021-07-17
