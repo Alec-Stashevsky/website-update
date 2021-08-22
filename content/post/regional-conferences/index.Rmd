@@ -269,7 +269,7 @@ nyc <- structure(
    list(
       NULL = c(
          "Actual Meeting<sup>1</sup>", 
-         "Regional Meeting<sup>2</sup>",
+         "Regional Meetings<sup>2</sup>",
          "Difference",
          "Percent Difference"
          ),
@@ -525,7 +525,7 @@ As of 2017, almost 35 million square meters of indoor space was dedicated to som
 
 I would like to thank my coauthors from [GAP](https://ourgap.org), especially Dr. Joshua Wortzel and Dr. Elizabeth Haase for the opportunity to support this research.
 
-If you are interested in performing similar analyses for your conference please checkout the [Code Repository](https://github.com/Alec-Stashevsky/GAP-climate-research) on my GitHub, or feel free to reach out!
+If you are interested in performing similar analyses for your conference please checkout the [Code Repository](https://github.com/Alec-Stashevsky/GAP-climate-research) on my [GitHub](https://github.com/Alec-Stashevsky), or feel free to reach out!
 
 <br>
 
