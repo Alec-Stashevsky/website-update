@@ -133,7 +133,48 @@ Though I use the term *carbon footprint* throughout this post, I want to acknowl
 
 However it was not until the early 2000s that the term was popularized by oil giant BP. In 2004, BP unveiled the first "carbon footprint calculator" which provided individuals with a way to quantify how much heat-trapping carbon pollution they were releasing into the atmosphere.^[*See* https://grist.org/energy/footprint-fantasy.] Unfortunately, it provided users with no way of measuring the carbon footprint of drilling deep into the Earth to extract fossil fuels and occasionally dumping thousands of gallons of it into the ocean.
 
-![](/images/regional-conferences/co2-google-books.png)
+
+```{r Google Ngram, echo=FALSE}
+# Read in Google Ngram data
+ngram <- readRDS("~/website-update2/content/post/regional-conferences/ngram.RDs")
+
+# Line plot of mentions
+ggplot(ngram, aes(x = Year, y = Count)) +
+   geom_line(col = "#27514d", lwd = 1.5) +
+   geom_vline(xintercept = 2004, lty = "dashed", col = "gray57", lwd = .75) +
+   annotate(
+      "label",
+      label = "2004:\n BP launches \n carbon footprint calculator ",
+      x = 2003.3,
+      y = 18000,
+      hjust = 1,
+      fill = "#e8d8c3",
+      col = "#33322e",
+      label.r = unit(0.1, "lines"),
+      fontface = "italic"
+      ) +
+   labs(
+      y = "Mentions of  'carbon footprint'",
+      caption = "Data are from Google Books Ngram Viewer"
+      ) +
+   scale_y_continuous(labels = scales::comma, limits = c(0, 20000)) +
+   coord_cartesian(clip = "off") +
+   theme(
+      plot.margin = unit(c(0, 0.2, 0, 0), "cm"),
+      axis.title.x = element_text(margin = margin(10, 0, 0, 0)),
+      axis.title.y = element_text(margin = margin(0, 10, 0, 0)),
+      plot.title = element_text(size = 16),
+      legend.position = "bottom",
+      plot.background = element_rect(fill = "#fff8e3", color = "#fff8e3"),
+      legend.background = element_rect(fill = "#fff8e3"),
+      strip.background = element_rect(fill = "#e8d8c3"),
+      panel.grid = element_line(color = "#e8d8c3"),
+      panel.background = element_blank(),
+      axis.ticks = element_line(color = "#e8d8c3"),
+      plot.caption = element_text(hjust = -0.1)
+      )
+```
+
 
 Shifting the discourse of pollution onto the individual has long been a tactic of the largest corporate polluters. **Research on global warming must acknowledge and push back against this narrative.**
 
@@ -203,9 +244,12 @@ ggplot(attend.data, aes(x = Region,
       axis.title.y = element_text(margin = margin(0, 10, 0, 0)),
       plot.title = element_text(size = 16),
       legend.position = "bottom",
-      plot.background = element_rect(fill = "#fff8e3"),
+      plot.background = element_rect(fill = "#fff8e3", color = "#fff8e3"),
       legend.background = element_rect(fill = "#fff8e3"),
-      strip.background = element_rect(fill = "#e8d8c3")
+      strip.background = element_rect(fill = "#e8d8c3"),
+      panel.grid = element_line(color = "#e8d8c3"),
+      panel.background = element_blank(),
+      axis.ticks = element_line(color = "#e8d8c3")
       )
 ```
 
