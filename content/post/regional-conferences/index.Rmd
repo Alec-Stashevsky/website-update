@@ -393,7 +393,7 @@ knitr::kable(
       )
 ```
 
-The total emissions are significantly lower under the regional conference format. Compared to the original meeting at the Javits Center in NYC, a regional conference format would save almost 5 thousand metric tons of carbon dioxide equivalents—a 25% reduction. The regional format for the SF meeting reduced the emissions by more than half!^[I performed an additional analysis to test how sensitive our estimates were to the location of the regional meetings by allowing all attendees to travel to the closest meeting, regardless of their designated region. The results from this analysis show a 5% and 8% greater reduction in emissions compared to the regional format scenario for the NYC and SF meetings, respectively. Overall, the larger the number of regional meetings, the less impact individual location choice will have.]
+The total emissions are significantly lower under the regional conference format. Compared to the original meeting at the Javits Center in NYC, a regional conference format would save almost 5 thousand metric tons of carbon dioxide equivalents—a 24% reduction. The regional format for the SF meeting reduced the emissions by more than half!^[I performed an additional analysis to test how sensitive our estimates were to the location of the regional meetings by allowing all attendees to travel to the closest meeting, regardless of their designated region. The results from this analysis show a 5% and 8% greater reduction in emissions compared to the regional format scenario for the NYC and SF meetings, respectively. Overall, the larger the number of regional meetings, the less impact individual location choice will have.]
 
 *Why do the SF regional meetings save so much more emissions than the NYC meetings?* One reason is because people had to travel farther on average to attend the SF Annual Meeting which made it less efficient than the NYC meeting. Though over 3,300 fewer people attended the SF meeting, almost 2,000 more tons of CO<sub>2</sub>*e* was produced.^[We can also see this by examining the per capita carbon footprint. San Francisco attendees produced over 400 kg (0.4 metric tons) more CO<sub>2</sub>*e* on average compared to attendees of the New York meeting.]
 
@@ -525,7 +525,7 @@ As of 2017, almost 35 million square meters of indoor space was dedicated to som
 
 I would like to thank my coauthors from [GAP](https://ourgap.org), especially Dr. Joshua Wortzel and Dr. Elizabeth Haase for the opportunity to support this research.
 
-If you are interested in performing a similar analyses please checkout the [Code Repository](https://github.com/Alec-Stashevsky/GAP-climate-research) on my GitHub, or feel free to reach out!
+If you are interested in performing similar analyses for your conference please checkout the [Code Repository](https://github.com/Alec-Stashevsky/GAP-climate-research) on my GitHub, or feel free to reach out!
 
 <br>
 
