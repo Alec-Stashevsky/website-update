@@ -28,11 +28,18 @@ date_format: Jan 2006
 experience:
 - company: NERA Economic Consulting
   company_url: "https://www.nera.com/practice-areas/securities-and-finance.html"
-  date_end: ""
-  date_start: "2020-09-21"
-  description: Act as data scientist performing statistical modelling and economic analysis of high-stakes litigation involving structured finance, bankruptcy, cryptocurrencies, and mass torts. Build algorithms and financial models to estimate damages and predict the performance of complex financial instruments. Use a variety of programming languages to identify fraud and negligent risk management practices for Fortune 500 companies, SEC, DOJ, and FINRA.
+  date_end: "2021-09-03"
+  date_start: "2021-07-01"
+  description: Statistical modelling and economic analysis of high-stakes litigation involving structured finance, bankruptcy, cryptocurrencies, and mass torts. Build algorithms and financial models to estimate damages and predict the performance of complex financial instruments. Use a variety of programming languages to identify fraud and negligent risk management practices for Fortune 500 companies, SEC, DOJ, and FINRA.
   location: New York City
   title: Associate Analyst
+  
+- company: NERA Economic Consulting
+  company_url: "https://www.nera.com/practice-areas/securities-and-finance.html"
+  date_end: "2021-07-01"
+  date_start: "2020-09-21"
+  location: New York City
+  title: Research Analyst
   
 - company: The Cadmus Group
   company_url: "https://cadmusgroup.com/services/energy/"
