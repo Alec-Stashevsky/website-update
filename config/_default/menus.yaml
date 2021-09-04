@@ -25,9 +25,6 @@ main:
   - name: Contact
     url: '#contact'
     weight: 80
-
-# Link to a PDF of your resume/CV from the menu.
-# To enable, copy your resume/CV to `static/uploads/resume.pdf` and uncomment the lines below.
- # - name: CV
- #   url: uploads/resume.pdf
- #   weight: 100
+  - name: CV
+    url: uploads/Alec Stashevsky CV.pdf
+    weight: 100
