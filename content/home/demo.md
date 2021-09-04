@@ -32,7 +32,7 @@ design:
 ---
 
 
- Consulting // Researcher // R Developer
+ Data Scientist // Researcher // R Developer
 
 <br />
 ⇟

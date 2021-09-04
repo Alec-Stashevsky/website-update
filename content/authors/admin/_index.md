@@ -28,8 +28,6 @@ interests:
 - Securitization
 
 organizations:
-- name: NERA Economic Consulting
-  url: "https://www.nera.com"
 - name: GAP Climate Committee
   url: "https://ourgap.org"
 - name: Reed College
@@ -67,4 +65,4 @@ user_groups:
 - Potential Employers
 ---
 
-I am a consultant, researcher, and Reed College alumnus with a mathematics-economics background. I am passionate about interdisciplinary research that engages multiple paradigms. I care about econometrics, statistics, and research that uses data holistically, pushing back against siloed analytics.
+I am a data scientist, researcher, and Reed College alumnus with a mathematics-economics background. I am passionate about interdisciplinary research that engages multiple paradigms. I care about econometrics, statistics, and research that uses data holistically, pushing back against siloed analytics.
