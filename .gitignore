@@ -3,6 +3,14 @@
 
 # Hugo
 /resources/
-public/
+/public/
 jsconfig.json
 node_modules/
+.DS_Store
+Thumbs.db
+
+# R
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata

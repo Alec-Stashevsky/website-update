@@ -1,0 +1,534 @@
+---
+title: "Are regional conferences better for the environment?"
+author: "Alec Stashevsky"
+date: 2021-07-17
+categories: ["Decarbonization", "Spatial Politics"]
+tags: ["Decarbonization", "Spatial Politics"]
+bibliography: [regional-conferences.bib]
+link-citations: true
+links:
+ - name: "Code Repository"
+   url: https://github.com/Alec-Stashevsky/GAP-climate-research
+   icon_pack: fab
+   icon: github
+ - name: "Wortzel et al. (2021)"
+   url: https://doi.org/10.1001/jamanetworkopen.2020.35641 
+image:
+  caption: "Travel network for a regional conference format"
+  preview_only: false
+  focal_point: "Smart"
+summary: Exploring the carbon footprint of a regional conference format through simulations of the American Psychiatric Association's Annual Meeting.
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, dev = "svg")
+library(ggplot2)
+library(viridis)
+library(magrittr)
+library(kableExtra)
+```
+
+```{css Table CSS, echo=FALSE}
+table > thead > tr > th {
+    vertical-align: bottom;
+    border-bottom: 2px solid rgb(232, 215, 195);
+}
+
+table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table > thead > tr > td, table > tbody > tr > td, table > tfoot > tr > td {
+    padding: 8px;
+    line-height: 1.43;
+    vertical-align: top;
+    border-top: 1px solid rgb(232, 215, 195);
+}
+
+tbody > tr > td, table > tbody > tr > th {
+    padding: 8px;
+    line-height: 1.43;
+    vertical-align: top;
+    border-bottom: 1px solid rgb(232, 215, 195);
+}
+
+
+table > tfoot > tr > td {
+    padding: 8px;
+    line-height: 1.43;
+    vertical-align: top;
+    border-top: none;
+}
+
+
+
+table > tbody > tr:nth-child(2n+1) > td, table > tbody > tr:nth-child(2n+1) > th {
+    background-color: rgb(255, 248, 227);
+}
+
+# Hover
+table > tbody > tr:nth-child(2n+1):hover > td, table > tbody > tr:nth-child(2n+1):hover > th {
+    background-color: rgb(232, 215, 195);
+}
+
+table > tbody > tr:hover > td, table > tbody > tr:hover > th {
+    background-color: rgb(232, 215, 195);
+}
+```
+
+```{css Columns CSS, echo=FALSE}
+<style>
+  .col-center {
+     float: center;
+     width: 60%;
+     text-align: center;
+  }
+</style>
+   
+   
+<style>
+.column-left{
+  float: left;
+  width: 45%;
+  text-align: left;
+}
+.column-right{
+  float: right;
+  width: 55%;
+  text-align: right;
+}
+</style>
+   
+   
+```
+
+```{css References CSS, echo=FALSE}
+#references {
+    text-indent: -2em;
+    margin-left: 2em;
+}
+```
+
+
+> 'Change life!' 'Change society!' These precepts mean nothing without the production of an appropriate space. . . new social relationships call for a new space, and vice versa.
+>
+> [--- Henri Lefebvre, *The Production of Space*]{style="float:right"}
+> 
+
+<br>
+
+
+## The Story
+
+The COVID-19 pandemic has radically changed the way humans move through space and this change foreshadows the dramatic behavioral and structural shifts climate change demands from humankind.^[This radical anthropause has no doubt effected wildlife as well. *See* @Rutz2020.] Greenhouse gas (GHG) emissions associated with work commutes and industry/professional travel have substantially decreased, leading to distinct improvements in air and water quality.^[@YUNUS2020139012 and @Venter18984.] The International Energy Agency reports global CO<sub>2</sub> emissions dropped 6% compared to 2019, the largest reduction ever at almost 2 gigatons.^[@IEA-Global-energy.]
+
+In the wake of lockdowns and event cancellations clearer skies and lack of traffic made the benefits of reduced travel real. It has given us an opportunity to reevaluate the importance of shared spaces and the ways we navigate to and embody them. This transformation formed the impetus for research recently published by myself and a team of Psychiatrists at the [Group for the Advancement of Psychiatry (GAP)](https://ourgap.org).
+
+We estimated the carbon footprint associated with the 2018 and 2019 Annual Meetings of the largest psychiatric association in the world, the [American Psychiatric Association (APA)](https://www.psychiatry.org/about-apa), then measured how this carbon footprint changes if meetings are held in different locations.^[We measured the effect of moving both the 2018 and 2019 meetings by shifting the original location of each meeting to 13 different locations that the APA has used over the past 40+ years. In addition to measuring the carbon footprint from these 13 alternate locations, we employed a minimization procedure which identified a narrow region on the Earth that would globally minimize the carbon footprint using attendance data for each Annual Meeting. *See* @10.1001/jamanetworkopen.2020.35641.] We wanted to understand the environmental costs of holding these meetings and what could be done to mitigate them. If you are interested about the research this case study builds upon, you can check out @10.1001/jamanetworkopen.2020.35641 with no paywall [here](https://doi.org/10.1001/jamanetworkopen.2020.35641).
+
+The carbon footprint of such conferences has been shown to be substantial. @10.1001/jamanetworkopen.2020.35641 estimate the 2018 and 2019 APA Annual Meetings produced about 20,000 metric tons of carbon-dioxide equivalent (CO<sub>2</sub>*e*) emissions each---an amount equal to burning 22 million pounds of coal.^[Carbon-dioxide equivalents is a measure used to combine the impact of various greenhouse gasses to global warming under a common unit. It converts greenhouse gasses to the amount of carbon-dioxide it would take to have an equivalent impact to global warming.] This carbon footprint is highly dependent on the distance attendees have to travel. For example, holding the Annual Meeting in Hawaii would produce more emissions than holding over 2.5 Annual Meetings in New York City if the same people attended.^[Such an assessment assumes that the exact same people will show up to a meeting in Hawaii and a meeting in New York City and this is probably not true.  Nonetheless, the analysis still provides us with a gauge for the impact of meeting location. _See_ Table in @10.1001/jamanetworkopen.2020.35641 for the full assessment of meeting locations.] @klower2020analysis estimate the carbon footprint from the [American Geophysical Union's](https://www.agu.org/) 2019 fall meeting at 80,000 metric tons of carbon dioxide equivalents (over 4x the APA's Annual Meeting) and show that this footprint can be mitigated by 80%-90% just from holding regional conferences in well thought-out locations or offering hybrid in-person and virtual meetings. Similar analyses have been done for the [European Astronomical Society's 2019 annual meeting](https://doi.org/10.1038/s41550-020-1207-z).
+
+This research shows that **taking into account the geographic dispersion of the attendance base and choosing a location accordingly can drastically reduce large conferences' environmental impact while changing little else.** In this post I expand upon @10.1001/jamanetworkopen.2020.35641 by examining another solution to help curb emissions. I test the impact of breaking up one large conference into multiple regional conferences by building a simulation using data from past APA meetings.
+
+
+## History of the Carbon Footprint
+
+Though I use the term *carbon footprint* throughout this post, I want to acknowledge the (not so pretty) history behind the term. The phrase grew out of a related concept---the *ecological footprint*---invented in the 90s by ecologist William Rees and regional planner Mathis Wackernagel.^[Selin, N. Eckley. *Carbon footprint. Encyclopedia Britannica.* Available at: https://www.britannica.com/science/carbon-footprint.]
+
+However it was not until the early 2000s that the term was popularized by oil giant BP. In 2004, BP unveiled the first "carbon footprint calculator" which provided individuals with a way to quantify how much heat-trapping carbon pollution they were releasing into the atmosphere.^[*See* https://grist.org/energy/footprint-fantasy.] Unfortunately, it provided users with no way of measuring the carbon footprint of drilling deep into the Earth to extract fossil fuels and occasionally dumping thousands of gallons of it into the ocean.
+
+
+```{r Google Ngram, echo=FALSE}
+# Read in Google Ngram data
+ngram <- readRDS("~/website-update2/content/post/regional-conferences/ngram.RDs")
+
+# Line plot of mentions
+ggplot(ngram, aes(x = Year, y = Count)) +
+   geom_line(col = "#27514d", lwd = 1.5) +
+   geom_vline(xintercept = 2004, lty = "dashed", col = "gray57", lwd = .75) +
+   annotate(
+      "label",
+      label = "2004:\n BP launches \n carbon footprint calculator ",
+      x = 2003.3,
+      y = 18000,
+      hjust = 1,
+      fill = "#e8d8c3",
+      col = "#33322e",
+      label.r = unit(0.1, "lines"),
+      fontface = "italic"
+      ) +
+   labs(
+      y = "Mentions of  'carbon footprint'",
+      caption = "Data are from Google Books Ngram Viewer"
+      ) +
+   scale_y_continuous(labels = scales::comma, limits = c(0, 20000)) +
+   coord_cartesian(clip = "off") +
+   theme(
+      plot.margin = unit(c(0, 0.2, 0, 0), "cm"),
+      axis.title.x = element_text(margin = margin(10, 0, 0, 0)),
+      axis.title.y = element_text(margin = margin(0, 10, 0, 0)),
+      plot.title = element_text(size = 16),
+      legend.position = "bottom",
+      plot.background = element_rect(fill = "#fff8e3", color = "#fff8e3"),
+      legend.background = element_rect(fill = "#fff8e3"),
+      strip.background = element_rect(fill = "#e8d8c3"),
+      panel.grid = element_line(color = "#e8d8c3"),
+      panel.background = element_blank(),
+      axis.ticks = element_line(color = "#e8d8c3"),
+      plot.caption = element_text(hjust = -0.1)
+      )
+```
+
+
+Shifting the discourse of pollution onto the individual has long been a tactic of the largest corporate polluters. **Research on global warming must acknowledge and push back against this narrative.**
+
+
+## A Regional Format for the APA
+
+The APA has 7 distinct regions between the US and Canada.^[Including US protectorates.] I use this existing framework to simulate the regional conferences.
+
+![](/images/regional-conferences/APA-regions.png)
+
+1. New England & Eastern Canada [<span style="color:#22A884FF">⬤</span>]
+2. New York [<span style="color:#414487FF">⬤</span>]
+3. Middle Atlantic [<span style="color:#23888EFF">⬤</span>]
+4. North Central [<span style="color:#31688EFF">⬤</span>]
+5. American South & Puerto Rico [<span style="color:#54C568FF">⬤</span>]
+6. California [<span style="color:#FDE725FF">⬤</span>]
+7. American West & Western Canada [<span style="color:#A5DB36FF">⬤</span>]
+
+Though the APA has a considerable amount of international members, only Canadians are given a regional designation.
+
+
+## Simulation Framework
+
+Using attendance data from the APA's 2018 New York City and 2019 San Francisco Annual Meetings, I assign each attendee to one of these seven regions based on their origin location and then identify likely transport modes and routes according the assumptions laid out in @10.1001/jamanetworkopen.2020.35641.
+
+The simulation classifies attendees into either drivers or fliers based on their distance from the meeting location.^[Geodesic distance is used to measure the path between the meeting and the attendee's origin. This is the shortest path between two points on the globe (accounting for Earth's ellipsoidal nature).] Attendees less than 400 km (under 4 hr. driving) are assumed to drive directly to the meeting. All other attendees drive to the closest commercial airport and then fly direct to the nearest commercial airport to the meeting. I then apply an emissions function to the ground and air legs of each attendee's round-trip route.^[The driving distance is measured as the geodesic distance between locations and therefore underestimates the total driving distance. We use the [EPA guidelines](https://www.epa.gov/greenvehicles/greenhouse-gas-emissions-typical-passenger-vehicle) to estimate the emissions from passenger vehicles and GoClimate's [flight emissions API](https://api.goclimate.com/docs) to estimate emissions from air travel. The flight emissions API performs a number of additional methods to correct for flight detours (flights often take a longer route then the geodesic distance), number of passengers, cabin class, and variable short-distance and long-distance fuel consumption. The GoClimate API uses a radiative forcing index of 2, which is a conservative estimate.]
+
+In order to simulate the way attendees would travel to the regional conferences, I had to extend some assumptions from @10.1001/jamanetworkopen.2020.35641. I assume international attendees not part of the existing regional structure travel to whichever meeting is closest, ensuring a conservative estimate. The other extending assumption is the location of the seven regional meetings. I  select locations where the APA has previously held Annual Meetings, except for Seattle.^[This is because no APA Annual Meetings have been held in region 7.]
+   
+![](/images/regional-conferences/Regional-locations.png)
+
+
+## Visualizing Travel
+
+To understand the effect of the regional categorization, we can compare the travel paths between the Annual Meeting and regional meeting simulations. The map below shows everyone who attended the 2018 Annual Meeting in New York City, over 16 thousand people.^[Each light orange point represents a unique origin where the size and opacity of the points is proportional to the number of attendees traveling from that location. The darker-orange arcs indicate the *geodesic distance* or distance *as the crow flies* between each origin point and the location of the 2018 New York City meeting. Geodesic distance is the shortest path between two points on the globe. Commercial flight paths are usually longer then the geodesic distance between two points. Our flight emissions model corrects for this difference.] 
+
+![](/images/regional-conferences/NYC-network.png)
+
+Here we can see all attendees converge on the [Javits Center](https://goo.gl/maps/gekiRZY7aPxe7qUo9) in New York City. 
+
+Now, let's examine the map when attendees from the 2018 NYC meeting travel to the regional meetings instead.
+
+![](/images/regional-conferences/NYC-regional-network.png)
+
+Most of the European attendees are absorbed by Region 3 (purple, New York City conference). Most of the Asian attendees are absorbed by Region 7 (lime green, Seattle conference), and most of the Australian attendees are absorbed by Region 6 (yellow, Los Angeles conference).
+
+***Attendance is somewhat evenly distributed across regions . . .***
+```{r Regional Attendance Plots, echo=FALSE}
+# Read data
+attend.data <- readRDS("~/website-update2/content/post/regional-conferences/RegionalAttendance.RDs")
+
+# Attendance by Region and Transport Mode
+ggplot(attend.data, aes(x = Region,
+   y = Attendance, fill = `Transport Mode`)) +
+   geom_col() +
+   facet_wrap(~`Attendance Base`) +
+   labs(
+      x = "Regional Meeting (APA Region)",
+      y = "Number of Attendees"
+      ) +
+   scale_fill_viridis_d(begin = 0.1, end = 0.4) +
+   scale_y_continuous(labels = scales::comma) +
+   theme(
+      plot.margin = unit(c(0, 0, 0, 0), "cm"),
+      axis.text.x = element_text(angle = 45, hjust = 1.1),
+      axis.title.x = element_text(margin = margin(10, 0, 0, 0)),
+      axis.title.y = element_text(margin = margin(0, 10, 0, 0)),
+      plot.title = element_text(size = 16),
+      legend.position = "bottom",
+      plot.background = element_rect(fill = "#fff8e3", color = "#fff8e3"),
+      legend.background = element_rect(fill = "#fff8e3"),
+      strip.background = element_rect(fill = "#e8d8c3"),
+      panel.grid = element_line(color = "#e8d8c3"),
+      panel.background = element_blank(),
+      axis.ticks = element_line(color = "#e8d8c3")
+      )
+```
+
+The attendance at each regional meeting is around 1,500 to 3,000. This is a good indication that the regional designations assigned by the APA and our assumptions about international attendees break the membership base into somewhat even parts. The exception is the New York City meeting on the left panel because it captures the majority of international attendees, whom are largely from Europe (see regional map above). When we use the 2019 Data the attendance is much more even.
+
+
+## Regional Simulation Resuts
+
+Following our assumptions, I estimate total GHG emissions for the meetings under the regional conference format. The tables below present the results for the 2018 New York City and 2019 San Francisco simulations.
+
+```{r Carbon Emissions, echo=FALSE}
+
+# Build Tables ------------------------------------------------------------ 
+
+# NYC
+nyc <- structure(
+   list(
+      NULL = c(
+         "Actual Meeting<sup>1</sup>", 
+         "Regional Meetings<sup>2</sup>",
+         "Difference",
+         "Percent Difference"
+         ),
+      Attendance = c(
+         "16,620", "16,620", "—", "—"
+         ),
+      `Total Emissions` = c(
+         "19,819", "15,050", "4,769", "24%"
+         ),
+      `Per Capita Emissions` = c(
+         "1.19", "0.91", "0.28", "24%"
+         )
+      ),
+   class = "data.frame",
+   row.names = c(NA, -4L)
+   )
+
+# SF
+sf <- structure(
+   list(
+      NULL = c(
+         "Actual Meeting<sup>1</sup>", 
+         "Regional Meetings<sup>2</sup>",
+         "Difference",
+         "Percent Difference"
+         ),
+      Attendance = c(
+         "13,335", "13,335", "—", "—"
+         ),
+      `Total Emissions` = c(
+         "21,456", "10,189", "11,267", "53%"
+         ),
+      `Per Capita Emissions` = c(
+         "1.61", "0.76", "0.53", "53%"
+         )
+      ),
+   class = "data.frame",
+   row.names = c(NA, -4L))
+
+
+# Render Tables -----------------------------------------------------------
+
+# NYC
+knitr::kable(
+   nyc,
+   format = "html",
+   row.names = FALSE,
+   col.names = c(
+      "Measure",
+      "Attendance",
+      "Total Emissions",
+      "Emissions per Person"),
+   align = c("l", "c", "c", "c"),
+   escape = FALSE
+   ) %>% 
+   add_header_above(
+      c("", "", "Metric Tons CO<sub>2</sub>*e*" = 2),
+      escape = FALSE,
+      line = FALSE,
+      extra_css = "border-bottom: 2px solid rgb(232, 215, 195);"
+      ) %>% 
+   add_header_above(
+      c("New York City 2018 Meeting" = 4),
+      align = "c",
+      escape = TRUE,
+      line = FALSE,
+      extra_css = "background-color: rgb(232, 215, 195); font-size: 1rem; padding: 0.15rem 0;"
+      ) %>%
+   footnote(
+      general_title = "Notes and Sources:",
+      title_format = "bold",
+      general = "Code for this analysis can be found at: https://github.com/Alec-Stashevsky/GAP-climate-research.",
+      number = c(
+         paste0(
+            "Data are from ",
+            knitr::asis_output("@10.1001/jamanetworkopen.2020.35641"),
+            "."
+            ),
+         "Results from this supplemental regional analysis."
+         )
+      )
+
+# SF
+knitr::kable(
+   sf,
+   format = "html",
+   row.names = FALSE,
+   col.names = c(
+      "Measure",
+      "Attendance",
+      "Total Emissions",
+      "Emissions per Person"),
+   align = c("l", "c", "c", "c"),
+   escape = FALSE
+   ) %>% 
+   add_header_above(
+      c("", "", "Metric Tons CO<sub>2</sub>*e*" = 2),
+      escape = FALSE,
+      line = FALSE,
+      extra_css = "border-bottom: 2px solid rgb(232, 215, 195);"
+      ) %>% 
+   add_header_above(
+      c("San Francisco 2019 Meeting" = 4),
+      align = "c",
+      escape = TRUE,
+      line = FALSE,
+      extra_css = "background-color: rgb(232, 215, 195); font-size: 1rem; padding: 0.15rem 0;"
+      ) %>%
+   footnote(
+      general_title = "Notes and Sources:",
+      title_format = "bold",
+      general = "Code for this analysis can be found at: https://github.com/Alec-Stashevsky/GAP-climate-research.",
+      number = c(
+         paste0(
+            "Data are from ",
+            knitr::asis_output("@10.1001/jamanetworkopen.2020.35641"),
+            "."
+            ),
+         "Results from this supplemental regional analysis."
+         )
+      )
+```
+
+The total emissions are significantly lower under the regional conference format. Compared to the original meeting at the Javits Center in NYC, a regional conference format would save almost 5 thousand metric tons of carbon dioxide equivalents—a 24% reduction. The regional format for the SF meeting reduced the emissions by more than half!^[I performed an additional analysis to test how sensitive our estimates were to the location of the regional meetings by allowing all attendees to travel to the closest meeting, regardless of their designated region. The results from this analysis show a 5% and 8% greater reduction in emissions compared to the regional format scenario for the NYC and SF meetings, respectively. Overall, the larger the number of regional meetings, the less impact individual location choice will have.]
+
+*Why do the SF regional meetings save so much more emissions than the NYC meetings?* One reason is because people had to travel farther on average to attend the SF Annual Meeting which made it less efficient than the NYC meeting. Though over 3,300 fewer people attended the SF meeting, almost 2,000 more tons of CO<sub>2</sub>*e* was produced.^[We can also see this by examining the per capita carbon footprint. San Francisco attendees produced over 400 kg (0.4 metric tons) more CO<sub>2</sub>*e* on average compared to attendees of the New York meeting.]
+
+#### ***NYC Attendance is concentrated in the Eastern US . . .***
+<div class="column-left">
+<br>
+```{r NYC Regional Breakdown, echo=FALSE}
+
+# Build data from Wortzel et al. Figure.
+nyc.regions <- data.frame(
+   c("Northeast", "West", "Southeast", "Midwest", "Southwest"),
+   c("6,298", "1,597", "1,562", "1,360", "534"),
+   c("55.5%", "14.1%", "13.8%", "12.0%", "4.7%")
+   )
+
+knitr::kable(
+   nyc.regions,
+   format = "html",
+   col.names = c(
+      "Region",
+      "Attendees",
+      "Percent"
+   ),
+   align = c("l", "r", "r"),
+   escape = FALSE,
+   table.attr = "style='width:100%;'"
+   ) %>% 
+   add_header_above(
+      c("NYC Attendance by US Region" = 3),
+      align = "c",
+      escape = TRUE,
+      line = FALSE,
+      extra_css = "background-color: rgb(232, 215, 195); font-size: 1rem; padding: 0.15rem 0;"
+      ) %>%
+   footnote(
+      general_title = "Notes and Sources:",
+      title_format = "bold",
+      general = paste0(
+         " - Data are from ",
+         knitr::asis_output("@10.1001/jamanetworkopen.2020.35641"),
+         "."
+         )
+      )
+```
+
+</div>
+
+<div class="column-right">
+![](/images/regional-conferences/nyc-regional-map-us-only.png)
+<br>
+***But less so for the SF Meeting . . .***
+<br>
+<br>
+</div>
+
+<br>
+
+<div class="column-left">
+<br>
+```{r SF Regional Breakdown, echo=FALSE}
+
+# Build data from Wortzel et al. Figure.
+sf.regions <- data.frame(
+   c("Northeast", "West", "Southeast", "Midwest", "Southwest"),
+   c("3,603", "3,072", "1,355", "1,317", "552"),
+   c("36.4%", "31.0%", "13.7%", "13.3%", "5.6%")
+   )
+
+knitr::kable(
+   sf.regions,
+   format = "html",
+   col.names = c(
+      "Region",
+      "Attendees",
+      "Percent"
+   ),
+   align = c("l", "r", "r"),
+   escape = FALSE,
+   table.attr = "style='width:100%;'"
+   ) %>% 
+   add_header_above(
+      c("SF Attendance by US Region" = 3),
+      align = "c",
+      escape = TRUE,
+      line = FALSE,
+      extra_css = "background-color: rgb(232, 215, 195); font-size: 1rem; padding: 0.15rem 0;"
+      ) %>%
+   footnote(
+      general_title = "Notes and Sources:",
+      title_format = "bold",
+      general = paste0(
+         " - Data are from ",
+         knitr::asis_output("@10.1001/jamanetworkopen.2020.35641"),
+         "."
+         )
+      )
+```
+
+</div>
+
+<div class="column-right">
+![](/images/regional-conferences/sf-regional-map-us-only.png)
+</div>
+
+The majority of the APA membership base who attended the 2018 and 2019 Annual Meetings are from the East Coast, so it makes sense that the meetings closest to this region will reduce emissions. However, we know nothing about what that attendance *could* look like in an alternate universe where the APA Meeting was held under the beautiful Grand Tetons in, say, Jackson Hole, Wyoming. Holding meetings in new locations is useful to test how other sections of the membership can be motivated to attend if the meetings are closer to them.
+
+![](/images/regional-conferences/bison.png)
+
+
+## The Benefits of Regional Conferences
+
+Based on this simulation study regional conferences can reduce a meeting's carbon footprint by over 50% (given a similar attendance), but there are many more aspects that make regional conferences an attractive solution---especially if they are held as supplements to centralized conferences.
+
+Regional conferences are much smaller and usually break up a community into geographically-connected regions. This smaller format may be easier to administer, less costly, and provide attendees with more intimate opportunities to network with local colleagues. Smaller meetings may increase engagement in working groups or activities limited by size or participation.
+
+Regional conferences allow for discourse built-up from a more concentrated membership. This may be particularly beneficial for associations advancing policy because such a format allows regions to develop a set of priorities most relevant to them (such as focusing on state or municipal policy) and then advance this smaller set of priorities to the larger base whose scale may in turn provide much needed support.
+
+Regional conferences may also have the potential to increase attendance and subsequently revenue. Some members may find it too expensive or too time consuming to travel long distances to centrally-located conferences. This may alienate sections of the membership in fringe geographies and discourage others who feel not enough of their colleagues will attend.
+
+Traveling to remote conference destinations can be attractive for those who wish this time to double as a vacation, but it may leave the conference vulnerable to drops in attendance as some locations are more favorable than others.^[For example, medical associations host a disproportionately small amount of conferences in Las Vegas. I have a few reasons why that might be. . .] More importantly, such a framework may introduce priorities contradictory to emissions reduction. Meeting planners may be pressured to hold meetings in more remote places to encourage attendance and significantly increase emissions from travel as a result. 
+
+<br>
+<center> <h2>⸙⸙⸙</h2> </center>
+<br>
+
+**Conference administrators and planners can unlock a powerful framework to mitigate GHG emissions by simply understanding where their attendees come from.** Choosing locations which reduce the distance attendees have to travel can cut emissions over 3-fold while changing little else. Regional format conferences are another tool administrators and planners have in their kit to mitigate against emissions and potentially augment attendance.
+
+As of 2017, almost 35 million square meters of indoor space was dedicated to some form of exhibition.^[Exhibition space is defined as the amount of gross space in the venue regularly marketed and rented/licensed/used for exhibitions, trade fairs or consumer/public shows. This space is measured for any public assembly premises with a minimum of 5,000 square meters of indoor exhibition space and that hold various types of exhibitions, trade fairs or consumer/public shows on a regular basis. The premises may be purpose-built exhibition center space or other premises including exhibition space (e.g. hotels, arenas, sport venues, and amusement fair grounds). _See_ [UFI World Map Of Exhibition Venues (2017 Edition, Revised December 2018).](https://www.ufi.org/archive-research/ufi-world-map-of-exhibition-venues-2017-edition-revised-december-2018/)] When we consider the impact of such environmentally-conscious planning on an industry-level, the potential reduction in emissions is huge.
+
+I would like to thank my coauthors from [GAP](https://ourgap.org), especially Dr. Joshua Wortzel and Dr. Elizabeth Haase for the opportunity to support this research.
+
+If you are interested in performing similar analyses for your conference please checkout the [Code Repository](https://github.com/Alec-Stashevsky/GAP-climate-research) on my [GitHub](https://github.com/Alec-Stashevsky), or feel free to reach out!
+
+<br>
+
+***
+
+## References

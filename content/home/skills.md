@@ -7,28 +7,63 @@ widget: featurette
 headless: true
 
 # Order that this section appears on the page.
-weight: 30
+weight: 75
 
-title: Skills
+title: Tools I Use
 subtitle:
 
 # Showcase personal skills or business features.
 # - Add/remove as many `feature` blocks below as you like.
 # - For available icons, see: https://wowchemy.com/docs/page-builder/#icons
 feature:
-- description: 90%
-  icon: r-project
-  icon_pack: fab
+- icon: Rlogo
+  icon_pack: custom
   name: R
-- description: 100%
-  icon: chart-line
-  icon_pack: fas
-  name: Statistics
-- description: 10%
-  icon: camera-retro
-  icon_pack: fas
-  name: Photography
-
+  
+- icon: stata
+  icon_pack: custom
+  name: Stata
+  
+- icon: sas
+  icon_pack: custom
+  name: SAS
+  
+- icon: Python
+  icon_pack: custom
+  name: Python
+  
+- icon: apachespark
+  icon_pack: custom
+  name: Apache Spark
+  
+- icon: octave
+  icon_pack: custom
+  name: GNU Octave
+  
+- icon: hadoop
+  icon_pack: custom
+  name: Apache Hadoop
+  
+- icon: microsoft-sql-server
+  icon_pack: custom
+  name: SQL Server  
+  
+- icon: LaTeX
+  icon_pack: custom
+  name: LaTeX
+  
+- icon: microsoftexcel
+  icon_pack: custom
+  name: Microsoft Excel
+  
+- icon: git
+  icon_pack: custom
+  name: Git
+  
+- icon: googleanalytics
+  icon_pack: custom
+  name: Google Analytics
+  
 # Uncomment to use emoji icons.
 #- icon: ":smile:"
 #  icon_pack: "emoji"
