@@ -23,9 +23,13 @@ date_format: Jan 2006
 #   Required fields are `title`, `company`, and `date_start`.
 #   Leave `date_end` empty if it's your current employer.
 #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
+
+
 experience:
+
 - company: NERA Economic Consulting
   company_url: "https://www.nera.com/practice-areas/securities-and-finance.html"
+  company_logo: NERA
   date_end: "2021-09-03"
   date_start: "2021-07-01"
   description: Statistical modelling and economic analysis of high-stakes litigation involving structured finance, bankruptcy, cryptocurrencies, and mass torts. Build algorithms and financial models to estimate damages and predict the performance of complex financial instruments. Use a variety of programming languages to identify fraud and negligent risk management practices for Fortune 500 companies, SEC, DOJ, and FINRA.
@@ -34,6 +38,7 @@ experience:
   
 - company: NERA Economic Consulting
   company_url: "https://www.nera.com/practice-areas/securities-and-finance.html"
+  company_logo: NERA
   date_end: "2021-07-01"
   date_start: "2020-09-21"
   location: New York City
@@ -41,6 +46,7 @@ experience:
   
 - company: The Cadmus Group
   company_url: "https://cadmusgroup.com/services/energy/"
+  company_logo: cadmus
   date_end: "2020-09-15"
   date_start: "2019-11-04"
   description: Utilize statistical modeling, data analysis, and machine learning to uncover consumer insights and make business recommendations for diverse energy industry clients. Act as primary analyst evaluating demand-side management programs, including a $600k+ randomized control trial to quantify the impacts of smart thermostat direct load-control events. Forecast electric vehicle diffusion and develop deliverable dashboards for stakeholders using R Shiny. Build models to forecast demand elasticity and potential energy reduction.
@@ -49,6 +55,7 @@ experience:
   
 - company: Kyrgies
   company_url: "https://kyrgies.com"
+  company_logo: kyrgies
   date_end: "2020-07-01"
   date_start: "2019-10-01"
   description: Led a project investigating optimal advertising strategies for an online retailer by supplementing Google Analytics and sales data to perform Geo-spatial analysis, market research, and ultimately lead generation.
@@ -56,6 +63,7 @@ experience:
   
 - company: KWM Wealth Advisory
   company_url: "https://www.kwmwealthadvisory.com"
+  company_logo: KWM
   date_end: "2020-10-01"
   date_start: "2019-07-01"
   description: Developed an interactive dashboard to help financial advisors navigate bear markets and contextualize historical data using Shiny, a web application package for R.
@@ -63,6 +71,7 @@ experience:
   title: Data Scientist Intern
   
 - company: Reed College
+  company_logo: reed
   date_end: "2018-12-01"
   date_start: "2016-08-01"
   description: Probability /  Linear Algebra / Statistics / Economics
@@ -70,6 +79,7 @@ experience:
   title: Teaching Assistant
 
 - company: Plaid Pantry
+  company_logo: plaid
   date_end: "2019-01-01"
   date_start: "2018-08-01"
   description: Professional Narc
@@ -77,6 +87,7 @@ experience:
   title: Compliance Officer
  
 - company: IRN Realty
+  company_logo: IRN
   date_end: "2015-07-23"
   date_start: "2013-06-01"
   description: |-
@@ -86,29 +97,6 @@ experience:
   location: Arcadia, CA
   title: Systems Administrator
   
-  # - title: CEO
-  #   company: GenCoin
-  #   company_url: ''
-  #   company_logo: org-gc
-  #   location: California
-  #   date_start: '2021-01-01'
-  #   date_end: ''
-  #   description: |2-
-  #       Responsibilities include:
-  #       
-  #       * Analysing
-  #       * Modelling
-  #       * Deploying
-  #       
-  # - title: Professor of Semiconductor Physics
-  #   company: University X
-  #   company_url: ''
-  #   company_logo: org-x
-  #   location: California
-  #   date_start: '2016-01-01'
-  #   date_end: '2020-12-31'
-  #   description: Taught electronic engineering and researched semiconductor physics.
-
 design:
   columns: '2'
 ---
