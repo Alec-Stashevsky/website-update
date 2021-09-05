@@ -29,6 +29,10 @@ library(kableExtra)
 ```
 
 ```{css Table CSS, echo=FALSE}
+table {
+   overflow-x: hidden;
+}
+
 table > thead > tr > th {
     vertical-align: bottom;
     border-bottom: 2px solid rgb(232, 215, 195);
