@@ -27,6 +27,14 @@ library(widgetframe)
 library(grid)
 library(viridis)
 library(png)
+library(AlecWebsiteThmr)
+```
+
+```{css References CSS, echo=FALSE}
+#references {
+    text-indent: -2em;
+    margin-left: 2em;
+}
 ```
 
 
@@ -108,17 +116,30 @@ p <- ggplot(series, aes(x = Time, y = Value, col = Series)) +
     title.hjust = 0.5,
     title.theme = element_text(face = "bold")
   )) +
+  # theme_AlecWebsite() +
   theme(
-    legend.position = "top",
-    plot.background = element_rect(fill = "#fff8e3"),
-    legend.background = element_rect(fill = "#fff8e3"),
-    strip.background = element_rect(fill = "#e8d8c3")
-  ) +
+      plot.margin = unit(c(0, 0, 0, .25), "cm"),
+      axis.text.x = element_text(angle = 45, hjust = 1.1),
+      axis.title.x = element_text(margin = margin(20, 0, 0, 0)),
+      axis.title.y = element_text(margin = margin(0, 10, 0, 0)),
+      plot.title = element_text(size = 16),
+      legend.position = "bottom",
+      plot.background = element_rect(fill = "#fff8e3", color = "#fff8e3"),
+      legend.background = element_rect(fill = "#fff8e3"),
+      strip.background = element_rect(fill = "#e8d8c3"),
+      panel.grid = element_line(color = "#e8d8c3"),
+      panel.background = element_blank(),
+      axis.ticks = element_line(color = "#e8d8c3")
+      ) +
   scale_color_viridis_d(end = 0.6)
 
-pp <- ggplotly(p) %>% layout(legend = list(x = 0.3,
-  y = 1.2 , orientation = 'h'))
-frameWidget(pp)
+pp <- ggplotly(p) %>% 
+  layout(legend = list(x = 0.3, y = 1.2, orientation = 'h')) %>% 
+  layout(plot_bgcolor = "#fff8e3") %>%
+  layout(paper_bgcolor = "#fff8e3")
+
+# Needed for HTML conversion
+frameWidget(pp, width = "100%", height = "100%")
 ```
 
 
@@ -186,5 +207,8 @@ The package can be downloaded from my [GitHub](https://github.com/Alec-Stashevsk
 
 If you are interested in more infoRmation, make sure to checkout [R-bloggers](https://www.r-bloggers.com/) where you can find this post and many more! 
 
+<br>
+
+***
 
 ## References
