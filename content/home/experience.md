@@ -39,7 +39,7 @@ experience:
   date_end: "2021-07-01"
   date_start: "2020-09-21"
   location: New York City
-  title: Research Analyst
+  title: Research Associate
   
 - company: The Cadmus Group
   company_url: "https://cadmusgroup.com/services/energy/"
