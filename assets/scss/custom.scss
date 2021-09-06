@@ -14,3 +14,9 @@ body {
 #navbar-main .main-menu-item ul li .nav-link:hover {
     color: #FF5733;
 }
+
+.article-title a:hover {
+    color: #900c3f;
+    text-decoration: none;
+    transition: color .6s ease;
+}
