@@ -4,7 +4,7 @@
 # This file is formatted using YAML syntax - learn more at https://learnxinyminutes.com/docs/yaml/
 
 title: Alec Stashevsky # Website name
-baseurl: '/' # Website URL
+baseurl: 'https://alecstashevsky.com/' # Website URL
 copyright: '© 2021 Alec Stashevsky' # Footer text, e.g. '© {year} Me'
 
 ############################
