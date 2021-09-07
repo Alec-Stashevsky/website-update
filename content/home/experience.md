@@ -41,6 +41,7 @@ experience:
   company_logo: NERA
   date_end: "2021-07-01"
   date_start: "2020-09-21"
+  description: Securities and Finance Practice
   location: New York City
   title: Research Analyst
   
@@ -59,7 +60,7 @@ experience:
   date_end: "2020-07-01"
   date_start: "2019-10-01"
   description: Led a project investigating optimal advertising strategies for an online retailer by supplementing Google Analytics and sales data to perform Geo-spatial analysis, market research, and ultimately lead generation.
-  title: Data Scientist (Contract)
+  title: Data Scientist (Freelance)
   
 - company: KWM Wealth Advisory
   company_url: "https://www.kwmwealthadvisory.com"
