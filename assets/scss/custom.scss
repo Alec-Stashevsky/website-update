@@ -27,3 +27,12 @@ body {
     border-color: #900C3F;
     transition: color .6s ease;
 }
+
+/* Adding padding for slider text */
+.wg-hero {
+    width: 100%;
+    padding-right: 110px;
+    padding-left: 110px;
+    margin-right: auto;
+    margin-left: auto;
+}
