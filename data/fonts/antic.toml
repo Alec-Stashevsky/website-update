@@ -2,7 +2,7 @@
 name = "Antic"
 
 # Optional Google font URL
-google_fonts = "Antic"
+google_fonts = "family=Antic"
 
 # Font families
 heading_font = "Antic"

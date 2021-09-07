@@ -12,7 +12,7 @@ headless: true
 # Order that this section appears on the page.
 weight: 15
 
-title: Alec Stashevsky
+title:
 subtitle:
 
 design:
@@ -21,18 +21,12 @@ design:
     color: #fff8e3
     text_color_light: false
     
-    #image: headers/bubbles-wide.jpg
-    #image_darken: 0.6
-    #image_parallax: true
-    #image_position: center
-    #image_size: cover
-    
   spacing:
     padding: ["calc(55vh)", "calc(15vh)", "calc(15vh)", "calc(20vh)"]
 ---
 
+# Alec Stashevsky
 
  Data Scientist // Researcher // R Developer
 
-<br />
 ⇟

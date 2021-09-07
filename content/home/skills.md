@@ -1,94 +1,83 @@
-+++
-# A Skills section created with the Featurette widget.
-widget = "featurette"  # See https://sourcethemes.com/academic/docs/page-builder/
-headless = true  # This file represents a page section.
-active = true  # Activate this widget? true/false
-weight = 75  # Order that this section will appear.
+---
+# An instance of the Featurette widget.
+# Documentation: https://wowchemy.com/docs/page-builder/
+widget: featurette
 
-title = "Tools I Use"
-subtitle = ""
+# This file represents a page section.
+headless: true
+
+active: true
+
+# Order that this section appears on the page.
+weight: 75
+
+title: Tools I Use
+subtitle:
 
 # Showcase personal skills or business features.
-# 
-# Add/remove as many `[[feature]]` blocks below as you like.
-# 
-# For available icons, see: https://sourcethemes.com/academic/docs/page-builder/#icons
-
-[[feature]]
-  icon = "Rlogo"
-  icon_pack = "custom"
-  name = "R"
-
-[[feature]]
-  icon = "stata"
-  icon_pack = "custom"
-  name = "Stata"
+# - Add/remove as many `feature` blocks below as you like.
+# - For available icons, see: https://wowchemy.com/docs/page-builder/#icons
+feature:
+- icon: Rlogo
+  icon_pack: custom
+  name: R
   
-[[feature]]
-  icon = "sas"
-  icon_pack = "custom"
-  name = "SAS"
+- icon: stata
+  icon_pack: custom
+  name: Stata
   
-[[feature]]
-  icon = "Python"
-  icon_pack = "custom"
-  name = "Python"  
-
-[[feature]]
-  icon = "apachespark"
-  icon_pack = "custom"
-  name = "Apache Spark"
-
-[[feature]]
-  icon = "octave"
-  icon_pack = "custom"
-  name = "GNU Octave"
+- icon: sas
+  icon_pack: custom
+  name: SAS
   
-[[feature]]
-  icon = "hadoop"
-  icon_pack = "custom"
-  name = "Apache Hadoop"
+- icon: Python
+  icon_pack: custom
+  name: Python
   
-[[feature]]
-  icon = "microsoft-sql-server"
-  icon_pack = "custom"
-  name = "SQL Server"  
-
-[[feature]]
-  icon = "LaTeX"
-  icon_pack = "custom"
-  name = "LaTeX"  
-
-[[feature]]
-  icon = "microsoftexcel"
-  icon_pack = "custom"
-  name = "Microsoft Excel"
+- icon: apachespark
+  icon_pack: custom
+  name: Apache Spark
   
-[[feature]]
-  icon = "git"
-  icon_pack = "custom"
-  name = "Git"
+- icon: octave
+  icon_pack: custom
+  name: GNU Octave
   
-[[feature]]
-  icon = "googleanalytics"
-  icon_pack = "custom"
-  name = "Google Analytics"
-
-
+- icon: hadoop
+  icon_pack: custom
+  name: Apache Hadoop
+  
+- icon: microsoft-sql-server
+  icon_pack: custom
+  name: SQL Server  
+  
+- icon: LaTeX
+  icon_pack: custom
+  name: LaTeX
+  
+- icon: microsoftexcel
+  icon_pack: custom
+  name: Microsoft Excel
+  
+- icon: git
+  icon_pack: custom
+  name: Git
+  
+- icon: googleanalytics
+  icon_pack: custom
+  name: Google Analytics
+  
 # Uncomment to use emoji icons.
-# [[feature]]
-#  icon = ":smile:"
-#  icon_pack = "emoji"
-#  name = "Emojiness"
-#  description = "100%"  
+#- icon: ":smile:"
+#  icon_pack: "emoji"
+#  name: "Emojiness"
+#  description: "100%"  
 
 # Uncomment to use custom SVG icons.
-# Place custom SVG icon in `assets/images/icon-pack/`, creating folders if necessary.
+# Place your custom SVG icon in `assets/media/icons/`.
 # Reference the SVG icon name (without `.svg` extension) in the `icon` field.
-# [[feature]]
-#  icon = "your-custom-icon-name"
-#  icon_pack = "custom"
-#  name = "Surfing"
-#  description = "90%"
-
-+++
+# For example, reference `assets/media/icons/xyz.svg` as `icon: 'xyz'`
+#- icon: "your-custom-icon-name"
+#  icon_pack: "custom"
+#  name: "Surfing"
+#  description: "90%"
+---

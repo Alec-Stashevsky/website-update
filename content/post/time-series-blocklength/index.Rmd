@@ -27,6 +27,14 @@ library(widgetframe)
 library(grid)
 library(viridis)
 library(png)
+library(AlecWebsiteThmr)
+```
+
+```{css References CSS, echo=FALSE}
+#references {
+    text-indent: -2em;
+    margin-left: 2em;
+}
 ```
 
 
@@ -108,17 +116,28 @@ p <- ggplot(series, aes(x = Time, y = Value, col = Series)) +
     title.hjust = 0.5,
     title.theme = element_text(face = "bold")
   )) +
+  # theme_AlecWebsite() +
   theme(
-    legend.position = "top",
-    plot.background = element_rect(fill = "#fff8e3"),
-    legend.background = element_rect(fill = "#fff8e3"),
-    strip.background = element_rect(fill = "#e8d8c3")
-  ) +
+      plot.margin = unit(c(0, 0, 0, .25), "cm"),
+      axis.text.x = element_text(angle = 45, hjust = 1.1),
+      axis.title.x = element_text(margin = margin(20, 0, 0, 0)),
+      axis.title.y = element_text(margin = margin(0, 10, 0, 0)),
+      plot.title = element_text(size = 16),
+      legend.position = "bottom",
+      plot.background = element_rect(fill = "#fff8e3", color = "#fff8e3"),
+      legend.background = element_rect(fill = "#fff8e3"),
+      strip.background = element_rect(fill = "#e8d8c3"),
+      panel.grid = element_line(color = "#e8d8c3"),
+      panel.background = element_blank(),
+      axis.ticks = element_line(color = "#e8d8c3")
+      ) +
   scale_color_viridis_d(end = 0.6)
 
-pp <- ggplotly(p) %>% layout(legend = list(x = 0.3,
-  y = 1.2 , orientation = 'h'))
-frameWidget(pp)
+ggplotly(p) %>% 
+  layout(legend = list(x = 0.3, y = 1.2, orientation = 'h')) %>% 
+  layout(plot_bgcolor = "#fff8e3") %>%
+  layout(paper_bgcolor = "#fff8e3")
+
 ```
 
 
@@ -130,25 +149,7 @@ To some extent we can see the degree of *time-dependence* in each model. The top
 
 To get around this problem, we can retain some of this time-dependence by breaking-up a time series into a number of blocks with length $l$. Instead of sampling each observation randomly (with replacement) as in a regular bootstrap, we can resample these *blocks* at random. This way within each block the time-dependence is preserved. Below is a diagram from  @article on a common block bootstrap method, the *moving block bootstrap (MBB).*
 
-```{r Block Bootstrap Diagram, echo=FALSE, out.width = '100%'}
-img <- readPNG('~/website-update2/content/post/time-series-blocklength/moving-block-bootstrap.png')
-grid.raster(img)
-
-# Build box colors
-# box.cols <- viridis(5, alpha = 0.1)
-# 
-# # Plot
-# ggplot(series[501:1000,], aes(x = Time, y = Value, col = Series)) +
-#   geom_line() +
-#   geom_rect(aes(xmin = 0, xmax = 100, ymin = -3.5, ymax = 3.5,
-#     fill = "Block 1"), alpha = 0.01,  show.legend = T) +
-#   guides(color = guide_legend(
-#     title.position = "top",
-#     title.hjust = 0.5,
-#     title.theme = element_text(face = "bold"))) +
-#   theme(legend.position = "top") +
-#   scale_color_viridis_d(begin = 0.2, end = 0.6)
-```
+![](moving-block-bootstrap.png)
 
 In the moving block bootstrap, blocks are sampled from a set of overlapping blocks placed on top of the original time series. We can see this in the top panel where the yellow (5) and magenta (4) blocks both overlap with the cyan (2) block. In practice, a series of overlapping blocks will be laid over one another where each block increments one observation forward from the previous block, so that a total of $n-l+1$ blocks of length $l$ are laid over a time series with $n$ observations.^[We assume that there are $b$ blocks of length $l$ such that $bl \sim n$ for simplicity.] A block bootstrap of this scheme is known as *Künsch's rule.*^[*See* @kunsch1989.]
 
@@ -186,5 +187,8 @@ The package can be downloaded from my [GitHub](https://github.com/Alec-Stashevsk
 
 If you are interested in more infoRmation, make sure to checkout [R-bloggers](https://www.r-bloggers.com/) where you can find this post and many more! 
 
+<br>
+
+***
 
 ## References

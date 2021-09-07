@@ -14,3 +14,27 @@ body {
 #navbar-main .main-menu-item ul li .nav-link:hover {
     color: #FF5733;
 }
+
+.article-title a:hover {
+    color: #900c3f;
+    text-decoration: none;
+    transition: color .6s ease;
+}
+
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: #900C3F;
+    border-color: #900C3F;
+    transition: color .6s ease;
+}
+
+/* Adding padding for slider text */
+.hero-title {
+    padding-right: 110px;
+    padding-left: 110px;
+}
+
+.wg-hero p {
+    padding-right: 110px;
+    padding-left: 110px;
+}

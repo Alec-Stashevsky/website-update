@@ -1,8 +1,16 @@
+# IDEs
+.idea/
+
+# Hugo
+/resources/
+/public/
+jsconfig.json
+node_modules/
+.DS_Store
+Thumbs.db
+
+# R
 .Rproj.user
 .Rhistory
 .RData
 .Ruserdata
-.DS_Store
-Thumbs.db
-/public/
-/resources/

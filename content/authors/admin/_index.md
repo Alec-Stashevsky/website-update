@@ -1,21 +1,24 @@
 ---
-authors:
-- Alec Stashevsky
+# Display name
+title:
 
+# Is this the primary user of the site?
+superuser: true
+
+# Role/position/tagline
+role:
+
+# Organizations/Affiliations to show in About widget
+organizations:
+- name: GAP Climate Committee
+  url: "https://ourgap.org"
+- name: Reed College
+  url: "https://www.reed.edu/math/theses.html"
+  
+# Short bio (displayed in user profile at end of posts)
 bio: Anti-lumper nuance hunter
 
-education:
-  courses:
-  - course: B.A., Mathematics-Economics
-    institution: Reed College
-    year: 2019
-  
-  - course: High School Diploma
-    institution: San Marino High School
-    year: 2015
-    
-email: "alec@alecstashevsky.com"
-
+# Interests to show in About widget
 interests:
 - Inequality and Development
 - Occult Economies
@@ -27,14 +30,21 @@ interests:
 - Financial Technology
 - Securitization
 
-organizations:
-- name: GAP Climate Committee
-  url: "https://ourgap.org"
-- name: Reed College
-  url: "https://www.reed.edu/math/theses.html"
+# Education to show in About widget
+education:
+  courses:
+  - course: B.A., Mathematics-Economics
+    institution: Reed College
+    year: 2019
   
-role:
+  - course: High School Diploma
+    institution: San Marino High School
+    year: 2015
 
+# Social/Academic Networking
+# For available icons, see: https://wowchemy.com/docs/getting-started/page-builder/#icons
+#   For an email link, use "fas" icon pack, "envelope" icon, and a link in the
+#   form "mailto:your-email@example.com" or "/#contact" for contact widget.
 social:
 - icon: linkedin
   icon_pack: fab
@@ -55,14 +65,19 @@ social:
 - icon: envelope
   icon_pack: fas
   link: '#contact'
-  
-superuser: true
-title:
 
-user_groups:
-- Researchers
-- Visitors
-- Potential Employers
+# Link to a PDF of your resume/CV.
+# To use: copy your resume to `static/uploads/resume.pdf`, enable `ai` icons in `params.toml`, 
+# and uncomment the lines below.
+# - icon: cv
+#   icon_pack: ai
+#   link: uploads/resume.pdf
+
+# Enter email to display Gravatar (if Gravatar enabled in Config)
+email: ""
+
+# Highlight the author in author lists? (true/false)
+highlight_name: false
 ---
 
 I am a data scientist, researcher, and Reed College alumnus with a mathematics-economics background. I am passionate about interdisciplinary research that engages multiple paradigms. I care about econometrics, statistics, and research that uses data holistically, pushing back against siloed analytics.
