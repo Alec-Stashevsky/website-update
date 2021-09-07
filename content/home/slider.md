@@ -22,7 +22,7 @@ height = "calc(80vh)"
   align = "right"
 
   #overlay_color = "#555"  # An HTML color value.
-  overlay_img = "headers/RegionalFL-NL.jpg"  # Image path relative to your `static/media/` folder.
+  overlay_img = "slider/RegionalFL-NL.jpg"  # Image path relative to your `static/media/` folder.
   #overlay_filter = 0.5  # Darken the image. Value in range 0-1.
   
   # Call to action button (optional).
@@ -39,7 +39,7 @@ height = "calc(80vh)"
   # Overlay a color or image (optional).
   # Deactivate an option by commenting out the line, prefixing it with `#`.
   # overlay_color = "#666"  # An HTML color value.
-    overlay_img = "headers/mobility.png"  # Image path relative to your `static/media/` folder.
+    overlay_img = "slider/mobility.png"  # Image path relative to your `static/media/` folder.
   # overlay_filter = 0.7  # Darken the image. Value in range 0-1.
 
   # Call to action button (optional).
@@ -63,7 +63,7 @@ height = "calc(80vh)"
   # Overlay a color or image (optional).
   # Deactivate an option by commenting out the line, prefixing it with `#`.
     overlay_color = "#666"  # An HTML color value.
-    overlay_img = "headers/blocklength.png"  # Image path relative to your `static/media/` folder.
+    overlay_img = "slider/blocklength.png"  # Image path relative to your `static/media/` folder.
   # overlay_filter = 0.5  # Darken the image. Value in range 0-1.
 
   # Call to action button (optional).
