@@ -80,4 +80,4 @@ email: ""
 highlight_name: false
 ---
 
-I am a data scientist, researcher, and Reed College alumnus with a mathematics-economics background. I am passionate about interdisciplinary research that engages multiple paradigms. I care about econometrics, statistics, and research that uses data holistically, pushing back against siloed analytics.
+I am a data scientist and researcher with experience consulting in the finance and energy spaces. I am passionate about interdisciplinary research that engages multiple paradigms. I care about econometrics, anthropology, statistics, and research that uses data holistically to push back against siloed analytics.
