@@ -27,6 +27,14 @@ date_format: Jan 2006
 
 experience:
 
+- company: Fetch Rewards
+  company_url: "https://www.fetchrewards.com/"
+  company_logo: fetch
+  date_start: "2021-10-04"
+  description: 
+  location: Los Angeles
+  title: Data Scientist
+
 - company: NERA Economic Consulting
   company_url: "https://www.nera.com/practice-areas/securities-and-finance.html"
   company_logo: NERA
