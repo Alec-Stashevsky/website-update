@@ -31,7 +31,7 @@ experience:
   company_url: "https://www.fetchrewards.com/"
   company_logo: fetch
   date_start: "2021-10-04"
-  description: Deep Learning ~ Computer Vision, NLP, and Entity Linking
+  description: At the intersection of computer vision and natural language processing
   location: Los Angeles
   title: Data Scientist
 
