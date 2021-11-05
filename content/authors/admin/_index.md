@@ -10,6 +10,8 @@ role:
 
 # Organizations/Affiliations to show in About widget
 organizations:
+- name: Fetch Rewards
+  url: "https://fetchrewards.com"
 - name: GAP Climate Committee
   url: "https://ourgap.org"
 - name: Reed College
