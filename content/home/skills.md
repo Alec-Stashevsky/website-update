@@ -17,10 +17,31 @@ subtitle:
 # Showcase personal skills or business features.
 # - Add/remove as many `feature` blocks below as you like.
 # - For available icons, see: https://wowchemy.com/docs/page-builder/#icons
+
 feature:
 - icon: Rlogo
   icon_pack: custom
   name: R
+  
+- icon: Python
+  icon_pack: custom
+  name: Python
+  
+- icon: snowflake
+  icon_pack: custom
+  name: Snowflake (SQL)  
+
+- icon: pytorch
+  icon_pack: custom
+  name: PyTorch
+  
+- icon: aws
+  icon_pack: custom
+  name: Amazon Web Services  
+
+- icon: apachespark
+  icon_pack: custom
+  name: Apache Spark
   
 - icon: stata
   icon_pack: custom
@@ -30,29 +51,9 @@ feature:
   icon_pack: custom
   name: SAS
   
-- icon: Python
-  icon_pack: custom
-  name: Python
-  
-- icon: apachespark
-  icon_pack: custom
-  name: Apache Spark
-  
 - icon: octave
   icon_pack: custom
   name: GNU Octave
-  
-- icon: hadoop
-  icon_pack: custom
-  name: Apache Hadoop
-  
-- icon: microsoft-sql-server
-  icon_pack: custom
-  name: SQL Server  
-  
-- icon: LaTeX
-  icon_pack: custom
-  name: LaTeX
   
 - icon: microsoftexcel
   icon_pack: custom
