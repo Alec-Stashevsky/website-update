@@ -37,11 +37,7 @@ education:
   courses:
   - course: B.A., Mathematics-Economics
     institution: Reed College
-    year: 2019
-  
-  - course: High School Diploma
-    institution: San Marino High School
-    year: 2015
+    
 
 # Social/Academic Networking
 # For available icons, see: https://wowchemy.com/docs/getting-started/page-builder/#icons
