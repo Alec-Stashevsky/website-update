@@ -75,7 +75,7 @@ experience:
   company_logo: KWM
   date_end: "2020-10-01"
   date_start: "2019-07-01"
-  description: Developed an interactive dashboard to help financial advisors navigate bear markets and contextualize historical data using Shiny, a web application package for R.
+  description: Developed an interactive dashboard to help financial advisers navigate bear markets and contextualize historical data using Shiny, a web application package for R.
   location: Pasadena, CA
   title: Data Scientist Intern
   
