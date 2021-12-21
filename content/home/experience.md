@@ -87,14 +87,6 @@ experience:
   location: Portland, OR
   title: Teaching Assistant
 
-- company: Plaid Pantry
-  company_logo: plaid
-  date_end: "2019-01-01"
-  date_start: "2018-08-01"
-  description: Professional Narc
-  location: Portland, OR
-  title: Compliance Officer
- 
 - company: IRN Realty
   company_logo: IRN
   date_end: "2015-07-23"
