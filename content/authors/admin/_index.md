@@ -24,12 +24,12 @@ bio: Anti-lumper nuance hunter
 interests:
 - Inequality and Development
 - Occult Economies
+- Deep Learning
 - _Place-making_ and Temporality
 - Migration and Mobility
 - Spatial Politics
 - Anthropology
 - Decarbonization
-- Financial Technology
 - Securitization
 
 # Education to show in About widget
@@ -80,4 +80,4 @@ highlight_name: false
 
 I am a data scientist and researcher with experience consulting in the finance and energy spaces. I am passionate about interdisciplinary research that engages multiple paradigms. I care about econometrics, anthropology, statistics, and research that uses data holistically to push back against siloed analytics.
 
-Currently, I am solving problems at the intersection of computer vision and natural language processing.
+Currently, I am building core solutions for document understanding and information extraction at the crux of computer vision and natural language processing.

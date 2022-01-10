@@ -31,7 +31,8 @@ experience:
   company_url: "https://www.fetchrewards.com/"
   company_logo: fetch
   date_start: "2021-10-04"
-  description: At the intersection of computer vision and natural language processing
+  description: Building out core solutions for document understanding and information extraction at the crux of computer vision and natural language processing.
+
   location: Los Angeles
   title: Data Scientist
 
@@ -68,7 +69,7 @@ experience:
   date_end: "2020-07-01"
   date_start: "2019-10-01"
   description: Led a project investigating optimal advertising strategies for an online retailer by supplementing Google Analytics and sales data to perform Geo-spatial analysis, market research, and ultimately lead generation.
-  title: Data Scientist (Freelance)
+  title: Data Scientist
   
 - company: KWM Wealth Advisory
   company_url: "https://www.kwmwealthadvisory.com"
