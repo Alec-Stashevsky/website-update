@@ -78,6 +78,6 @@ email: ""
 highlight_name: false
 ---
 
-I am a data scientist and researcher with experience consulting in the finance and energy spaces. I am passionate about interdisciplinary research that engages multiple paradigms. I care about econometrics, anthropology, statistics, and research that uses data holistically to push back against siloed analytics.
+I am a data scientist and researcher with experience consulting in the finance and energy spaces. I am passionate about interdisciplinary research that engages multiple paradigms. I care about econometrics, machine learning, anthropology, and research that uses data holistically to push back against siloed analytics.
 
-Currently, I am building core solutions for document understanding and information extraction at the crux of computer vision and natural language processing.
+Currently, I spend my time teaching machines how to read and understand receipts through deep learning. When I am not thinking about graph machine learning and transformers you can find me snapping shots on my {{% staticref "uploads/about/sunset.jpg" "newtab" %}}Yashica T4 Super D{{% /staticref %}}, hiking, and {{% staticref "uploads/about/bowl.jpg" "newtab" %}}making pottery{{% /staticref %}}.
