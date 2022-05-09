@@ -25,6 +25,15 @@ date_format: Jan 2006
 #   Leave other parameters empty if not required.
 #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
 item:
+- certificate_url: https://coursera.org/verify/specialization/P6QXR9K3XAGD
+  date_end: ""
+  date_start: "2022-05-08"
+  description: ""
+  organization: Coursera
+  organization_url: https://www.coursera.org
+  title: Machine Learning Engineering for Production (MLOps)
+  url: ""
+  
 - certificate_url: https://www.coursera.org/account/accomplishments/verify/4LRXL4XAK5G8
   date_end: ""
   date_start: "2019-10-01"
