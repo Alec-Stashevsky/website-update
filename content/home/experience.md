@@ -33,7 +33,7 @@ experience:
   date_start: "2021-10-04"
   description: Building out core solutions for document understanding and information extraction at the crux of computer vision and natural language processing. Engaging a passion for deep learning on graphs and geometry.
   location: Los Angeles
-  title: Data Scientist
+  title: Research Data Scientist
 
 - company: NERA Economic Consulting
   company_url: "https://www.nera.com/practice-areas/securities-and-finance.html"
