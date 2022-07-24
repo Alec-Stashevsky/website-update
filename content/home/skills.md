@@ -39,10 +39,14 @@ feature:
   icon_pack: custom
   name: Amazon Web Services  
 
-- icon: apachespark
+- icon: docker
   icon_pack: custom
-  name: Apache Spark
+  name: Docker
   
+- icon: pyg
+  icon_pack: custom
+  name: PyTorch Geometric
+
 - icon: stata
   icon_pack: custom
   name: Stata
@@ -50,10 +54,6 @@ feature:
 - icon: sas
   icon_pack: custom
   name: SAS
-  
-- icon: octave
-  icon_pack: custom
-  name: GNU Octave
   
 - icon: microsoftexcel
   icon_pack: custom
