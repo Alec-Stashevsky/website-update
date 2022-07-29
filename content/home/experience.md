@@ -40,7 +40,8 @@ experience:
   company_logo: NERA
   date_end: "2021-09-03"
   date_start: "2021-07-01"
-  description: Statistical modelling and economic analysis of high-stakes litigation involving structured finance, bankruptcy, cryptocurrencies, and mass torts. Build algorithms and financial models to estimate damages and predict the performance of complex financial instruments. Use a variety of programming languages to identify fraud and negligent risk management practices for Fortune 500 companies, SEC, DOJ, and FINRA.
+  description: Statistical modelling and economic analysis for high-stakes litigation involving structured
+finance, bankruptcy, cryptocurrencies, and mass torts. Develop financial models to estimate damages and predict the performance of complex financial instruments. Identify fraud and negligent risk management practices for Fortune 500 companies, SEC, DOJ, and FINRA.
   location: New York City
   title: Associate Analyst
   
@@ -58,7 +59,7 @@ experience:
   company_logo: cadmus
   date_end: "2020-09-15"
   date_start: "2019-11-04"
-  description: Utilize statistical modeling, data analysis, and machine learning to uncover consumer insights and make business recommendations for diverse energy industry clients. Act as primary analyst evaluating demand-side management programs, including a $600k+ randomized control trial to quantify the impacts of smart thermostat direct load-control events. Forecast electric vehicle diffusion and develop deliverable dashboards for stakeholders using R Shiny. Build models to forecast demand elasticity and potential energy reduction.
+  description: Design and evaluation of demand-side management programs, including a $600k+ randomized control trial on smart thermostat direct load-control. Forecast electric vehicle diffusion, demand elasticity, and decarbonization strategy for diverse energy industry clients.
   location: Portland, OR
   title: Research Analyst
   
@@ -67,7 +68,8 @@ experience:
   company_logo: kyrgies
   date_end: "2020-07-01"
   date_start: "2019-10-01"
-  description: Led a project investigating optimal advertising strategies for an online retailer by supplementing Google Analytics and sales data to perform Geo-spatial analysis, market research, and ultimately lead generation.
+  description: Lead a project investigating optimal advertising strategies for an online retailer by
+supplementing web analytics and operations resources to perform novel Geo-spatial analysis, market research, and ultimately lead generation.
   title: Data Scientist
   
 - company: KWM Wealth Advisory
@@ -75,7 +77,8 @@ experience:
   company_logo: KWM
   date_end: "2020-10-01"
   date_start: "2019-07-01"
-  description: Developed an interactive dashboard to help financial advisers navigate bear markets and contextualize historical data using Shiny, a web application package for R.
+  description: Develop dashboards to help financial advisers navigate bear markets and
+contextualize historical data using R and Shiny.
   location: Pasadena, CA
   title: Data Scientist Intern
   
