@@ -25,6 +25,15 @@ date_format: Jan 2006
 #   Leave other parameters empty if not required.
 #   Begin multi-line descriptions with YAML's `|2-` multi-line prefix.
 item:
+- certificate_url: https://coursera.org/verify/specialization/MTVEWEBJTRDQ
+  date_end: ""
+  date_start: "2022-10-03"
+  description: ""
+  organization: Coursera
+  organization_url: https://www.coursera.org
+  title: Generative Adversarial Networks (GANs)
+  url: ""
+
 - certificate_url: https://coursera.org/verify/specialization/P6QXR9K3XAGD
   date_end: ""
   date_start: "2022-05-08"
