@@ -22,15 +22,15 @@ bio: Anti-lumper nuance hunter
 
 # Interests to show in About widget
 interests:
+- Geometric Deep Learning
 - Inequality and Development
 - Occult Economies
-- Deep Learning
-- _Place-making_ and Temporality
-- Migration and Mobility
+- Place-making, Migration, and Mobility
 - Spatial Politics
 - Anthropology
 - Decarbonization
 - Securitization
+
 
 # Education to show in About widget
 education:
