@@ -25,7 +25,7 @@ interests:
 - Geometric Deep Learning
 - Inequality and Development
 - Occult Economies
-- Place-making, Migration, and Mobility
+- Place-making, Migration, Mobility
 - Spatial Politics
 - Anthropology
 - Decarbonization
