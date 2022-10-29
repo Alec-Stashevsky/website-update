@@ -19,14 +19,14 @@ subtitle:
 # - For available icons, see: https://wowchemy.com/docs/page-builder/#icons
 
 feature:
-- icon: Rlogo
-  icon_pack: custom
-  name: R
-  
 - icon: Python
   icon_pack: custom
   name: Python
   
+- icon: Rlogo
+  icon_pack: custom
+  name: R
+
 - icon: snowflake
   icon_pack: custom
   name: Snowflake (SQL)  
@@ -35,6 +35,14 @@ feature:
   icon_pack: custom
   name: PyTorch
   
+- icon: pyg
+  icon_pack: custom
+  name: PyTorch Geometric
+
+- icon: huggingface
+  icon_pack: custom
+  name: Hugging Face
+
 - icon: aws
   icon_pack: custom
   name: Amazon Web Services  
@@ -42,10 +50,10 @@ feature:
 - icon: docker
   icon_pack: custom
   name: Docker
-  
-- icon: pyg
+
+- icon: git
   icon_pack: custom
-  name: PyTorch Geometric
+  name: Git
 
 - icon: stata
   icon_pack: custom
@@ -58,14 +66,7 @@ feature:
 - icon: microsoftexcel
   icon_pack: custom
   name: Microsoft Excel
-  
-- icon: git
-  icon_pack: custom
-  name: Git
-  
-- icon: googleanalytics
-  icon_pack: custom
-  name: Google Analytics
+
   
 # Uncomment to use emoji icons.
 #- icon: ":smile:"
