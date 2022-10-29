@@ -27,6 +27,6 @@ design:
 
 # Alec Stashevsky
 
- Data Scientist // Researcher // R Developer
+ Applied Scientist // Researcher // R Developer
 
 ⇟
