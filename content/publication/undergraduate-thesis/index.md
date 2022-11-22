@@ -4,7 +4,7 @@ authors:
 - Alec Stashevsky
 
 date: "2019-05-08T00:00:00Z"
-doi: "10.13140/RG.2.2.19035.90405"
+doi: "10.13140/RG.2.2.19035.90405/1"
 featured: true
 publication: '*Academic Psychiatry*'
 publication_types:
@@ -16,7 +16,7 @@ title: "Domestic Remittance in China: Rural—Urban Migration’s Trail of Inequ
 url_pdf: 
 links:
  - name: "ResearchGate"
-   url: https://dx.doi.org/10.13140/RG.2.2.19035.90405
+   url: https://dx.doi.org/10.13140/RG.2.2.19035.90405/1
    icon_pack: fab
    icon: researchgate
 slides:
