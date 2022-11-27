@@ -1,0 +1,67 @@
+---
+title: "Topology and Geometry Through GraphML"
+author: "Alec Stashevsky"
+date: 2022-11-26
+categories: ["Mathematics", "GraphML", "Deep Learning"]
+tags: ["Mathematics", "GraphML", "Deep Learning"]
+bibliography: [topology-vs-geometry.bib]
+link-citations: true
+links:
+image:
+  preview_only: false
+  focal_point: "Smart"
+summary: Linking mathematics to industrial GraphML applications.
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE, dev = "svg")
+```
+
+```{css References CSS, echo=FALSE}
+#references {
+    text-indent: -2em;
+    margin-left: 2em;
+}
+```
+
+> There is no royal road to geometry.
+>
+> [--- Euclid, *on account of Proclus of Athens*]{style="float:right"}
+>
+
+<br>
+This was Euclid's response when asked by Ptolemy if there was no shorter road to geometry than through his *Elements.*^[*See* @Morrow1992-MORPAC-8.]
+
+<br>
+
+For the past year I've been working with a team of folks at [Fetch](https://fetch.com/) to develop and productionalize a real-time machine-learning-based document understanding pipeline to reward our users for snapping pictures of their receipts. 
+
+*Document Understanding* and *Document AI* are fields which use automated methods (specifically artificial intelligence in the case of the latter) to comprehend documents, such as scanned invoices, emails, legal filings(link?), and in our case: receipts. Document Understanding is a broad field which touches a broad range of sub fields within AI: Computer Vision (CV), Natural Language Processing (NLP), and even Graph Machine Learning (GraphML) (links?). 
+
+
+Industrial application of document AI is equally broad. Heaps of papers unprocessed, rich harvests are and includes:^[*See* https://huggingface.co/blog/document-ai.]
+
+* Identifying types of document (image classification)
+* Extracting and identifying important peices of text from a document (key information extraction)
+* Answering specific questions about documents (document question answering)
+
+
+During this process, one of the things I've spent more time trying to do is understand unstructured data (such as images of receipts and the text which appears on them) in more elegant ways. This led me to a new and exciting place flourishing within the ML community: GraphML. 
+
+This post is about some of the things I've learned participating in the GraphML and Geometric Deep Learning communities. This post is also about some of the things I've had to forget in applying GraphML in large-scale industrial settings. 
+
+
+
+### Graphs Are All Around Us (What Happens When We See Them?)
+
+### Notes
+
+- Features may be close togeather in euclidian space (cosine similarity etc)
+- May also have topological, or structurical similaries that can also be leveraged
+- Graphs can let us learn from both the feature and their structure/connectivity/neighborhood
+
+<br>
+
+
+
+## References
