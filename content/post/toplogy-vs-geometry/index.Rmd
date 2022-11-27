@@ -10,11 +10,17 @@ links:
 image:
   preview_only: false
   focal_point: "Smart"
-summary: Linking mathematics to industrial GraphML applications.
+summary: Diving deeper into mathematics through my journey with industrial GraphML application.
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(collapse = TRUE, dev = "svg")
+library(ggplot2)
+library(network)
+library(sna)
+library(AlecWebsiteThmr)
+library(GGally)
+set.seed(32)
 ```
 
 ```{css References CSS, echo=FALSE}
@@ -30,34 +36,152 @@ knitr::opts_chunk$set(collapse = TRUE, dev = "svg")
 >
 
 <br>
+
 This was Euclid's response when asked by Ptolemy if there was no shorter road to geometry than through his *Elements.*^[*See* @Morrow1992-MORPAC-8.]
 
 <br>
 
-For the past year I've been working with a team of folks at [Fetch](https://fetch.com/) to develop and productionalize a real-time machine-learning-based document understanding pipeline to reward our users for snapping pictures of their receipts. 
+For the past year I've been working with a team of folks at [Fetch](https://fetch.com/) to develop and productionalize a machine learning based document understanding pipeline powering the core of the Fetch Rewards app. At Fetch, we reward our users for snapping pictures of their receipts in real-time, and we do it using this pipeline.
 
-*Document Understanding* and *Document AI* are fields which use automated methods (specifically artificial intelligence in the case of the latter) to comprehend documents, such as scanned invoices, emails, legal filings(link?), and in our case: receipts. Document Understanding is a broad field which touches a broad range of sub fields within AI: Computer Vision (CV), Natural Language Processing (NLP), and even Graph Machine Learning (GraphML) (links?). 
-
-
-Industrial application of document AI is equally broad. Heaps of papers unprocessed, rich harvests are and includes:^[*See* https://huggingface.co/blog/document-ai.]
-
-* Identifying types of document (image classification)
-* Extracting and identifying important peices of text from a document (key information extraction)
-* Answering specific questions about documents (document question answering)
-
-
-During this process, one of the things I've spent more time trying to do is understand unstructured data (such as images of receipts and the text which appears on them) in more elegant ways. This led me to a new and exciting place flourishing within the ML community: GraphML. 
+During this process, one of the things I've spent more time trying to do is understand unstructured data (such as images of receipts and the text which appears on them) in more elegant ways. This led me to a new and exciting place flourishing within the ML community: Graph Machine Learning (GraphML). 
 
 This post is about some of the things I've learned participating in the GraphML and Geometric Deep Learning communities. This post is also about some of the things I've had to forget in applying GraphML in large-scale industrial settings. 
 
+<br>
+
+## Graphs Are All Around Us 
+
+When first learning about graphs, one usually encounters something like the following: 
+
+```{r basic graph, echo=FALSE, message=FALSE, warning=FALSE}
+# Create static graph
+net <- structure(
+  list(
+    mel = list(
+      list(inl = 1L, outl = 2L, atl = list(na = FALSE)),
+      list(inl = 1L, outl = 3L, atl = list(na = FALSE)), 
+      list(inl = 2L, outl = 3L, atl = list(na = FALSE)),
+      list(inl = 3L, outl = 5L, atl = list(na = FALSE)),
+      list(inl = 4L, outl = 5L, atl = list(na = FALSE))
+      ),
+    gal = list(n = 5, mnext = 6L, directed = FALSE,
+               hyper = FALSE, loops = FALSE,
+               multiple = FALSE, bipartite = FALSE
+               ),
+    val = list(list(na = FALSE, vertex.names = 1L, color = "type1"),
+               list(na = FALSE, vertex.names = 2L, color = "type2"), 
+               list(na = FALSE, vertex.names = 3L, color = "type1"),
+               list(na = FALSE, vertex.names = 4L, color = "type2"),
+               list(na = FALSE, vertex.names = 5L, color = "type1")
+               ),
+    iel = list(2:1, 3L, 4L, 5L, integer(0)),
+    oel = list(integer(0), 1L, 2:3, integer(0), 4:5)
+    ),
+  class = "network")
+
+# Plot the graph
+ggnet2(
+  net,
+  color = rep(c(get_primary_color()), 5),
+  edge.size = 1,
+  edge.color = "#8f7346",
+  label = TRUE,
+  label.color = "white",
+  label.alpha = 0.7
+  ) + 
+  theme_AlecWebsite() +
+  labs(x = "", y = "")
+```
+
+A collection of *nodes* or *vertices* represented as dark green circles connected by a series of *edges* or *links* which indicate some pairwise relationship between two nodes.
+
+Graphs are incredibly simple yet flexible data structures. Nodes and edges and can be added or removed as we please. We can also move, bend, and reorder the nodes without changing the underlying relational structure of the graph. That is, without changing the fundamental nature of the graph itself. For example, below I've moved some of the nodes of the graph around and switched node 3 and node 5.
+
+```{r basic graph2, echo=FALSE, message=FALSE, warning=FALSE}
+# Create static graph
+net2 <- structure(
+  list(
+    mel = list(
+      list(inl = 1L, outl = 2L, atl = list(na = FALSE)),
+      list(inl = 1L, outl = 3L, atl = list(na = FALSE)), 
+      list(inl = 2L, outl = 3L, atl = list(na = FALSE)),
+      list(inl = 3L, outl = 5L, atl = list(na = FALSE)),
+      list(inl = 4L, outl = 5L, atl = list(na = FALSE))
+      ),
+    gal = list(n = 5, mnext = 6L, directed = FALSE,
+               hyper = FALSE, loops = FALSE,
+               multiple = FALSE, bipartite = FALSE
+               ),
+    val = list(list(na = FALSE, vertex.names = 1L, color = "type1"),
+               list(na = FALSE, vertex.names = 2L, color = "type2"), 
+               list(na = FALSE, vertex.names = 5L, color = "type1"),
+               list(na = FALSE, vertex.names = 4L, color = "type2"),
+               list(na = FALSE, vertex.names = 3L, color = "type1")
+               ),
+    iel = list(2:1, 3L, 4L, 5L, integer(0)),
+    oel = list(integer(0), 1L, 2:3, integer(0), 4:5)
+    ),
+  class = "network")
+
+# Plot the graph
+ggnet2(
+  net2,
+  color = rep(c(get_primary_color()), 5),
+  edge.size = 1,
+  edge.color = "#8f7346",
+  label = TRUE,
+  label.color = "white",
+  label.alpha = 0.7
+  ) + 
+  theme_AlecWebsite() +
+  labs(x = "", y = "")
+```
+
+Despite these modifications, the graph describes the same type of basic *structure*. We refer to this underlying structure as the graph's *connectivity* or the *topology* of the graph. The graph's topology is agnostic of where we position these nodes in space, or what we name individual nodes. 
+
+This also means graphs exist outside of Euclidean space where we have explicit notions of distance. I have no way of telling if node 3 is closer to node 4 or node 5 even though appear father apart in the two examples above. Graphs like these, in their most basic form, do not model Euclid's geometry. Perhaps there is a shorter a road after all?
 
 
-### Graphs Are All Around Us (What Happens When We See Them?)
+### What Happens When We See Them?
+
+
+
+
+- embedding space. Now we can see how "far apart" nodes are by looking at their feature vectors.
+- talk about thinking about conventional relational data as graphs, how that induces a geometry in the graph.
+- images as graphs, molecules as graphs. 
+
+
+
+## Teaching Machines to Comprehend Documents
+<!-- maybe move this to after post thesis -->
+*Document Understanding* and *Document AI* are fields which use automated methods (specifically artificial intelligence in the case of the latter) to comprehend documents, such as scanned invoices, emails, legal filings(link?), and in our case: receipts. Document Understanding is a broad field which touches a wide range of sub fields within AI: Computer Vision (CV), Natural Language Processing (NLP), and even Graph Machine Learning (GraphML) (links?).           
+
+
+Industrial application of document AI is equally broad and includes:^[*See* https://huggingface.co/blog/document-ai.]
+
+* Identifying types of document (image classification)
+* Make document text searchable (optical character recognition)
+* Extracting and identifying important peices of text from a document (key information extraction)
+* Answering specific questions about documents (document question answering)
+
+Heaps of papers sitting unprocessed can now turn into rich harvests. Through Fetch, even your crumpled receipts are worth something!
+
+- Talk about FormNet and use that to represent docuements as graphs.
+
+
+<!-- End Move Block -->
+
+
+
+I won't go to far into 
+
+
 
 ### Notes
 
-- Features may be close togeather in euclidian space (cosine similarity etc)
-- May also have topological, or structurical similaries that can also be leveraged
+- Features may be close together in euclidean space (cosine similarity etc)
+- May also have topological, or structural similarities that can also be leveraged
 - Graphs can let us learn from both the feature and their structure/connectivity/neighborhood
 
 <br>
