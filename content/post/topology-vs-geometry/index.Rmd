@@ -18,9 +18,58 @@ knitr::opts_chunk$set(collapse = TRUE, dev = "svg")
 library(ggplot2)
 library(network)
 library(sna)
+library(kableExtra)
 library(AlecWebsiteThmr)
 library(GGally)
 set.seed(32)
+```
+
+```{css Table CSS, echo=FALSE}
+table {
+   overflow-x: hidden;
+}
+
+table > thead > tr > th {
+    vertical-align: bottom;
+    border-bottom: 2px solid rgb(232, 215, 195);
+}
+
+table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table > thead > tr > td, table > tbody > tr > td, table > tfoot > tr > td {
+    padding: 8px;
+    line-height: 1.43;
+    vertical-align: top;
+    border-top: 1px solid rgb(232, 215, 195);
+}
+
+tbody > tr > td, table > tbody > tr > th {
+    padding: 8px;
+    line-height: 1.43;
+    vertical-align: top;
+    border-bottom: 1px solid rgb(232, 215, 195);
+}
+
+
+table > tfoot > tr > td {
+    padding: 8px;
+    line-height: 1.43;
+    vertical-align: top;
+    border-top: none;
+}
+
+
+
+table > tbody > tr:nth-child(2n+1) > td, table > tbody > tr:nth-child(2n+1) > th {
+    background-color: rgb(255, 248, 227);
+}
+
+# Hover
+table > tbody > tr:nth-child(2n+1):hover > td, table > tbody > tr:nth-child(2n+1):hover > th {
+    background-color: rgb(232, 215, 195);
+}
+
+table > tbody > tr:hover > td, table > tbody > tr:hover > th {
+    background-color: rgb(232, 215, 195);
+}
 ```
 
 ```{css References CSS, echo=FALSE}
@@ -37,7 +86,7 @@ set.seed(32)
 
 <br>
 
-This was Euclid's response when asked by Ptolemy if there was no shorter road to geometry than through his *Elements.*^[*See* @Morrow1992-MORPAC-8.]
+This was Euclid's response when asked by Ptolemy if no shorter road to geometry existed than through his *Elements. <link>*^[*See* @Morrow1992-MORPAC-8.]
 
 <br>
 
@@ -126,6 +175,7 @@ net2 <- structure(
 # Plot the graph
 ggnet2(
   net2,
+  mode = "circle",
   color = rep(c(get_primary_color()), 5),
   edge.size = 1,
   edge.color = "#8f7346",
@@ -137,15 +187,73 @@ ggnet2(
   labs(x = "", y = "")
 ```
 
-Despite these modifications, the graph describes the same type of basic *structure*. We refer to this underlying structure as the graph's *connectivity* or the *topology* of the graph. The graph's topology is agnostic of where we position these nodes in space, or what we name individual nodes. 
+Despite these modifications, the graph describes the same type of basic relational structure. We refer to this underlying structure as the graph's *connectivity* or the *topology* of the graph. The graph's topology is agnostic of where we position these nodes in space, or what we name individual nodes. 
 
-This also means graphs exist outside of Euclidean space where we have explicit notions of distance. I have no way of telling if node 3 is closer to node 4 or node 5 even though appear father apart in the two examples above. Graphs like these, in their most basic form, do not model Euclid's geometry. Perhaps there is a shorter a road after all?
+This also means graphs exist outside of Euclidean space where we have explicit notions of distance. I have no way of telling if node 3 is closer to node 4 or node 5 even though they appear father apart in the two examples above. Graphs like these, in their most basic form, do not model Euclid's geometry. Perhaps there is a shorter road after all?
 
 
 ### What Happens When We See Them?
 
+One of the reasons GraphML is such an exciting space is just how abundant graphs are. A salient place to apply GraphML is in the modelling of molecules (link), where atoms are represented as nodes and their chemical bonds represented as edges. We also see social networks where user-profiles are nodes and their friendships, followers, or interactions form edges; financial networks with bank accounts as nodes and their transactions as edges of varying amounts; and even more recently, documents. 
+
+Where graphs can be seen, GraphML is there to teach machines how to make conclusions about them, and new unseen things we might later encounter. GraphML is being used to discover new therapeutic drugs (link), prevent the spread of misinformation in social networks (link to siraj) (and probably also help it too), identify bank fraud (capitalOne), and understand documents (link to graph paper).
+
+As data scientists and machine learning researchers, our main goal is to make sense of the world around us. We do some of that by building models in and through which our understanding may grow. When we begin to see graph structure and its natural projections onto the world, we unlock a deeper and more organic connection by which to explain and infer phenomena. One of the ways graphs unlock this connection is through a blending of topological and geometric perspective.
 
 
+## Adding Geometry to Graphs
+
+For machines to learn on data, be it graph-structured or not, we must represent the data in a way computers can digest. That is to say, we must encode the data into some *n*-dimensional (generally Euclidean) vector space, where individual data points can be represented as vectors within that space.
+
+For example, consider GPS telemetry data used to monitor the movement of a newly released California Condor.^[Picture provided by James Sheppard. *See* https://blogs.biomedcentral.com/bmcseriesblog/2015/09/02/behind-image-3d-home-range-california-condor/.] 
+
+![](condor_3d_map.jpeg)
+
+The data used to make that visualization might look something like this:
+
+```{r encoded condor data, echo=FALSE, message=FALSE, warning=FALSE}
+# Load data
+encoded_condor_data <- readRDS("~/Git/website/content/post/topology-vs-geometry/encoded_condor_telemetry.RDs")
+
+# Plot table
+knitr::kable(
+   encoded_condor_data,
+   format = "html",
+   row.names = FALSE,
+   align = c("l", "c", "c", "c", "c"),
+   escape = FALSE
+   ) %>% 
+   add_header_above(
+      c("Condor GPS Telemetry Data" = 5),
+      align = "c",
+      escape = TRUE,
+      line = FALSE,
+      extra_css = "background-color: rgb(232, 215, 195); font-size: 1rem; padding: 0.15rem 0;"
+      ) %>%
+  footnote(
+      general_title = "Notes:",
+      title_format = "bold",
+      general =
+        "--- The Time column is normalized from 0 to 1 which represent the start and end of the tracking period, respectively. <br>
+         --- Each condor has an identification number. Condor 190 is  <a href='https://www.ventanaws.org/condor190.html'>Redwood Queen</a> and Condor 1031 is one of her offspring,  <a href='https://www.ventanaws.org/condor1031.html'>Iniko</a>. Redwood Queen and Iniko are real California Condors which are part of the free-ranging Central California flock! They have an amazing <a href='https://www.wildtones.com/birding-info/the-story-of-condor-chick-iniko'>story</a>.",
+      escape = FALSE
+  )
+```
+
+
+To represent this data in some vector space, we need to encode it as numerical vectors. There are may different ways to do this. What is described below is certainly not the best way, but it keeps things simple. We perform the following transformations:
+
+1. Represent the *Time* column as a scale from *0* to *1* where *0* is the first point in time we start tracking and 1 is the last
+2. Number the *Condors* column from *1* to *n* where *n* is the number of condors we track in the data
+3. Keep all other columns as is
+
+Now, our data looks something like this:
+
+Each observation in the table can be represented as a column vector, like the one below. The elements of the vector now describe a part of a data point as a real number.
+
+$$ \begin{bmatrix} Time \\ Condor \\ Latitude \\ Longitude \\ Altitude \end{bmatrix} \in \mathbb{R}^5  $$
+
+This process introduces a *geometry* to our dataset 
 
 - embedding space. Now we can see how "far apart" nodes are by looking at their feature vectors.
 - talk about thinking about conventional relational data as graphs, how that induces a geometry in the graph.
@@ -153,8 +261,8 @@ This also means graphs exist outside of Euclidean space where we have explicit n
 
 
 
+<!-- Bring this back at the end of post -->
 ## Teaching Machines to Comprehend Documents
-<!-- maybe move this to after post thesis -->
 *Document Understanding* and *Document AI* are fields which use automated methods (specifically artificial intelligence in the case of the latter) to comprehend documents, such as scanned invoices, emails, legal filings(link?), and in our case: receipts. Document Understanding is a broad field which touches a wide range of sub fields within AI: Computer Vision (CV), Natural Language Processing (NLP), and even Graph Machine Learning (GraphML) (links?).           
 
 
@@ -168,14 +276,11 @@ Industrial application of document AI is equally broad and includes:^[*See* http
 Heaps of papers sitting unprocessed can now turn into rich harvests. Through Fetch, even your crumpled receipts are worth something!
 
 - Talk about FormNet and use that to represent docuements as graphs.
-
-
 <!-- End Move Block -->
 
 
 
-I won't go to far into 
-
+- End with how you've learning about topology / geometry and larger understanding of the world
 
 
 ### Notes
@@ -183,6 +288,8 @@ I won't go to far into
 - Features may be close together in euclidean space (cosine similarity etc)
 - May also have topological, or structural similarities that can also be leveraged
 - Graphs can let us learn from both the feature and their structure/connectivity/neighborhood
+
+
 
 <br>
 
