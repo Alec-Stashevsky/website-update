@@ -15,6 +15,14 @@ summary: Diving deeper into mathematics through my journey with industrial Graph
 
 <script src="{{< blogdown/postref >}}index_files/kePrint/kePrint.js"></script>
 <link href="{{< blogdown/postref >}}index_files/lightable/lightable.css" rel="stylesheet" />
+<script src="{{< blogdown/postref >}}index_files/htmlwidgets/htmlwidgets.js"></script>
+<script src="{{< blogdown/postref >}}index_files/plotly-binding/plotly.js"></script>
+<script src="{{< blogdown/postref >}}index_files/typedarray/typedarray.min.js"></script>
+<script src="{{< blogdown/postref >}}index_files/jquery/jquery.min.js"></script>
+<link href="{{< blogdown/postref >}}index_files/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
+<script src="{{< blogdown/postref >}}index_files/crosstalk/js/crosstalk.min.js"></script>
+<link href="{{< blogdown/postref >}}index_files/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="{{< blogdown/postref >}}index_files/plotly-main/plotly-latest.min.js"></script>
 
 
 <style type="text/css">
@@ -99,7 +107,7 @@ table > tbody > tr:hover > td, table > tbody > tr:hover > th {
 </div>
 <div id="adding-geometry-to-graphs" class="section level2">
 <h2>Adding Geometry to Graphs</h2>
-<p>For machines to learn on data, be it graph-structured or not, we must represent the data in a way computers can digest. That is to say, we must encode the data into some <em>n</em>-dimensional (generally Euclidean) vector space, where individual data points can be represented as vectors within that space.</p>
+<p>For machines to learn on data, be it graph-structured or not, we must represent the data in a way computers can digest. That is to say, we must encode the data into some <em>n</em>-dimensional Euclidean vector space, where individual data points can be represented as vectors within that space.</p>
 <p>For example, consider GPS telemetry data used to monitor the movement of a newly released California Condor.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 <p><img src="condor_3d_map.jpeg" /></p>
 <p>The data used to make that visualization might look something like this:</p>
@@ -214,27 +222,33 @@ Altitude
 </tr>
 </tfoot>
 </table>
-<p>To represent this data in some vector space, we need to encode it as numerical vectors. There are may different ways to do this. What is described below is certainly not the best way, but it keeps things simple. We perform the following transformations:</p>
-<ol style="list-style-type: decimal">
-<li>Represent the <em>Time</em> column as a scale from <em>0</em> to <em>1</em> where <em>0</em> is the first point in time we start tracking and 1 is the last</li>
-<li>Number the <em>Condors</em> column from <em>1</em> to <em>n</em> where <em>n</em> is the number of condors we track in the data</li>
-<li>Keep all other columns as is</li>
-</ol>
-<p>Now, our data looks something like this:</p>
-<p>Each observation in the table can be represented as a column vector, like the one below. The elements of the vector now describe a part of a data point as a real number.</p>
-<p><span class="math display">\[ \begin{bmatrix} Time \\ Condor \\ Latitude \\ Longitude \\ Altitude \end{bmatrix} \in \mathbb{R}^5  \]</span></p>
-<p>This process introduces a <em>geometry</em> to our dataset</p>
+<p>We want to represent each row in the table as a column vector.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>
+However, the Latitude and Longitude coordinate system is part of a fundamentally different type of geometry, one native to the 3-dimensional ellipsoidal shape of the Earth rather than the traditional Cartesian coordinate system we most often encounter working with tabular data. We can convert this non-euclidean space to a 2-d euclidean space by using the <a href="https://openpress.usask.ca/introgeomatics/chapter/cartesianprojected-coordinate-systems-utm/">Universal Transverse Mercator (UTM)</a> map projection.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> The UTM projection gives us an <span class="math inline">\((easting, northing)\)</span> point in this 2-d space for each point in <span class="math inline">\((lat, long)\)</span> space. After we have performed the mapping all of our data can be represented in a 5-d euclidean vector space where each vector fully describes a row in our data.</p>
+<p><span class="math display">\[ \begin{bmatrix} Time \\ Condor \\ Easting \\ Northing \\ Altitude \end{bmatrix} \in \mathbb{R}^5  \]</span></p>
+<p>This process introduces a consistent <em>geometry</em> to our data. That is, we can now understand the space our data exists within through its shape, size, distance, and relative position. Below, I visualize the Condor GPS Telemetry vector space, using some liberties to represent the <em>Time</em> and <em>Condor</em> dimensions as hue and point-shape, respectively.</p>
+<div id="htmlwidget-1" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"visdat":{"f3dd13588d32":["function () ","plotlyVisDat"]},"cur_data":"f3dd13588d32","attrs":{"f3dd13588d32":{"mode":"markers","x":{},"y":{},"z":{},"color":{},"symbol":{},"colors":["#bfd3e6","#4d004b"],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"symbols":["diamond","circle"],"type":"scatter3d"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"legend":{"title":{"text":"Condor"},"yanchor":"top","y":0.5},"scene":{"xaxis":{"range":[4730,4731.5],"zerolinecolor":"#e8d8c3","gridwidth":2,"gridcolor":"#e8d8c3","title":"Easting"},"yaxis":{"range":[24797,24798.5],"zerolinecolor":"#e8d8c3","gridwidth":2,"gridcolor":"#e8d8c3","title":"Northing"},"zaxis":{"zerolinecolor":"#e8d8c3","gridwidth":2,"gridcolor":"#e8d8c3","title":"Altitude"}},"paper_bgcolor":"#fff8e3","plot_bgcolor":"#fff8e3","hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"mode":"markers","x":[4730.47707412947],"y":[24798.2841664895],"z":[213],"type":"scatter3d","name":"190","marker":{"color":"rgba(191,211,230,1)","symbol":"diamond","line":{"color":"rgba(191,211,230,1)"}},"textfont":{"color":"rgba(191,211,230,1)"},"error_y":{"color":"rgba(191,211,230,1)"},"error_x":{"color":"rgba(191,211,230,1)"},"line":{"color":"rgba(191,211,230,1)"},"frame":null},{"mode":"markers","x":[4731.00197305619,4730.81000591731,4730.47707412947],"y":[24797.6694682967,24797.7566243416,24798.2841664895],"z":[198,210,256],"type":"scatter3d","name":"1031","marker":{"colorbar":{"title":"Time","ticklen":2},"cmin":0.12,"cmax":0.28,"colorscale":[["0","rgba(191,211,230,1)"],["0.0416666666666666","rgba(187,202,223,1)"],["0.0833333333333333","rgba(182,193,216,1)"],["0.125","rgba(178,185,209,1)"],["0.166666666666667","rgba(173,176,202,1)"],["0.208333333333333","rgba(169,167,196,1)"],["0.25","rgba(164,159,189,1)"],["0.291666666666667","rgba(160,150,182,1)"],["0.333333333333333","rgba(155,142,175,1)"],["0.375","rgba(151,133,169,1)"],["0.416666666666667","rgba(146,125,162,1)"],["0.458333333333333","rgba(141,117,156,1)"],["0.5","rgba(137,108,149,1)"],["0.541666666666667","rgba(132,100,143,1)"],["0.583333333333333","rgba(127,92,136,1)"],["0.625","rgba(122,84,130,1)"],["0.666666666666667","rgba(117,76,124,1)"],["0.708333333333333","rgba(113,67,117,1)"],["0.75","rgba(108,59,111,1)"],["0.791666666666667","rgba(103,51,105,1)"],["0.833333333333333","rgba(98,43,99,1)"],["0.875","rgba(93,34,93,1)"],["0.916666666666667","rgba(87,24,87,1)"],["0.958333333333333","rgba(82,13,81,1)"],["1","rgba(77,0,75,1)"]],"showscale":false,"color":[0.22,0.25,0.28],"symbol":"circle","line":{"colorbar":{"title":"","ticklen":2},"cmin":0.12,"cmax":0.28,"colorscale":[["0","rgba(191,211,230,1)"],["0.0416666666666666","rgba(187,202,223,1)"],["0.0833333333333333","rgba(182,193,216,1)"],["0.125","rgba(178,185,209,1)"],["0.166666666666667","rgba(173,176,202,1)"],["0.208333333333333","rgba(169,167,196,1)"],["0.25","rgba(164,159,189,1)"],["0.291666666666667","rgba(160,150,182,1)"],["0.333333333333333","rgba(155,142,175,1)"],["0.375","rgba(151,133,169,1)"],["0.416666666666667","rgba(146,125,162,1)"],["0.458333333333333","rgba(141,117,156,1)"],["0.5","rgba(137,108,149,1)"],["0.541666666666667","rgba(132,100,143,1)"],["0.583333333333333","rgba(127,92,136,1)"],["0.625","rgba(122,84,130,1)"],["0.666666666666667","rgba(117,76,124,1)"],["0.708333333333333","rgba(113,67,117,1)"],["0.75","rgba(108,59,111,1)"],["0.791666666666667","rgba(103,51,105,1)"],["0.833333333333333","rgba(98,43,99,1)"],["0.875","rgba(93,34,93,1)"],["0.916666666666667","rgba(87,24,87,1)"],["0.958333333333333","rgba(82,13,81,1)"],["1","rgba(77,0,75,1)"]],"showscale":false,"color":[0.22,0.25,0.28]}},"frame":null},{"x":[4730.47707412947,4731.00197305619],"y":[24797.6694682967,24798.2841664895],"type":"scatter3d","mode":"markers","opacity":0,"hoverinfo":"none","showlegend":false,"marker":{"colorbar":{"title":"Time","ticklen":2,"len":0.5,"lenmode":"fraction","y":1,"yanchor":"top"},"cmin":0.12,"cmax":0.28,"colorscale":[["0","rgba(191,211,230,1)"],["0.0416666666666666","rgba(187,202,223,1)"],["0.0833333333333333","rgba(182,193,216,1)"],["0.125","rgba(178,185,209,1)"],["0.166666666666667","rgba(173,176,202,1)"],["0.208333333333333","rgba(169,167,196,1)"],["0.25","rgba(164,159,189,1)"],["0.291666666666667","rgba(160,150,182,1)"],["0.333333333333333","rgba(155,142,175,1)"],["0.375","rgba(151,133,169,1)"],["0.416666666666667","rgba(146,125,162,1)"],["0.458333333333333","rgba(141,117,156,1)"],["0.5","rgba(137,108,149,1)"],["0.541666666666667","rgba(132,100,143,1)"],["0.583333333333333","rgba(127,92,136,1)"],["0.625","rgba(122,84,130,1)"],["0.666666666666667","rgba(117,76,124,1)"],["0.708333333333333","rgba(113,67,117,1)"],["0.75","rgba(108,59,111,1)"],["0.791666666666667","rgba(103,51,105,1)"],["0.833333333333333","rgba(98,43,99,1)"],["0.875","rgba(93,34,93,1)"],["0.916666666666667","rgba(87,24,87,1)"],["0.958333333333333","rgba(82,13,81,1)"],["1","rgba(77,0,75,1)"]],"showscale":true,"color":[0.12,0.28],"line":{"color":"rgba(44,160,44,1)"}},"z":[198,256],"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+</div>
+<div id="notes" class="section level2">
+<h2>Notes</h2>
 <ul>
-<li>embedding space. Now we can see how “far apart” nodes are by looking at their feature vectors.</li>
-<li>talk about thinking about conventional relational data as graphs, how that induces a geometry in the graph.</li>
-<li>images as graphs, molecules as graphs.</li>
+<li><p>embedding space. Now we can see how “far apart” nodes are by looking at their feature vectors.</p></li>
+<li><p>talk about thinking about conventional relational data as graphs, how that induces a geometry in the graph.</p></li>
+<li><p>images as graphs, molecules as graphs.</p></li>
+<li><p>graph embeddings can then be treated as the inputs to a data science or machine learning model, just as any other embedding from the traditional, tabular-based approach. The difference is that they have captured, for individual rows of the model, additional information about the relationships between the individual data points.</p></li>
 </ul>
+<p>– other popular architectures like CNN and Transformers also enforce a certain topology over the data. It’s not that other model architectures don’t take into account topology whatsoever. But these architectures impose a strict regular topology. Graph models and methods in the broader geometric deeper learning space purposefully adapt and model a broader range of more complex topologies.</p>
+</div>
+<div id="whats-forgotten" class="section level2">
+<h2>Whats Forgotten</h2>
+<p>– once brought into the fold, it can be hard to stop seeing graphs everywhere you look. While pretty much everything is a graph, or can be moleded into one, sometimes acknowledging that connection explicitly isn’t useful. Enforcing a regular topology help not distract the model when there is important information in the topology of the data. For example, take the image graphed from above, there is no intering local/ neighborhood information within that sturcture that can help learn about how that image is different from another structured collection of pixels.</p>
+<p>And that’s exactly why it took me getting into GraphML to learn about these two concepts</p>
 <!-- Bring this back at the end of post -->
 </div>
 <div id="teaching-machines-to-comprehend-documents" class="section level2">
 <h2>Teaching Machines to Comprehend Documents</h2>
 <p><em>Document Understanding</em> and <em>Document AI</em> are fields which use automated methods (specifically artificial intelligence in the case of the latter) to comprehend documents, such as scanned invoices, emails, legal filings(link?), and in our case: receipts. Document Understanding is a broad field which touches a wide range of sub fields within AI: Computer Vision (CV), Natural Language Processing (NLP), and even Graph Machine Learning (GraphML) (links?).</p>
-<p>Industrial application of document AI is equally broad and includes:<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+<p>Industrial application of document AI is equally broad and includes:<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
 <ul>
 <li>Identifying types of document (image classification)</li>
 <li>Make document text searchable (optical character recognition)</li>
@@ -247,7 +261,7 @@ Altitude
 <!-- End Move Block --></p></li>
 <li><p>End with how you’ve learning about topology / geometry and larger understanding of the world</p></li>
 </ul>
-<div id="notes" class="section level3">
+<div id="notes-1" class="section level3">
 <h3>Notes</h3>
 <ul>
 <li>Features may be close together in euclidean space (cosine similarity etc)</li>
@@ -270,6 +284,8 @@ Morrow, Glenn R. 1992. <em>Proclus: A Commentary on the First Book of Euclid’s
 <ol>
 <li id="fn1"><p><em>See</em> <span class="citation"><a href="#ref-Morrow1992-MORPAC-8" role="doc-biblioref">Morrow</a> (<a href="#ref-Morrow1992-MORPAC-8" role="doc-biblioref">1992</a>)</span>.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 <li id="fn2"><p>Picture provided by James Sheppard. <em>See</em> <a href="https://blogs.biomedcentral.com/bmcseriesblog/2015/09/02/behind-image-3d-home-range-california-condor/" class="uri">https://blogs.biomedcentral.com/bmcseriesblog/2015/09/02/behind-image-3d-home-range-california-condor/</a>.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p><em>See</em> <a href="https://huggingface.co/blog/document-ai" class="uri">https://huggingface.co/blog/document-ai</a>.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>If we have data that is not represented with numbers, than there are <a href="add%20link">feature encoding</a> processes which are used to turn categorical or lexical data, for example, into real-numbers such that they can still be digested by the computer as numeric vectors.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>Map projections are not perfect, and some distortion will occur depending on the reference point of the mapping.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p><em>See</em> <a href="https://huggingface.co/blog/document-ai" class="uri">https://huggingface.co/blog/document-ai</a>.<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>

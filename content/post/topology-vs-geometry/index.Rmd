@@ -21,6 +21,9 @@ library(sna)
 library(kableExtra)
 library(AlecWebsiteThmr)
 library(GGally)
+library(plotly)
+library(rgdal)
+library(data.table)
 set.seed(32)
 ```
 
@@ -203,7 +206,7 @@ As data scientists and machine learning researchers, our main goal is to make se
 
 ## Adding Geometry to Graphs
 
-For machines to learn on data, be it graph-structured or not, we must represent the data in a way computers can digest. That is to say, we must encode the data into some *n*-dimensional (generally Euclidean) vector space, where individual data points can be represented as vectors within that space.
+For machines to learn on data, be it graph-structured or not, we must represent the data in a way computers can digest. That is to say, we must encode the data into some *n*-dimensional Euclidean vector space, where individual data points can be represented as vectors within that space.
 
 For example, consider GPS telemetry data used to monitor the movement of a newly released California Condor.^[Picture provided by James Sheppard. *See* https://blogs.biomedcentral.com/bmcseriesblog/2015/09/02/behind-image-3d-home-range-california-condor/.] 
 
@@ -241,23 +244,93 @@ knitr::kable(
 ```
 
 
-To represent this data in some vector space, we need to encode it as numerical vectors. There are may different ways to do this. What is described below is certainly not the best way, but it keeps things simple. We perform the following transformations:
+We want to represent each row in the table as a column vector.^[If we have data that is not represented with numbers, than there are [feature encoding](add link) processes which are used to turn categorical or lexical data, for example, into real-numbers such that they can still be digested by the computer as numeric vectors.] 
+However, the Latitude and Longitude coordinate system is part of a fundamentally different type of geometry, one native to the 3-dimensional ellipsoidal shape of the Earth rather than the traditional Cartesian coordinate system we most often encounter working with tabular data. We can convert this non-euclidean space to a 2-d euclidean space by using the [Universal Transverse Mercator (UTM)](https://openpress.usask.ca/introgeomatics/chapter/cartesianprojected-coordinate-systems-utm/) map projection.^[Map projections are not perfect, and some distortion will occur depending on the reference point of the mapping.] The UTM projection gives us an $(easting, northing)$ point in this 2-d space for each point in $(lat, long)$ space. After we have performed the mapping all of our data can be represented in a 5-d euclidean vector space where each vector fully describes a row in our data.
 
-1. Represent the *Time* column as a scale from *0* to *1* where *0* is the first point in time we start tracking and 1 is the last
-2. Number the *Condors* column from *1* to *n* where *n* is the number of condors we track in the data
-3. Keep all other columns as is
+$$ \begin{bmatrix} Time \\ Condor \\ Easting \\ Northing \\ Altitude \end{bmatrix} \in \mathbb{R}^5  $$
 
-Now, our data looks something like this:
+This process introduces a consistent *geometry* to our data. That is, we can now understand the space our data exists within through its shape, size, distance, and relative position. Below, I visualize the Condor GPS Telemetry vector space, using some liberties to represent the *Time* and *Condor* dimensions as hue and point-shape, respectively.
 
-Each observation in the table can be represented as a column vector, like the one below. The elements of the vector now describe a part of a data point as a real number.
+```{r condor vector space, echo=FALSE, message=FALSE, warning=FALSE}
+# Convert condor column to factor for plotly
+encoded_condor_data$Condor <- as.factor(encoded_condor_data$Condor)
+setDT(encoded_condor_data)
 
-$$ \begin{bmatrix} Time \\ Condor \\ Latitude \\ Longitude \\ Altitude \end{bmatrix} \in \mathbb{R}^5  $$
+# Convert Lat, Long to UTM
+coord_latlon <- SpatialPoints(
+  cbind(encoded_condor_data$Longitude, encoded_condor_data$Latitude),
+  proj4string = CRS("+proj=longlat")
+  )
 
-This process introduces a *geometry* to our dataset 
+# Create data table and convert from meters to kilometers
+coord_UTM <- data.table(spTransform(coord_latlon, CRS("+init=epsg:32748"))@coords) / 1000
+setnames(coord_UTM, old = c("coords.x1", "coords.x2"), new = c("Easting", "Northing"))
+
+# Combine tables 
+condor_vector_space <- cbind(
+  encoded_condor_data[, .(Time, Condor)],
+  coord_UTM,
+  encoded_condor_data[, .(Altitude)])
+
+
+# Plot condor vector-space
+fig <- plot_ly(
+  condor_vector_space,
+  type = 'scatter3d',
+  mode = 'markers',
+  x = ~Easting,
+  y = ~Northing,
+  z = ~Altitude,
+  color = ~Time,
+  colors = c("#bfd3e6", "#4d004b"),
+  symbol = ~Condor,
+  symbols = c("diamond", "circle")
+  ) %>% layout(
+    legend = list(title=list(text='Condor')),
+    scene = list(
+      xaxis = list(
+        range = c(4730, 4731.5),
+        zerolinecolor = "#e8d8c3",
+        gridwidth = 2,
+        gridcolor = "#e8d8c3"
+        ),
+      yaxis = list(
+        range = c(24797, 24798.5),
+        zerolinecolor = "#e8d8c3",
+        gridwidth = 2,
+        gridcolor = "#e8d8c3"
+        ),
+      zaxis = list(
+        zerolinecolor = "#e8d8c3",
+        gridwidth = 2,
+        gridcolor = "#e8d8c3"
+        )
+    ),
+    paper_bgcolor="#fff8e3",
+    plot_bgcolor="#fff8e3"
+  )
+
+fig
+```
+
+
+
+
+## Notes
 
 - embedding space. Now we can see how "far apart" nodes are by looking at their feature vectors.
 - talk about thinking about conventional relational data as graphs, how that induces a geometry in the graph.
 - images as graphs, molecules as graphs. 
+
+- graph embeddings can then be treated as the inputs to a data science or machine learning model, just as any other embedding from the traditional, tabular-based approach. The difference is that they have captured, for individual rows of the model, additional information about the relationships between the individual data points.
+
+
+-- other popular architectures like CNN and Transformers also enforce a certain topology over the data. It's not that other model architectures don't take into account topology whatsoever. But these architectures impose a strict regular topology. Graph models and methods in the broader geometric deeper learning space purposefully adapt and model a broader range of more complex topologies.
+
+## Whats Forgotten
+-- once brought into the fold, it can be hard to stop seeing graphs everywhere you look. While pretty much everything is a graph, or can be moleded into one, sometimes acknowledging that connection explicitly isn't useful. Enforcing a regular topology help not distract the model when there is important information in the topology of the data. For example, take the image graphed from above, there is no intering local/ neighborhood information within that sturcture that can help learn about how that image is different from another structured collection of pixels. 
+
+And that's exactly why it took me getting into GraphML to learn about these two concepts
 
 
 
