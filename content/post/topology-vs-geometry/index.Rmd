@@ -93,7 +93,7 @@ This was Euclid's response when asked by Ptolemy if no shorter road to geometry 
 
 <br>
 
-For the past year I've been working with a team of folks at [Fetch](https://fetch.com/) to develop and productionalize a machine learning based document understanding pipeline powering the core of the Fetch Rewards app. At Fetch, we reward our users for snapping pictures of their receipts in real-time, and we do it using this pipeline.
+For the past year I've been working with a team of folks at [Fetch](https://fetch.com/) to develop and productionalize a machine learning based document understanding pipeline powering the core of the Fetch Rewards app. At Fetch, we reward our users for snapping pictures of their receipts in real-time, and we do the heavy lifting with this pipeline.
 
 During this process, one of the things I've spent more time trying to do is understand unstructured data (such as images of receipts and the text which appears on them) in more elegant ways. This led me to a new and exciting place flourishing within the ML community: Graph Machine Learning (GraphML). 
 
@@ -313,6 +313,22 @@ fig <- plot_ly(
 fig
 ```
 
+Embedding our data into a vector space allows us to leverage Euclid's *Elements* and everything built upon them. We can compare how similar two vectors are by using methods like [cosine similarity](https://towardsdatascience.com/understanding-cosine-similarity-and-its-application-fd42f585296a) or feed these vectors into machine learning models as *features* to learn upon.
+
+When our data has an inherent graph structure, the process is no different. We simply associate feature vectors with their given nodes or edges. Let's take our first graph from this post and re-imagine it as a representation of a small social network where nodes are user-profiles and edges indicate friendships between them. 
+
+![](~/Git/website/content/post/topology-vs-geometry/basic_graph-1-node-features.svg)
+
+For each node we have added a feature vector which holds some information about those user-profiles such as how long they have been on the platform $x_1$, when they last logged on $x_2$, there geographic region $x_3$, and so on. 
+
+<!-- Might delete the edge features, not necessary -->
+<!-- We can also add edge features which can come from a different feature space with different dimensionality. These can hold information regarding the friendship (which must occur between two nodes) such as how long the users have been friends $y_1$ and how often the message each other $y_2$. -->
+
+<!-- ![](~/Git/website/content/post/topology-vs-geometry/basic_graph-1-node--edge-features.svg) -->
+<!-- End edge-features -->
+
+Assigning feature vectors to the graph overlays a geometry upon it. We can no longer move, bend, or switch nodes on the graph because each node now exists as a certain point in our feature-vector space. 
+
 
 
 
@@ -322,13 +338,21 @@ fig
 - talk about thinking about conventional relational data as graphs, how that induces a geometry in the graph.
 - images as graphs, molecules as graphs. 
 
+https://opendatascience.com/machine-learning-with-graphs-going-beyond-tabular-data/
+
 - graph embeddings can then be treated as the inputs to a data science or machine learning model, just as any other embedding from the traditional, tabular-based approach. The difference is that they have captured, for individual rows of the model, additional information about the relationships between the individual data points.
 
+-- Interestingly, as one can see from the RDB schema diagrams of the datasets in Supplementary Section D, the more tables and foreign key relationships an RDB has, the better GNN-based methods perform on it, with the KDD Cup 2014 dataset being the least “relational” of the datasets and the one on which GNNs seem to offer no benefit. @cvitkovic2020supervised
+
+GNN models can be straightforwardly combined with, e.g., pretrained
+Transformer representations of TEXT inputs in the KDD Cup 2014 dataset, and trained end-to-end. @cvitkovic2020supervised
 
 -- other popular architectures like CNN and Transformers also enforce a certain topology over the data. It's not that other model architectures don't take into account topology whatsoever. But these architectures impose a strict regular topology. Graph models and methods in the broader geometric deeper learning space purposefully adapt and model a broader range of more complex topologies.
 
 ## Whats Forgotten
 -- once brought into the fold, it can be hard to stop seeing graphs everywhere you look. While pretty much everything is a graph, or can be moleded into one, sometimes acknowledging that connection explicitly isn't useful. Enforcing a regular topology help not distract the model when there is important information in the topology of the data. For example, take the image graphed from above, there is no intering local/ neighborhood information within that sturcture that can help learn about how that image is different from another structured collection of pixels. 
+
+-- in document AI, there has been recent applicatin of Graphs, which attempt to use them to uncover a *semantic* topology. 
 
 And that's exactly why it took me getting into GraphML to learn about these two concepts
 
