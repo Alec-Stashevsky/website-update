@@ -40,7 +40,7 @@ experience:
   company_logo: fetch
   date_end: "2022-10-04"
   date_start: "2021-10-04"
-  description: Document AI and GraphML
+  description: Document AI and Graph ML
   location: Los Angeles
   title: Research Data Scientist
 
