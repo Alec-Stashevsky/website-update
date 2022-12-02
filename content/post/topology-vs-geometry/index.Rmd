@@ -1,16 +1,16 @@
 ---
-title: "Topology and Geometry Through GraphML"
+title: "Topology and Geometry Through Graph ML"
 author: "Alec Stashevsky"
 date: 2022-11-26
-categories: ["Mathematics", "GraphML", "Deep Learning"]
-tags: ["Mathematics", "GraphML", "Deep Learning"]
+categories: ["Mathematics", "Graph ML", "Deep Learning"]
+tags: ["Mathematics", "Graph ML", "Deep Learning"]
 bibliography: [topology-vs-geometry.bib]
 link-citations: true
 links:
 image:
   preview_only: false
   focal_point: "Smart"
-summary: Diving deeper into mathematics through my journey with industrial GraphML application.
+summary: Diving deeper into mathematics through my journey with industrial Graph ML application.
 ---
 
 ```{r setup, include=FALSE}
@@ -89,15 +89,15 @@ table > tbody > tr:hover > td, table > tbody > tr:hover > th {
 
 <br>
 
-This was Euclid's response when asked by Ptolemy if no shorter road to geometry existed than through his *Elements. <link>*^[*See* @Morrow1992-MORPAC-8.]
+This was Euclid's response when asked by Ptolemy if no shorter road to geometry existed than through his [*Elements.*](http://aleph0.clarku.edu/~djoyce/elements/elements.html)^[*See* @Morrow1992-MORPAC-8 and @2017euclid.]
 
 <br>
 
 For the past year I've been working with a team of folks at [Fetch](https://fetch.com/) to develop and productionalize a machine learning based document understanding pipeline powering the core of the Fetch Rewards app. At Fetch, we reward our users for snapping pictures of their receipts in real-time, and we do the heavy lifting with this pipeline.
 
-During this process, one of the things I've spent more time trying to do is understand unstructured data (such as images of receipts and the text which appears on them) in more elegant ways. This led me to a new and exciting place flourishing within the ML community: Graph Machine Learning (GraphML). 
+During this process, one of the things I've spent more time trying to do is understand unstructured data (such as images of receipts and the text which appears on them) in more elegant ways. This led me to a new and exciting place flourishing within the ML community: Graph Machine Learning (Graph ML). 
 
-This post is about some of the things I've learned participating in the GraphML and Geometric Deep Learning communities. This post is also about some of the things I've had to forget in applying GraphML in large-scale industrial settings. 
+This post is about some of the things I've learned participating in the Graph ML and Geometric Deep Learning communities. This post is also about some of the things I've had to forget when applying Graph ML in large-scale industrial settings. 
 
 <br>
 
@@ -145,9 +145,9 @@ ggnet2(
   labs(x = "", y = "")
 ```
 
-A collection of *nodes* or *vertices* represented as dark green circles connected by a series of *edges* or *links* which indicate some pairwise relationship between two nodes.
+A collection of *nodes* or *vertices* represented as dark green circles connected by *edges* or *links* which indicate some pairwise relationship between two nodes.
 
-Graphs are incredibly simple yet flexible data structures. Nodes and edges and can be added or removed as we please. We can also move, bend, and reorder the nodes without changing the underlying relational structure of the graph. That is, without changing the fundamental nature of the graph itself. For example, below I've moved some of the nodes of the graph around and switched node 3 and node 5.
+Graphs are incredibly simple yet flexible data structures. There is no notion of left, right, up, or down. Nodes and edges and can be added or omitted as we please. We can also move, bend, and reorder the nodes without changing the underlying relational structure of the graph. That is, without changing the fundamental nature of the graph itself. For example, below I've moved some of the nodes of the graph around and switched node 3 and node 5.
 
 ```{r basic graph2, echo=FALSE, message=FALSE, warning=FALSE}
 # Create static graph
@@ -192,17 +192,18 @@ ggnet2(
 
 Despite these modifications, the graph describes the same type of basic relational structure. We refer to this underlying structure as the graph's *connectivity* or the *topology* of the graph. The graph's topology is agnostic of where we position these nodes in space, or what we name individual nodes. 
 
-This also means graphs exist outside of Euclidean space where we have explicit notions of distance. I have no way of telling if node 3 is closer to node 4 or node 5 even though they appear father apart in the two examples above. Graphs like these, in their most basic form, do not model Euclid's geometry. Perhaps there is a shorter road after all?
+This also means graphs exist outside of Euclidean space where we have explicit notions of distance and direction. I have no way of telling if node 3 is closer to node 4 or node 5 even though they appear father apart in the two examples above. Graphs like these, in their most basic form, do not model Euclid's geometry. Perhaps there is a shorter road after all?
 
 
-### What Happens When We See Them?
+### What Happens When We See Them
 
-One of the reasons GraphML is such an exciting space is just how abundant graphs are. A salient place to apply GraphML is in the modelling of molecules (link), where atoms are represented as nodes and their chemical bonds represented as edges. We also see social networks where user-profiles are nodes and their friendships, followers, or interactions form edges; financial networks with bank accounts as nodes and their transactions as edges of varying amounts; and even more recently, documents. 
+One of the reasons Graph ML is such an exciting space is just how abundant graphs are. Graph ML is used to model molecules (link), where atoms are represented as nodes and their chemical bonds represented as edges. We also see social networks where user-profiles are nodes and their friendships, followers, or interactions form edges; financial networks with bank accounts as nodes and their transactions as edges of varying amounts; and even more recently, documents.
 
-Where graphs can be seen, GraphML is there to teach machines how to make conclusions about them, and new unseen things we might later encounter. GraphML is being used to discover new therapeutic drugs (link), prevent the spread of misinformation in social networks (link to siraj) (and probably also help it too), identify bank fraud (capitalOne), and understand documents (link to graph paper).
+Where graphs can be seen, Graph ML is there to teach machines how to make conclusions about them and new unseen things we might later encounter. Graph ML is being used to discover new therapeutic drugs (link), prevent the spread of misinformation in social networks (link to siraj) (and probably also help it too), identify bank fraud (capitalOne), and extract information from documents (link to graph paper).
 
-As data scientists and machine learning researchers, our main goal is to make sense of the world around us. We do some of that by building models in and through which our understanding may grow. When we begin to see graph structure and its natural projections onto the world, we unlock a deeper and more organic connection by which to explain and infer phenomena. One of the ways graphs unlock this connection is through a blending of topological and geometric perspective.
+As data scientists and machine learners, our main goal is to make sense of the world around us. We do some of that by building models in and through which our understanding may grow. When we begin to see graph structure and its natural projections onto the world, we unlock a deeper and more organic connection by which to explain and infer phenomena. One of the ways graphs unlock this connection is through a blending of topological and geometric perspective.
 
+<br>
 
 ## Adding Geometry to Graphs
 
@@ -245,7 +246,7 @@ knitr::kable(
 
 
 We want to represent each row in the table as a column vector.^[If we have data that is not represented with numbers, than there are [feature encoding](add link) processes which are used to turn categorical or lexical data, for example, into real-numbers such that they can still be digested by the computer as numeric vectors.] 
-However, the Latitude and Longitude coordinate system is part of a fundamentally different type of geometry, one native to the 3-dimensional ellipsoidal shape of the Earth rather than the traditional Cartesian coordinate system we most often encounter working with tabular data. We can convert this non-euclidean space to a 2-d euclidean space by using the [Universal Transverse Mercator (UTM)](https://openpress.usask.ca/introgeomatics/chapter/cartesianprojected-coordinate-systems-utm/) map projection.^[Map projections are not perfect, and some distortion will occur depending on the reference point of the mapping.] The UTM projection gives us an $(easting, northing)$ point in this 2-d space for each point in $(lat, long)$ space. After we have performed the mapping all of our data can be represented in a 5-d euclidean vector space where each vector fully describes a row in our data.
+However, the Latitude and Longitude coordinate system is part of a fundamentally different type of geometry, a non-euclidean one native to the 3-dimensional ellipsoidal shape of the Earth. We can convert this non-euclidean space to a 2-d euclidean space in the traditional Cartesian coordinate system by using the [Universal Transverse Mercator (UTM)](https://openpress.usask.ca/introgeomatics/chapter/cartesianprojected-coordinate-systems-utm/) map projection.^[Map projections are not perfect, and some distortion will occur depending on the reference point of the mapping.] The UTM projection gives us an $(easting, northing)$ point in this 2-d space for each point in $(lat, long)$ space. After we have performed the mapping all of our data can be represented in a 5-d euclidean vector space where each vector fully describes a row in our data.
 
 $$ \begin{bmatrix} Time \\ Condor \\ Easting \\ Northing \\ Altitude \end{bmatrix} \in \mathbb{R}^5  $$
 
@@ -319,24 +320,35 @@ When our data has an inherent graph structure, the process is no different. We s
 
 ![](~/Git/website/content/post/topology-vs-geometry/basic_graph-1-node-features.svg)
 
-For each node we have added a feature vector which holds some information about those user-profiles such as how long they have been on the platform $x_1$, when they last logged on $x_2$, there geographic region $x_3$, and so on. 
+For each node we have added a feature vector which holds some information about those user-profiles such as how long they have been on the platform $x_1$, when they last logged on $x_2$, their geographic region $x_3$, and so on. 
 
-<!-- Might delete the edge features, not necessary -->
-<!-- We can also add edge features which can come from a different feature space with different dimensionality. These can hold information regarding the friendship (which must occur between two nodes) such as how long the users have been friends $y_1$ and how often the message each other $y_2$. -->
+Assigning feature vectors to the graph overlays a Euclidean geometry upon it. We can no longer move, bend, or switch nodes on the graph because each node now exists at a certain point in our feature-vector space and to move that point would change its underlying meaning.
 
-<!-- ![](~/Git/website/content/post/topology-vs-geometry/basic_graph-1-node--edge-features.svg) -->
-<!-- End edge-features -->
+<br>
 
-Assigning feature vectors to the graph overlays a geometry upon it. We can no longer move, bend, or switch nodes on the graph because each node now exists as a certain point in our feature-vector space. 
+## The Intersection of Topology and Geometry
+
+Graphs allow us to represent individual features with additional relationships and structure. Introducing a flexible topological structure in which Euclidean geometry can be embedded can help our models understand and generalize better.
+
+Relational data is the most widely used type of data across industry, yet it is not often thought about in terms of its inherent graph structure.^[cite] Consider a simple SQL database representation of our small social network above which contains two tables related through User IDs.
+
+![](~/Git/website/content/post/topology-vs-geometry/relational_db_example.png)
+
+Each row in the blue user table holds information about a node in our graph while each row in the friendship table (green) represents an edge between the user who made the friend request and the user whom accepted. Each user can have many friendships (shown by colored lines). In this sense, all relational databases can be seen as graphs which allow for complex connections through primary and foreign key relations like the one-to-many relationship we see above.
+
+The intuition behind adding this friendship-structure is that we can learn more about a user based on whom they are friends with and the attributes of those friends themselves. An extremely common modelling task on such data is predicting [user churn](https://medium.com/@malvikat/a-complete-guide-to-customer-churn-rate-fa6ec09d96d). We want to know which users are likely to drop off the platform and perhaps intervene. A traditional tabular machine learning model might ingest the features of our user table and learn to recognize patterns about certain types of users and their behavior that make them likely to attrite. This may work relatively well, however, it ignores the underlying *topology of friendship* such users find themselves in. Consequently, we lose the ability to answer questions like: if a user's friends churn, are they more likely to churn themselves?
+
+Graphs unlock this capability by incorporating topological structure as an inductive bias rather than as an additional feature. In other words, acknowledging the inherent topology of our data helps models better understand *how to learn* rather than expanding *what to learn*. @cvitkovic2020supervised shows this is especially true when many tables and foreign key relationships belong to a relational database.
+
 
 
 
 
 ## Notes
 
-- embedding space. Now we can see how "far apart" nodes are by looking at their feature vectors.
-- talk about thinking about conventional relational data as graphs, how that induces a geometry in the graph.
 - images as graphs, molecules as graphs. 
+
+-- “the shortest path between 2 points isn’t necessarily a straight line”. end with this in reference to Euclid's quote.
 
 https://opendatascience.com/machine-learning-with-graphs-going-beyond-tabular-data/
 
@@ -354,13 +366,13 @@ Transformer representations of TEXT inputs in the KDD Cup 2014 dataset, and trai
 
 -- in document AI, there has been recent applicatin of Graphs, which attempt to use them to uncover a *semantic* topology. 
 
-And that's exactly why it took me getting into GraphML to learn about these two concepts
+And that's exactly why it took me getting into Graph ML to learn about these two concepts
 
 
 
 <!-- Bring this back at the end of post -->
 ## Teaching Machines to Comprehend Documents
-*Document Understanding* and *Document AI* are fields which use automated methods (specifically artificial intelligence in the case of the latter) to comprehend documents, such as scanned invoices, emails, legal filings(link?), and in our case: receipts. Document Understanding is a broad field which touches a wide range of sub fields within AI: Computer Vision (CV), Natural Language Processing (NLP), and even Graph Machine Learning (GraphML) (links?).           
+*Document Understanding* and *Document AI* are fields which use automated methods (specifically artificial intelligence in the case of the latter) to comprehend documents, such as scanned invoices, emails, legal filings(link?), and in our case: receipts. Document Understanding is a broad field which touches a wide range of sub fields within AI: Computer Vision (CV), Natural Language Processing (NLP), and even Graph Machine Learning (Graph ML) (links?).           
 
 
 Industrial application of document AI is equally broad and includes:^[*See* https://huggingface.co/blog/document-ai.]
