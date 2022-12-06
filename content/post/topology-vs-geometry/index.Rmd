@@ -95,7 +95,7 @@ This was Euclid's response when asked by Ptolemy if no shorter road to geometry 
 
 For the past year I've been working with a team of folks at [Fetch](https://fetch.com/) to develop and productionalize a machine learning based document understanding pipeline powering the core of the Fetch app. At Fetch, we reward our users for snapping pictures of their receipts in real-time, and we do the heavy lifting with this pipeline.
 
-During this process, one of the things I've spent more time trying to do is understand unstructured data (such as images of receipts and the text which appears on them) in more elegant ways. This led me to a new and exciting place flourishing within the ML community: Graph Machine Learning (Graph ML). 
+During this process, one of the things I've spent more time trying to do is understand unstructured data (such as images of receipts and the language which appears on them) in more elegant ways. This led me to a new and exciting place flourishing within the ML community: Graph Machine Learning (Graph ML). 
 
 This post is about some of the things I've learned participating in the Graph ML and Geometric Deep Learning communities. This post is also about some of the things I've had to forget when applying Graph ML in large-scale industrial settings. 
 
@@ -207,7 +207,7 @@ As data scientists and machine learners, our main goal is to make sense of the w
 
 ## Adding Geometry to Graphs
 
-For machines to learn on data, be it graph-structured or not, we must represent it in a way computers can digest. That is to say, we must encode the data into some *n*-dimensional euclidean vector space where individual data points are vectors within that space.
+For machines to learn on data, be it graph-structured or not, we must represent it in a way computers can digest. That is to say, we must encode the data into some *n*-dimensional euclidean vector space where individual data points become vectors within that space.
 
 Consider GPS telemetry data used to monitor the movement of a newly released California Condor.^[Picture provided by James Sheppard. *See* https://blogs.biomedcentral.com/bmcseriesblog/2015/09/02/behind-image-3d-home-range-california-condor/.] 
 
@@ -246,7 +246,7 @@ knitr::kable(
 
 
 We want to represent each row in the table as a vector.^[If we have data that is not represented with numbers, than there are [feature encoding](add link) processes which are used to turn categorical or lexical data, for example, into real-numbers such that they can still be digested by the computer as numeric vectors.] 
-However, the Latitude and Longitude coordinate system is part of a fundamentally different type of geometry: a non-euclidean one native to the 3-dimensional ellipsoidal shape of the Earth (link). We can convert this non-euclidean space to a 2-d euclidean space in the traditional Cartesian coordinate system by using the [Universal Transverse Mercator (UTM)](https://openpress.usask.ca/introgeomatics/chapter/cartesianprojected-coordinate-systems-utm/) map projection.^[Map projections are not perfect, and some distortion will occur depending on the reference point of the mapping.] The UTM projection gives us an $(easting, \ northing)$ point in for each point in $(latitude, \ longitude)$ space. 
+However, the Latitude and Longitude coordinate system is part of a fundamentally different type of geometry: a non-euclidean one native to the 3-dimensional ellipsoidal shape of the Earth (link). We can convert this non-euclidean space to a 2-d euclidean space in the traditional Cartesian coordinate system by using the [Universal Transverse Mercator (UTM)](https://openpress.usask.ca/introgeomatics/chapter/cartesianprojected-coordinate-systems-utm/) map projection.^[Map projections are not perfect, and some distortion will occur depending on the reference point of the mapping.] The UTM projection gives us an $(easting, \ northing)$ point for each point in $(latitude, \ longitude)$ space. 
 
 After we have performed the mapping all of our data can be represented in a 5-d euclidean vector space where each vector fully describes a row in our data.
 
@@ -324,7 +324,7 @@ When our data has an inherent graph structure, the process is no different. We s
 
 For each node we have added a feature vector which holds some information about those user-profiles such as how long they have been on the platform $x_1$, when they last logged on $x_2$, their geographic region $x_3$, and so on. 
 
-Assigning feature vectors to the graph overlays a euclidean geometry upon it. We can no longer move, bend, or switch nodes on the graph because each node now exists at a certain point in our feature-vector space and to move that point would change its underlying meaning.
+Assigning feature vectors to the graph overlays a euclidean geometry upon it. We can no longer move, bend, or switch nodes on the graph because each node now exists at a certain point in our feature-vector space. Moving the node would change its underlying meaning.
 
 <br>
 
@@ -342,9 +342,9 @@ Relational data is the most abundant type of data across industry, yet it is not
     </figcaption>
 </figure>
 
-In this sense, all relational databases can be seen as graphs which allow for complex connections through primary and foreign key relations like the one-to-many relationship we see above. The intuition behind adding this friendship-structure is that we can learn more about a user by also looking at who they are friends with and the attributes of those friends. 
+In this sense, all relational databases can be seen as graphs which allow for complex topologies through primary and foreign key relations like the one-to-many relationship we see above. The intuition behind adding this friendship-structure is that we can learn more about a user by also looking at who they are friends with and the attributes of those friends. 
 
-An extremely common modelling task on relational data of social networks is predicting [user churn](https://medium.com/@malvikat/a-complete-guide-to-customer-churn-rate-fa6ec09d96d). We want to know which users are likely to drop off the platform and perhaps intervene. A tabular machine learning model might ingest the user table as features and learn to recognize patterns about certain types of users and their behavior which makes them likely to attrite. 
+An extremely common modelling task on relational data of social networks is predicting [user churn](https://medium.com/@malvikat/a-complete-guide-to-customer-churn-rate-fa6ec09d96d). We want to know which users are likely to drop off the platform and perhaps intervene. A tabular machine learning model might ingest the rows of the user table as features and learn to recognize patterns about certain types of users and their behavior which makes them likely to attrite. 
 
 This may work relatively well, however, it ignores the underlying *topology of friendship* such users find themselves in. Consequently, we lose the ability to answer questions like: *if a user's friends churn, are they more likely to churn themselves?* Using the graph modelling approach we can capture, for each row in the data, additional information about relationships between rows.^[*See* https://opendatascience.com/machine-learning-with-graphs-going-beyond-tabular-data/.] @cvitkovic2020supervised shows incorporating the connectivity of relational data through graphs is especially useful when many tables and foreign key relationships belong to a relational database.^[Using this approach does not mean we must use graph-based models such as GNNs to perform the downstream task. We can use any graph-based embedding method to generate embedding which capture this additional structure. These embeddings can then  be used like any other embedding input into traditional tabular models.]
 
@@ -356,26 +356,21 @@ Graphs unlock this capability by incorporating topological structure as an induc
 
 Topological structure need not conform to the euclidean feature-space. Graphs force us to understand this through their non-euclidean connectivity. However, a different kind of topology has been lurking alongside us all along the way. 
 
-When we think about the data most machine learning operates on such as tables, text, or images, we don't usually speak about topology. That is because these data types all enforce a strict *regular topology* that doesn't give us much signal to learn on. Images, for example, are represented as a regular grid of pixels values which can also be transformed into a graph as shown below.^[Figure from [Yalda Shankar's](https://yaldashankar.org) beautifully crafted visual-forward Graph ML overview: [The GNN Booklet](https://yaldashankar.org/demo/GNN-1.pdf).]
+When we think about the data most machine learning operates on such as tables, text, or images, we don't usually speak about topology. That is because these data types all enforce a strict *regular topology* that doesn't give us much signal to learn on. Images, for example, are represented as a regular grid of pixel values which can also be transformed into a graph.^[Figure from [Yalda Shankar's](https://yaldashankar.org) beautifully crafted visual-forward Graph ML overview: [The GNN Booklet](https://yaldashankar.org/demo/GNN-1.pdf).]
 
 ![](image_as_graph.png)
 
-The structure of the pixel-grid will not change from image to image. That means the topology of the data can't help us predict what is in one image vs. another. All of that signal is held in the 2-d euclidean pixel-space rather than the topology of the pixel-space. The same case can be made for text data in a 1-d space, or any *n*-dimensional euclidean vector space (like that of our Condor GPS telemetry) because there is always regular grid structure.
+The structure of the pixel-grid will not change from image to image. That means the topology of the data can't help us understand what the image is of. All of the signal which differentiates images is held in the 2-d euclidean pixel-space rather than the topology of the pixel-space. The same case can be made for text data in a 1-d space, or any *n*-dimensional euclidean vector space (like that of our Condor GPS telemetry) because there is always regular grid structure.
 
-Machine learning canon evolved using euclidean data and enforced this regular topology implicitly. The invariances of the regular grid-structure were built into the models.^[*See* @DBLP:journals/corr/BronsteinBLSV16.] As an artifact, much of machine learning has bound models to specific data with strict limitations on input structure. [Geometric Deep Learning](https://flawnsontong.medium.com/what-is-geometric-deep-learning-b2adb662d91d) is carving a different paradigm in which models are designed to understand and exploit the topological and geometric properties of their inputs. Models designed through this paradigm can adapt to different and more complex topology induced by graphs, [symmetry groups](https://www.cantorsparadise.com/an-invitation-to-group-theory-c81e21ab739a), and [manifolds](https://bjlkeng.github.io/posts/manifolds/) with dynamically-sized computation graphs.^[*See* @NIPS2014_f9be311e for treatment of symmetry groups and @NIPS2017_0ebcc77d for treatment of manifolds.]
+Machine learning canon evolved using euclidean data and enforced this regular topology implicitly. The invariances of the regular grid-structure were built into the models.^[*See* @DBLP:journals/corr/BronsteinBLSV16.] As an artifact, much of machine learning has bound model architecture and input structure. [Geometric Deep Learning](https://flawnsontong.medium.com/what-is-geometric-deep-learning-b2adb662d91d) is carving a different paradigm in which models are designed to understand and exploit the topological and geometric properties of their inputs. Models of this paradigm can adapt to different and more complex topology induced by graphs, [symmetry groups](https://www.cantorsparadise.com/an-invitation-to-group-theory-c81e21ab739a), and [manifolds](https://bjlkeng.github.io/posts/manifolds/) with dynamically-sized computation graphs.^[*See* @NIPS2014_f9be311e for treatment of symmetry groups and @NIPS2017_0ebcc77d for treatment of manifolds.]
 
 <br>
 
 ## To Blog Is To Forget
 
+Looking back over the past year, I'd be remiss to not speak on the effects of entering into the fold through my own journey developing large-scale document AI systems. *Document AI* is a field which uses AI to comprehend documents such as [scanned invoices](https://guillaumejaume.github.io/FUNSD/), [emails](https://x-lance.github.io/WebSRC/), [legal filings](https://data.nist.gov/pdr/lps/ark:/88434/mds2-2531), and in my experience: [receipts](https://paperswithcode.com/dataset/sroie).^[*See* @jaume2019 for more information on FUNSD, @DBLP:journals/corr/abs-2101-09465 for WebSRC, and @DBLP:journals/corr/abs-2103-10213 for SROIE.] It is broad and touches a wide range of AI specialties: CV, NLP, and even more recently Graph ML.^[Industrial application of document AI is equally broad, and includes, identifying types of document (image classification), making document text searchable (optical character recognition), extracting specific pieces of text (key information extraction), and answering questions about documents (document question answering). *See* https://huggingface.co/blog/document-ai.]
+
 Once brought into the fold of Graph ML, it can be hard to stop seeing graphs everywhere you look and especially hard to not send your CV and NLP colleagues blogs about how [CNNs](https://medium.com/@BorisAKnyazev/tutorial-on-graph-neural-networks-for-computer-vision-and-beyond-part-1-3d9fada3b80d) and [transformers](https://thegradient.pub/transformers-are-graph-neural-networks) are just special cases of graph neural networks. Yes, pretty much everything is a graph or can be molded into one, but doing so isn't always useful. Ignoring topology can help to not distract models (and the people who build them) when it lacks useful information. It also allows for highly-optimized and -parallelizable architectures rather than ones which are more flexible but have to unfurl computation graphs dynamically.
-
-Looking back over the past year, I'd be remiss to not speak on the effects of entering into the fold through my own journey developing large-scale document AI systems. *Document AI* is a field which uses AI to comprehend documents such as [scanned invoices](https://guillaumejaume.github.io/FUNSD/), [emails](https://x-lance.github.io/WebSRC/), [legal filings](https://data.nist.gov/pdr/lps/ark:/88434/mds2-2531), and in my experience: [receipts](https://paperswithcode.com/dataset/sroie).^[*See* @jaume2019 for more information on FUNSD, @DBLP:journals/corr/abs-2101-09465 for WebSRC, and @DBLP:journals/corr/abs-2103-10213 for SROIE.] It is broad and touches a wide range of AI specialties: CV, NLP, and even more recently Graph ML. Industrial application of document AI is equally broad, including:^[*See* https://huggingface.co/blog/document-ai.]
-
-* Identifying types of document (image classification)
-* Making document text searchable (optical character recognition)
-* Extracting specific pieces of text (key information extraction)
-* Answering questions about documents (document question answering)
 
 Through sheer luck and an amazing group of colleagues and mentors, my quest led me to explore Graph ML and the Geometric Deep Learning paradigm to search for and uncover a hidden *semantic topology* within the documents we process. While I can't say what this means for the future, I can say I have grown more than I could have imagined and I'm excited to see what 2023 holds.
 
