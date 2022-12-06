@@ -381,7 +381,7 @@ Through sheer luck and an amazing group of colleagues and mentors, my quest led 
 
 <br>
 
-As for Ptolemy, I've found another [answer](https://ai.stackexchange.com/questions/11226/what-is-non-euclidean-data/11259#11259) on Stack Exchange. . . 
+As for Ptolemy, I've found another [answer](https://ai.stackexchange.com/questions/11226/what-is-non-euclidean-data/11259#11259). The shortest road between two points isn't always a straight line. . .
 
 <!-- Heaps of papers sitting unprocessed can now turn into rich harvests. Through Fetch, even your crumpled receipts are worth something! -->
 
@@ -400,7 +400,7 @@ As for Ptolemy, I've found another [answer](https://ai.stackexchange.com/questio
 <!-- An interconnected world matter, and graphs provide the scafolding to build such connectivity. (cite NeurIPS 2022 workshop) -->
 
 
-<!-- ## Notes -->
+<!--  Notes -->
 
 <!-- -- “the shortest path between 2 points isn’t necessarily a straight line”. end with this in reference to Euclid's quote. -->
 
@@ -415,34 +415,19 @@ As for Ptolemy, I've found another [answer](https://ai.stackexchange.com/questio
 
 <!-- And that's exactly why it took me getting into Graph ML to learn about these two concepts -->
 
-
-
-<!-- <!-- Bring this back at the end of post --> -->
-<!-- ## Teaching Machines to Comprehend Documents -->
-<!-- *Document Understanding* and *Document AI* are fields which use automated methods (specifically artificial intelligence in the case of the latter) to comprehend documents, such as scanned invoices, emails, legal filings(link?), and in our case: receipts. Document Understanding is a broad field which touches a wide range of sub fields within AI: Computer Vision (CV), Natural Language Processing (NLP), and even Graph Machine Learning (Graph ML) (links?).            -->
-
-
-<!-- Industrial application of document AI is equally broad and includes:^[*See* https://huggingface.co/blog/document-ai.] -->
-
-<!-- * Identifying types of document (image classification) -->
-<!-- * Make document text searchable (optical character recognition) -->
-<!-- * Extracting and identifying important peices of text from a document (key information extraction) -->
-<!-- * Answering specific questions about documents (document question answering) -->
-
 <!-- Heaps of papers sitting unprocessed can now turn into rich harvests. Through Fetch, even your crumpled receipts are worth something! -->
 
 <!-- - Talk about FormNet and use that to represent docuements as graphs. -->
-<!-- <!-- End Move Block --> -->
-
 
 <!-- - End with how you've learning about topology / geometry and larger understanding of the world -->
 
-<!-- ### Notes -->
+<!-- Notes -->
 
 <!-- - Features may be close together in euclidean space (cosine similarity etc) -->
 <!-- - May also have topological, or structural similarities that can also be leveraged -->
 <!-- - Graphs can let us learn from both the feature and their structure/connectivity/neighborhood -->
 
-<!-- <br> -->
+<br>
 
+***
 ## References
