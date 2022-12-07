@@ -1,7 +1,7 @@
 ---
 title: "Topology and Geometry Through Graph ML"
 author: "Alec Stashevsky"
-date: 2022-11-26
+date: 2022-12-07
 categories: ["Mathematics", "Graph ML", "Deep Learning"]
 tags: ["Mathematics", "Graph ML", "Deep Learning"]
 bibliography: [topology-vs-geometry.bib]
@@ -190,7 +190,7 @@ ggnet2(
   labs(x = "", y = "")
 ```
 
-Despite these modifications, the graph describes the same type of basic relational structure. We refer to this underlying structure as the graph's *connectivity* or the *topology* of the graph. The graph's topology is agnostic of where we position these nodes in space, or what we name individual nodes. 
+Despite these modifications, the graph describes the same basic relational structure. We refer to this underlying structure as the graph's *connectivity* or the *topology* of the graph. The graph's topology is agnostic of where we position these nodes in space, or what we name individual nodes. 
 
 This also means graphs exist outside of Euclidean space where we have explicit notions of distance and direction. I have no way of telling if node 3 is closer to node 4 or node 5 even though they appear father apart in the two examples above. Graphs like these, in their most basic form, do not model Euclid's geometry. Perhaps there is a shorter road after all?
 
@@ -211,13 +211,13 @@ For machines to learn on data, be it graph-structured or not, we must represent 
 
 Consider GPS telemetry data used to monitor the movement of a newly released California Condor.^[Picture provided by James Sheppard. *See* https://blogs.biomedcentral.com/bmcseriesblog/2015/09/02/behind-image-3d-home-range-california-condor/.] 
 
-![](condor_3d_map.jpeg)
+![](images/condor_3d_map.jpeg)
 
 The data used to make that visualization might look something like this:
 
 ```{r encoded condor data, echo=FALSE, message=FALSE, warning=FALSE}
 # Load data
-encoded_condor_data <- readRDS("~/Git/website/content/post/topology-vs-geometry/encoded_condor_telemetry.RDs")
+encoded_condor_data <- readRDS("data/encoded_condor_telemetry.RDs")
 
 # Plot table
 knitr::kable(
@@ -245,8 +245,7 @@ knitr::kable(
 ```
 
 
-We want to represent each row in the table as a vector.^[If we have data that is not represented with numbers, than there are [feature encoding](add link) processes which are used to turn categorical or lexical data, for example, into real-numbers such that they can still be digested by the computer as numeric vectors.] 
-However, the Latitude and Longitude coordinate system is part of a fundamentally different type of geometry: a non-Euclidean one native to the 3-dimensional ellipsoidal shape of the Earth (link). We can convert this non-Euclidean space to a 2-d Euclidean space in the traditional Cartesian coordinate system by using the [Universal Transverse Mercator (UTM)](https://openpress.usask.ca/introgeomatics/chapter/cartesianprojected-coordinate-systems-utm/) map projection.^[Map projections are not perfect, and some distortion will occur depending on the reference point of the mapping.] The UTM projection gives us an $(easting, \ northing)$ point for each point in $(latitude, \ longitude)$ space. 
+We want to represent each row in the table as a vector.^[If we have data that is not represented with numbers, than there are [feature encoding](https://medium.com/analytics-vidhya/different-type-of-feature-engineering-encoding-techniques-for-categorical-variable-encoding-214363a016fb) processes which are used to turn categorical or lexical data, for example, into real-numbers such that they can still be digested by the computer as numeric vectors.] However, the Latitude and Longitude coordinate system is part of a fundamentally [different type of geometry](https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/gcs_vs_pcs/): a non-Euclidean one native to the 3-dimensional ellipsoidal shape of the Earth. We can convert this non-Euclidean space to a 2-d Euclidean space in the traditional Cartesian coordinate system by using the [Universal Transverse Mercator (UTM)](https://openpress.usask.ca/introgeomatics/chapter/cartesianprojected-coordinate-systems-utm/) map projection.^[Map projections are not perfect, and some distortion will occur depending on the reference point of the mapping.] The UTM projection gives us an $(easting, \ northing)$ point for each point in $(latitude, \ longitude)$ space. 
 
 After we have performed the mapping all of our data can be represented in a 5-d Euclidean vector space where each vector fully describes a row in our data.
 
@@ -320,7 +319,7 @@ Embedding our data into a vector space allows us to leverage Euclid's *Elements*
 
 When our data has an inherent graph structure, the process is no different. We simply associate feature vectors with their given nodes or edges. Let's take our first graph from this post and re-imagine it as a representation of a small social network where nodes are user-profiles and edges indicate friendships between them. 
 
-![](~/Git/website/content/post/topology-vs-geometry/basic_graph-1-node-features.svg)
+![](images/basic_graph-1-node-features.svg)
 
 For each node we have added a feature vector which holds some information about those user-profiles such as how long they have been on the platform $x_1$, when they last logged on $x_2$, their geographic region $x_3$, and so on. 
 
@@ -334,7 +333,7 @@ Graphs allow us to represent features alongside additional relationships and str
 
 Relational data is the most abundant type of data across industry, yet it is not often thought about in terms of its inherent graph structure.^[*See* @kaggle-survey-2021.] A simple database representation of our small social network below depicts the relational structure which can be explicitly embedded as the edges of a graph.
 
-![](~/Git/website/content/post/topology-vs-geometry/relational_db_example.png)
+![](images/relational_db_example.png)
 
 <figure>
     <figcaption>
@@ -346,7 +345,7 @@ In this sense, all relational databases can be seen as graphs which allow for co
 
 An extremely common modelling task on relational data of social networks is predicting [user churn](https://medium.com/@malvikat/a-complete-guide-to-customer-churn-rate-fa6ec09d96d). We want to know which users are likely to drop off the platform and perhaps intervene. A tabular machine learning model might ingest the rows of the user table as features and learn to recognize patterns about certain types of users and their behavior which makes them likely to attrite. 
 
-This may work relatively well, however, it ignores the underlying *topology of friendship* such users find themselves in. Consequently, we lose the ability to answer questions like: *if a user's friends churn, are they more likely to churn themselves?* Using the graph modelling approach we can capture, for each row in the data, additional information about relationships between rows.^[*See* https://opendatascience.com/machine-learning-with-graphs-going-beyond-tabular-data/.] @cvitkovic2020supervised shows incorporating the connectivity of relational data through graphs is especially useful when many tables and foreign key relationships belong to a relational database.^[Using this approach does not mean we must use graph-based models such as GNNs to perform the downstream task. We can use any graph-based embedding method to generate embedding which capture this additional structure. These embeddings can then  be used like any other embedding input into traditional tabular models.]
+This may work relatively well, however, it ignores the underlying *topology of friendship* such users find themselves in. Consequently, we lose the ability to answer questions like: *if a user's friends churn, are they more likely to churn themselves?* The graph-based approach allows us to answer this question because we can capture, for each row in the data, additional information about relationships between rows.^[*See* https://opendatascience.com/machine-learning-with-graphs-going-beyond-tabular-data/.] @cvitkovic2020supervised shows incorporating the connectivity of relational data through graphs is especially useful when many tables and foreign key relationships belong to a relational database.^[Using this approach does not mean we must use graph-based models such as GNNs to perform the downstream task. We can use any graph-based embedding method to generate embedding which capture this additional structure. These embeddings can then  be used like any other embedding input into traditional tabular models.]
 
 Graphs unlock this capability by incorporating topological structure as an inductive bias *alongside* features rather than as an additional feature. Acknowledging the inherent topology of our data helps models better understand *how to learn* rather than expanding *what to learn*. 
 
@@ -358,11 +357,11 @@ Topological structure need not conform to the Euclidean feature-space. Graphs fo
 
 When we think about the data most machine learning operates on such as tables, text, or images, we don't usually speak about topology. That is because these data types all enforce a strict *regular topology* that doesn't give us much signal to learn on. Images, for example, are represented as a regular grid of pixel values which can also be transformed into a graph.^[Figure from [Yalda Shankar's](https://yaldashankar.org) beautifully crafted visual-forward Graph ML overview: [The GNN Booklet](https://yaldashankar.org/demo/GNN-1.pdf).]
 
-![](image_as_graph.png)
+![](images/image_as_graph.png)
 
 The structure of the pixel-grid will not change from image to image. That means the topology of the data can't help us understand what the image is of. All of the signal which differentiates images is held in the 2-d Euclidean pixel-space rather than the topology of the pixel-space. The same case can be made for text data in a 1-d space, or any *n*-dimensional Euclidean vector space (like that of our Condor GPS telemetry) because there is always regular grid structure.
 
-Machine learning canon evolved using Euclidean data and enforced this regular topology implicitly. The invariances of the regular grid-structure were built into the models.^[*See* @DBLP:journals/corr/BronsteinBLSV16.] As an artifact, much of machine learning has bound model architecture and input structure. [Geometric Deep Learning](https://flawnsontong.medium.com/what-is-geometric-deep-learning-b2adb662d91d) is carving a different paradigm in which models are designed to understand and exploit the topological and geometric properties of their inputs. Models of this paradigm can adapt to different and more complex topology induced by graphs, [symmetry groups](https://www.cantorsparadise.com/an-invitation-to-group-theory-c81e21ab739a), and [manifolds](https://bjlkeng.github.io/posts/manifolds/) with dynamically-sized computation graphs.^[*See* @NIPS2014_f9be311e for treatment of symmetry groups and @NIPS2017_0ebcc77d for treatment of manifolds.]
+Machine learning canon evolved using Euclidean data and enforced this regular topology implicitly. The invariances of the regular grid-structure were built into the models.^[*See* @DBLP:journals/corr/BronsteinBLSV16.] As an artifact, much of machine learning has bound model architecture and input structure. [Geometric Deep Learning](https://flawnsontong.medium.com/what-is-geometric-deep-learning-b2adb662d91d) is carving a different paradigm in which models are designed to understand and exploit the topological and geometric properties of their inputs. Models of this paradigm can adapt to different and more complex topology induced by graphs, [symmetry groups](https://www.cantorsparadise.com/an-invitation-to-group-theory-c81e21ab739a), and [manifolds](https://bjlkeng.github.io/posts/manifolds/) by allowing for dynamic computation graphs.^[*See* @NIPS2014_f9be311e for treatment of symmetry groups and @NIPS2017_0ebcc77d for treatment of manifolds.]
 
 <br>
 
@@ -372,54 +371,11 @@ Looking back over the past year, I'd be remiss to not speak on the effects of en
 
 Once brought into the fold of Graph ML, it can be hard to stop seeing graphs everywhere you look and especially hard to not send your CV and NLP colleagues blogs about how [CNNs](https://medium.com/@BorisAKnyazev/tutorial-on-graph-neural-networks-for-computer-vision-and-beyond-part-1-3d9fada3b80d) and [transformers](https://thegradient.pub/transformers-are-graph-neural-networks) are just special cases of graph neural networks. Yes, pretty much everything is a graph or can be molded into one, but doing so isn't always useful. Ignoring topology can help to not distract models (and the people who build them) when it lacks useful information. It also allows for highly-optimized and -parallelizable architectures rather than ones which are more flexible but have to unfurl computation graphs dynamically.
 
-Through sheer luck and an amazing group of colleagues and mentors, my quest led me to explore Graph ML and the Geometric Deep Learning paradigm to search for and uncover a hidden *semantic topology* within the documents we process. While I can't say what this means for the future, I can say I have grown more than I could have imagined and I'm excited to see what 2023 holds.
+Through sheer luck and an amazing group of colleagues and mentors, my past year led me to explore Graph ML and the Geometric Deep Learning paradigm to search for and uncover a hidden *semantic topology* within the documents we process. While I can't say what this means for the future, I can say I have grown more than I could have imagined and I'm excited to see what 2023 holds.
 
 <br>
 
 As for Ptolemy, I've found another [answer](https://ai.stackexchange.com/questions/11226/what-is-non-euclidean-data/11259#11259). The shortest road between two points isn't always a straight line. . .
-
-<!-- Heaps of papers sitting unprocessed can now turn into rich harvests. Through Fetch, even your crumpled receipts are worth something! -->
-
-<!-- - Talk about FormNet and use that to represent docuements as graphs. -->
-<!-- In document AI, there has been recent application of graphs, which attempt to use them to uncover a *semantic* topology. ## Teaching Machines to Comprehend Documents -->
-
-
-<!-- And that's exactly why it took me getting into Graph ML to learn about these two concepts -->
-
-<!-- - this is not to say topological structure cannot also confirm to Euclidean notions.  -->
-<!-- - Talk about uncovering a *semantic topology* -->
-<!-- - talk about document AI,  -->
-<!-- - close -->
-
-
-<!-- An interconnected world matter, and graphs provide the scafolding to build such connectivity. (cite NeurIPS 2022 workshop) -->
-
-<!--  Notes -->
-
-<!-- -- “the shortest path between 2 points isn’t necessarily a straight line”. end with this in reference to Euclid's quote. -->
-
-<!-- -- link to drug discovery https://doi.org/10.1016/j.cell.2020.01.021 -->
-
-<!-- GNN models can be straightforwardly combined with, e.g., pretrained -->
-<!-- Transformer representations of TEXT inputs in the KDD Cup 2014 dataset, and trained end-to-end. @cvitkovic2020supervised -->
-
-<!-- -- https://gordicaleksa.medium.com/how-to-get-started-with-graph-machine-learning-afa53f6f963a -->
-
-<!-- -- in document AI, there has been recent application of Graphs, which attempt to use them to uncover a *semantic* topology.  -->
-
-<!-- And that's exactly why it took me getting into Graph ML to learn about these two concepts -->
-
-<!-- Heaps of papers sitting unprocessed can now turn into rich harvests. Through Fetch, even your crumpled receipts are worth something! -->
-
-<!-- - Talk about FormNet and use that to represent docuements as graphs. -->
-
-<!-- - End with how you've learning about topology / geometry and larger understanding of the world -->
-
-<!-- Notes -->
-
-<!-- - Features may be close together in Euclidean space (cosine similarity etc) -->
-<!-- - May also have topological, or structural similarities that can also be leveraged -->
-<!-- - Graphs can let us learn from both the feature and their structure/connectivity/neighborhood -->
 
 <br>
 
