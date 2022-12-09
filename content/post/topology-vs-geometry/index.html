@@ -1,0 +1,342 @@
+---
+title: "Topology and Geometry Through Graph ML"
+author: "Alec Stashevsky"
+date: 2022-12-09
+categories: ["Mathematics", "Graph ML", "Deep Learning"]
+tags: ["Mathematics", "Graph ML", "Deep Learning"]
+bibliography: [topology-vs-geometry.bib]
+link-citations: true
+links:
+image:
+  preview_only: false
+  focal_point: "Smart"
+summary: Diving deeper into mathematics through my journey with industrial Graph ML application.
+---
+
+<script src="{{< blogdown/postref >}}index_files/kePrint/kePrint.js"></script>
+<link href="{{< blogdown/postref >}}index_files/lightable/lightable.css" rel="stylesheet" />
+<script src="{{< blogdown/postref >}}index_files/htmlwidgets/htmlwidgets.js"></script>
+<script src="{{< blogdown/postref >}}index_files/plotly-binding/plotly.js"></script>
+<script src="{{< blogdown/postref >}}index_files/typedarray/typedarray.min.js"></script>
+<script src="{{< blogdown/postref >}}index_files/jquery/jquery.min.js"></script>
+<link href="{{< blogdown/postref >}}index_files/crosstalk/css/crosstalk.min.css" rel="stylesheet" />
+<script src="{{< blogdown/postref >}}index_files/crosstalk/js/crosstalk.min.js"></script>
+<link href="{{< blogdown/postref >}}index_files/plotly-htmlwidgets-css/plotly-htmlwidgets.css" rel="stylesheet" />
+<script src="{{< blogdown/postref >}}index_files/plotly-main/plotly-latest.min.js"></script>
+
+
+<style type="text/css">
+table {
+   overflow-x: hidden;
+}
+
+table > thead > tr > th {
+    vertical-align: bottom;
+    border-bottom: 2px solid rgb(232, 215, 195);
+}
+
+table > thead > tr > th, table > tbody > tr > th, table > tfoot > tr > th, table > thead > tr > td, table > tbody > tr > td, table > tfoot > tr > td {
+    padding: 8px;
+    line-height: 1.43;
+    vertical-align: top;
+    border-top: 1px solid rgb(232, 215, 195);
+}
+
+tbody > tr > td, table > tbody > tr > th {
+    padding: 8px;
+    line-height: 1.43;
+    vertical-align: top;
+    border-bottom: 1px solid rgb(232, 215, 195);
+}
+
+
+table > tfoot > tr > td {
+    padding: 8px;
+    line-height: 1.43;
+    vertical-align: top;
+    border-top: none;
+}
+
+
+
+table > tbody > tr:nth-child(2n+1) > td, table > tbody > tr:nth-child(2n+1) > th {
+    background-color: rgb(255, 248, 227);
+}
+
+# Hover
+table > tbody > tr:nth-child(2n+1):hover > td, table > tbody > tr:nth-child(2n+1):hover > th {
+    background-color: rgb(232, 215, 195);
+}
+
+table > tbody > tr:hover > td, table > tbody > tr:hover > th {
+    background-color: rgb(232, 215, 195);
+}
+</style>
+<style type="text/css">
+#references {
+    text-indent: -2em;
+    margin-left: 2em;
+}
+</style>
+<blockquote>
+<p>There is no royal road to geometry.</p>
+<p><span style="float:right">— Euclid, <em>on account of Proclus of Athens</em></span></p>
+</blockquote>
+<p><br></p>
+<p>This was Euclid’s response when asked by Ptolemy if no shorter road to geometry existed than through his <a href="http://aleph0.clarku.edu/~djoyce/elements/elements.html"><em>Elements.</em></a><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p><br></p>
+<p>For the past year I’ve been working with a team of folks at <a href="https://fetch.com/">Fetch</a> to develop and productionalize a machine learning based document understanding pipeline powering the core of the Fetch app. At Fetch, we reward our users for snapping pictures of their receipts in real-time, and we do the heavy lifting with this pipeline.</p>
+<p>During this process, one of the things I’ve spent more time trying to do is understand unstructured data (such as images of receipts and the language which appears on them) in more elegant ways. This led me to a new and exciting place flourishing within the ML community: Graph Machine Learning (Graph ML).</p>
+<p>This post is about some of the things I’ve learned participating in the Graph ML and Geometric Deep Learning communities. This post is also about some of the things I’ve had to forget when applying Graph ML in large-scale industrial settings.</p>
+<p><br></p>
+<div id="graphs-are-all-around-us" class="section level2">
+<h2>Graphs Are All Around Us</h2>
+<p>When first learning about graphs, one usually encounters something like the following:</p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/basic%20graph-1.svg" width="672" /></p>
+<p>A collection of <em>nodes</em> or <em>vertices</em> represented as dark green circles connected by <em>edges</em> or <em>links</em> which indicate some pairwise relationship between two nodes.</p>
+<p>Graphs are incredibly simple yet flexible data structures. There is no notion of left, right, up, or down. Nodes and edges can be added or omitted as we please. We can also move, bend, and reorder the nodes without changing the underlying relational structure of the graph. That is, without changing the fundamental nature of the graph itself. For example, below I’ve moved some of the nodes of the graph around and switched node 3 and node 5.</p>
+<p><img src="{{< blogdown/postref >}}index_files/figure-html/basic%20graph2-1.svg" width="672" /></p>
+<p>Despite these modifications, the graph describes the same basic relational structure. We refer to this underlying structure as the graph’s <em>connectivity</em> or the <em>topology</em> of the graph. The graph’s topology is agnostic of where we position these nodes in space, or what we name individual nodes.</p>
+<p>This also means graphs exist outside of Euclidean space where we have explicit notions of distance and direction. I have no way of telling if node 3 is closer to node 4 or node 5 even though they appear farther apart in the two examples above. Graphs like these, in their most basic form, do not model Euclid’s geometry. Perhaps there is a shorter road after all?</p>
+<div id="what-happens-when-we-see-them" class="section level3">
+<h3>What Happens When We See Them</h3>
+<p>One of the reasons Graph ML is such an exciting space is just how abundant graphs are. Graph ML is being used to model particle physics, where particles are represented as nodes and their physio-chemical interactions represented as edges.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> We also see social networks where user-profiles are nodes and their friendships, followers, or interactions form edges; financial networks with bank accounts as nodes and their transactions as edges of varying amounts; and even more recently, documents.</p>
+<p>Where graphs can be seen, Graph ML is there to teach machines how to make conclusions about them and new unseen things we might later encounter. Graph ML is being used to <a href="https://towardsdatascience.com/drug-discovery-with-graph-neural-networks-part-1-1011713185eb">discover new therapeutic drugs</a>, <a href="https://cs.stanford.edu/~srijan/hoax/">prevent the spread of misinformation</a> in social networks (and probably also help it too), <a href="https://towardsdatascience.com/fraud-detection-with-graph-analytics-2678e817b69e">detect fraud</a> , and <a href="https://medium.com/mlearning-ai/what-is-ai-document-understanding-f32da5f12055">extract information from documents</a>.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+<p>As data scientists and machine learners, our main goal is to make sense of the world around us. We do some of that by building models in and through which our understanding may grow. When we begin to see graph structure and its natural projections onto the world, we unlock a deeper and more organic connection through which to explain and infer phenomena. Graphs unlock this connection by blending topological and geometric perspectives.</p>
+<p><br></p>
+</div>
+</div>
+<div id="adding-geometry-to-graphs" class="section level2">
+<h2>Adding Geometry to Graphs</h2>
+<p>For machines to learn on data, be it graph-structured or not, we must represent it in a way computers can digest. That is to say, we must encode the data into some <em>n</em>-dimensional Euclidean vector space where individual data points become vectors within that space.</p>
+<p>Consider GPS telemetry data used to monitor the movement of a newly released California Condor.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
+<p><img src="images/condor_3d_map.jpeg" /></p>
+<p>The data used to make that visualization might look something like this:</p>
+<table style="NAborder-bottom: 0;">
+<thead>
+<tr>
+<th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; background-color: rgb(232, 215, 195); font-size: 1rem; padding: 0.15rem 0;" colspan="5">
+<div style="">
+Condor GPS Telemetry Data
+</div>
+</th>
+</tr>
+<tr>
+<th style="text-align:left;">
+Time
+</th>
+<th style="text-align:center;">
+Condor
+</th>
+<th style="text-align:center;">
+Latitude
+</th>
+<th style="text-align:center;">
+Longitude
+</th>
+<th style="text-align:center;">
+Altitude
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+0.12
+</td>
+<td style="text-align:center;">
+190
+</td>
+<td style="text-align:center;">
+36.4818
+</td>
+<td style="text-align:center;">
+-121.1809
+</td>
+<td style="text-align:center;">
+213
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0.22
+</td>
+<td style="text-align:center;">
+1031
+</td>
+<td style="text-align:center;">
+36.4836
+</td>
+<td style="text-align:center;">
+-121.1879
+</td>
+<td style="text-align:center;">
+198
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0.25
+</td>
+<td style="text-align:center;">
+1031
+</td>
+<td style="text-align:center;">
+36.4838
+</td>
+<td style="text-align:center;">
+-121.1860
+</td>
+<td style="text-align:center;">
+210
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+0.28
+</td>
+<td style="text-align:center;">
+1031
+</td>
+<td style="text-align:center;">
+36.4818
+</td>
+<td style="text-align:center;">
+-121.1809
+</td>
+<td style="text-align:center;">
+256
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<span style="font-weight: bold;">Notes:</span>
+</td>
+</tr>
+<tr>
+<td style="padding: 0; " colspan="100%">
+<sup></sup> — The Time column is normalized from 0 to 1 which represent the start and end of the tracking period, respectively. <br>
+— Each condor has an identification number. Condor 190 is <a href="https://www.ventanaws.org/condor190.html">Redwood Queen</a> and Condor 1031 is one of her offspring, <a href="https://www.ventanaws.org/condor1031.html">Iniko</a>. Redwood Queen and Iniko are real California Condors which are part of the free-ranging Central California flock! They have an amazing <a href="https://www.wildtones.com/birding-info/the-story-of-condor-chick-iniko">story</a>.
+</td>
+</tr>
+</tfoot>
+</table>
+<p>We want to represent each row in the table as a vector.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> However, the Latitude and Longitude coordinate system is part of a fundamentally <a href="https://www.esri.com/arcgis-blog/products/arcgis-pro/mapping/gcs_vs_pcs/">different type of geometry</a>: a non-Euclidean one native to the 3-dimensional ellipsoidal shape of the Earth. We can convert this non-Euclidean space to a 2-d Euclidean space in the traditional Cartesian coordinate system by using the <a href="https://openpress.usask.ca/introgeomatics/chapter/cartesianprojected-coordinate-systems-utm/">Universal Transverse Mercator (UTM)</a> map projection.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> The UTM projection gives us an <span class="math inline">\((easting, \ northing)\)</span> point for each point in <span class="math inline">\((latitude, \ longitude)\)</span> space.</p>
+<p>After we have performed the mapping all of our data can be represented in a 5-d Euclidean vector space where each vector fully describes a row in our data.</p>
+<p><span class="math display">\[ \begin{bmatrix} Time \\ Condor \\ Easting \\ Northing \\ Altitude \end{bmatrix} \in \mathbb{R}^5  \]</span></p>
+<p>This process introduces a consistent <em>geometry</em> to our data. That is, we can now understand our data through its shape, size, distance, and relative position. Below, I visualize the Condor GPS Telemetry vector space, using some liberties to represent the <em>Time</em> and <em>Condor</em> dimensions as hue and point-shape, respectively.</p>
+<div id="htmlwidget-1" style="width:672px;height:480px;" class="plotly html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1">{"x":{"visdat":{"87cc1b7cd653":["function () ","plotlyVisDat"]},"cur_data":"87cc1b7cd653","attrs":{"87cc1b7cd653":{"mode":"markers","x":{},"y":{},"z":{},"color":{},"symbol":{},"colors":["#bfd3e6","#4d004b"],"alpha_stroke":1,"sizes":[10,100],"spans":[1,20],"symbols":["diamond","circle"],"type":"scatter3d"}},"layout":{"margin":{"b":40,"l":60,"t":25,"r":10},"legend":{"title":{"text":"Condor"},"yanchor":"top","y":0.5},"scene":{"xaxis":{"range":[4730,4731.5],"zerolinecolor":"#e8d8c3","gridwidth":2,"gridcolor":"#e8d8c3","title":"Easting"},"yaxis":{"range":[24797,24798.5],"zerolinecolor":"#e8d8c3","gridwidth":2,"gridcolor":"#e8d8c3","title":"Northing"},"zaxis":{"zerolinecolor":"#e8d8c3","gridwidth":2,"gridcolor":"#e8d8c3","title":"Altitude"}},"paper_bgcolor":"#fff8e3","plot_bgcolor":"#fff8e3","hovermode":"closest","showlegend":true},"source":"A","config":{"modeBarButtonsToAdd":["hoverclosest","hovercompare"],"showSendToCloud":false},"data":[{"mode":"markers","x":[4730.47707412947],"y":[24798.2841664895],"z":[213],"type":"scatter3d","name":"190","marker":{"color":"rgba(191,211,230,1)","symbol":"diamond","line":{"color":"rgba(191,211,230,1)"}},"textfont":{"color":"rgba(191,211,230,1)"},"error_y":{"color":"rgba(191,211,230,1)"},"error_x":{"color":"rgba(191,211,230,1)"},"line":{"color":"rgba(191,211,230,1)"},"frame":null},{"mode":"markers","x":[4731.00197305619,4730.81000591731,4730.47707412947],"y":[24797.6694682967,24797.7566243416,24798.2841664895],"z":[198,210,256],"type":"scatter3d","name":"1031","marker":{"colorbar":{"title":"Time","ticklen":2},"cmin":0.12,"cmax":0.28,"colorscale":[["0","rgba(191,211,230,1)"],["0.0416666666666666","rgba(187,202,223,1)"],["0.0833333333333333","rgba(182,193,216,1)"],["0.125","rgba(178,185,209,1)"],["0.166666666666667","rgba(173,176,202,1)"],["0.208333333333333","rgba(169,167,196,1)"],["0.25","rgba(164,159,189,1)"],["0.291666666666667","rgba(160,150,182,1)"],["0.333333333333333","rgba(155,142,175,1)"],["0.375","rgba(151,133,169,1)"],["0.416666666666667","rgba(146,125,162,1)"],["0.458333333333333","rgba(141,117,156,1)"],["0.5","rgba(137,108,149,1)"],["0.541666666666667","rgba(132,100,143,1)"],["0.583333333333333","rgba(127,92,136,1)"],["0.625","rgba(122,84,130,1)"],["0.666666666666667","rgba(117,76,124,1)"],["0.708333333333333","rgba(113,67,117,1)"],["0.75","rgba(108,59,111,1)"],["0.791666666666667","rgba(103,51,105,1)"],["0.833333333333333","rgba(98,43,99,1)"],["0.875","rgba(93,34,93,1)"],["0.916666666666667","rgba(87,24,87,1)"],["0.958333333333333","rgba(82,13,81,1)"],["1","rgba(77,0,75,1)"]],"showscale":false,"color":[0.22,0.25,0.28],"symbol":"circle","line":{"colorbar":{"title":"","ticklen":2},"cmin":0.12,"cmax":0.28,"colorscale":[["0","rgba(191,211,230,1)"],["0.0416666666666666","rgba(187,202,223,1)"],["0.0833333333333333","rgba(182,193,216,1)"],["0.125","rgba(178,185,209,1)"],["0.166666666666667","rgba(173,176,202,1)"],["0.208333333333333","rgba(169,167,196,1)"],["0.25","rgba(164,159,189,1)"],["0.291666666666667","rgba(160,150,182,1)"],["0.333333333333333","rgba(155,142,175,1)"],["0.375","rgba(151,133,169,1)"],["0.416666666666667","rgba(146,125,162,1)"],["0.458333333333333","rgba(141,117,156,1)"],["0.5","rgba(137,108,149,1)"],["0.541666666666667","rgba(132,100,143,1)"],["0.583333333333333","rgba(127,92,136,1)"],["0.625","rgba(122,84,130,1)"],["0.666666666666667","rgba(117,76,124,1)"],["0.708333333333333","rgba(113,67,117,1)"],["0.75","rgba(108,59,111,1)"],["0.791666666666667","rgba(103,51,105,1)"],["0.833333333333333","rgba(98,43,99,1)"],["0.875","rgba(93,34,93,1)"],["0.916666666666667","rgba(87,24,87,1)"],["0.958333333333333","rgba(82,13,81,1)"],["1","rgba(77,0,75,1)"]],"showscale":false,"color":[0.22,0.25,0.28]}},"frame":null},{"x":[4730.47707412947,4731.00197305619],"y":[24797.6694682967,24798.2841664895],"type":"scatter3d","mode":"markers","opacity":0,"hoverinfo":"none","showlegend":false,"marker":{"colorbar":{"title":"Time","ticklen":2,"len":0.5,"lenmode":"fraction","y":1,"yanchor":"top"},"cmin":0.12,"cmax":0.28,"colorscale":[["0","rgba(191,211,230,1)"],["0.0416666666666666","rgba(187,202,223,1)"],["0.0833333333333333","rgba(182,193,216,1)"],["0.125","rgba(178,185,209,1)"],["0.166666666666667","rgba(173,176,202,1)"],["0.208333333333333","rgba(169,167,196,1)"],["0.25","rgba(164,159,189,1)"],["0.291666666666667","rgba(160,150,182,1)"],["0.333333333333333","rgba(155,142,175,1)"],["0.375","rgba(151,133,169,1)"],["0.416666666666667","rgba(146,125,162,1)"],["0.458333333333333","rgba(141,117,156,1)"],["0.5","rgba(137,108,149,1)"],["0.541666666666667","rgba(132,100,143,1)"],["0.583333333333333","rgba(127,92,136,1)"],["0.625","rgba(122,84,130,1)"],["0.666666666666667","rgba(117,76,124,1)"],["0.708333333333333","rgba(113,67,117,1)"],["0.75","rgba(108,59,111,1)"],["0.791666666666667","rgba(103,51,105,1)"],["0.833333333333333","rgba(98,43,99,1)"],["0.875","rgba(93,34,93,1)"],["0.916666666666667","rgba(87,24,87,1)"],["0.958333333333333","rgba(82,13,81,1)"],["1","rgba(77,0,75,1)"]],"showscale":true,"color":[0.12,0.28],"line":{"color":"rgba(44,160,44,1)"}},"z":[198,256],"frame":null}],"highlight":{"on":"plotly_click","persistent":false,"dynamic":false,"selectize":false,"opacityDim":0.2,"selected":{"opacity":1},"debounce":0},"shinyEvents":["plotly_hover","plotly_click","plotly_selected","plotly_relayout","plotly_brushed","plotly_brushing","plotly_clickannotation","plotly_doubleclick","plotly_deselect","plotly_afterplot","plotly_sunburstclick"],"base_url":"https://plot.ly"},"evals":[],"jsHooks":[]}</script>
+<p>Embedding our data into a vector space allows us to leverage Euclid’s <em>Elements</em> and everything built upon them. We can compare how similar two vectors are by using methods like <a href="https://towardsdatascience.com/understanding-cosine-similarity-and-its-application-fd42f585296a">cosine similarity</a> or feed these vectors into machine learning models as <em>features</em> to learn upon.</p>
+<p>When our data has an inherent graph structure, the process is no different. We simply associate feature vectors with their given nodes or edges. Let’s take our first graph and re-imagine it as a representation of a small social network where nodes are user-profiles and edges indicate friendships between them.</p>
+<p><img src="images/basic_graph-1-node-features.svg" /></p>
+<p>For each node we have added a feature vector which holds some information about those user-profiles such as how long they have been on the platform <span class="math inline">\(x_1\)</span>, when they last logged on <span class="math inline">\(x_2\)</span>, their geographic region <span class="math inline">\(x_3\)</span>, and so on.</p>
+<p>Assigning feature vectors to the graph overlays a Euclidean geometry upon it. We can no longer move, bend, or switch nodes on the graph because each node now exists at a certain point in our feature-vector space. Moving the node would change its underlying meaning.</p>
+<p><br></p>
+</div>
+<div id="the-intersection-of-topology-and-geometry" class="section level2">
+<h2>The Intersection of Topology and Geometry</h2>
+<p>Graphs allow us to represent features alongside additional relationships and structure. Introducing a flexible topological structure in which Euclidean geometry can be embedded can help our models understand and generalize better.</p>
+<p>Relational data is the most abundant type of data across industry, yet it is not often thought about in terms of its inherent graph structure.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> A simple database representation of our small social network below depicts the relational structure which can be explicitly embedded as the edges of a graph.</p>
+<p><img src="images/relational_db_example.png" /></p>
+<figure>
+<figcaption>
+Each row in the user table (blue) holds information about a node in our graph while each row in the friendship table (green) represents an edge between the user who made the friend request and the user who accepted. Each user can have many friendships (shown by colored lines).
+</figcaption>
+</figure>
+<p>In this sense, all relational databases can be seen as graphs which allow for complex topologies through primary and foreign key relations like the one-to-many relationship we see above. The intuition behind adding this friendship-structure is that we can learn more about a user by also looking at who they are friends with and the attributes of those friends.</p>
+<p>An extremely common modeling task on relational data of social networks is predicting <a href="https://medium.com/@malvikat/a-complete-guide-to-customer-churn-rate-fa6ec09d96d">user churn</a>. We want to know which users are likely to drop off the platform and perhaps intervene. A tabular machine learning model might ingest the rows of the user table as features and learn to recognize patterns about certain types of users and their behavior which makes them likely to attrite.</p>
+<p>This may work relatively well, however, it ignores the underlying <em>topology of friendship</em> such a user finds themselves within. Consequently, we lose the ability to answer questions like: <em>if a user’s friends churn, are they more likely to churn themselves?</em> The graph-based approach allows us to answer this question because we can capture, for each row in the data, additional information about relationships between rows.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> <span class="citation"><a href="#ref-cvitkovic2020supervised" role="doc-biblioref">Cvitkovic</a> (<a href="#ref-cvitkovic2020supervised" role="doc-biblioref">2020</a>)</span> shows incorporating the connectivity of relational data through graphs is especially useful when many tables and foreign key relationships belong to a relational database.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></p>
+<p>Graphs unlock this capability by incorporating topological structure as an inductive bias <em>alongside</em> features rather than as an additional feature. Acknowledging the inherent topology of our data helps models better understand <em>how to learn</em> rather than expanding <em>what to learn</em>.</p>
+<p><br></p>
+</div>
+<div id="topology-all-along" class="section level2">
+<h2>Topology, All Along</h2>
+<p>Topological structure need not conform to the Euclidean feature-space. Graphs force us to understand this through their non-Euclidean connectivity. However, a different kind of topology has been lurking alongside us along the way.</p>
+<p>When we think about the data most machine learning operates on, such as tables, text, or images, we don’t usually speak about topology. That is because these data types all enforce a strict <em>regular topology</em> that doesn’t give us much signal to learn on. Images, for example, are represented as a regular grid of pixel values which can also be transformed into a graph.<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a></p>
+<p><img src="images/image_as_graph.png" /></p>
+<p>The structure of the pixel-grid will not change from image to image. That means the topology of the data can’t help us understand what the image is of. All of the signal which differentiates images is held in the 2-d Euclidean pixel-space rather than the topology of the pixel-space. The same case can be made for text data in a 1-d space, or any <em>n</em>-dimensional Euclidean vector space (like that of our Condor GPS telemetry) because there is always regular grid structure.</p>
+<p>Machine learning canon evolved using Euclidean data and enforced this regular topology implicitly. The invariances of regular grid-structure were built into the models.<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a> As an artifact, much of machine learning has bound model architecture and input structure. <a href="https://flawnsontong.medium.com/what-is-geometric-deep-learning-b2adb662d91d">Geometric Deep Learning</a> is carving a different paradigm in which models are designed to understand and exploit the topological and geometric properties of their inputs. Models of this paradigm can adapt to different and more complex topology induced by graphs, <a href="https://www.cantorsparadise.com/an-invitation-to-group-theory-c81e21ab739a">symmetry groups</a>, and <a href="https://bjlkeng.github.io/posts/manifolds/">manifolds</a> by allowing for dynamic computation graphs.<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a></p>
+<p><br></p>
+</div>
+<div id="to-blog-is-to-forget" class="section level2">
+<h2>To Blog Is To Forget</h2>
+<p>Looking back over the past year, I’d be remiss to not speak on the effects of entering into the fold through my own journey developing large-scale document AI systems. <em>Document AI</em> is a field which uses AI to comprehend documents such as <a href="https://guillaumejaume.github.io/FUNSD/">scanned invoices</a>, <a href="https://x-lance.github.io/WebSRC/">webpages</a>, <a href="https://data.nist.gov/pdr/lps/ark:/88434/mds2-2531">legal filings</a>, and in my experience: <a href="https://paperswithcode.com/dataset/sroie">receipts</a>.<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a> It is broad and touches a wide range of AI specialties: CV, NLP, and even more recently Graph ML.<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a></p>
+<p>Once brought into the fold of Graph ML, it can be hard to stop seeing graphs everywhere you look and especially hard to not send your CV and NLP colleagues blogs about how <a href="https://medium.com/@BorisAKnyazev/tutorial-on-graph-neural-networks-for-computer-vision-and-beyond-part-1-3d9fada3b80d">CNNs</a> and <a href="https://thegradient.pub/transformers-are-graph-neural-networks">transformers</a> are just special cases of graph neural networks. Yes, pretty much everything is a graph or can be molded into one but doing so isn’t always useful. Ignoring topology can help to not distract models (and the people who build them) when it lacks useful information. It also allows for highly optimized and parallelizable architectures rather than ones which are more flexible but must unfurl computation graphs dynamically.</p>
+<p>Through sheer luck and an amazing group of colleagues and mentors, my past year led me to explore Graph ML and the Geometric Deep Learning paradigm to search for and uncover a hidden <em>semantic topology</em> within the documents we process. While I can’t say what this means for the future, I can say I have grown more than I could have imagined and I’m excited to see what 2023 holds.</p>
+<p><br></p>
+<p>As for Ptolemy, I’ve found another <a href="https://ai.stackexchange.com/questions/11226/what-is-non-euclidean-data/11259#11259">answer</a>. The shortest road between two points isn’t always a straight line. . .</p>
+<p><br></p>
+<hr />
+</div>
+<div id="references" class="section level2 unnumbered">
+<h2>References</h2>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-DBLP:journals/corr/BronsteinBLSV16" class="csl-entry">
+Bronstein, Michael M., Joan Bruna, Yann LeCun, Arthur Szlam, and Pierre Vandergheynst. 2016. <span>“Geometric Deep Learning: Going Beyond Euclidean Data.”</span> <em>CoRR</em> abs/1611.08097. <a href="http://arxiv.org/abs/1611.08097">http://arxiv.org/abs/1611.08097</a>.
+</div>
+<div id="ref-DBLP:journals/corr/abs-2101-09465" class="csl-entry">
+Chen, Lu, Xingyu Chen, Zihan Zhao, Danyang Zhang, Jiabao Ji, Ao Luo, Yuxuan Xiong, and Kai Yu. 2021. <span>“WebSRC: <span>A</span> Dataset for Web-Based Structural Reading Comprehension.”</span> <em>CoRR</em> abs/2101.09465. <a href="https://arxiv.org/abs/2101.09465">https://arxiv.org/abs/2101.09465</a>.
+</div>
+<div id="ref-cvitkovic2020supervised" class="csl-entry">
+Cvitkovic, Milan. 2020. <span>“Supervised Learning on Relational Databases with Graph Neural Networks.”</span> <em>arXiv Preprint arXiv:2002.02046</em>. <a href="https://doi.org/10.48550/arXiv.2002.02046">https://doi.org/10.48550/arXiv.2002.02046</a>.
+</div>
+<div id="ref-doc2graph" class="csl-entry">
+Gemelli, Andrea, Sanket Biswas, Enrico Civitelli, Josep Lladós, and Simone Marinai. 2022. <span>“Doc2Graph: A Task Agnostic Document Understanding Framework Based on Graph Neural Networks.”</span> arXiv. <a href="https://doi.org/10.48550/ARXIV.2208.11168">https://doi.org/10.48550/ARXIV.2208.11168</a>.
+</div>
+<div id="ref-NIPS2014_f9be311e" class="csl-entry">
+Gens, Robert, and Pedro M Domingos. 2014. <span>“Deep Symmetry Networks.”</span> In <em>Advances in Neural Information Processing Systems</em>, edited by Z. Ghahramani, M. Welling, C. Cortes, N. Lawrence, and K. Q. Weinberger. Vol. 27. Curran Associates, Inc. <a href="https://proceedings.neurips.cc/paper/2014/file/f9be311e65d81a9ad8150a60844bb94c-Paper.pdf">https://proceedings.neurips.cc/paper/2014/file/f9be311e65d81a9ad8150a60844bb94c-Paper.pdf</a>.
+</div>
+<div id="ref-jaume2019" class="csl-entry">
+Guillaume Jaume, Jean-Philippe Thiran, Hazim Kemal Ekenel. 2019. <span>“FUNSD: A Dataset for Form Understanding in Noisy Scanned Documents.”</span> In <em>Accepted to ICDAR-OST</em>.
+</div>
+<div id="ref-NIPS2017_0ebcc77d" class="csl-entry">
+Hauser, Michael, and Asok Ray. 2017. <span>“Principles of Riemannian Geometry in Neural Networks.”</span> In <em>Advances in Neural Information Processing Systems</em>, edited by I. Guyon, U. Von Luxburg, S. Bengio, H. Wallach, R. Fergus, S. Vishwanathan, and R. Garnett. Vol. 30. Curran Associates, Inc. <a href="https://proceedings.neurips.cc/paper/2017/file/0ebcc77dc72360d0eb8e9504c78d38bd-Paper.pdf">https://proceedings.neurips.cc/paper/2017/file/0ebcc77dc72360d0eb8e9504c78d38bd-Paper.pdf</a>.
+</div>
+<div id="ref-2017euclid" class="csl-entry">
+Heath, T. L. 2017. <em>Euclid’s Elements (the Thirteen Books)</em>. Digireads.com Publishing. <a href="https://books.google.com/books?id=04B9swEACAAJ">https://books.google.com/books?id=04B9swEACAAJ</a>.
+</div>
+<div id="ref-DBLP:journals/corr/abs-2103-10213" class="csl-entry">
+Huang, Zheng, Kai Chen, Jianhua He, Xiang Bai, Dimosthenis Karatzas, Shijian Lu, and C. V. Jawahar. 2021. <span>“<span>Icdar2019</span> Competition on Scanned Receipt <span>OCR</span> and Information Extraction.”</span> <em>CoRR</em> abs/2103.10213. <a href="https://arxiv.org/abs/2103.10213">https://arxiv.org/abs/2103.10213</a>.
+</div>
+<div id="ref-kaggle-survey-2021" class="csl-entry">
+Julia Elliott, Paul Mooney. 2021. <span>“2021 Kaggle Machine Learning &amp; Data Science Survey.”</span> Kaggle. <a href="https://kaggle.com/competitions/kaggle-survey-2021">https://kaggle.com/competitions/kaggle-survey-2021</a>.
+</div>
+<div id="ref-kumar2016disinformation" class="csl-entry">
+Kumar, Srijan, Robert West, and Jure Leskovec. 2016. <span>“Disinformation on the Web: Impact, Characteristics, and Detection of Wikipedia Hoaxes.”</span> In <em>Proceedings of the 25th International World Wide Web Conference</em>.
+</div>
+<div id="ref-10.1145/3447548.3467142" class="csl-entry">
+Liu, Can, Li Sun, Xiang Ao, Jinghua Feng, Qing He, and Hao Yang. 2021. <span>“Intention-Aware Heterogeneous Graph Attention Networks for Fraud Transactions Detection.”</span> In <em>Proceedings of the 27th ACM SIGKDD Conference on Knowledge Discovery &amp; Data Mining</em>, 3280–88. KDD ’21. New York, NY, USA: Association for Computing Machinery. <a href="https://doi.org/10.1145/3447548.3467142">https://doi.org/10.1145/3447548.3467142</a>.
+</div>
+<div id="ref-Morrow1992-MORPAC-8" class="csl-entry">
+Morrow, Glenn R. 1992. <em>Proclus: A Commentary on the First Book of Euclid’s Elements</em>. Princeton University Press.
+</div>
+<div id="ref-Shlomi_2021" class="csl-entry">
+Shlomi, Jonathan, Peter Battaglia, and Jean-Roch Vlimant. 2020. <span>“Graph Neural Networks in Particle Physics.”</span> <em>Machine Learning: Science and Technology</em> 2 (2): 021001. <a href="https://doi.org/10.1088/2632-2153/abbf9a">https://doi.org/10.1088/2632-2153/abbf9a</a>.
+</div>
+<div id="ref-STOKES2020688" class="csl-entry">
+Stokes, Jonathan M., Kevin Yang, Kyle Swanson, Wengong Jin, Andres Cubillos-Ruiz, Nina M. Donghia, Craig R. MacNair, et al. 2020. <span>“A Deep Learning Approach to Antibiotic Discovery.”</span> <em>Cell</em> 180 (4): 688–702.e13. https://doi.org/<a href="https://doi.org/10.1016/j.cell.2020.01.021">https://doi.org/10.1016/j.cell.2020.01.021</a>.
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><em>See</em> <span class="citation"><a href="#ref-Morrow1992-MORPAC-8" role="doc-biblioref">Morrow</a> (<a href="#ref-Morrow1992-MORPAC-8" role="doc-biblioref">1992</a>)</span> and <span class="citation"><a href="#ref-2017euclid" role="doc-biblioref">Heath</a> (<a href="#ref-2017euclid" role="doc-biblioref">2017</a>)</span>.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p><em>See</em> <span class="citation"><a href="#ref-Shlomi_2021" role="doc-biblioref">Shlomi, Battaglia, and Vlimant</a> (<a href="#ref-Shlomi_2021" role="doc-biblioref">2020</a>)</span>.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p><em>See</em> <span class="citation"><a href="#ref-STOKES2020688" role="doc-biblioref">Stokes et al.</a> (<a href="#ref-STOKES2020688" role="doc-biblioref">2020</a>)</span> for treatment of drug discovery, <span class="citation"><a href="#ref-kumar2016disinformation" role="doc-biblioref">Kumar, West, and Leskovec</a> (<a href="#ref-kumar2016disinformation" role="doc-biblioref">2016</a>)</span> for misinformation in social networks, <span class="citation"><a href="#ref-10.1145/3447548.3467142" role="doc-biblioref">Liu et al.</a> (<a href="#ref-10.1145/3447548.3467142" role="doc-biblioref">2021</a>)</span> for fraud detection, and <span class="citation"><a href="#ref-doc2graph" role="doc-biblioref">Gemelli et al.</a> (<a href="#ref-doc2graph" role="doc-biblioref">2022</a>)</span> for document information extraction.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>Picture provided by James Sheppard. <em>See</em> <a href="https://blogs.biomedcentral.com/bmcseriesblog/2015/09/02/behind-image-3d-home-range-california-condor/" class="uri">https://blogs.biomedcentral.com/bmcseriesblog/2015/09/02/behind-image-3d-home-range-california-condor/</a>.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>If we have data that is not represented with numbers, than there are <a href="https://medium.com/analytics-vidhya/different-type-of-feature-engineering-encoding-techniques-for-categorical-variable-encoding-214363a016fb">feature encoding</a> processes which are used to turn categorical or lexical data, for example, into real-numbers such that they can still be digested by the computer as numeric vectors.<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn6"><p>Map projections are not perfect, and some distortion will occur depending on the reference point of the mapping.<a href="#fnref6" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p><em>See</em> <span class="citation"><a href="#ref-kaggle-survey-2021" role="doc-biblioref">Julia Elliott</a> (<a href="#ref-kaggle-survey-2021" role="doc-biblioref">2021</a>)</span>.<a href="#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p><em>See</em> <a href="https://opendatascience.com/machine-learning-with-graphs-going-beyond-tabular-data/" class="uri">https://opendatascience.com/machine-learning-with-graphs-going-beyond-tabular-data/</a>.<a href="#fnref8" class="footnote-back">↩︎</a></p></li>
+<li id="fn9"><p>Using this approach does not mean we must use graph-based models such as GNNs to perform the downstream task. We can use any graph-based embedding method to generate embedding which capture this additional structure. These embeddings can then be used like any other embedding input into traditional tabular models.<a href="#fnref9" class="footnote-back">↩︎</a></p></li>
+<li id="fn10"><p>Figure from <a href="https://yaldashankar.org">Yalda Shankar’s</a> beautifully crafted visual-forward Graph ML overview: <a href="https://yaldashankar.org/demo/GNN-1.pdf">The GNN Booklet</a>.<a href="#fnref10" class="footnote-back">↩︎</a></p></li>
+<li id="fn11"><p><em>See</em> <span class="citation"><a href="#ref-DBLP:journals/corr/BronsteinBLSV16" role="doc-biblioref">Bronstein et al.</a> (<a href="#ref-DBLP:journals/corr/BronsteinBLSV16" role="doc-biblioref">2016</a>)</span>.<a href="#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p><em>See</em> <span class="citation"><a href="#ref-NIPS2014_f9be311e" role="doc-biblioref">Gens and Domingos</a> (<a href="#ref-NIPS2014_f9be311e" role="doc-biblioref">2014</a>)</span> for treatment of symmetry groups and <span class="citation"><a href="#ref-NIPS2017_0ebcc77d" role="doc-biblioref">Hauser and Ray</a> (<a href="#ref-NIPS2017_0ebcc77d" role="doc-biblioref">2017</a>)</span> for treatment of manifolds.<a href="#fnref12" class="footnote-back">↩︎</a></p></li>
+<li id="fn13"><p><em>See</em> <span class="citation"><a href="#ref-jaume2019" role="doc-biblioref">Guillaume Jaume</a> (<a href="#ref-jaume2019" role="doc-biblioref">2019</a>)</span> for more information on FUNSD, <span class="citation"><a href="#ref-DBLP:journals/corr/abs-2101-09465" role="doc-biblioref">Chen et al.</a> (<a href="#ref-DBLP:journals/corr/abs-2101-09465" role="doc-biblioref">2021</a>)</span> for WebSRC, and <span class="citation"><a href="#ref-DBLP:journals/corr/abs-2103-10213" role="doc-biblioref">Huang et al.</a> (<a href="#ref-DBLP:journals/corr/abs-2103-10213" role="doc-biblioref">2021</a>)</span> for SROIE.<a href="#fnref13" class="footnote-back">↩︎</a></p></li>
+<li id="fn14"><p>Industrial application of document AI is equally broad, and includes, identifying types of documents (image classification), making document text searchable (optical character recognition), extracting specific pieces of text (key information extraction), and answering questions about documents (document question answering). <em>See</em> <a href="https://huggingface.co/blog/document-ai" class="uri">https://huggingface.co/blog/document-ai</a>.<a href="#fnref14" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>

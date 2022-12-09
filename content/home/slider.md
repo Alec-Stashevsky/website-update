@@ -48,7 +48,7 @@ height = "460px"
   
 
   cta_label = "Undergraduate Thesis"
-  cta_url = "https://dx.doi.org/10.13140/RG.2.2.19035.90405"
+  cta_url = "https://dx.doi.org/10.13140/RG.2.2.19035.90405/1"
   cta_icon_pack = "fas"
   cta_icon = "graduation-cap"
   

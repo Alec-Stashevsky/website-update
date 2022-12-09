@@ -27,20 +27,20 @@ date_format: Jan 2006
 
 experience:
 
-- company: Fetch Rewards
-  company_url: "https://www.fetchrewards.com/"
+- company: Fetch
+  company_url: "https://www.fetch.com/"
   company_logo: fetch
   date_start: "2022-10-04"
   description: Research, develop, and productionize systems to extract information in real time from millions of consumer transactions each day. Build core solutions for document understanding and information extraction at the crux of computer vision and natural language processing. Engage a passion for deep learning on graphs and geometry.
   location: Los Angeles
   title: Applied Scientist
   
-- company: Fetch Rewards
-  company_url: "https://www.fetchrewards.com/"
+- company: Fetch
+  company_url: "https://www.fetch.com/"
   company_logo: fetch
   date_end: "2022-10-04"
   date_start: "2021-10-04"
-  description: Document AI and GraphML
+  description: Document AI and Graph ML
   location: Los Angeles
   title: Research Data Scientist
 
