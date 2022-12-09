@@ -327,7 +327,7 @@ Assigning feature vectors to the graph overlays a Euclidean geometry upon it. We
 
 <br>
 
-## The Intersection of Topology and Geometry
+## Making Use of Topology and Geometry
 
 Graphs allow us to represent features alongside additional relationships and structure. Introducing a flexible topological structure in which Euclidean geometry can be embedded can help our models understand and generalize better.
 
@@ -349,9 +349,7 @@ This may work relatively well, however, it ignores the underlying *topology of f
 
 Graphs unlock this capability by incorporating topological structure as an inductive bias *alongside* features rather than as an additional feature. Acknowledging the inherent topology of our data helps models better understand *how to learn* rather than expanding *what to learn*. 
 
-<br>
-
-## Topology, All Along
+### Topology, All Along
 
 Topological structure need not conform to the Euclidean feature-space. Graphs force us to understand this through their non-Euclidean connectivity. However, a different kind of topology has been lurking alongside us along the way. 
 
