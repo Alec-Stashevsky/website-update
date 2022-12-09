@@ -147,7 +147,7 @@ ggnet2(
 
 A collection of *nodes* or *vertices* represented as dark green circles connected by *edges* or *links* which indicate some pairwise relationship between two nodes.
 
-Graphs are incredibly simple yet flexible data structures. There is no notion of left, right, up, or down. Nodes and edges and can be added or omitted as we please. We can also move, bend, and reorder the nodes without changing the underlying relational structure of the graph. That is, without changing the fundamental nature of the graph itself. For example, below I've moved some of the nodes of the graph around and switched node 3 and node 5.
+Graphs are incredibly simple yet flexible data structures. There is no notion of left, right, up, or down. Nodes and edges can be added or omitted as we please. We can also move, bend, and reorder the nodes without changing the underlying relational structure of the graph. That is, without changing the fundamental nature of the graph itself. For example, below I've moved some of the nodes of the graph around and switched node 3 and node 5.
 
 ```{r basic graph2, echo=FALSE, message=FALSE, warning=FALSE}
 # Create static graph
@@ -192,7 +192,7 @@ ggnet2(
 
 Despite these modifications, the graph describes the same basic relational structure. We refer to this underlying structure as the graph's *connectivity* or the *topology* of the graph. The graph's topology is agnostic of where we position these nodes in space, or what we name individual nodes. 
 
-This also means graphs exist outside of Euclidean space where we have explicit notions of distance and direction. I have no way of telling if node 3 is closer to node 4 or node 5 even though they appear father apart in the two examples above. Graphs like these, in their most basic form, do not model Euclid's geometry. Perhaps there is a shorter road after all?
+This also means graphs exist outside of Euclidean space where we have explicit notions of distance and direction. I have no way of telling if node 3 is closer to node 4 or node 5 even though they appear farther apart in the two examples above. Graphs like these, in their most basic form, do not model Euclid's geometry. Perhaps there is a shorter road after all?
 
 
 ### What Happens When We See Them
@@ -201,7 +201,7 @@ One of the reasons Graph ML is such an exciting space is just how abundant graph
 
 Where graphs can be seen, Graph ML is there to teach machines how to make conclusions about them and new unseen things we might later encounter. Graph ML is being used to [discover new therapeutic drugs](https://towardsdatascience.com/drug-discovery-with-graph-neural-networks-part-1-1011713185eb), [prevent the spread of misinformation](https://cs.stanford.edu/~srijan/hoax/) in social networks (and probably also help it too), [detect fraud](https://towardsdatascience.com/fraud-detection-with-graph-analytics-2678e817b69e) , and [extract information from documents](https://medium.com/mlearning-ai/what-is-ai-document-understanding-f32da5f12055).^[*See* @STOKES2020688 for treatment of drug discovery, @kumar2016disinformation for misinformation in social networks, @10.1145/3447548.3467142 for fraud detection, and @doc2graph for document information extraction.]
 
-As data scientists and machine learners, our main goal is to make sense of the world around us. We do some of that by building models in and through which our understanding may grow. When we begin to see graph structure and its natural projections onto the world, we unlock a deeper and more organic connection by which to explain and infer phenomena. Graphs unlock this connection by blending topological and geometric perspectives.
+As data scientists and machine learners, our main goal is to make sense of the world around us. We do some of that by building models in and through which our understanding may grow. When we begin to see graph structure and its natural projections onto the world, we unlock a deeper and more organic connection through which to explain and infer phenomena. Graphs unlock this connection by blending topological and geometric perspectives.
 
 <br>
 
@@ -251,7 +251,7 @@ After we have performed the mapping all of our data can be represented in a 5-d 
 
 $$ \begin{bmatrix} Time \\ Condor \\ Easting \\ Northing \\ Altitude \end{bmatrix} \in \mathbb{R}^5  $$
 
-This process introduces a consistent *geometry* to our data. That is, we can now understand the space our data exists within through its shape, size, distance, and relative position. Below, I visualize the Condor GPS Telemetry vector space, using some liberties to represent the *Time* and *Condor* dimensions as hue and point-shape, respectively.
+This process introduces a consistent *geometry* to our data. That is, we can now understand our data through its shape, size, distance, and relative position. Below, I visualize the Condor GPS Telemetry vector space, using some liberties to represent the *Time* and *Condor* dimensions as hue and point-shape, respectively.
 
 ```{r condor vector space, echo=FALSE, message=FALSE, warning=FALSE}
 # Convert condor column to factor for plotly
@@ -343,7 +343,7 @@ Relational data is the most abundant type of data across industry, yet it is not
 
 In this sense, all relational databases can be seen as graphs which allow for complex topologies through primary and foreign key relations like the one-to-many relationship we see above. The intuition behind adding this friendship-structure is that we can learn more about a user by also looking at who they are friends with and the attributes of those friends. 
 
-An extremely common modelling task on relational data of social networks is predicting [user churn](https://medium.com/@malvikat/a-complete-guide-to-customer-churn-rate-fa6ec09d96d). We want to know which users are likely to drop off the platform and perhaps intervene. A tabular machine learning model might ingest the rows of the user table as features and learn to recognize patterns about certain types of users and their behavior which makes them likely to attrite. 
+An extremely common modeling task on relational data of social networks is predicting [user churn](https://medium.com/@malvikat/a-complete-guide-to-customer-churn-rate-fa6ec09d96d). We want to know which users are likely to drop off the platform and perhaps intervene. A tabular machine learning model might ingest the rows of the user table as features and learn to recognize patterns about certain types of users and their behavior which makes them likely to attrite. 
 
 This may work relatively well, however, it ignores the underlying *topology of friendship* such a user finds themselves within. Consequently, we lose the ability to answer questions like: *if a user's friends churn, are they more likely to churn themselves?* The graph-based approach allows us to answer this question because we can capture, for each row in the data, additional information about relationships between rows.^[*See* https://opendatascience.com/machine-learning-with-graphs-going-beyond-tabular-data/.] @cvitkovic2020supervised shows incorporating the connectivity of relational data through graphs is especially useful when many tables and foreign key relationships belong to a relational database.^[Using this approach does not mean we must use graph-based models such as GNNs to perform the downstream task. We can use any graph-based embedding method to generate embedding which capture this additional structure. These embeddings can then  be used like any other embedding input into traditional tabular models.]
 
@@ -353,9 +353,9 @@ Graphs unlock this capability by incorporating topological structure as an induc
 
 ## Topology, All Along
 
-Topological structure need not conform to the Euclidean feature-space. Graphs force us to understand this through their non-Euclidean connectivity. However, a different kind of topology has been lurking alongside us all along the way. 
+Topological structure need not conform to the Euclidean feature-space. Graphs force us to understand this through their non-Euclidean connectivity. However, a different kind of topology has been lurking alongside us along the way. 
 
-When we think about the data most machine learning operates on such as tables, text, or images, we don't usually speak about topology. That is because these data types all enforce a strict *regular topology* that doesn't give us much signal to learn on. Images, for example, are represented as a regular grid of pixel values which can also be transformed into a graph.^[Figure from [Yalda Shankar's](https://yaldashankar.org) beautifully crafted visual-forward Graph ML overview: [The GNN Booklet](https://yaldashankar.org/demo/GNN-1.pdf).]
+When we think about the data most machine learning operates on, such as tables, text, or images, we don't usually speak about topology. That is because these data types all enforce a strict *regular topology* that doesn't give us much signal to learn on. Images, for example, are represented as a regular grid of pixel values which can also be transformed into a graph.^[Figure from [Yalda Shankar's](https://yaldashankar.org) beautifully crafted visual-forward Graph ML overview: [The GNN Booklet](https://yaldashankar.org/demo/GNN-1.pdf).]
 
 ![](images/image_as_graph.png)
 
