@@ -2,8 +2,8 @@
 title: "Production Graph ML at Fetch with PyTorch Geometric"
 author: "Alec Stashevsky"
 date: 2023-01-31
-categories: ["Mathematics", "Graph ML", "Deep Learning"]
-tags: ["Mathematics", "Graph ML", "Deep Learning"]
+categories: ["Graph ML", "Deep Learning"]
+tags: ["Graph ML", "Deep Learning"]
 links:
  - name: "YouTube"
    url: https://youtu.be/M1y3xzeqdsg
