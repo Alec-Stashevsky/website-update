@@ -6,7 +6,7 @@ categories: ["Mathematics", "Graph ML", "Deep Learning"]
 tags: ["Mathematics", "Graph ML", "Deep Learning"]
 links:
  - name: "YouTube"
-   url: https://alecstashevsky.com/r/blocklength
+   url: https://youtu.be/M1y3xzeqdsg
    icon: youtube
    icon_pack: fab
 image:
