@@ -25,4 +25,4 @@ Last week I got the opportunity to share how we are using [PyTorch Geometric](ht
 
 <br>
 
-{{< youtube M1y3xzeqdsg >}}
+`r htmltools::HTML("{{< youtube M1y3xzeqdsg >}}")`
