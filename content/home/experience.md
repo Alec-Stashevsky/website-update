@@ -31,9 +31,12 @@ experience:
   company_url: "https://www.fetch.com/"
   company_logo: fetch
   date_start: "2022-10-04"
-  description: Research, develop, and productionize systems to extract information in real time from millions of consumer transactions each day. Build core solutions for document understanding and information extraction at the crux of computer vision and natural language processing. Engage a passion for deep learning on graphs and geometry.
+  description: Develop world-class document AI technology powering the core of the Fetch app used to extract information from +10 million receipts in real-time every day. Fetch’s largest product launch to date. 
+   <br> <br> Pre-training and fine-tuning of large language models (LLMs), vision encoder-decoders, and graph neural networks.
+   <br> <br>Build out data labelling and collection efforts from the ground-up to support computer vision and large language modelling efforts.
+   <br> <br> Tech lead for team of 15+ scientists.
   location: Los Angeles
-  title: Applied Scientist
+  title: Applied Scientist, Tech Lead
   
 - company: Fetch
   company_url: "https://www.fetch.com/"
@@ -48,26 +51,23 @@ experience:
   company_url: "https://www.nera.com/practice-areas/securities-and-finance.html"
   company_logo: NERA
   date_end: "2021-09-03"
-  date_start: "2021-07-01"
-  description: Statistical modelling and economic analysis for high-stakes litigation involving structured finance, bankruptcy, cryptocurrencies, and mass torts. Develop financial models to estimate damages and predict the performance of complex financial instruments. Identify fraud and negligent risk management practices for Fortune 500 companies, SEC, DOJ, and FINRA.
+  date_start: "2020-09-21"
+  description: |-
+   Look inside the books of some of the largest financial institutions in the world to estimate damages and predict the performance of complex financial instruments leading to the largest and most severe banking crises, securities fraud, and market-meltdowns humans have witnessed. 
+   <br> <br> Build probabilistic financial models using advanced techniques including Markov chain Monte Carlo methods, random matrix theory applications, and stationary time-series forecasting. 
+   <br> <br> Identify, explain, and value litigation involving mortgage-backed securities (RMBS), collateralized debt obligations (CDOs), swaps, and other derivatives underpinning trillions of dollars in assets. 
+   <br> <br> Provide evidence and economic investigation for Fortune 500 companies, SEC, DOJ, and FINRA.
   location: New York City
   title: Associate Analyst
-  
-- company: NERA Economic Consulting
-  company_url: "https://www.nera.com/practice-areas/securities-and-finance.html"
-  company_logo: NERA
-  date_end: "2021-07-01"
-  date_start: "2020-09-21"
-  description: Securities and Finance Practice
-  location: New York City
-  title: Research Analyst
   
 - company: The Cadmus Group
   company_url: "https://cadmusgroup.com/services/energy/"
   company_logo: cadmus
   date_end: "2020-09-15"
   date_start: "2019-11-04"
-  description: Design and evaluation of demand-side management programs, including a $600k+ randomized control trial on smart thermostat direct load-control. Forecast electric vehicle diffusion, demand elasticity, and decarbonization strategy for diverse energy industry clients.
+  description: Design and evaluation of demand-side management programs, including a $600k+ randomized control trial on smart thermostat direct load-control. 
+   <br> <br> Forecast electric vehicle diffusion, demand elasticity, and electrification for budgeting hundreds of millions of dollars under diverse energy industry clients’ management. 
+   <br> <br> Design difference-in-difference models, demand-elasticity programs, and causal inference mechanisms to provide gold-standard reporting to regulators and operators responsible for most of the United States energy supply.
   location: Portland, OR
   title: Research Analyst
   
@@ -84,28 +84,9 @@ experience:
   company_logo: KWM
   date_end: "2020-10-01"
   date_start: "2019-07-01"
-  description: Develop dashboards to help financial advisers navigate bear markets and contextualize historical data using R and Shiny.
+  description: Build internal dashboards for a boutique wealth advisory firm using R and Shiny to help advisors aggregate and contextualize regulatory stances during bear-markets.
   location: Pasadena, CA
   title: Data Scientist Intern
-  
-- company: Reed College
-  company_logo: reed
-  date_end: "2018-12-01"
-  date_start: "2016-08-01"
-  description: Probability /  Linear Algebra / Statistics / Economics
-  location: Portland, OR
-  title: Teaching Assistant
-
-- company: IRN Realty
-  company_logo: IRN
-  date_end: "2015-07-23"
-  date_start: "2013-06-01"
-  description: |-
-   \- LAN/WAN/NOC/NAS Administration
-   <br /> - Lead business-wide IT projects and a team of up to 6 people
-   <br /> - Manage 100+ workstations, servers, MFPs, and PBX phone systems
-  location: Arcadia, CA
-  title: Systems Administrator
   
 design:
   columns: '2'
