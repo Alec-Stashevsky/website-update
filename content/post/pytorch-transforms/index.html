@@ -81,7 +81,7 @@ on_before_batch_transfer(batch, dataloader_idx):
 
 # Operates on a mini-batch after it is transferred to the accelerator
 on_after_batch_transfer(batch, dataloader_idx)</code></pre>
-<p>Reading this excellent Lightning <a href="https://lightning.ai/docs/pytorch/stable/notebooks/lightning_examples/augmentation_kornia.html">tutorial</a> on batched data augmentation finally gave me the tools I needed to take full control how my data augmentation was being performed. A simple additional hook in my <code>LightningDataModule</code> solved the last of my problems:</p>
+<p>Reading this excellent Lightning <a href="https://lightning.ai/docs/pytorch/stable/notebooks/lightning_examples/augmentation_kornia.html">tutorial</a> on batched data augmentation finally gave me the tools I needed to take full control of how my data augmentation was being performed. A simple additional hook in my <code>LightningDataModule</code> solved the last of my problems:</p>
 <pre class="python"><code>    def on_before_batch_transfer(self, batch: Any, dataloader_idx: int) -&gt; Any:
         &quot;&quot;&quot;
         Called before a batch is transferred to the device.
