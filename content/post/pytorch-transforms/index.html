@@ -1,0 +1,110 @@
+---
+title: "On-the-fly Augmentation with PyTorch Geometric and Lightning: What Tutorials Don't Teach"
+author: "Alec Stashevsky"
+date: 2023-06-04
+categories: ["PyTorch", "Graph ML", "Deep Learning", "Python"]
+tags: ["PyTorch", "Graph ML", "Deep Learning", "Python"]
+bibliography: []
+link-citations: true
+links:
+image:
+  caption: '"Symphony of randomness being conducted by an emporhous form.<br>Underwater various types of fish and sea creatures", Midjourney. June 4, 2023.'
+  preview_only: false
+  focal_point: "Smart"
+summary: Control randomness in your machine learning pipeline using the power of data augmentation, but don't make the same mistakes I did.
+---
+
+
+
+<blockquote>
+<p>So much of life, it seems to me, is determined by pure randomness.</p>
+<p><span style="float:right">— Sidney Poitier</span></p>
+</blockquote>
+<p><br></p>
+<p>On-the-fly data augmentation is a practice which applies noise to data at the time of loading. This allows for a significant increase in the <em>effective size</em> of your dataset, as each piece of data can be randomly transformed every time it’s loaded, providing a potentially unlimited number of variations. As you iterate over your dataset, randomness can be injected in creative ways including executing some, none, or all of a series of augmentation steps at random each with their own stochastic direction and magnitude.</p>
+<p><br></p>
+<div id="a-lonely-melody-beyond-computer-vision" class="section level2">
+<h2>A Lonely Melody Beyond Computer Vision</h2>
+<p>Deep Learning curricula treat augmentation as a core component. Tutorials include sections on data augmentation’s ability to mitigate against common challenges such as class imbalance, error propagation, and scarce data, yet little is published outside of computer vision. You’ll quickly find that resources become scarce once you venture outside cropping and rotating images of cats. The reality is, augmentation strategies are not as well-documented for other types of data, like text or graphs. The journey to implementing custom augmentations here can feel like wandering uncharted territory.</p>
+<p>In my case, working with complex machine learning pipelines that chain models together means augmentation can be a daunting but necessary voyage. I did some research on open-source solutions to simulate noise that can be introduced by OCR models and found <a href="https://github.com/makcedward/nlpaug">nlpaug</a> to be initially promising as it was the only one which touted a “pre-defined OCR mapping” that could apply noise conditioned on common OCR mistakes. I was intrigued, so I dug through the source code until I found the highly coveted <a href="https://github.com/makcedward/nlpaug/blob/master/nlpaug/res/char/ocr/en.json">mapping file</a>. Needless to say, I was a bit disappointed. . . but ChatGPT quickly helped me whip up a much more comprehensive mapping that could be easily substituted. If you’re thinking of using this library I would also caution about this <a href="https://github.com/makcedward/nlpaug/issues/313">issue</a>.</p>
+<p><br></p>
+</div>
+<div id="harmonizing-graph-augmentation" class="section level2">
+<h2>Harmonizing Graph Augmentation</h2>
+<p>Unlike images or text, graph data requires specialized augmentation techniques. The connectivity of nodes and edges present unique topology that must be maintained during augmentation, or augmented only with careful intention.</p>
+<p><a href="https://pytorch.org/vision/stable/transforms.html">PyTorch</a> provides a powerful and flexible toolkit for data augmentation, primarily through the use of the <code>Transforms</code> class. At its core, a <code>Transform</code> in PyTorch is a function that takes in some data and returns a transformed version of that data. This could be as simple as resizing an image, flipping text characters at random, or moving data to the GPU. Transforms can be chained together and then attached to a PyTorch <code>Dataset</code> class where they are used to modify data each time it is loaded, generally by a PyTorch <code>DataLoader</code>.</p>
+<p><a href="https://pyg.org/">PyTorch Geometric</a> extends this paradigm to graph data with its own <code>Dataset</code>, <code>DataLoader</code>, and <code>Transform</code> classes. Just like with pure PyTorch, <a href="https://pytorch.org/tutorials/beginner/data_loading_tutorial.html#transforms">custom transforms</a> can be defined simply by inheriting from the <code>BaseTransform</code> class and implementing the <code>__call__</code> and optionally <code>__init__</code> methods. <code>Transforms</code> can be then be simply attached to your <code>Dataset</code> and will be called as the data is fetched, like so:<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<pre class="python"><code>import torch_geometric.transforms as T
+from torch_geometric.datasets import TUDataset
+transform = T.Compose([T.ToUndirected(), T.AddSelfLoops()])
+dataset = TUDataset(path, name=&#39;MUTAG&#39;, transform=transform)</code></pre>
+<p>While this is the recommended method according to both frameworks, there is a more straightforward approach where you call the <code>transform</code> explicitly on data points or batches:</p>
+<pre class="python"><code>transform = T.Compose([T.ToUndirected(), T.AddSelfLoops()])
+dataset = TUDataset(path, name=&#39;MUTAG&#39;, transform=transform)
+# Call the transform on the first observation in the datset
+data = transform(dataset[0])</code></pre>
+<p>I caution against attaching <code>transforms</code> directly to the dataset so that you don’t make the same mistakes I did:</p>
+<div id="pre-process-on-clean-data" class="section level3">
+<h3>Pre-process on Clean Data</h3>
+<p>What the tutorials don’t consider is that people often do a lot of things with their datasets before starting to train on them. Attaching <code>transforms</code> directly to the dataset means your data will be augmented <em>anytime</em> you access it. This muddles crucial pre-processing steps such as normalization, standardization, and imputation <em>et al.</em> where you want to obtain static and reproducible constants. If you’re calculating normalization constants on your training dataset and then applying those same constants for inference, the last thing you want is reproducibility issues. Before wising up I actually implemented this terrible sin several places in my pre-processing code to mitigate the issue — writing this blog is part of my atonement:</p>
+<pre class="python"><code># Temporarily remove the transforms
+original_transform = None
+if dataset.transform is not None:
+    original_transform = dataset.transform
+    dataset.transform = None
+    
+# Normalize data
+... 
+
+# Restore the transforms
+dataset.transform = original_transform</code></pre>
+<p>Don’t do this! Take control of your <code>transforms</code> and apply them only when you need to. Don’t attach them at the hip of your dataset.</p>
+</div>
+<div id="guard-your-original-data" class="section level3">
+<h3>Guard Your Original Data</h3>
+<p>In the midst of handling transformations, it’s easy to overlook a crucial point: preserving the integrity of your original data. In-place transformations can inadvertently modify your data, leading to potential inconsistencies and headaches down the line. In my case, I found augmentations were being compounded epoch-by-epoch as my original data was overwritten. In fact, this mistake was carried on from official PyG examples I was building off. Fortunately, the PyG team was able to address the <a href="https://github.com/pyg-team/pytorch_geometric/pull/7429">issue</a>, which should hopefully be in the next release. In the meantime, remember to create shallow copies before you transform!</p>
+</div>
+<div id="beware-the-dataset-slowdown" class="section level3">
+<h3>Beware the Dataset Slowdown</h3>
+<p>Attaching transforms to your dataset seems like an intuitive and efficient approach, but losing control over when and where your augmentation is applied can mean significant slow downs with hidden causes. In my case, I had implemented a custom PyG <code>Dataset</code> class following the official PyG <a href="https://pytorch-geometric.readthedocs.io/en/latest/tutorial/create_dataset.html#:~:text=In%20Memory%20Datasets%E2%80%9D-,%EF%83%81,-In%20order%20to">example</a> where I had some attribute <code>self.data_list</code> which contained a list of independent graphs, represented by PyG <code>Data</code> objects. It was only after my epoch training time increased from 22 seconds to 38 minutes that I realized the data augmentations were being called for <em>every</em> graph in the <code>data_list</code> each time a <em>single</em> mini-batch was being loaded. I had never implemented a custom <code>__getitem__</code> method in my custom dataset and was relying on inheriting the method from the base <code>Dataset</code> class. It had never failed me until I realized that it was indexing my entire <code>data_list</code> and applying transforms on it without my knowledge.</p>
+<p>PyTorch and PyTorch Geometric <code>Datasets</code> are incredibly powerful tools with excellent flexibility, but that can make things go awry if you haven’t stored your dataset in canonical ways, and even sometimes if you do. . . This was the last straw for me. I was determined to take control of the randomness in my life and call <code>transform(data)</code> explicitly!</p>
+<p><br></p>
+</div>
+</div>
+<div id="composing-augmentation-with-pytorch-lightning" class="section level2">
+<h2>Composing Augmentation with PyTorch Lightning</h2>
+<p>Lastly, let’s talk about <a href="https://lightning.ai/pytorch-lightning/">PyTorch Lightning</a>. While it’s a fantastic tool that simplifies a lot of the boilerplate code in PyTorch, it comes with its own quirks. Certain aspects require a little extra care and handling to ensure that your model training runs smoothly. Lightning abstracts away most of the training loop and requires users simply specify <code>train_dataloader</code> and <code>val_dataloader</code> methods to return some iterator, generally a PyTorch <code>DataLoader</code>.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> These methods can be implemented either directly in the <code>LightningModule</code> or in the optional <code>LightningDataModule</code>. After this, mini-batches are sampled and dispatched according to Lightning’s smart “auto” acceleration strategies which generally means they end up where you want them to go, such as on the GPU/TPU.</p>
+<p>Attaching <code>transforms</code> directly to your <code>Dataset</code> seems to fit in well with this paradigm and just like most things with PyTorch Lightning, somehow they are magically taken care of! The problem is when they are taken care of. Depending on the operations underpinning the augmentation strategies, it may be more efficient to apply them on the CPU or accelerator. Some augmentations, like those from <a href="https://github.com/kornia/kornia">Kornia</a> are designed to be entirely differentiable and may be faster operating directly on tensors already stored on the accelerator. Most strategies are best done on CPU which can take advantage of PyTorch’s multiprocessing features built into <code>DataLoader</code> workers.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+<p>Lightning has implemented two very useful <a href="https://lightning.ai/docs/pytorch/stable/api/lightning.pytorch.core.hooks.DataHooks.html#datahooks">data hooks</a> which allow users to have more control over what happens when batches are loaded before and after they are sent to accelerators. These can be implemented as methods in either the <code>LightningModule</code> or the <code>LightningDataModule</code>:</p>
+<pre class="python"><code># Operates on a mini-batch before it is transferred to the accelerator
+on_before_batch_transfer(batch, dataloader_idx):
+
+# Operates on a mini-batch after it is transferred to the accelerator
+on_after_batch_transfer(batch, dataloader_idx)</code></pre>
+<p>Reading this excellent Lightning <a href="https://lightning.ai/docs/pytorch/stable/notebooks/lightning_examples/augmentation_kornia.html">tutorial</a> on batched data augmentation finally gave me the tools I needed to take full control how my data augmentation was being performed. A simple additional hook in my <code>LightningDataModule</code> solved the last of my problems:</p>
+<pre class="python"><code>    def on_before_batch_transfer(self, batch: Any, dataloader_idx: int) -&gt; Any:
+        &quot;&quot;&quot;
+        Called before a batch is transferred to the device.
+        We apply data augmentation here only during training.
+        &quot;&quot;&quot;
+
+        if self.trainer.training:
+            batch = self.transforms(batch)
+        return batch</code></pre>
+<p>This ensured that my augmentation was performed (1) only on specific mini-batches as they are loaded, (2) not on validation or testing data, (3) on the correct hardware, and (4) only within the training loop.</p>
+<p><br></p>
+</div>
+<div id="conducting-the-symphony-of-randomness" class="section level2">
+<h2>Conducting the Symphony of Randomness</h2>
+<p>Randomness is not just fundamental to life but also embedded deep within machine learning craft. Respect and wield the power of randomness wisely. Balance it with stability and reproducibility. Navigating through the uncertain terrains of machine learning means not only adapting to randomness but also shaping it to our advantage. In doing so, we turn Poitier’s quote on its head: life may be determined by pure randomness, but we are its agent.</p>
+<p><br></p>
+<p>If you’re interested in more data science / python related blogs, please check out <a href="https://python-bloggers.com" class="uri">https://python-bloggers.com</a></p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><em>See</em> <a href="https://pytorch-geometric.readthedocs.io/en/latest/modules/transforms.html" class="uri">https://pytorch-geometric.readthedocs.io/en/latest/modules/transforms.html</a>.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>There are also optional <code>test_dataloader</code> options as well.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p><em>See</em> <a href="https://pytorch.org/docs/stable/data.html#multi-process-data-loading" class="uri">https://pytorch.org/docs/stable/data.html#multi-process-data-loading</a>.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
