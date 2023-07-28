@@ -6,7 +6,6 @@ authors:
 date: "2019-05-08T00:00:00Z"
 doi: "10.13140/RG.2.2.19035.90405/1"
 featured: true
-publication: '*Academic Psychiatry*'
 publication_types:
 - "7"
 publishDate: "2019-05-20T00:00:00Z"
