@@ -24,7 +24,14 @@ links:
    icon: github
 ---
 
-[Read the full article here!](https://doi.org/10.1001/jamaophthalmol.2023.3516 "JAMA Ophthalmology Paper")
+![](figure1.png)
+
+<br>
+
+<a href="https://doi.org/10.1001/jamaophthalmol.2023.3516"><p style="text-align:center">Read the full article here!</p></a>
+
+
+<br>
 
 ## Notes
 
