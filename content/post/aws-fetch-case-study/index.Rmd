@@ -1,0 +1,24 @@
+---
+title: "Putting Document AI into Production with AWS Sagemaker at Fetch"
+author: "Alec Stashevsky"
+date: 2023-09-25
+categories: ["Graph ML", "Deep Learning"]
+tags: ["Deep Learning"]
+links:
+ - name: "AWS Case Study"
+   url: https://aws.amazon.com/solutions/case-studies/fetch-case-study/
+image:
+  preview_only: false
+  focal_point: "Smart"
+summary: Recent case study on my team's work at Fetch.
+---
+
+<br> 
+
+<br>
+ 
+<br>
+
+Check out this [AWS case study](https://aws.amazon.com/solutions/case-studies/fetch-case-study/) my team did with AWS to showcase how we deployed a real-time industrial-scale document AI system in under a year!
+
+<br>
