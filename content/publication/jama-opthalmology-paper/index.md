@@ -14,7 +14,7 @@ publication_types:
 - "2"
 publishDate: "2023-08-10T00:00:00Z"
 summary: We found the 2019 American Academy of Ophthalmology Annual Meeting was estimated to emit more carbon than what is used to power over 5000 homes in a year. Our research looks at various strategies and finds simply holding the meeting in a different location could reduce it by as much as 19%, other formats may cut it by 38%.
-tags:
+tags: ["Top Paper"]
 title: Assessing Strategies to Reduce the Carbon Footprint of the Annual Meeting of the American Academy of Ophthalmology
 url_pdf: "/publication/jama-opthalmology-paper/jamaophthalmology_mcclintic_2023_oi_230045_1690483055.50535.pdf"
 links:
@@ -24,7 +24,7 @@ links:
    icon: github
 ---
 
-![](figure1.png)
+![](featured.png)
 
 <br>
 
