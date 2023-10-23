@@ -36,7 +36,7 @@ experience:
    <br> <br>Build out data labelling and collection efforts from the ground-up to support computer vision and large language modelling efforts.
    <br> <br> Tech lead for team of 15+ scientists.
   location: Los Angeles
-  title: Applied Scientist, Tech Lead
+  title: Lead Machine Learning Scientist
   
 - company: Fetch
   company_url: "https://www.fetch.com/"
