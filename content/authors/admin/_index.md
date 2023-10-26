@@ -18,18 +18,18 @@ organizations:
   url: "https://www.reed.edu/math/theses.html"
   
 # Short bio (displayed in user profile at end of posts)
-bio: Anti-lumper nuance hunter
+bio: Anti-lumper nuance hunter. All opinions are my own. 
 
 # Interests to show in About widget
 interests:
-- Geometric Deep Learning
+- Graph Machine Learning
+- Search and Recommendation 
 - Inequality and Development
 - Occult Economies
 - Place-making, Migration, Mobility
 - Spatial Politics
 - Anthropology
 - Decarbonization
-- Securitization
 
 
 # Education to show in About widget
@@ -78,6 +78,6 @@ email: ""
 highlight_name: false
 ---
 
-I am an applied scientist and researcher who builds large scale machine learning applications. Before that, I spent time as an economic consultant in the finance and energy industries. I am passionate about interdisciplinary research that engages multiple paradigms. I care about econometrics, machine learning, anthropology, and research that uses data holistically to push back against siloed analytics.
+I am an applied scientist and leader building large scale machine learning applications. I love building things people use. I am passionate about interdisciplinary research and currently leading teams working at the crux of computer vision, natural language understanding, and graph machine learning. 
 
-Currently, I spend my time teaching machines how to read and understand receipts through a combination of computer vision, natural language processing, and graph machine learning techniques. When I am not thinking about graphs and transformers you can find me snapping shots on my {{% staticref "uploads/about/sunset.jpg" "newtab" %}}Yashica T4 Super D{{% /staticref %}}, hiking, and {{% staticref "uploads/about/pottery.jpg" "newtab" %}}making pottery{{% /staticref %}}.
+When I am not thinking about graphs and transformers you can find me snapping shots on my {{% staticref "uploads/about/sunset.jpg" "newtab" %}}Yashica T4 Super D{{% /staticref %}}, hiking, and {{% staticref "uploads/about/pottery.jpg" "newtab" %}}making pottery{{% /staticref %}}.

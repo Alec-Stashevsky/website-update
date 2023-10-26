@@ -26,17 +26,17 @@ date_format: Jan 2006
 
 
 experience:
-
 - company: Fetch
   company_url: "https://www.fetch.com/"
   company_logo: fetch
   date_start: "2022-10-04"
-  description: Develop world-class document AI technology powering the core of the Fetch app used to extract information from +10 million receipts in real-time every day. Fetch’s largest product launch to date. 
+  description: Lead a team of 15+ scientists and engineers building world-class ML/AI technology powering the core of the Fetch app. Our systems extract information from +10 million receipts in real-time every day, and process over $150 billion in gross merchandise volume annually.
+   <br> <br> Core contributor and technical leader for Fetch’s largest product launch to date with over 200M in annual revenue attributable to our core document AI technology.
+   <br> <br> Research, build, and productionalize deep neural networks touching computer vision, natural language processing, and graph machine learning.
    <br> <br> Pre-training and fine-tuning of large language models (LLMs), vision encoder-decoders, and graph neural networks.
    <br> <br>Build out data labelling and collection efforts from the ground-up to support computer vision and large language modelling efforts.
-   <br> <br> Tech lead for team of 15+ scientists.
   location: Los Angeles
-  title: Lead Machine Learning Scientist
+  title: Lead Applied Machine Learning Scientist
   
 - company: Fetch
   company_url: "https://www.fetch.com/"
