@@ -9,7 +9,7 @@ active: true
 headless: true
 
 # Order that this section appears on the page.
-weight: 54
+weight: 30
 
 title: 'Talks'
 subtitle:
