@@ -23,7 +23,7 @@ image:
 
 location: Stanford University
 
-summary: How Fetch augments layout transformers with graph transformers to tackle complex semantic topological modeling as a link-prediction task. 
+summary: Industry presentation at Stanford Graph Learning Workshop on combining layout transformers with graph transformers.
 ---
 
 <br> 
