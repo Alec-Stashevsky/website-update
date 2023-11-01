@@ -19,6 +19,6 @@ summary: Recent case study on my team's work at Fetch.
  
 <br>
 
-Check out this [AWS case study](https://aws.amazon.com/solutions/case-studies/fetch-case-study/) my team did with AWS to showcase how we deployed a real-time industrial-scale document AI system at Fetch in under a year!
+Check out this [AWS case study](https://aws.amazon.com/solutions/case-studies/fetch-case-study/) my team did with AWS to showcase how we deployed a real-time industrial-scale document AI system in under a year!
 
 <br>
