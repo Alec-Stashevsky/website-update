@@ -29,19 +29,21 @@ feature:
 
 - icon: snowflake
   icon_pack: custom
-  name: Snowflake (SQL)  
+  name: Snowflake (SQL)
+
 
 - icon: pytorch
   icon_pack: custom
   name: PyTorch
+
+- icon: huggingface
+  icon_pack: custom
+  name: Hugging Face
   
 - icon: pyg
   icon_pack: custom
   name: PyTorch Geometric
 
-- icon: huggingface
-  icon_pack: custom
-  name: Hugging Face
 
 - icon: aws
   icon_pack: custom
@@ -55,17 +57,31 @@ feature:
   icon_pack: custom
   name: Git
 
+
+- icon: kafka
+  icon_pack: custom
+  name: Apache Kafka
+  
+- icon: redis
+  icon_pack: custom
+  name: Redis
+  
+- icon: airflow
+  icon_pack: custom
+  name: Apache Airflow
+
+
+- icon: mlflow
+  icon_pack: custom
+  name: ML Flow
+
+- icon: sagemaker
+  icon_pack: custom
+  name: AWS SageMaker
+  
 - icon: stata
   icon_pack: custom
   name: Stata
-  
-- icon: sas
-  icon_pack: custom
-  name: SAS
-  
-- icon: microsoftexcel
-  icon_pack: custom
-  name: Microsoft Excel
 
   
 # Uncomment to use emoji icons.
