@@ -36,7 +36,7 @@ experience:
    <br> <br> Pre-training and fine-tuning of large language models (LLMs), vision encoder-decoders, and graph neural networks.
    <br> <br>Build out data labelling and collection efforts from the ground-up to support computer vision and large language modelling efforts.
   location: Los Angeles
-  title: Lead Applied Machine Learning Scientist
+  title: Lead Scientist, Core Machine Learning
   
 - company: Fetch
   company_url: "https://www.fetch.com/"
