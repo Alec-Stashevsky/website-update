@@ -45,7 +45,7 @@ experience:
   date_start: "2021-10-04"
   description: Document AI and Graph ML
   location: Los Angeles
-  title: Research Data Scientist
+  title: Data Scientist
 
 - company: NERA Economic Consulting
   company_url: "https://www.nera.com/practice-areas/securities-and-finance.html"
