@@ -1,0 +1,346 @@
+---
+title: "Transformer Hydranets and Multi-Task Learning with Hugging Face and PyTorch: Ensembling vs. Éclat"
+author: "Alec Stashevsky"
+date: 2023-11-10
+categories: ["PyTorch", "Deep Learning", "Python"]
+tags: ["PyTorch", "Deep Learning", "Python"]
+bibliography: [hydra1.bib]
+link-citations: true
+links:
+image:
+  preview_only: false
+  focal_point: "Smart"
+summary: Control randomness using the power of data augmentation, but don't make the same mistakes I did.
+---
+
+<!-- > Your ability to juggle many tasks will take you far. -->
+<!-- > -->
+<!-- > [--- Fortune Cookie]{style="float:right"} -->
+
+<!-- <br> -->
+
+<!-- This elegant quote prefaces [Rich Caruana's](https://www.cs.cornell.edu/~caruana/) 1997 Ph.D. Thesis: [*Multitask learning*](http://reports-archive.adm.cs.cmu.edu/anon/1997/CMU-CS-97-203.pdf)---a seminal work in the field.  -->
+
+<br>
+
+Production machine learning systems require teams of expert problem-solvers, each with a unique skill set, collaborating closely together to maintain and improve performance. Each member contributes their expertise and their combined effort leads to a solution greater than what any individual could achieve alone. In what can perhaps be characterized as a spit of introspection, distilling the essence of this collaboration into the ML systems themselves has been undergoing a radical transformation. This is the world of ensemble machine learning.
+
+It is [believed](https://pub.towardsai.net/gpt-4-8-models-in-one-the-secret-is-out-e3d16fd1eee0) that a specific form of ensemble learning---[Mixture of Experts](https://deepgram.com/learn/mixture-of-experts-ml-model-guide)---is behind one of the most powerful closed-sourced LLMs available today. However, unlike the well-coordinated teams of engineers who build these systems, [traditional ensemble systems](https://neptune.ai/blog/ensemble-learning-guide) didn't have direct ways to learn from or grow alongside each other. Instead they leveraged the power of [consensus](https://medium.com/inspiredbrilliance/object-detection-through-ensemble-of-models-fed015bc1ee0) and aggregation. Knowledge transfer is an essential part of building successful ML teams, but the models in an ensemble share little information between each other and are agnostic to how their predictions are used downstream. 
+
+<!-- ^[In the Mixture of Experts case, this is ability is at least relatively indirect. When training a sparsely-gated mixture of experts system, gradients are typically only propagated and updated for the experts that have been activated for a given input during that training step. *See* @chen2022understanding and @shazeer2017outrageously.] -->
+
+
+<!-- We often hear about the power of *ensemble modeling* where predictions from multiple models are combined to achieve more performance than any component can alone. Ensemble systems can leverage the power of [consensus](https://medium.com/inspiredbrilliance/object-detection-through-ensemble-of-models-fed015bc1ee0) across models or unite specialist models designed to handle targeted tasks in ways that achieve synergy. Ensemble systems are the well-coordinated teams of machine learning. Each model contributes a unique perspective developed through its architecture and training regime. -->
+
+
+Welcome to this series of blog posts that is not about ensemble learning. Instead, this series focuses on a less well-known modeling paradigm that seeks to exploit, rather than ignore, collaboration. This is the paradigm of *multi-task learning* (MTL); a field concerned with training models to perform more than one task at the same time. I find [Sebasatian Ruder's](https://www.ruder.io/about/) explanation to be the best:^[https://www.ruder.io/multi-task/#introduction.]
+
+> MTL comes in many guises: joint learning, learning to learn, and learning with auxiliary tasks are only some names that have been used to refer to it. Generally, as soon as you find yourself optimizing more than one loss function, you are effectively doing multi-task learning 
+
+Multi-task models can be endowed with many task-specific *heads* that can share outputs and influence over the core model backbone, and even each other.^[Task heads are usually fully-connected layers that operate on a shared hidden states from a *base* or *backbone* model like a transformer encoder.] We refer to these multi-headed models as *hydranets*.^[The shared backbones architecture is a particular case of MTL called *hard parameter sharing*. In contrast, *soft parameter sharing*, a much less common approach, uses separate backbones which interacted less direct ways.]
+
+![](general-hydra-diagram.png)
+
+<!-- The *head* of a model refers to the very last few layers which sit on top of the pre-trained model base (or backbone). Transformer models are an interesting case to explore multi-task learning because they are usually pre-trained on massive amounts of textual data. This pre-training endows models with an understanding of lanugage. The head is placed on top of this base and is then allowed to access this information and learn how to use it in ways that translate to specific capabilities, such as identifying sentiment or extracting key information from text.  -->
+
+I've struggled to find good resources on building hydranets and training them. In general it is more complex and less talked about---perhaps due to its many "guises". Naturally, I find it a more intriguing paradigm. This is why I've decided to author this series.
+
+<br>
+
+## Off-The-Shelf Transformer Heads
+
+One of the great features of Hugging Face's `transformers` library is the collection of pre-built heads for performing versatile tasks on top of a single pre-trained transformer base.^[While the pre-built heads are great for getting started, I have often noticed some inconsistencies in implementation across models. For example, sometimes a particular model will have a sequence classification head that uses a 2-layer MLP with a $tanh$ function instead of indexing the [CLS] token embeddings and passing it through a fully-connected layer. Sometimes a different pooling mechanism such as mean or max-pooling can perform better than the off-the-shelf CLS pooling as well.] When you navigate to a specific model in the library, like [RoBERTa](https://huggingface.co/docs/transformers/model_doc/roberta), you will see a set of various [tasks](https://huggingface.co/docs/transformers/main/en/task_summary#natural-language-processing) that the model is capable of performing such as masked language modeling (MLM), token classification, and sequence classification.
+
+Predefined task-specific models can be pulled down in a single line of code. Here's how we can easily instantiate RoBERTa for both token and sequence classification tasks:
+
+```{python, eval=FALSE}
+from transformers import RobertaForTokenClassification, RobertaForSequenceClassification
+
+token_model = RobertaForTokenClassification.from_pretrained(
+  'roberta-base', num_labels=5
+)
+sequence_model = RobertaForSequenceClassification.from_pretrained(
+  'roberta-base', num_labels=3
+)
+```
+
+
+In this snippet, `num_labels` is adjusted based on the task requirements, such as the number of entity types in [Named Entity Recognition](https://medium.com/mysuperai/what-is-named-entity-recognition-ner-and-how-can-i-use-it-2b68cf6f545d) (NER) or classes in sequence (text) classification tasks like sentiment analysis.
+
+Under the hood, `transformers` defines an explicit model architecture for each task, but in a spectacularly modular way. 
+
+
+### The Forward Pass
+
+Let's take a closer look at how `transformers` implements task specific heads and learn about how we architect the same base models to do very different things. Here's a simplified view of the forward pass for token and sequence classification modules:^[I've mostly removed additional arguments to the forward pass and a dropout layer.]
+
+```{python, eval=FALSE}
+def forward(self, input_ids, attention_mask=None, labels=None):
+    # Run through the model backbone 
+    outputs = self.roberta(input_ids, attention_mask=attention_mask)
+    # Access the last hidden states (embeddings from final base model layer)
+    sequence_output = outputs[0]
+    # Feed the embeddings to the task-specific head
+    logits = self.classifier(sequence_output)
+
+    # Additional processing for loss calculation and output
+    # ...
+    
+    return logits
+```
+
+The only difference between the token and sequence classification models is the last few layer(s) in `self.classifier` .
+
+
+### Token Classification
+
+Token classification generates embeddings for *each* token in the input sequence. Each token embedding is then passed to a dense layer to classify the tokens independently. Here's a look at what the classifier head looks like in the [source code](https://github.com/huggingface/transformers/blob/b074461ef0f54ce37c5239d30ee960ece28d11ec/src/transformers/models/roberta/modeling_roberta.py#L1358).
+
+```{python, eval=FALSE}
+class RobertaForTokenClassification(RobertaPreTrainedModel):
+    def __init__(self, config):
+        super().__init__(config)
+        self.num_labels = config.num_labels
+        # Model backbone
+        self.roberta = RobertaModel(config, add_pooling_layer=False)
+        # Classification head (a simple MLP)
+        self.classifier = nn.Linear(config.hidden_size, config.num_labels)
+```
+
+
+### Sequence Classification
+
+The goal of sequence / text classification is to predict a class for a sequence of text, rather than each token. The key difference is that we need to produce a single embedding which represents the entire sequence. We do this through a process called *pooling*. There are several popular pooling mechanisms include like mean, max, and CLS.^[Add ref for pooling]
+
+The off-the-shelf sequence classification head in `RobertaForSequenceClassification` uses the embedding of a special `[CLS]` token trained to represent the entire sequence. This special token is usually appended as the first token in a sequence. We then use it to classify entire sequences. Here is what that looks like in the `transformers` source code:^[I've removed some additional lines for simplicity.]
+
+```{python, eval=FALSE}
+class RobertaForSequenceClassification(RobertaPreTrainedModel):
+    def __init__(self, config):
+        super().__init__(config)
+        self.num_labels = config.num_labels
+        # Model backbone
+        self.roberta = RobertaModel(config, add_pooling_layer=False)
+        # Classification head ([CLS] pooling + a simple MLP)
+        self.classifier = RobertaClassificationHead(config)
+
+
+class RobertaClassificationHead(nn.Module):
+    """Head for sentence-level classification tasks."""
+
+    def __init__(self, config):
+        super().__init__()
+        self.dense = nn.Linear(config.hidden_size, config.hidden_size)
+        self.out_proj = nn.Linear(config.hidden_size, config.num_labels)
+
+    def forward(self, features, **kwargs):
+        # Take <s> token (equivalent to [CLS] token)
+        x = features[:, 0, :]
+        x = self.dense(x)
+        x = torch.tanh(x)
+        x = self.out_proj(x)
+        return x
+```
+
+I won't go into all the differences of `RobertaClassificationHead`, as it is essentially a very similar module which makes use of dense layers, but I will point out one key difference which takes place [here](https://github.com/huggingface/transformers/blob/b074461ef0f54ce37c5239d30ee960ece28d11ec/src/transformers/models/roberta/modeling_roberta.py#L1439). This is simply selecting the embedding vector only for the `[CLS]` token before passing it through a fully-connected layer. In this way we only need to classify a single embedding vector as opposed to every token. 
+
+These forward pass implementations highlight the modular nature of transformer models. The same `RoBERTa` backbone efficiently powers diverse NLP tasks with each head leveraging the core model’s understanding of language. Here we begin to grasp the versatility of transformer architectures and the elegance of PyTorch implementation, paving the way for more complex constructs like hydranets.
+
+<br>
+
+## Use-Case for a Transformer Hydranet
+
+Though hydranets can handle multiple tasks simultaneously their true power shines when there is overlapping knowledge that can be exploited between tasks. Lets consider an example of a content moderation solution. Traditional approaches might deploy separate models for different aspects of content moderation—such as sentiment analysis, toxic comment detection, and spam identification. However, a transformer hydranet can be trained to tackle all these tasks concurrently.
+
+Sharing a common backbone means hydranet models can gain a more holistic understanding of language nuances crucial to discern both context and intent in content. The model can learn to simultaneously identify toxic language, categorize comments, and evaluate sentiment. Cues learned from each of these tasks can help the model succeed at other tasks in turn. In this sense, the overlapping knowledge can be exploited by the hydranet to create synergy across task learning and more powerful backbones. 
+
+Hydranet models can also reduce compute resources for inference, especially in cases where they replace ensembles or iterate on top of single-task models. Most of the workload is computing the forward pass of the model backbone. The forward pass of each model head can be computed in parallel and are generally much smaller than the backbone. A chatbot or customer service AI might need to understand user queries and categorize the conversation topic simultaneously.
+
+*** ADD SOME DIAGRAM HERE ***
+
+[Multi-label classification](https://towardsdatascience.com/journey-to-the-center-of-multi-label-classification-384c40229bff) is another great use-case as it has been traditionally solved with ensembles like one-to-rest or target transformations like taking the power set all labels. In the multi-task learning paradigm, multi-label classification can be modeled directly with a hydranet approach. Rather than running multiple models or exploding the number of targets, we build the forward pass of the model to compute in parallel each label set—a much more organic approach. This works well when you have a strict limit on the overlap of classes, but can fail on *pick all applicable** scenarios.
+
+<br>
+
+## Architecting the Hydra
+
+Building a hydranet is one way to force yourself to recognize the beauty of PyTorch Autograd. The essential feature of hydranet architectures is that your model's forward pass returns multiple things.
+
+Let's take our base `RoBERTa` model and build a hydranet designed for content moderation. We want to be able to:
+
+1. Flag harmful comments (harm, not harm)
+2. Classify type of harm (*e.g.* spam, hate, promotions)
+
+Both tasks can be seen as a type of sequence classification. Let's start by stealing some code like all good engineers do! I'll use the source code for `RobertaForSequenceClassification` and we will build out the first head to perform binary sequence classification and the second head perform multi-class classification.^[We can consider the class labels as $[harm, not \ harm]$ for head 1 and $[spam, hate, promotion, not \ harm]$ for head 2.] I've renamed a few things and added separate configs as the output dimensions are different between head 1 and 2:^[Specically the `num_labels` attribute of the config needs to be set to $1$ for head 1 and $4$ for head 2 based on our class labels defined in [[5]](http://localhost:4321/post/transformer-hydranets-and-multi-task-learning-with-hugging-face-and-pytorch-ensembling-vs.-eclat/#fn5).]
+
+<!-- , but we will see how modeling them in a joint multi-task paradigm can be extra powerful. To flag harmful comments, we need to understand the content of the comment, but we might also want to exploit additional context by using information about the user making the comment, or the content of the original post the comment is about. -->
+
+
+```{python, eval=FALSE}
+class ContentModerationHydraNet(RobertaPreTrainedModel):
+    def __init__(self, config, harm_flag_config, harm_type_config):
+        super().__init__(config)
+        # Model backbone
+        self.roberta = RobertaModel(config, add_pooling_layer=False)
+        # Output a single logit for harm confidence
+        self.harm_flag_classifier = RobertaClassificationHead(harm_flag_config)
+        # Output 3 logits for spam, hate, promotion classes
+        self.harm_type_classifier = RobertaClassificationHead(harm_type_config)
+    
+    def forward(self, input_ids, attention_mask=None, labels=None):
+        # Run through the model backbone 
+        outputs = self.roberta(input_ids, attention_mask=attention_mask)
+        # Access the last hidden states (embeddings from final base model layer)
+        sequence_output = outputs[0]
+        # Feed the embeddings to head 1
+        logits_harm_flag = self.harm_flag_classifier(sequence_output)
+        # Feed the embeddings to head 2
+        logits_harm_type = self.harm_type_classifier(sequence_output)
+
+        # We now return a tuple of output for each head
+        return logits_harm_flag, logits_harm_type
+```
+
+And that its, now we've built a transformer hydranet! 
+
+<br>
+
+## Advanced Hydranet Architecture
+
+Let's ratchet this up to the next level. To flag harmful comments we certainly need to understand the content of the comment, but we might also want to exploit additional context by using information about the user who makes the comment or the original post the comment is about. Our RoBERTa model can only take text as input.
+
+![](base-hydra.png)
+
+However, we can add additional information into our model in several interesting ways. If we have historical information on this user, that might be something useful for our `harm_flag_classifier` to learn on. We can leverage the user's age and amount of comments that have been flagged for harm in the past as an example. To do this, simply concatenate these onto the final embeddings from the model backbone to provide additional signal:^[Don't forget that you will also need to change `harm_flag_config.hidden_size` to expect an additional 2 dimensions in the input `Tensor`.]
+
+```{python, eval=FALSE}
+class ContentModerationHydraNet(RobertaPreTrainedModel):
+    def __init__(self, config, harm_flag_config, harm_type_config):
+        # Same as above
+    
+    # Add additional arguments for user-level features
+    def forward(self, input_ids, age, prev_flags, attention_mask=None, labels=None):
+        # Run through the model backbone 
+        outputs = self.roberta(input_ids, attention_mask=attention_mask)
+        # Access the last hidden states (embeddings from final base model layer)
+        sequence_output = outputs[0]
+        # Concatenate user-level features for head 1
+        harm_flag_input = torch.cat((sequence_output, age.view(-1, 1), prev_flags.view(-1, 1)))
+        # Feed the RoBERTa embeddings + user-level features to head 1
+        logits_harm_flag = self.harm_flag_classifier(harm_flag_input)
+        # Feed the RoBERTa embeddings to head 2
+        logits_harm_type = self.harm_type_classifier(sequence_output)
+
+        # We now return a tuple with output for each head
+        return logits_harm_flag, logits_harm_type
+```
+
+
+Now, we are injecting additional features only into one of the model's heads. That information can be used to better train the classifier but its also possible for it propagate all the way through to the backbone as well.
+
+![](advanced-hydra-1.png)
+
+Let's go one step further—we haven't touched our `harm_type_classifier` yet. Since we are already classifying something as harmful or not with the `harm_flag_classifier` we might want to use that output to augment the `harm_type_classifier` as well. That means we will want to feed the output of the first head into the second head:
+
+```{python, eval=FALSE}
+class ContentModerationHydraNet(RobertaPreTrainedModel):
+    def __init__(self, config, harm_flag_config, harm_type_config):
+        # Same as above
+    
+    # Add additional arguments for user-level features
+    def forward(self, input_ids, age, prev_flags, attention_mask=None, labels=None):
+        # Run through the model backbone 
+        outputs = self.roberta(input_ids, attention_mask=attention_mask)
+        # Access the last hidden states (embeddings from final base model layer)
+        sequence_output = outputs[0]
+        # Concatenate user-level features for head 1
+        harm_flag_input = torch.cat((sequence_output, age.view(-1, 1), prev_flags.view(-1, 1)))
+        # Feed the RoBERTa embeddings + user-level features to head 1
+        logits_harm_flag = self.harm_flag_classifier(harm_flag_input)
+        # Concatenate head 1 output to head 2's input
+        harm_type_input = torch.cat((sequence_output, logits_harm_flag))
+        # Feed the RoBERTa embeddings to head 2
+        logits_harm_type = self.harm_type_classifier(harm_type_input)
+
+        # We now return a tuple with output for each head
+        return logits_harm_flag, logits_harm_type
+```
+
+
+Now we've got some seriously fun computation graphs to wrestle with.^[With this architecture head 1 is a dependency of head 2 on the computation graph, so it is no longer possible to execute the heads in parallel.] But you don't have to worry to much about that—PyTorch's [Autograd](https://pytorch.org/tutorials/beginner/blitz/autograd_tutorial.html) is taking care of propagating gradients across the entire `nn.Module` behind the scenes! Gradients are not just being passed from head to backbone—each head can now learn jointly with each other as well.
+
+![](advanced-hydra-2.png)
+
+If that gets you wondering how we actually train these things, then stay tuned for the next blog post in this series!
+
+<br>
+
+
+***
+## References
+
+<!-- --- -->
+
+
+<!-- --- -->
+
+
+<!-- --- -->
+
+
+<!-- ## Off-The-Shelf Transformer heads -->
+
+<!-- Talk about hugging face `transformers` library, specifically off-the-shelf heads that can be used for tasks like token classification (named entity recognition), sequence classification, MLM, or causal language modeling (next-token prediction.)  Use the `RoBERTa` model as an example and show a snippet of source code that defines the different heads, and how they all operate on top of the same pre-trained model backbone.  -->
+
+
+
+
+
+<!-- ## Use-Case for a Transformer Hydrnet -->
+
+<!-- This section will introduce an example of multi-task learning with transformers for language modeling tasks. For example, content moderation, or any other popular examples that you can think of to help illustrate the unique powers of multi-task learning for things where overlapping knowledge is required. It is also ok if you choose to describe two different examples of that illustrate different aspects of why multi-task learning is useful. One could illustrate the ability to exploit overallping knowledge, and another could illustrate the use-case for efficieny / serving optimization.  -->
+
+
+
+
+
+<!-- Specifically, this section will:  -->
+<!-- - Add a sequence classification head to the token-classification model -->
+<!-- - Walk through content moderation, or any other example -->
+
+
+
+<!-- - add additional features to the classification head (age, historical behavior (flagged posts)) -->
+
+
+
+
+<!-- Building a hydranet is one way to force yourself to recognize the beauty of PyTorch autograd. The essential feature of hydranet architectures is that your model's forward pass returns two or more things.  -->
+
+
+<!-- - Take RoBERTa and show the various off-the-shelf heads available on HuggingFace transformeers -->
+
+
+
+
+
+<!-- multi-task learning exploits the overlaps and interconnectedness of different tasks to foster a more holistic and efficient learning process.  -->
+
+<!-- based on their unique set of training or architecure ) In this way, ensemble systems mimic a "panel of experts" and some way to combine their opinions, either at once or in series. Eac -->
+
+
+<!-- Most recently, it has been suggested that GPT-4 is actually a mixture-of-experts ensemble system.^[Talk about committee of experts (CoE) which many have suggested underlies OpenAI's GPT-4.]   -->
+
+
+
+
+<!-- - MTL is interesting because it begs the question if a single polymath is better than a diverse collaboration. -->
+<!-- - MTL doesn't require a aggregation mechanism to combine predictions for each ensemble component -->
+<!-- - Exploiting the overlap may not just "transfer knowledge", it may also augment knowledge through joint optimization. The shared layers in MTL architectures allow the model to use representations learned from one task to inform about another. Cross-pollination of knowledge can reduce the amount of data needed for each individual task because the model can generalize information from related tasks, making MTL particularly advantageous in scenarios with limited data. -->
+<!-- - MTL can be more efficient as most parameters (model backbone) are shared between tasks, and there fore only a single forward pass of the model is need. The additional head adds little computational complexity to the forward pass of the model -->
+<!-- - MTL systems can be prone to imbalances between tasks and competition for influence over the model backbone parameters leading to catastrophic forgetting, or bottlenecks in the learning process requiring sophisticated techniques in model design, loss function balancing, and training regimen. -->
+<!-- - Ensemble system are more modular, adding new tasks or models is much easier as it does not become entangled with the rest of the system performance. This can be achieved with MTL, by careful freezing of weights, but it is nonetheless more challenging.  -->
+
+<!-- Next Posts: -->
+<!-- -- Training HydraNets: loss functions, parameter freezing, and layer-wise learning rate decay -->
+<!-- -- What to do if you can't propagate gradients through the entire system?  -->
