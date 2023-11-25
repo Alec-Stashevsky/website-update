@@ -1,9 +1,9 @@
 ---
 title: "Transformer Hydranets and Multi-Task Learning with Hugging Face and PyTorch: Ensembling vs. Entwinement"
 author: "Alec Stashevsky"
-date: 2023-11-24
-categories: ["PyTorch", "Deep Learning", "Python"]
-tags: ["PyTorch", "Deep Learning", "Python"]
+date: 2023-11-25
+categories: ["PyTorch", "Deep Learning", "NLP", "Python"]
+tags: ["PyTorch", "Deep Learning", "NLP", "Python"]
 bibliography: [hydra1.bib]
 link-citations: true
 links:
@@ -11,7 +11,7 @@ image:
   preview_only: false
   focal_point: "Smart"
   caption: <i>Water Jar with Herakles and Iolaos Attacking the Hydra (Alternate Title).</i> 520–510 B.C. <br> Digital image courtesy of Getty’s Open Content Program.
-summary: Control randomness using the power of data augmentation, but don't make the same mistakes I did.
+summary: First post in a series on architecting and training transformer hydranets.
 ---
 
 
@@ -22,12 +22,12 @@ summary: Control randomness using the power of data augmentation, but don't make
     margin-left: 2em;
 }
 </style>
-<p><em>The Lernaean Hydra, a many-headed serpentine water monster, has been living with us for over 2,700 years.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Heracles is said have used the Hydra’s poisonous blood to dip arrows later used to kill the centaur Nessus.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> Today the Hydra’s blood—reified in many forms—continues to augment our tools in the hunt for artificial intelligence.</em></p>
+<p><em>The Lernaean Hydra, a many-headed serpentine water monster, has been living with us for over 2,700 years.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Heracles is said to have used the Hydra’s poisonous blood to dip arrows later used to kill the centaur Nessus.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> Today the Hydra’s blood—reified in many forms—continues to augment our tools in the hunt for artificial intelligence.</em></p>
 <hr />
 <p><br></p>
-<p>Production machine learning systems require teams of expert problem-solvers, each with a unique skill set, collaborating closely together to maintain and improve performance. Each member contributes their expertise and their combined effort leads to a solution greater than what any individual could achieve alone. In what can perhaps be characterized as a spit of introspection, distilling the essence of this expert collaboration into the ML systems themselves has been undergoing a radical transformation. This is the world of ensemble machine learning.</p>
+<p>Production machine learning systems require teams of expert problem-solvers, each with a unique skill set, collaborating closely together to maintain and improve performance. Each member contributes their expertise and their combined effort leads to a solution greater than what any individual could achieve alone. In what can perhaps be characterized as a fit of introspection, distilling the essence of this expert collaboration into the ML systems themselves has been undergoing a radical transformation. This is the world of ensemble machine learning.</p>
 <p>It is <a href="https://pub.towardsai.net/gpt-4-8-models-in-one-the-secret-is-out-e3d16fd1eee0">believed</a> that a specific form of ensemble learning—<a href="https://deepgram.com/learn/mixture-of-experts-ml-model-guide">Mixture of Experts</a>—is behind one of the most powerful closed-sourced LLMs available today. However, unlike the well-coordinated teams of engineers who build these systems, <a href="https://neptune.ai/blog/ensemble-learning-guide">traditional ensemble systems</a> didn’t have direct ways to learn from or grow alongside each other. Instead they leveraged the power of <a href="https://medium.com/inspiredbrilliance/object-detection-through-ensemble-of-models-fed015bc1ee0">consensus</a> and aggregation. Knowledge transfer is an essential part of building successful ML teams, but the models in an ensemble share little information between each other and are agnostic to how their predictions are used downstream.</p>
-<p>Welcome to a series of blog posts that is not about ensemble learning. Instead, this series focuses on a less well-known modeling paradigm that seeks to exploit, rather than ignore, collaboration. This is the paradigm of <em>multi-task learning</em> (MTL), a field concerned with training models to perform more than one task at the same time. I find <a href="https://www.ruder.io/about/">Sebasatian Ruder’s</a> MTL definition to be the most practical:<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
+<p>Welcome to a series of blog posts that is not about ensemble learning. Instead, this series focuses on a less well-known modeling paradigm that seeks to exploit, rather than ignore, collaboration. This is the paradigm of <em>multi-task learning</em> (MTL). I find <a href="https://www.ruder.io/about/">Sebasatian Ruder’s</a> MTL definition particularly practical:<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></p>
 <blockquote>
 <p>MTL comes in many guises: joint learning, learning to learn, and learning with auxiliary tasks are only some names that have been used to refer to it. Generally, as soon as you find yourself optimizing more than one loss function, you are effectively doing multi-task learning</p>
 </blockquote>
@@ -40,7 +40,7 @@ summary: Control randomness using the power of data augmentation, but don't make
 <p>Multi-task learning mirrors human learning. Knowledge from one task aids in mastering others. Just as a child uses facial recognition skills to identify other objects, MTL applies learned insights across various tasks. In a more theoretical view MTL is a form of inductive transfer which entices models to favor hypotheses that explain multiple tasks, leading to better generalization.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> Here are a few perspectives summarized from <span class="citation">Ruder (<a href="#ref-ruder2017overview">2017</a>)</span>.</p>
 <div id="implicit-data-augmentation" class="section level3">
 <h3>Implicit Data Augmentation</h3>
-<p>Learning from multiple tasks effectively increases training data, or rather the amount of signal that can be gleaned from each data point. Cross-pollination of knowledge can reduce the amount of data needed for each individual task because the model can generalize information from related tasks, making MTL particularly advantageous in scenarios with limited data</p>
+<p>Learning from multiple tasks effectively increases training data, or rather the amount of signal that can be gleaned from each data point. Cross-pollination of knowledge can reduce the amount of data needed for each individual task because the model can generalize information from related tasks, making MTL particularly advantageous in scenarios with limited data.</p>
 </div>
 <div id="attention-focusing" class="section level3">
 <h3>Attention Focusing</h3>
@@ -56,7 +56,7 @@ summary: Control randomness using the power of data augmentation, but don't make
 </div>
 <div id="regularization" class="section level3">
 <h3>Regularization</h3>
-<p>MTL introduces a regularizing inductive bias which mitigates overfitting and the model’s ability to fit random noise, known as the <a href="@10.1007/3-540-44581-1_15.">Rademacher complexity</a>. Different features and labels have different noise distributions which can cancel each other out. Learning jointly reduces the influence of single-source noise creating a more generalized representation.</p>
+<p>MTL introduces a regularizing inductive bias which mitigates overfitting and the model’s ability to fit random noise, known as the <a href="https://www.onurtunali.com/ml/2022/05/04/empirical-rademacher-complexity-and-its-implications-to-deep-learning.html">Rademacher complexity</a>. Different features and labels have different noise distributions which can cancel each other out. Learning jointly reduces the influence of single-source noise creating a more generalized representation.</p>
 </div>
 <div id="disadvantages" class="section level3">
 <h3>Disadvantages</h3>
@@ -67,15 +67,15 @@ summary: Control randomness using the power of data augmentation, but don't make
 <div id="use-case-for-a-transformer-hydranet" class="section level2">
 <h2>Use-Case for a Transformer Hydranet</h2>
 <p>MTL’s strength lies in exploiting heightened signal in data. Rather than building ensembles from diverse models, MTL <em>learns diversely</em> by entwining multiple objectives. This creates biases that can build robust and versatile representation power.</p>
-<p>Though hydranets can handle multiple tasks simultaneously their true power shines when there is overlapping knowledge that can be exploited between tasks. Lets consider an example of a content moderation solution. Traditional approaches might deploy separate models for different aspects of content moderation—such as sentiment analysis, toxic comment detection, and spam identification. However, a transformer hydranet can be trained to tackle all these tasks concurrently.</p>
-<p>Sharing a common backbone means hydranet models can gain a more holistic understanding of language nuances crucial to discern both context and intent in content. The model can learn to simultaneously identify toxic language, categorize comments, and evaluate sentiment. Cues learned from each of these tasks can help the model succeed at other tasks in turn. In this sense, the overlapping knowledge can be exploited by the hydranet to create synergy across task learning and more powerful backbones.</p>
-<p>Hydranet models can also reduce compute resources for inference, especially in cases where they replace ensembles or iterate on top of single-task models. Most of the workload is computing the forward pass of the model backbone. The forward pass of each model head can be computed in parallel and are generally much smaller than the backbone. A chatbot or customer service AI might need to understand user queries and categorize the conversation topic simultaneously.</p>
+<p>Hydranets’ true power shines when there is overlapping knowledge that can be exploited between tasks. Lets consider an example of a content moderation solution. Traditional approaches might deploy separate models for different aspects of content moderation—such as sentiment analysis, toxic comment detection, and spam identification. However, a transformer hydranet can be trained to tackle all these tasks concurrently.</p>
+<p>Sharing a common backbone means hydranet models can gain a more holistic understanding of language nuances crucial to discern both context and intent in content. The model can learn to simultaneously identify toxic language, categorize comments, and evaluate sentiment. Cues learned from each of these tasks can help the model succeed at other tasks in turn. In this sense, the overlapping knowledge can be exploited by the hydranet to create synergy during learning and thus more powerful backbones.</p>
+<p>Hydranet models can also reduce compute resources for inference, especially in cases where they replace ensembles or iterate on top of single-task models. Most of the inference workload is spent computing the forward pass of the model backbone. The forward pass of each model head can be computed in parallel and its usually much lighter than the backbone.</p>
 <p><a href="https://towardsdatascience.com/journey-to-the-center-of-multi-label-classification-384c40229bff">Multi-label classification</a> is another great use-case as it has been traditionally solved with ensembles like one-to-rest or target transformations like taking the power set all labels. In the multi-task learning paradigm, multi-label classification can be modeled directly with a hydranet approach. Rather than running multiple models or exploding the number of targets, we build the forward pass of the model to compute in parallel each label set—a much more organic approach. This works well when you have a strict limit on the overlap of classes, but can fail on <em>pick-all-applicable</em> scenarios.</p>
 <p><br></p>
 </div>
 <div id="off-the-shelf-transformer-heads" class="section level2">
 <h2>Off The Shelf Transformer Heads</h2>
-<p>One of the great features of Hugging Face’s <code>transformers</code> library is the collection of pre-built heads for performing versatile tasks on top of a pre-trained base models.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> When you navigate to a specific model in the library, like <a href="https://huggingface.co/docs/transformers/model_doc/roberta">RoBERTa</a>, you will see a set of various <a href="https://huggingface.co/docs/transformers/main/en/task_summary#natural-language-processing">tasks</a> that the model is capable of performing such as masked language modeling (MLM), token classification, and sequence classification.</p>
+<p>One of the great features of Hugging Face’s <code>transformers</code> library is the collection of pre-built heads for performing versatile tasks on top of pre-trained base models.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> When you navigate to a specific model in the library, like <a href="https://huggingface.co/docs/transformers/model_doc/roberta">RoBERTa</a>, you will see a set of various <a href="https://huggingface.co/docs/transformers/main/en/task_summary#natural-language-processing">tasks</a> that the model is capable of performing such as masked language modeling (MLM), token classification, and sequence classification.</p>
 <p>Predefined task-specific models can be pulled down in a single line of code. Here’s how we can easily instantiate RoBERTa for both token and sequence classification tasks:</p>
 <pre class="python"><code>from transformers import RobertaForTokenClassification, RobertaForSequenceClassification
 
@@ -194,7 +194,8 @@ total_loss = (start_loss + end_loss) / 2</code></pre>
 <li>Flag harmful comments (harm, not harm)</li>
 <li>Classify type of harm (<em>e.g.</em> spam, hate, promotions)</li>
 </ol>
-<p>Both tasks can be seen modeled as sequence classification. Let’s start by stealing some code like all good engineers do! I’ll copy the source code for <code>RobertaForSequenceClassification</code> and we will build out the first head to perform binary sequence classification and the second head perform multi-class classification.<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a> I’ve renamed a few things and added separate configs as the output dimensions are different between head 1 and 2:<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a></p>
+<!-- Had to do some raw HTML to deal with links to fn inside fns.  -->
+<p>Both tasks can be modeled as sequence classification. Let’s start by stealing some code like all good engineers do! I’ll copy the source code for <code>RobertaForSequenceClassification</code> and we will build out the first head to perform binary sequence classification and the second head perform multi-class classification.<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a> I’ve renamed a few things and added separate configs as the output dimensions are different between head 1 and 2:<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a></p>
 <pre class="python"><code>class ContentModerationHydraNet(RobertaPreTrainedModel):
     def __init__(self, config, harm_flag_config, harm_type_config):
         super().__init__(config)
@@ -224,7 +225,7 @@ total_loss = (start_loss + end_loss) / 2</code></pre>
 <h2>Advanced Hydranet Architecture</h2>
 <p>Let’s ratchet this up to the next level. To flag harmful comments we certainly need to understand the content of the comment, but we might also want to exploit additional context by using information about the user who makes the comment or the original post the comment is about. However, our current model can only take text as input.</p>
 <p><img src="base-hydra.png" /></p>
-<p>We can an add additional information into our model in several interesting ways. If we have historical information on this user, that might be something useful for our <code>harm_flag_classifier</code> to learn on. We can leverage the user’s age and amount of comments that have been flagged for harm in the past as an example. To do this, simply concatenate these onto the final embeddings from the model backbone to provide additional signal:<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a></p>
+<p>We can inject additional information into our model in several interesting ways. If we have historical information on this user, it might be something useful for our <code>harm_flag_classifier</code> to learn on. We can leverage the user’s age and amount of comments that have been flagged for harm in the past as an example. To do this, simply concatenate these onto the final embeddings from the model backbone to provide additional signal:<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a></p>
 <pre class="python"><code>class ContentModerationHydraNet(RobertaPreTrainedModel):
     def __init__(self, config, harm_flag_config, harm_type_config):
         # Same as above
@@ -299,17 +300,17 @@ Ruder, Sebastian. 2017. <span>“An Overview of Multi-Task Learning in Deep Neur
 <ol>
 <li id="fn1"><p><span class="citation">Hesiod (<a href="#ref-Hesiod1966-qd">1966</a>)</span>.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
 <li id="fn2"><p><span class="citation">Grimal (<a href="#ref-Grimal1996-of">1996</a>)</span>.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
-<li id="fn3"><p><a href="https://www.ruder.io/multi-task/#introduction" class="uri">https://www.ruder.io/multi-task/#introduction</a>.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
-<li id="fn4"><p>Task heads are usually fully-connected layers that operate on a shared hidden states from a <em>base</em> or <em>backbone</em> model like a transformer encoder.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
-<li id="fn5"><p>The shared backbones architecture is a particular case of MTL called <em>hard parameter sharing</em>. In contrast, <em>soft parameter sharing</em>, a much less common approach, uses separate backbones which interacted less direct ways.<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p><span class="citation">Ruder (<a href="#ref-ruder2017overview">2017</a>)</span>.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>Task heads are usually fully-connected layers that operate on the shared hidden states from a <em>base</em> or <em>backbone</em> model like a transformer encoder.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>The shared backbone architecture is a particular case of MTL called <em>hard parameter sharing</em>. In contrast, <em>soft parameter sharing</em>, a much less common approach, uses separate backbones which interact in less direct ways.<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
 <li id="fn6"><p><span class="citation">Caruana (<a href="#ref-Caruana1997">1997</a>)</span>.<a href="#fnref6" class="footnote-back">↩︎</a></p></li>
-<li id="fn7"><p>While the pre-built heads are great for getting started, I have often noticed some inconsistencies in implementation across models. For example, sometimes a particular model will have a sequence classification head that uses a 2-layer MLP with a <span class="math inline">\(tanh\)</span> function instead of indexing the <code>[CLS]</code> token embeddings and passing it through a fully-connected layer. Sometimes a different pooling mechanism such as mean or max-pooling can perform better than the off-the-shelf CLS-pooling as well.<a href="#fnref7" class="footnote-back">↩︎</a></p></li>
-<li id="fn8"><p>I’ve mostly removed additional arguments to the forward pass and a dropout layer.<a href="#fnref8" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p>While the pre-built heads are great for getting started, I have often noticed some inconsistencies in implementation across models. For example, sometimes a particular model will have a sequence classification head that uses a 2-layer MLP with a <span class="math inline">\(tanh\)</span> function instead of indexing the <code>[CLS]</code> token embedding and passing it through a single fully-connected layer. Sometimes a different pooling mechanism such as mean or max-pooling can perform better than the off-the-shelf CLS-pooling as well.<a href="#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn8"><p>I’ve mostly removed auxiliary arguments to the forward pass and a dropout layer.<a href="#fnref8" class="footnote-back">↩︎</a></p></li>
 <li id="fn9"><p><a href="https://blog.ml6.eu/the-art-of-pooling-embeddings-c56575114cf8" class="uri">https://blog.ml6.eu/the-art-of-pooling-embeddings-c56575114cf8</a>.<a href="#fnref9" class="footnote-back">↩︎</a></p></li>
 <li id="fn10"><p>I’ve removed some additional lines for simplicity.<a href="#fnref10" class="footnote-back">↩︎</a></p></li>
-<li id="fn11"><p>The question is typically injected into the input sequence as pre-processing step.<a href="#fnref11" class="footnote-back">↩︎</a></p></li>
-<li id="fn12"><p>We can consider the class labels as <span class="math inline">\([harm, not \ harm]\)</span> for head 1 and <span class="math inline">\([spam, hate, promotion, not \ harm]\)</span> for head 2.<a href="#fnref12" class="footnote-back">↩︎</a></p></li>
-<li id="fn13"><p>The <code>num_labels</code> attribute of the config needs to be set to <span class="math inline">\(1\)</span> for head 1 and <span class="math inline">\(4\)</span> for head 2 based on our class labels defined in <a href="http://localhost:4321/post/transformer-hydranets-and-multi-task-learning-with-hugging-face-and-pytorch-ensembling-vs.-eclat/#fn5">[5]</a>.<a href="#fnref13" class="footnote-back">↩︎</a></p></li>
+<li id="fn11"><p>The question is typically appended to the beginning of the input sequence as pre-processing step.<a href="#fnref11" class="footnote-back">↩︎</a></p></li>
+<li id="fn12"><p><span id="fn-custom1">We can consider the class labels as <span class="math inline">\([harm, not \ harm]\)</span> for head 1 and <span class="math inline">\([spam, hate, promotion, not \ harm]\)</span> for head 2.</span><a href="#fnref12" class="footnote-back">↩︎</a></p></li>
+<li id="fn13"><p>The <code>num_labels</code> attribute of the config needs to be set to <span class="math inline">\(1\)</span> for head 1 and <span class="math inline">\(4\)</span> for head 2 based on our class labels defined in footnote <a href="#fn-custom1">[12]</a>.<a href="#fnref13" class="footnote-back">↩︎</a></p></li>
 <li id="fn14"><p>Don’t forget that you will also need to change <code>harm_flag_config.hidden_size</code> to expect an additional 2 dimensions in the input <code>Tensor</code>. Some pre-processing like feature normalization might be useful as well, but I ignore this for simplicity.<a href="#fnref14" class="footnote-back">↩︎</a></p></li>
 <li id="fn15"><p>With this architecture head 1 is a dependency of head 2 on the computation graph, so it is no longer possible to execute the heads in parallel.<a href="#fnref15" class="footnote-back">↩︎</a></p></li>
 </ol>
