@@ -48,19 +48,19 @@ summary: Control randomness using the power of data augmentation, but don't make
 </div>
 <div id="eavesdropping" class="section level3">
 <h3>Eavesdropping</h3>
-<p>One task can ‘eavesdrop’ on another, learning difficult features more easily by finding simpler patterns in other tasks. One task may interact with features in a more complex way or other features may thwart the model’s ability to learn that task. Its possible to overcome this with eavesdropping.</p>
+<p>One task can “eavesdrop” on another, learning difficult features more easily by finding simpler patterns in other tasks. One task may interact with features in a more complex way or other features may thwart the model’s ability to learn that task. Its possible to overcome this with eavesdropping.</p>
 </div>
 <div id="representation-bias" class="section level3">
 <h3>Representation Bias</h3>
-<p>MTL encourages models to favor representations that are effective across different tasks, enhancing future task generalization.</p>
+<p>MTL encourages models to favor representations that are effective across different tasks, enhancing generalizability.</p>
 </div>
 <div id="regularization" class="section level3">
 <h3>Regularization</h3>
-<p>MTL introduces a regularizing inductive bias, reducing overfitting and the model’s ability to fitting random noise, knows as the <a href="@10.1007/3-540-44581-1_15.">Rademacher complexity</a>. Different features and labels have different noise distributions which can cancel each other out. Learning jointly reduces the influence of noise creating a more generalized representation.</p>
+<p>MTL introduces a regularizing inductive bias which mitigates overfitting and the model’s ability to fit random noise, known as the <a href="@10.1007/3-540-44581-1_15.">Rademacher complexity</a>. Different features and labels have different noise distributions which can cancel each other out. Learning jointly reduces the influence of single-source noise creating a more generalized representation.</p>
 </div>
 <div id="disadvantages" class="section level3">
 <h3>Disadvantages</h3>
-<p>MTL systems can be prone to imbalances between tasks and competition for influence over the model backbone parameters leading to catastrophic forgetting, or bottlenecks in the learning process requiring sophisticated techniques in model design, loss function balancing, and training regimen. The flip side of entwinement is the lack of modularity—a key property of ensembles. Adding new tasks or models is much harder with hydranets as it becomes entangled with the rest of the system performance. It is possible to isolate taska and achieve modularity with MTL by careful freezing of weights, but it is nonetheless more challenging.</p>
+<p>MTL systems can be prone to imbalances between tasks and competition for influence over the model backbone parameters can lead to catastrophic forgetting or bottlenecks in the learning process requiring sophisticated techniques in model design, loss function balancing, and training regimen. The flip side of entwining task learning is the lack of modularity—a key property of ensembles. Adding new tasks or models is much harder with hydranets as it becomes entangled with the rest of the system performance. It is possible to isolate tasks and achieve modularity with MTL by careful freezing of weights, but it is nonetheless more challenging.</p>
 <p><br></p>
 </div>
 </div>
@@ -70,12 +70,12 @@ summary: Control randomness using the power of data augmentation, but don't make
 <p>Though hydranets can handle multiple tasks simultaneously their true power shines when there is overlapping knowledge that can be exploited between tasks. Lets consider an example of a content moderation solution. Traditional approaches might deploy separate models for different aspects of content moderation—such as sentiment analysis, toxic comment detection, and spam identification. However, a transformer hydranet can be trained to tackle all these tasks concurrently.</p>
 <p>Sharing a common backbone means hydranet models can gain a more holistic understanding of language nuances crucial to discern both context and intent in content. The model can learn to simultaneously identify toxic language, categorize comments, and evaluate sentiment. Cues learned from each of these tasks can help the model succeed at other tasks in turn. In this sense, the overlapping knowledge can be exploited by the hydranet to create synergy across task learning and more powerful backbones.</p>
 <p>Hydranet models can also reduce compute resources for inference, especially in cases where they replace ensembles or iterate on top of single-task models. Most of the workload is computing the forward pass of the model backbone. The forward pass of each model head can be computed in parallel and are generally much smaller than the backbone. A chatbot or customer service AI might need to understand user queries and categorize the conversation topic simultaneously.</p>
-<p><a href="https://towardsdatascience.com/journey-to-the-center-of-multi-label-classification-384c40229bff">Multi-label classification</a> is another great use-case as it has been traditionally solved with ensembles like one-to-rest or target transformations like taking the power set all labels. In the multi-task learning paradigm, multi-label classification can be modeled directly with a hydranet approach. Rather than running multiple models or exploding the number of targets, we build the forward pass of the model to compute in parallel each label set—a much more organic approach. This works well when you have a strict limit on the overlap of classes, but can fail on *pick all applicable** scenarios.</p>
+<p><a href="https://towardsdatascience.com/journey-to-the-center-of-multi-label-classification-384c40229bff">Multi-label classification</a> is another great use-case as it has been traditionally solved with ensembles like one-to-rest or target transformations like taking the power set all labels. In the multi-task learning paradigm, multi-label classification can be modeled directly with a hydranet approach. Rather than running multiple models or exploding the number of targets, we build the forward pass of the model to compute in parallel each label set—a much more organic approach. This works well when you have a strict limit on the overlap of classes, but can fail on <em>pick-all-applicable</em> scenarios.</p>
 <p><br></p>
 </div>
 <div id="off-the-shelf-transformer-heads" class="section level2">
 <h2>Off The Shelf Transformer Heads</h2>
-<p>One of the great features of Hugging Face’s <code>transformers</code> library is the collection of pre-built heads for performing versatile tasks on top of a single pre-trained transformer base.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> When you navigate to a specific model in the library, like <a href="https://huggingface.co/docs/transformers/model_doc/roberta">RoBERTa</a>, you will see a set of various <a href="https://huggingface.co/docs/transformers/main/en/task_summary#natural-language-processing">tasks</a> that the model is capable of performing such as masked language modeling (MLM), token classification, and sequence classification.</p>
+<p>One of the great features of Hugging Face’s <code>transformers</code> library is the collection of pre-built heads for performing versatile tasks on top of a pre-trained base models.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> When you navigate to a specific model in the library, like <a href="https://huggingface.co/docs/transformers/model_doc/roberta">RoBERTa</a>, you will see a set of various <a href="https://huggingface.co/docs/transformers/main/en/task_summary#natural-language-processing">tasks</a> that the model is capable of performing such as masked language modeling (MLM), token classification, and sequence classification.</p>
 <p>Predefined task-specific models can be pulled down in a single line of code. Here’s how we can easily instantiate RoBERTa for both token and sequence classification tasks:</p>
 <pre class="python"><code>from transformers import RobertaForTokenClassification, RobertaForSequenceClassification
 
@@ -106,7 +106,7 @@ sequence_model = RobertaForSequenceClassification.from_pretrained(
 </div>
 <div id="token-classification" class="section level3">
 <h3>Token Classification</h3>
-<p>Token classification generates embeddings for <em>each</em> token in the input sequence. Each token embedding is then passed to a dense layer to classify the tokens independently. Here’s a look at what the classifier head looks like in the <a href="https://github.com/huggingface/transformers/blob/b074461ef0f54ce37c5239d30ee960ece28d11ec/src/transformers/models/roberta/modeling_roberta.py#L1358">source code</a>.</p>
+<p>Token classification generates embeddings for <em>each</em> token in the input sequence. Each token embedding is then passed to a dense layer to classify the tokens independently. Here’s a look at what the classifier head looks like in the <a href="https://github.com/huggingface/transformers/blob/b074461ef0f54ce37c5239d30ee960ece28d11ec/src/transformers/models/roberta/modeling_roberta.py#L1358">source code</a>:</p>
 <pre class="python"><code>class RobertaForTokenClassification(RobertaPreTrainedModel):
     def __init__(self, config):
         super().__init__(config)
@@ -118,8 +118,8 @@ sequence_model = RobertaForSequenceClassification.from_pretrained(
 </div>
 <div id="sequence-classification" class="section level3">
 <h3>Sequence Classification</h3>
-<p>The goal of sequence / text classification is to predict a class for a sequence of text, rather than each token. The key difference is that we need to produce a single embedding which represents the entire sequence. We do this through a process called <em>pooling</em>. There are several popular pooling mechanisms include like mean, max, and CLS.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></p>
-<p>The off-the-shelf sequence classification head in <code>RobertaForSequenceClassification</code> uses the embedding of a special <code>[CLS]</code> token trained to represent the entire sequence. This special token is usually appended as the first token in a sequence. We then use it to classify entire sequences. Here is what that looks like in the <code>transformers</code> source code:<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a></p>
+<p>The goal of sequence / text classification is to predict a class for a sequence of text, rather than each token. The key difference is that we need to produce a single embedding which represents the entire sequence. We do this through a process called <em>pooling</em>. There are several popular pooling mechanisms including mean, max, and CLS.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></p>
+<p>The off-the-shelf sequence classification head in <code>RobertaForSequenceClassification</code> uses the embedding of a special <code>[CLS]</code> token trained to represent the entire sequence. This special token is usually appended as the first token in a sequence. We then pass it through a dense layer to classify entire sequences. Here is what that looks like in the source code:<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a></p>
 <pre class="python"><code>class RobertaForSequenceClassification(RobertaPreTrainedModel):
     def __init__(self, config):
         super().__init__(config)
@@ -139,7 +139,7 @@ class RobertaClassificationHead(nn.Module):
         self.out_proj = nn.Linear(config.hidden_size, config.num_labels)
 
     def forward(self, features, **kwargs):
-        # Take &lt;s&gt; token (equivalent to [CLS] token)
+        # Take &lt;s&gt; token (equivalent to [CLS] token) 
         x = features[:, 0, :]
         x = self.dense(x)
         x = torch.tanh(x)
@@ -150,7 +150,7 @@ class RobertaClassificationHead(nn.Module):
 </div>
 <div id="extractive-question-answering-span-classification" class="section level3">
 <h3>Extractive Question-Answering (Span Classification)</h3>
-<p><a href="https://huggingface.co/learn/nlp-course/chapter7/7?fw=pt">Extractive question-answering</a> with encoder models takes the form of span classification in <code>transformers</code>. The span classification head predicts spans of tokens in the sequence input which answer a given question.<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a> This is achieved by returning <code>start_position</code> and <code>end_position</code> for every token in the sequence (it is common to set <code>config.num_labels = 2</code> in span classification). The forward pass follows token classification, except with one key difference:</p>
+<p><a href="https://huggingface.co/learn/nlp-course/chapter7/7?fw=pt">Extractive question-answering</a> with encoder models takes the form of span classification. The span classification head predicts spans of tokens in the sequence input which answer a given question.<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a> This is achieved by returning <code>start_logits</code> and <code>end_logits</code> for every token in the sequence (it is common to set <code>config.num_labels = 2</code> in span classification). The forward pass follows token classification, except with one key difference:</p>
 <pre class="python"><code>class RobertaForQuestionAnswering(RobertaPreTrainedModel):
     def __init__(self, config):
         super().__init__(config)
@@ -188,13 +188,13 @@ total_loss = (start_loss + end_loss) / 2</code></pre>
 </div>
 <div id="off-with-their-transformer-heads" class="section level2">
 <h2>Off With Their (Transformer) Heads!</h2>
-<p>Building a hydranet is one way to force yourself to recognize the beauty of PyTorch <a href="https://pytorch.org/tutorials/beginner/blitz/autograd_tutorial.html">Autograd</a>. The essential feature of hydranet architectures is that your model’s forward pass returns multiple things.</p>
+<p>Building a hydranet is one way to force yourself to recognize the beauty of PyTorch <a href="https://pytorch.org/tutorials/beginner/blitz/autograd_tutorial.html">Autograd</a>. The essential feature of hydranet architectures is that your model’s forward pass returns multiple objects.</p>
 <p>Let’s take our base RoBERTa model and build a hydranet designed for content moderation. We want to be able to:</p>
 <ol style="list-style-type: decimal">
 <li>Flag harmful comments (harm, not harm)</li>
 <li>Classify type of harm (<em>e.g.</em> spam, hate, promotions)</li>
 </ol>
-<p>Both tasks can be seen as a type of sequence classification. Let’s start by stealing some code like all good engineers do! I’ll use the source code for <code>RobertaForSequenceClassification</code> and we will build out the first head to perform binary sequence classification and the second head perform multi-class classification.<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a> I’ve renamed a few things and added separate configs as the output dimensions are different between head 1 and 2:<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a></p>
+<p>Both tasks can be seen modeled as sequence classification. Let’s start by stealing some code like all good engineers do! I’ll copy the source code for <code>RobertaForSequenceClassification</code> and we will build out the first head to perform binary sequence classification and the second head perform multi-class classification.<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a> I’ve renamed a few things and added separate configs as the output dimensions are different between head 1 and 2:<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a></p>
 <pre class="python"><code>class ContentModerationHydraNet(RobertaPreTrainedModel):
     def __init__(self, config, harm_flag_config, harm_type_config):
         super().__init__(config)
@@ -222,9 +222,9 @@ total_loss = (start_loss + end_loss) / 2</code></pre>
 </div>
 <div id="advanced-hydranet-architecture" class="section level2">
 <h2>Advanced Hydranet Architecture</h2>
-<p>Let’s ratchet this up to the next level. To flag harmful comments we certainly need to understand the content of the comment, but we might also want to exploit additional context by using information about the user who makes the comment or the original post the comment is about. Our RoBERTa model can only take text as input.</p>
+<p>Let’s ratchet this up to the next level. To flag harmful comments we certainly need to understand the content of the comment, but we might also want to exploit additional context by using information about the user who makes the comment or the original post the comment is about. However, our current model can only take text as input.</p>
 <p><img src="base-hydra.png" /></p>
-<p>However, we can add additional information into our model in several interesting ways. If we have historical information on this user, that might be something useful for our <code>harm_flag_classifier</code> to learn on. We can leverage the user’s age and amount of comments that have been flagged for harm in the past as an example. To do this, simply concatenate these onto the final embeddings from the model backbone to provide additional signal:<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a></p>
+<p>We can an add additional information into our model in several interesting ways. If we have historical information on this user, that might be something useful for our <code>harm_flag_classifier</code> to learn on. We can leverage the user’s age and amount of comments that have been flagged for harm in the past as an example. To do this, simply concatenate these onto the final embeddings from the model backbone to provide additional signal:<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a></p>
 <pre class="python"><code>class ContentModerationHydraNet(RobertaPreTrainedModel):
     def __init__(self, config, harm_flag_config, harm_type_config):
         # Same as above
@@ -246,7 +246,7 @@ total_loss = (start_loss + end_loss) / 2</code></pre>
         return logits_harm_flag, logits_harm_type</code></pre>
 <p>Now, we are injecting additional features only into one of the model’s heads. That information can be used to better train the classifier but its also possible for it propagate all the way through to the backbone as well.</p>
 <p><img src="advanced-hydra-1.png" /></p>
-<p>Let’s go one step further—we haven’t touched our <code>harm_type_classifier</code> yet. Since we are already classifying something as harmful or not with the <code>harm_flag_classifier</code> we might want to use that output to augment the <code>harm_type_classifier</code> as well. That means we will want to feed the output of the first head into the second head:</p>
+<p>Let’s go one step further—we haven’t touched our <code>harm_type_classifier</code> yet. Since we are already classifying something as harmful or not with the <code>harm_flag_classifier</code> we might want to use that output to augment the <code>harm_type_classifier</code> as well. That means we will want to feed the output of the first head into the second head. It’s also possible to gate the execution of the second-head on the first head. For example, if we don’t flag a comment as harmful, we don’t need to pass it to the <code>harm_type_classifier</code> at all.</p>
 <pre class="python"><code>class ContentModerationHydraNet(RobertaPreTrainedModel):
     def __init__(self, config, harm_flag_config, harm_type_config):
         # Same as above
@@ -268,7 +268,7 @@ total_loss = (start_loss + end_loss) / 2</code></pre>
 
         # We now return a tuple with output for each head
         return logits_harm_flag, logits_harm_type</code></pre>
-<p>Now we’ve got some seriously fun computation graphs to wrestle with.<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a> But you don’t have to worry to much about that—PyTorch’s Autograd is taking care of propagating gradients across the entire <code>nn.Module</code> behind the scenes! Gradients are not just being passed from head to backbone—each head can now learn jointly with each other as well.</p>
+<p>Now we’ve got some seriously fun computation graphs to wrestle with.<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a> But you don’t have to worry to much about that—PyTorch’s Autograd is taking care of propagating gradients across the entire <code>nn.Module</code> behind the scenes! Gradients are not just being passed from head to backbone—each head can now learn jointly alongside each other as well.</p>
 <p><img src="advanced-hydra-2.png" /></p>
 <p>If that gets you wondering how we actually train these things, then stay tuned for the next blog post in this series!</p>
 <p><br></p>
@@ -303,14 +303,14 @@ Ruder, Sebastian. 2017. <span>“An Overview of Multi-Task Learning in Deep Neur
 <li id="fn4"><p>Task heads are usually fully-connected layers that operate on a shared hidden states from a <em>base</em> or <em>backbone</em> model like a transformer encoder.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
 <li id="fn5"><p>The shared backbones architecture is a particular case of MTL called <em>hard parameter sharing</em>. In contrast, <em>soft parameter sharing</em>, a much less common approach, uses separate backbones which interacted less direct ways.<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
 <li id="fn6"><p><span class="citation">Caruana (<a href="#ref-Caruana1997">1997</a>)</span>.<a href="#fnref6" class="footnote-back">↩︎</a></p></li>
-<li id="fn7"><p>While the pre-built heads are great for getting started, I have often noticed some inconsistencies in implementation across models. For example, sometimes a particular model will have a sequence classification head that uses a 2-layer MLP with a <span class="math inline">\(tanh\)</span> function instead of indexing the [CLS] token embeddings and passing it through a fully-connected layer. Sometimes a different pooling mechanism such as mean or max-pooling can perform better than the off-the-shelf CLS pooling as well.<a href="#fnref7" class="footnote-back">↩︎</a></p></li>
+<li id="fn7"><p>While the pre-built heads are great for getting started, I have often noticed some inconsistencies in implementation across models. For example, sometimes a particular model will have a sequence classification head that uses a 2-layer MLP with a <span class="math inline">\(tanh\)</span> function instead of indexing the <code>[CLS]</code> token embeddings and passing it through a fully-connected layer. Sometimes a different pooling mechanism such as mean or max-pooling can perform better than the off-the-shelf CLS-pooling as well.<a href="#fnref7" class="footnote-back">↩︎</a></p></li>
 <li id="fn8"><p>I’ve mostly removed additional arguments to the forward pass and a dropout layer.<a href="#fnref8" class="footnote-back">↩︎</a></p></li>
 <li id="fn9"><p><a href="https://blog.ml6.eu/the-art-of-pooling-embeddings-c56575114cf8" class="uri">https://blog.ml6.eu/the-art-of-pooling-embeddings-c56575114cf8</a>.<a href="#fnref9" class="footnote-back">↩︎</a></p></li>
 <li id="fn10"><p>I’ve removed some additional lines for simplicity.<a href="#fnref10" class="footnote-back">↩︎</a></p></li>
 <li id="fn11"><p>The question is typically injected into the input sequence as pre-processing step.<a href="#fnref11" class="footnote-back">↩︎</a></p></li>
 <li id="fn12"><p>We can consider the class labels as <span class="math inline">\([harm, not \ harm]\)</span> for head 1 and <span class="math inline">\([spam, hate, promotion, not \ harm]\)</span> for head 2.<a href="#fnref12" class="footnote-back">↩︎</a></p></li>
 <li id="fn13"><p>The <code>num_labels</code> attribute of the config needs to be set to <span class="math inline">\(1\)</span> for head 1 and <span class="math inline">\(4\)</span> for head 2 based on our class labels defined in <a href="http://localhost:4321/post/transformer-hydranets-and-multi-task-learning-with-hugging-face-and-pytorch-ensembling-vs.-eclat/#fn5">[5]</a>.<a href="#fnref13" class="footnote-back">↩︎</a></p></li>
-<li id="fn14"><p>Don’t forget that you will also need to change <code>harm_flag_config.hidden_size</code> to expect an additional 2 dimensions in the input <code>Tensor</code>.<a href="#fnref14" class="footnote-back">↩︎</a></p></li>
+<li id="fn14"><p>Don’t forget that you will also need to change <code>harm_flag_config.hidden_size</code> to expect an additional 2 dimensions in the input <code>Tensor</code>. Some pre-processing like feature normalization might be useful as well, but I ignore this for simplicity.<a href="#fnref14" class="footnote-back">↩︎</a></p></li>
 <li id="fn15"><p>With this architecture head 1 is a dependency of head 2 on the computation graph, so it is no longer possible to execute the heads in parallel.<a href="#fnref15" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
