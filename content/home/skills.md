@@ -73,7 +73,7 @@ feature:
 
 - icon: mlflow
   icon_pack: custom
-  name: ML Flow
+  name: MLflow
 
 - icon: sagemaker
   icon_pack: custom
