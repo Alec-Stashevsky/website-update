@@ -153,7 +153,7 @@ class RobertaForTokenClassification(RobertaPreTrainedModel):
 
 ### Sequence Classification
 
-The goal of sequence / text classification is to predict a class for a sequence of text, rather than each token. The key difference is that we need to produce a single embedding which represents the entire sequence. We do this through a process called *pooling*. There are several popular pooling mechanisms include like mean, max, and CLS.^[Add ref for pooling]
+The goal of sequence / text classification is to predict a class for a sequence of text, rather than each token. The key difference is that we need to produce a single embedding which represents the entire sequence. We do this through a process called *pooling*. There are several popular pooling mechanisms include like mean, max, and CLS.^[https://blog.ml6.eu/the-art-of-pooling-embeddings-c56575114cf8.]
 
 The off-the-shelf sequence classification head in `RobertaForSequenceClassification` uses the embedding of a special `[CLS]` token trained to represent the entire sequence. This special token is usually appended as the first token in a sequence. We then use it to classify entire sequences. Here is what that looks like in the `transformers` source code:^[I've removed some additional lines for simplicity.]
 
