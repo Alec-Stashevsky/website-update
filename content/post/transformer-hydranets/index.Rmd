@@ -20,13 +20,13 @@ summary: First post in a series on architecting and training transformer hydrane
 }
 ```
 
-*The Lernaean Hydra, a many-headed serpentine water monster, has been living with us for over 2,700 years.^[@Hesiod1966-qd.] Heracles is said to have used the Hydra's poisonous blood to dip arrows later used to kill the centaur Nessus.^[@Grimal1996-of.] Today the Hydra's blood---reified in many forms---continues to augment our tools in the hunt for artificial intelligence.*
+*The Lernaean Hydra, a many-headed serpentine water monster, has been living with us for over 2,700 years.^[@Hesiod1966-qd.] Heracles is said to have used the Hydra's poisonous blood to dip arrows later used to kill the centaur Nessus.^[@Grimal1996-of.] Today the Hydra---reified in many forms---continues to augment our tools in the hunt for artificial intelligence.*
 
 ***
 
 <br>
 
-Production machine learning systems require teams of expert problem-solvers, each with a unique skill set, collaborating closely together to maintain and improve performance. Each member contributes their expertise and their combined effort leads to a solution greater than what any individual could achieve alone. In what can perhaps be characterized as a fit of introspection, distilling the essence of this expert collaboration into the ML systems themselves has been undergoing a radical transformation. This is the world of ensemble machine learning.
+Production machine learning systems require teams of expert problem-solvers, each with a unique skill set, collaborating closely together to maintain and improve performance. Each member contributes their expertise, and their combined effort leads to a solution greater than what any individual could achieve alone. In what can perhaps be characterized as a fit of introspection, distilling the essence of this expert collaboration into the ML systems themselves has been undergoing a radical transformation. This is the world of ensemble machine learning.
 
 It is [believed](https://pub.towardsai.net/gpt-4-8-models-in-one-the-secret-is-out-e3d16fd1eee0) that a specific form of ensemble learning---[Mixture of Experts](https://deepgram.com/learn/mixture-of-experts-ml-model-guide)---is behind one of the most powerful closed-sourced LLMs available today. However, unlike the well-coordinated teams of engineers who build these systems, [traditional ensemble systems](https://neptune.ai/blog/ensemble-learning-guide) didn't have direct ways to learn from or grow alongside each other. Instead they leveraged the power of [consensus](https://medium.com/inspiredbrilliance/object-detection-through-ensemble-of-models-fed015bc1ee0) and aggregation. Knowledge transfer is an essential part of building successful ML teams, but the models in an ensemble share little information between each other and are agnostic to how their predictions are used downstream. 
 
@@ -344,7 +344,7 @@ Now we've got some seriously fun computation graphs to wrestle with.^[With this 
 
 ![](advanced-hydra-2.png)
 
-If that gets you wondering how we actually train these things, then stay tuned for the next blog post in this series!
+If that gets you wondering how we train hydranets, then stay tuned for the next blog post in this series!
 
 <br>
 
