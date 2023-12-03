@@ -34,6 +34,8 @@ Welcome to a series of blog posts that is not about ensemble learning. Instead, 
 
 > MTL comes in many guises: joint learning, learning to learn, and learning with auxiliary tasks are only some names that have been used to refer to it. Generally, as soon as you find yourself optimizing more than one loss function, you are effectively doing multi-task learning 
 
+MTL's strength lies in exploiting heightened signal in data. Rather than building ensembles from diverse models, MTL *learns diversely* by entwining multiple objectives. This creates biases that can build robust and versatile representation power.
+
 Multi-task models can be endowed with many task-specific *heads* that can share outputs and influence over the core model backbone, and even each other.^[Task heads are usually fully-connected layers that operate on the shared hidden states from a *base* or *backbone* model like a transformer encoder.] We refer to these multi-headed models as *hydranets*.^[The shared backbone architecture is a particular case of MTL called *hard parameter sharing*. In contrast, *soft parameter sharing*, a much less common approach, uses separate backbones which interact in less direct ways.]
 
 ![](general-hydra-diagram.png)
@@ -75,9 +77,6 @@ MTL systems can be prone to imbalances between tasks and competition for influen
 
 
 ## Use-Case for a Transformer Hydranet
-
-
-MTL's strength lies in exploiting heightened signal in data. Rather than building ensembles from diverse models, MTL *learns diversely* by entwining multiple objectives. This creates biases that can build robust and versatile representation power.
 
 Hydranets' true power shines when there is overlapping knowledge that can be exploited between tasks. Lets consider an example of a content moderation solution. Traditional approaches might deploy separate models for different aspects of content moderation—such as sentiment analysis, toxic comment detection, and spam identification. However, a transformer hydranet can be trained to tackle all these tasks concurrently.
 

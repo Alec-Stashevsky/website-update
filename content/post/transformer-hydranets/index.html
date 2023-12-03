@@ -31,6 +31,7 @@ summary: First post in a series on architecting and training transformer hydrane
 <blockquote>
 <p>MTL comes in many guises: joint learning, learning to learn, and learning with auxiliary tasks are only some names that have been used to refer to it. Generally, as soon as you find yourself optimizing more than one loss function, you are effectively doing multi-task learning</p>
 </blockquote>
+<p>MTL’s strength lies in exploiting heightened signal in data. Rather than building ensembles from diverse models, MTL <em>learns diversely</em> by entwining multiple objectives. This creates biases that can build robust and versatile representation power.</p>
 <p>Multi-task models can be endowed with many task-specific <em>heads</em> that can share outputs and influence over the core model backbone, and even each other.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> We refer to these multi-headed models as <em>hydranets</em>.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
 <p><img src="general-hydra-diagram.png" /></p>
 <p>I’ve struggled to find good resources on building hydranets and training them. In general it is more complex and less talked about—perhaps due to its many “guises”. Naturally, I find it a more intriguing paradigm. This is why I’ve decided to author this series.</p>
@@ -66,7 +67,6 @@ summary: First post in a series on architecting and training transformer hydrane
 </div>
 <div id="use-case-for-a-transformer-hydranet" class="section level2">
 <h2>Use-Case for a Transformer Hydranet</h2>
-<p>MTL’s strength lies in exploiting heightened signal in data. Rather than building ensembles from diverse models, MTL <em>learns diversely</em> by entwining multiple objectives. This creates biases that can build robust and versatile representation power.</p>
 <p>Hydranets’ true power shines when there is overlapping knowledge that can be exploited between tasks. Lets consider an example of a content moderation solution. Traditional approaches might deploy separate models for different aspects of content moderation—such as sentiment analysis, toxic comment detection, and spam identification. However, a transformer hydranet can be trained to tackle all these tasks concurrently.</p>
 <p>Sharing a common backbone means hydranet models can gain a more holistic understanding of language nuances crucial to discern both context and intent in content. The model can learn to simultaneously identify toxic language, categorize comments, and evaluate sentiment. Cues learned from each of these tasks can help the model succeed at other tasks in turn. In this sense, the overlapping knowledge can be exploited by the hydranet to create synergy during learning and thus more powerful backbones.</p>
 <p>Hydranet models can also reduce compute resources for inference, especially in cases where they replace ensembles or iterate on top of single-task models. Most of the inference workload is spent computing the forward pass of the model backbone. The forward pass of each model head can be computed in parallel and its usually much lighter than the backbone.</p>
