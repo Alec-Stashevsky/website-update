@@ -119,7 +119,7 @@ sequence_model = RobertaForSequenceClassification.from_pretrained(
 <div id="sequence-classification" class="section level3">
 <h3>Sequence Classification</h3>
 <p>The goal of sequence / text classification is to predict a class for a sequence of text, rather than each token. The key difference is that we need to produce a single embedding which represents the entire sequence. We do this through a process called <em>pooling</em>. There are several popular pooling mechanisms including mean, max, and CLS.<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a></p>
-<p>The off-the-shelf sequence classification head in <code>RobertaForSequenceClassification</code> uses the embedding of a special <code>[CLS]</code> token trained to represent the entire sequence. This special token is usually appended as the first token in a sequence. We then pass it through a dense layer to classify entire sequences. Here is what that looks like in the source code:<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a></p>
+<p>The off-the-shelf sequence classification head in <code>RobertaForSequenceClassification</code> uses the embedding of a special <code>[CLS]</code> token trained to represent the entire sequence. This special token is usually appended as the first token in a sequence. We then pass it through a dense layer to classify entire sequence. Here is what that looks like in the source code:<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a></p>
 <pre class="python"><code>class RobertaForSequenceClassification(RobertaPreTrainedModel):
     def __init__(self, config):
         super().__init__(config)
@@ -145,7 +145,7 @@ class RobertaClassificationHead(nn.Module):
         x = torch.tanh(x)
         x = self.out_proj(x)
         return x</code></pre>
-<p>I won’t go into all the differences of <code>RobertaClassificationHead</code>, as it is essentially a very similar module which makes use of dense layers, but I will point out one key difference which takes place <a href="https://github.com/huggingface/transformers/blob/b074461ef0f54ce37c5239d30ee960ece28d11ec/src/transformers/models/roberta/modeling_roberta.py#L1439">here</a>. This is simply selecting the embedding vector only for the <code>[CLS]</code> token before passing it through a fully-connected layer. In this way we only need to classify a single embedding vector as opposed to every token.</p>
+<p>I won’t go into all the differences of <code>RobertaClassificationHead</code>, as it is essentially a very similar module which makes use of dense layers, but I will point out one key difference which takes place <a href="https://github.com/huggingface/transformers/blob/b074461ef0f54ce37c5239d30ee960ece28d11ec/src/transformers/models/roberta/modeling_roberta.py#L1439">here</a>. This is simply selecting the embedding vector only for the <code>[CLS]</code> token before passing it through a fully-connected layer. In this way we only need to classify a single embedding vector as opposed to one for every token.</p>
 <p>These forward pass implementations highlight the modular nature of transformer models. The same RoBERTa backbone efficiently powers diverse NLP tasks with each head leveraging the core model’s understanding of language. Here we begin to grasp the versatility of transformer architectures and the elegance of PyTorch implementation, paving the way for more complex constructs like hydranets.</p>
 </div>
 <div id="extractive-question-answering-span-classification" class="section level3">
@@ -177,12 +177,12 @@ class RobertaClassificationHead(nn.Module):
         end_logits = end_logits.squeeze(-1).contiguous() ## [batch_size, sequence_length]
       
         return start_logits, end_logits</code></pre>
-<p>Here we see that for each token two logits are returned. If we look later on in <a href="https://github.com/huggingface/transformers/blob/514de24abfd4416aeba6a6455ad5920f57f3567d/src/transformers/models/roberta/modeling_roberta.py#L1531C1-L1535C1">code</a>, we see that <code>start_logits</code> and <code>end_logits</code> are supervised by two different loss function—the requirement for multi-task learning!</p>
+<p>Here we see that for each token two logits are returned. If we look later on in <a href="https://github.com/huggingface/transformers/blob/514de24abfd4416aeba6a6455ad5920f57f3567d/src/transformers/models/roberta/modeling_roberta.py#L1531C1-L1535C1">code</a>, we see that <code>start_logits</code> and <code>end_logits</code> are supervised by two different loss functions—the requirement for multi-task learning!</p>
 <pre class="python"><code>loss_fct = CrossEntropyLoss(ignore_index=ignored_index)
 start_loss = loss_fct(start_logits, start_positions)
 end_loss = loss_fct(end_logits, end_positions)
 total_loss = (start_loss + end_loss) / 2</code></pre>
-<p>Hiding in plain site, multi-task learning has been available as an off-the-shelf task head all along! This is a simpler architecture which splits the outputs from a single head and supervises them separately rather than using separate heads. The computation graph is the same, but there are some subtle nuances in PyTorch performance that I won’t go into here.</p>
+<p>Hiding in plain site, multi-task learning has been available as an off-the-shelf task head all along! This is a simpler architecture which splits the outputs from a single head and supervises them separately rather than using separate heads. The computation graph is the same, but there are some subtle nuances in performance that I won’t go into here.</p>
 <p><br></p>
 </div>
 </div>

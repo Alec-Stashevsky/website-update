@@ -155,7 +155,7 @@ class RobertaForTokenClassification(RobertaPreTrainedModel):
 
 The goal of sequence / text classification is to predict a class for a sequence of text, rather than each token. The key difference is that we need to produce a single embedding which represents the entire sequence. We do this through a process called *pooling*. There are several popular pooling mechanisms including mean, max, and CLS.^[https://blog.ml6.eu/the-art-of-pooling-embeddings-c56575114cf8.]
 
-The off-the-shelf sequence classification head in `RobertaForSequenceClassification` uses the embedding of a special `[CLS]` token trained to represent the entire sequence. This special token is usually appended as the first token in a sequence. We then pass it through a dense layer to classify entire sequences. Here is what that looks like in the source code:^[I've removed some additional lines for simplicity.]
+The off-the-shelf sequence classification head in `RobertaForSequenceClassification` uses the embedding of a special `[CLS]` token trained to represent the entire sequence. This special token is usually appended as the first token in a sequence. We then pass it through a dense layer to classify entire sequence. Here is what that looks like in the source code:^[I've removed some additional lines for simplicity.]
 
 ```{python, eval=FALSE}
 class RobertaForSequenceClassification(RobertaPreTrainedModel):
@@ -185,7 +185,7 @@ class RobertaClassificationHead(nn.Module):
         return x
 ```
 
-I won't go into all the differences of `RobertaClassificationHead`, as it is essentially a very similar module which makes use of dense layers, but I will point out one key difference which takes place [here](https://github.com/huggingface/transformers/blob/b074461ef0f54ce37c5239d30ee960ece28d11ec/src/transformers/models/roberta/modeling_roberta.py#L1439). This is simply selecting the embedding vector only for the `[CLS]` token before passing it through a fully-connected layer. In this way we only need to classify a single embedding vector as opposed to every token. 
+I won't go into all the differences of `RobertaClassificationHead`, as it is essentially a very similar module which makes use of dense layers, but I will point out one key difference which takes place [here](https://github.com/huggingface/transformers/blob/b074461ef0f54ce37c5239d30ee960ece28d11ec/src/transformers/models/roberta/modeling_roberta.py#L1439). This is simply selecting the embedding vector only for the `[CLS]` token before passing it through a fully-connected layer. In this way we only need to classify a single embedding vector as opposed to one for every token. 
 
 These forward pass implementations highlight the modular nature of transformer models. The same RoBERTa backbone efficiently powers diverse NLP tasks with each head leveraging the core model’s understanding of language. Here we begin to grasp the versatility of transformer architectures and the elegance of PyTorch implementation, paving the way for more complex constructs like hydranets.
 
@@ -223,7 +223,7 @@ class RobertaForQuestionAnswering(RobertaPreTrainedModel):
         return start_logits, end_logits
 ```
 
-Here we see that for each token two logits are returned. If we look later on in [code](https://github.com/huggingface/transformers/blob/514de24abfd4416aeba6a6455ad5920f57f3567d/src/transformers/models/roberta/modeling_roberta.py#L1531C1-L1535C1), we see that `start_logits` and `end_logits` are supervised by two different loss function---the requirement for multi-task learning!
+Here we see that for each token two logits are returned. If we look later on in [code](https://github.com/huggingface/transformers/blob/514de24abfd4416aeba6a6455ad5920f57f3567d/src/transformers/models/roberta/modeling_roberta.py#L1531C1-L1535C1), we see that `start_logits` and `end_logits` are supervised by two different loss functions---the requirement for multi-task learning!
 
 ```{python, eval=FALSE}
 loss_fct = CrossEntropyLoss(ignore_index=ignored_index)
@@ -232,7 +232,7 @@ end_loss = loss_fct(end_logits, end_positions)
 total_loss = (start_loss + end_loss) / 2
 ```
 
-Hiding in plain site, multi-task learning has been available as an off-the-shelf task head all along! This is a simpler architecture which splits the outputs from a single head and supervises them separately rather than using separate heads. The computation graph is the same, but there are some subtle nuances in PyTorch performance that I won't go into here.
+Hiding in plain site, multi-task learning has been available as an off-the-shelf task head all along! This is a simpler architecture which splits the outputs from a single head and supervises them separately rather than using separate heads. The computation graph is the same, but there are some subtle nuances in performance that I won't go into here.
 
 <br>
 
