@@ -1,7 +1,7 @@
 ---
 title: "Transformer Hydranets and Multi-Task Learning with Hugging Face and PyTorch: Ensembling vs. Entwinement"
 author: "Alec Stashevsky"
-date: 2023-11-25
+date: 2023-12-03
 categories: ["PyTorch", "Deep Learning", "NLP", "Python"]
 tags: ["PyTorch", "Deep Learning", "NLP", "Python"]
 bibliography: [hydra1.bib]
