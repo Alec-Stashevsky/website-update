@@ -27,6 +27,6 @@ design:
 
 # Alec Stashevsky
 
- Lead Machine Learning Scientist // Researcher // R Developer
+Machine Learning Leader // Applied Scientist // Open Source Developer
 
 ⇟
