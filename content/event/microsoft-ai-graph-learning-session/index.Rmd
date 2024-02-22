@@ -1,5 +1,5 @@
 ---
-title: "Graphing Groceries: Semantic Link Prediction for Real-Time Document Understanding"
+title: "Graphing Groceries: Understanding Receipts with Transformer Hydranets"
 event: Microsoft AI Graph Learning Group
 
 author: "Alec Stashevsky"
