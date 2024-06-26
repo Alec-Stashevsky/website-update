@@ -32,14 +32,14 @@ height = "460px"
   cta_icon = "book-open"
   
 [[item]]
-  title = "Migration and Mobility"
-  content = "How do migrant remittances affect inequality?"
-  align = "left"  # Choose `center`, `left`, or `right`.
+  title = "<br><br>"
+  content = ""
+  align = "right"  # Choose `center`, `left`, or `right`.
 
   # Overlay a color or image (optional).
   # Deactivate an option by commenting out the line, prefixing it with `#`.
   # overlay_color = "#666"  # An HTML color value.
-    overlay_img = "slider/mobility.png"  # Image path relative to your `static/media/` folder.
+    overlay_img = "slider/sentence-transformers.png"  # Image path relative to your `static/media/` folder.
   # overlay_filter = 0.7  # Darken the image. Value in range 0-1.
 
   # Call to action button (optional).
@@ -47,17 +47,13 @@ height = "460px"
   #   Deactivate by commenting out parameters, prefixing lines with `#`.
   
 
-  cta_label = "Undergraduate Thesis"
-  cta_url = "https://dx.doi.org/10.13140/RG.2.2.19035.90405/1"
-  cta_icon_pack = "fas"
-  cta_icon = "graduation-cap"
-  
-  
+  cta_label = "Fetch Tech Blog"
+  cta_url = "https://techblog.fetch.com/optimizing-sentence-transformers-for-entity-resolution-fb07be78e5e5"
   
   
 [[item]]
   title = "blocklength"
-  content = "My first R package - v0.1.4 published to CRAN!"
+  content = "v0.1.5 published to CRAN!"
   align = "left"  # Choose `center`, `left`, or `right`.
 
   # Overlay a color or image (optional).
