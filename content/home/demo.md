@@ -27,6 +27,5 @@ design:
 
 # Alec Stashevsky
 
-Machine Learning Leader // Applied Scientist // Open Source Developer
 
 ⇟
