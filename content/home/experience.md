@@ -44,7 +44,7 @@ experience:
   date_start: "2021-10-04"
   description: Document AI and Graph ML
   location: Los Angeles
-  title: Machine Learning Scientist
+  title: Senior Machine Learning Scientist
 
 - company: NERA Economic Consulting
   company_url: "https://www.nera.com/practice-areas/securities-and-finance.html"
