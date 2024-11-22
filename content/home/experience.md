@@ -29,7 +29,18 @@ experience:
 - company: Fetch
   company_url: "https://www.fetch.com/"
   company_logo: fetch
+  date_start: "2024-10-22"
+  description: |-
+    Engineering Manager and technical leader responsible for content ranking and discovery across all surfaces on Fetch. 
+    <br> <br> Leading four teams responsible for Core Ranking, Ranking Systems, ML Platform Engineering, and Measurement.
+  location: Los Angeles
+  title: Head of Relevance and Discovery Engineering
+
+- company: Fetch
+  company_url: "https://www.fetch.com/"
+  company_logo: fetch
   date_start: "2022-10-22"
+  date_end: "2024-10-22"
   description: |-
     Tech Lead Manager for core Document AI. We build ML/AI to power the Fetch app. Our systems extract information from +10 million receipts in real-time every day, and process over $150 billion in gross merchandise volume annually, and equivalent to the third largest retailer in the United States. 
     <br> <br> We build and deploy solutions touching computer vision, natural language processing, graph machine learning, semantic search, and entity resolution. 
