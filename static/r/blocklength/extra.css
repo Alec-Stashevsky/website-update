@@ -125,8 +125,8 @@ pre a:hover {
 .ch,.st  {color: #cc9393;} /* string */
 .kw      {color: #264D66;} /* keyword */
 .co      {color: #7f9f7f;} /* comment */
-.va      {color: #efefef;} /* comment */
-.op      {color: #efefef;} /* comment */
+.va      {color: #efefef;} /* variable */
+.op      {color: #efefef;} /* operator */
 
 .message { color: #7f9f7f; font-weight: bolder;}
 .error   { color: orange;  font-weight: bolder;}
