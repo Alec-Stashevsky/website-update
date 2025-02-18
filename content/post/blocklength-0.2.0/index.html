@@ -1,0 +1,84 @@
+---
+title: "blocklength 0.2.0"
+author: "Alec Stashevsky"
+date: 2025-02-17
+categories: ["R", "Econometrics", "Statistics"]
+tags: ["R", "Econometrics", "Statistics"]
+links:
+ - name: "Website"
+   url: https://alecstashevsky.com/r/blocklength
+ - name: "CRAN"
+   url: https://cran.r-project.org/package=blocklength
+ - name: "GitHub"
+   url: https://github.com/Alec-Stashevsky/blocklength
+   icon_pack: fab
+   icon: github
+image:
+  caption:
+  preview_only:
+  focal_point: "Smart"
+summary: Version 0.2.0 published to CRAN! New block-length selection algorithm by Lahiri, Furukawa, and Lee (2007). 
+---
+
+
+
+<p>I’m excited to announce that <code>blocklength</code> 0.2.0 is now available on <a href="https://cran.r-project.org/package=blocklength">CRAN</a>! <code>blocklength</code> is designed to be used with block-bootstrap procedures and makes it quick and easy to select a block-length quantitatively. This significant update includes a new block-length selection algorithm by <a href="https://doi.org/10.1016/j.stamet.2006.08.002">Lahiri, Furukawa, and Lee (2007)</a>, the nonparametric plug-in “NPPI” method.</p>
+<p>Install it with:</p>
+<pre class="r"><code>install.packages(&quot;blocklength&quot;)</code></pre>
+<p>The most important changes are highlighted below and you can see a full list of changes in the <a href="https://alecstashevsky.com/r/blocklength/news">changelog</a>.</p>
+<div id="new-features" class="section level2">
+<h2>New Features</h2>
+<p>The new <code>nppi()</code> function and its corresponding S3 plot method <code>plot.nppi()</code> can be used in a similar manner to other algorithms already present in the library. Documentation can be found at the package <a href="https://alecstashevsky.com/r/blocklength">website</a>. The NPPI method brings additional flexibility for users, and extends the usefulness of the package to a wider-range of estimators including bias, variance, distribution function, and quantile estimators.</p>
+</div>
+<div id="the-nppi-algorithm" class="section level2">
+<h2>The NPPI Algorithm</h2>
+<p>The NPPI algorithm is based on theoretical foundations first described in the seminal paper by <a href="https://doi.org/10.1093/biomet/82.3.561">Hall, Horowitz, and Jing (1995)</a> “HHJ”, who proposed the first optimal block-length selection algorithm for the block-bootstrap. Their <code>hhj()</code> algorithm has been part of <code>blocklength</code> since the beginning, but the NPPI method both relaxes the assumptions of the HHJ method and extends it to a wider range of estimators.</p>
+<p>HHJ show that for many block bootstrap estimators, the variance of the bootstrap estimator is an increasing function of the block-length <span class="math inline">\(\ell\)</span> while its bias is a decreasing function of <span class="math inline">\(\ell\)</span>. In equations (2.1) and (2.2), Lahiri, Furukawa, and Lee (2007) show that under suitable regularity conditions, the bias and variance estimators can be expanded such that:</p>
+<p><span class="math display">\[
+n^{2a} \cdot \text{Var}(\hat{\varphi}_n(\ell)) = C_1 n^{-1} \ell^r + o(n^{-1} \ell^r) \quad \text{as } n \to \infty
+\]</span></p>
+<p><span class="math display">\[
+n^a \cdot \text{Bias}(\hat{\varphi}_n(\ell)) = C_2 \ell^{-1} + o(\ell^{-1}) \quad \text{as } n \to \infty
+\]</span></p>
+<p>where <span class="math inline">\(C_1\)</span> and <span class="math inline">\(C_2\)</span> are population parameters.</p>
+<p>The key finding from Lahiri, Furukawa, and Lee (2007) is that rather than deriving analytical expressions for these population constants, we can use nonparametric resampling methods (<em>i.e.</em> the moving block-bootstrap and the moving-blocks-jackknife) to estimate them directly. Moreover, these estimators are shown to be consistent under the regularity conditions of HHJ.</p>
+<p>Putting this all together, NPPI has the following three steps:</p>
+<ol style="list-style-type: decimal">
+<li>Compute the bias estimator using the moving block-bootstrap (MBB).</li>
+<li>Use the bootstrap replicates (blocks) from (1) to compute the variance estimator using the moving-blocks-jackknife (MBJ).</li>
+<li>Compute the population parameter estimates <span class="math inline">\(\hat{C_1}\)</span> and <span class="math inline">\(\hat{C_2}\)</span> and the final estimator for the optimal block-length.</li>
+</ol>
+<div id="step-1" class="section level3">
+<h3>Step 1</h3>
+<p>Bias estimation is done via a very neat trick. We simply compute the block-bootstrap for a chosen block-length <span class="math inline">\(\ell\)</span> and then <span class="math inline">\(2\ell\)</span>. The bias estimator is then simply given by equation (3.9):</p>
+<p><span class="math display">\[
+\widehat{\text{BIAS}}_n \equiv \widehat{\text{BIAS}}_n(\ell) = 2 \left( \hat{\varphi}_n(\ell) - \hat{\varphi}_n(2\ell) \right).
+\]</span></p>
+<p>A diagram of the MBB estimator <span class="math inline">\(\hat{\varphi}_n\)</span> is given in Lahiri (2003) <em>Resampling methods for dependent data,</em> Figure 7.1:</p>
+<p><img src="images/mbb-estimator.png" /></p>
+</div>
+<div id="step-2" class="section level3">
+<h3>Step 2</h3>
+<p>Variance estimation is computed using the moving-blocks-jackknife (MBJ) method of <a href="https://doi.org/10.1214/aos/1176348653">Liu and Singh (1992)</a>. The MBJ method is a generalization of the jackknife-after-bootstrap method of <a href="https://doi.org/10.1111/j.2517-6161.1992.tb01866.x">Efron (1992)</a> to the block-bootstrap. The MBJ method is a very clever way to estimate the variance of a block-bootstrap estimator because we can simply regroup the resampled blocks from <em>Step 1</em> without recomputing the entire block-bootstrap for each iteration.</p>
+<p>For each of of the resampled blocks-sets created from the MBB, we first delete <span class="math inline">\(m\)</span> consecutive blocks (this set of blocks is referred to as the <em>block-of-blocks</em>), resample the remaining blocks randomly with replacement, and compute the <span class="math inline">\(i^{th}\)</span> jackknife point value <span class="math inline">\(\hat{\varphi}^{(i)}_n\)</span> by re-using the MBB estimator <span class="math inline">\(\hat{\varphi}_n\)</span>. We calculate the JAB point values a total of <span class="math inline">\(M\)</span> times and then compute the JAB variance estimator following equation (3.6):</p>
+<p><span class="math display">\[
+\widehat{\text{VAR}}_{\text{JAB}}(\hat{\varphi}_n) =
+\frac{m}{(N - m)} \frac{1}{M} \sum_{i=1}^{M} \left( \tilde{\varphi}_n^{(i)} - \hat{\varphi}_n \right)^2
+\]</span></p>
+<p>where <span class="math inline">\(\tilde{\varphi}_n^{(i)} = m^{-1} \left[ N \hat{\varphi}_n - (N - m) \hat{\varphi}_n^{(i)} \right]\)</span>.</p>
+<p>A diagram of the JAB point value computation is given by Lahiri (2003), Figure 7.2:</p>
+<p><img src="images/jab-estimator.png" /></p>
+</div>
+<div id="step-3" class="section level3">
+<h3>Step 3</h3>
+<p>The final step is to compute the NPPI estimator of the optimal block-length <span class="math inline">\(\hat{\ell}^0\)</span>, given by equation (4.15):</p>
+<p><span class="math display">\[
+\hat{\ell}^0 = \left[ \frac{2 \hat{C}_2^2}{r \hat{C}_1} \right]^{\frac{1}{r+2}} n^{\frac{1}{r+2}}
+\]</span>
+where <span class="math inline">\(\hat{C}_1 = n \ell^{-r} \widehat{\text{VAR}}\)</span> and <span class="math inline">\(\hat{C}_2 = \widehat{\text{BIAS}}_n\)</span>.</p>
+</div>
+</div>
+<div id="conclusion" class="section level2">
+<h2>Conclusion</h2>
+<p>Implementing the NPPI method was essentially a very fun exercise in meta-resampling. It makes use of the two most popular resampling methods, the <em>bootstrap</em> and the <em>jackknife</em>, as a means to estimate parameters for the block-bootstrap: itself a resampling algorithm. The NPPI method is a great addition to <code>blocklength</code> and I hope it will be useful to researchers and practitioners alike!</p>
+</div>
